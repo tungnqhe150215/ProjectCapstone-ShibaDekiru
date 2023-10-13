@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
   showFiller = false;
+  public isOpenUiElements = false;
+
+  public openUiElements() {
+    this.isOpenUiElements = !this.isOpenUiElements;
+  }
 }

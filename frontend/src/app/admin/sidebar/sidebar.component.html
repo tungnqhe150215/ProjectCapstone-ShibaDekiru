@@ -1,3 +1,6 @@
+
+
+
 <mat-toolbar class="bg-success text-bg-secondary">
     <div class="nav-container">
     <button  mat-icon-button  class="example-icon" (click)="drawer.toggle()" aria-label="Example icon-button with menu icon">
@@ -10,17 +13,17 @@
   <mat-drawer-container class="example-container" >
     <mat-drawer #drawer mode="side" opened>
         <mat-list role="list">
-            <mat-list-item class="w-100"role="listitem" routerLink="/admin/list-post">List Post</mat-list-item>
+            <mat-list-item class="w-100"role="listitem" routerLink="/admin">Dashboard</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/list-user">List User</mat-list-item>
-            <mat-list-item role="listitem">Item 3</mat-list-item>
+            <mat-list-item role="listitem" routerLink="/admin/list-post">List Post</mat-list-item>
     
-            <mat-list-item role="listitem">Item 1</mat-list-item>
-            <mat-list-item role="listitem">Item 2</mat-list-item>
-            <mat-list-item role="listitem">Item 3</mat-list-item>
+            <mat-list-item role="listitem" routerLink="/admin/list-chat">List Chat</mat-list-item>
+            <mat-list-item role="listitem" routerLink="/admin/list-book">List Book</mat-list-item>
+            <mat-list-item role="listitem" routerLink="/admin/list-post">Item 3</mat-list-item>
           </mat-list>
     </mat-drawer>
     <mat-drawer-content>
-      
+      <router-outlet></router-outlet>
     </mat-drawer-content>
     
   </mat-drawer-container>

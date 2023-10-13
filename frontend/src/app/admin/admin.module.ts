@@ -19,9 +19,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { CreateBookComponent } from './manage-book/create-book/create-book.component';
+import { UpdateBookComponent } from './manage-book/update-book/update-book.component';
+import { ListBookComponent } from './manage-book/list-book/list-book.component';
+import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
+
 
 @NgModule({
   declarations: [
@@ -37,10 +41,15 @@ import { MatMenuModule } from '@angular/material/menu';
     PostDetailComponent,
     ListLessonComponent,
     LessonDetailComponent,
-    DashboardComponent
+    CreateBookComponent,
+    UpdateBookComponent,
+    ListBookComponent,
+    DeleteBookComponent,
+
+
   ],
   imports: [
-    // CommonModule
+    CommonModule,
     AdminRoutingModule,
     MatToolbarModule,
     MatButtonModule,
