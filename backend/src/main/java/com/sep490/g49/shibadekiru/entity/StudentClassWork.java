@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "student_class_work")
 public class StudentClassWork implements Serializable {

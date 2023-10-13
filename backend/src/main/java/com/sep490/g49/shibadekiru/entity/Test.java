@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "test")
 public class Test implements Serializable {
 

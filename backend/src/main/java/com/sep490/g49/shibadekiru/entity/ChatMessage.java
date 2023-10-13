@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "chat_message")
 public class ChatMessage implements Serializable {

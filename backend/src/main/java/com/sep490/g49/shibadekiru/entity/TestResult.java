@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "test_result")
 public class TestResult implements Serializable {
 

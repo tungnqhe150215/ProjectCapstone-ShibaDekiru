@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "writing_exercise_answer")
 public class WritingExerciseAnswer implements Serializable {
