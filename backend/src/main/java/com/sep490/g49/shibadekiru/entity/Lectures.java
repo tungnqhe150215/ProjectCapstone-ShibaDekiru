@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "lecturers")
 public class Lectures implements Serializable {
@@ -37,15 +38,15 @@ public class Lectures implements Serializable {
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private UserAccount userAccount;
 
-    @OneToMany(mappedBy = "lecturers")
+    @OneToMany(mappedBy = "lectures")
     @JsonBackReference
     private List<Post> post;
 
-    @OneToMany(mappedBy = "lecturers")
+    @OneToMany(mappedBy = "lectures")
     @JsonBackReference
     private List<Class> aClass;
 
-    @OneToMany(mappedBy = "lecturers")
+    @OneToMany(mappedBy = "lectures")
     @JsonBackReference
     private List<Test> test;
 }

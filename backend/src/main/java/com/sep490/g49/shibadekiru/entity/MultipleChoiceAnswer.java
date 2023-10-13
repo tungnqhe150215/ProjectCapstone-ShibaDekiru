@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "multiple_choice_answer")
 public class MultipleChoiceAnswer implements Serializable{

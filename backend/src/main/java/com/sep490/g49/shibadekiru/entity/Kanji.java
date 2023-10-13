@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "kanji")
 public class Kanji implements Serializable {

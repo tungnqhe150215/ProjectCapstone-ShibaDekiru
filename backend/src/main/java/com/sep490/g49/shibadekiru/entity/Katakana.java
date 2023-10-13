@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "katakana")
 public class Katakana implements Serializable {

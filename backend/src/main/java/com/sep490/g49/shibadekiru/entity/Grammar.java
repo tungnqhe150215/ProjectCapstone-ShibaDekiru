@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "grammar")
 public class Grammar implements Serializable {

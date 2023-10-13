@@ -10,6 +10,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "class_work")
 public class ClassWork implements Serializable {

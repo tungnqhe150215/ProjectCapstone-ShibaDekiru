@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "reading_question")
 public class ReadingQuestion implements Serializable {
