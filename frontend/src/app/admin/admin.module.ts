@@ -12,6 +12,7 @@ import { ListPostComponent } from './manage-post/list-post/list-post.component';
 import { PostDetailComponent } from './manage-post/post-detail/post-detail.component';
 import { ListLessonComponent } from './manage-lesson/list-lesson/list-lesson.component';
 import { LessonDetailComponent } from './manage-lesson/lesson-detail/lesson-detail.component';
+import { AdminRoutingModule } from './admin-routing.module';
 
 
 
@@ -31,7 +32,8 @@ import { LessonDetailComponent } from './manage-lesson/lesson-detail/lesson-deta
     LessonDetailComponent
   ],
   imports: [
-    CommonModule
+    // CommonModule
+    AdminRoutingModule
   ]
 })
 export class AdminModule { }
