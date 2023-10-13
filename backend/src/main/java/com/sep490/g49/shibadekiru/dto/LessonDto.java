@@ -18,11 +18,5 @@ public class LessonDto {
     private LocalDateTime createdAt;
     private Boolean status;
     private String image;
-    private List<GrammarDto> grammarDtoList;
-    private List<VocabularyDto> vocabularyDtoList;
-    private List<KanjiDto> kanjiDtoList;
-    private List<WritingDto> writingDtoList;
-    private List<ListeningDto> listeningDtoList;
-    private List<ReadingDto> readingDtoList;
-    private BookDto bookDto;
+    private Long bookId;
 }

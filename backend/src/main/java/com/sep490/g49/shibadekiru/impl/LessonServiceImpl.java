@@ -2,13 +2,17 @@ package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.dto.BookDto;
 import com.sep490.g49.shibadekiru.dto.LessonDto;
+import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
+import com.sep490.g49.shibadekiru.repository.BookRepository;
 import com.sep490.g49.shibadekiru.repository.LessonRepository;
 import com.sep490.g49.shibadekiru.service.ILessonService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,12 +23,17 @@ public class LessonServiceImpl implements ILessonService {
     @Autowired
     private LessonRepository lessonRepository;
 
+    @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<LessonDto> getAllLessons() {
         List<Lesson> lessons = lessonRepository.findAll();
-
         List<LessonDto> lessonDtos = new ArrayList<>();
+
         for (Lesson lesson : lessons) {
             LessonDto lessonDto = new LessonDto();
             lessonDto.setLessonId(lesson.getLessonId());
@@ -33,14 +42,7 @@ public class LessonServiceImpl implements ILessonService {
             lessonDto.setCreatedAt(lesson.getCreatedAt());
             lessonDto.setStatus(lesson.getStatus());
             lessonDto.setImage(lesson.getImage());
-
-            // Tạo một đối tượng BookDto và thiết lập thông tin
-            BookDto bookDto = new BookDto();
-            bookDto.setBookId(lesson.getBook().getBookId());
-            bookDto.setName(lesson.getBook().getName());
-            bookDto.setDescription(lesson.getBook().getDescription());
-            bookDto.setImage(lesson.getBook().getImage());
-            lessonDto.setBookDto(bookDto);
+            lessonDto.setBookId(lesson.getBook().getBookId());
 
             lessonDtos.add(lessonDto);
         }
@@ -49,25 +51,66 @@ public class LessonServiceImpl implements ILessonService {
     }
 
     @Override
-    public Lesson createLesson(Lesson lesson) {
+    public LessonDto createLesson(LessonDto lessonDto) {
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
 
 
-        return lessonRepository.save(lesson);
+        String name = lessonDto.getName();
+        String content = lessonDto.getContent();
+        boolean status = lessonDto.getStatus();
+        String image = lessonDto.getImage();
+        Long bookId = lessonDto.getBookId();
+
+
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+        if (bookOptional.isPresent()) {
+
+            Book book = bookOptional.get();
+
+
+            Lesson lesson = new Lesson();
+            lesson.setName(name);
+            lesson.setContent(content);
+            lesson.setCreatedAt(currentDateTime);
+            lesson.setStatus(status);
+            lesson.setImage(image);
+            lesson.setBook(book);
+
+
+            Lesson createdLesson = lessonRepository.save(lesson);
+
+
+            return modelMapper.map(createdLesson, LessonDto.class);
+        } else {
+            throw new ResourceNotFoundException("Lesson can't be added.");
+        }
     }
+
 
     @Override
-    public Lesson updateLesson(Long lessonId, Lesson lessonRequest) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResourceNotFoundException("Lesson not exist with id:" + lessonId));
-        lesson.setName(lessonRequest.getName());
-        lesson.setContent(lessonRequest.getContent());
-        lesson.setCreatedAt(lessonRequest.getCreatedAt());
-        lesson.setStatus(lessonRequest.getStatus());
-        BookDto bookDto = new BookDto();
-        bookDto.setBookId(lesson.getBook().getBookId());
+    public LessonDto updateLesson(Long lessonId, LessonDto updatedLesson) {
 
-        lesson.setBook(lessonRequest.getBook());
-        return lessonRepository.save(lesson);
+        Optional<Lesson> existingLesson = lessonRepository.findById(lessonId);
+        if (existingLesson.isPresent()) {
+            Lesson lesson = existingLesson.get();
+
+
+            lesson.setName(updatedLesson.getName());
+            lesson.setContent(updatedLesson.getContent());
+            lesson.setStatus(updatedLesson.getStatus());
+            lesson.setImage(updatedLesson.getImage());
+
+
+            Lesson updated = lessonRepository.save(lesson);
+
+
+            return modelMapper.map(updated, LessonDto.class);
+        } else {
+            throw new ResourceNotFoundException("Lesson not found");
+        }
     }
+
 
     @Override
     public void deleteLesson(Long lessonId) {
@@ -81,7 +124,6 @@ public class LessonServiceImpl implements ILessonService {
         Lesson lesson = lessonRepository.findById(lessonId).orElse(null);
 
         if (lesson == null) {
-            // Xử lý khi không tìm thấy Lesson
             return null;
         }
 
@@ -92,15 +134,7 @@ public class LessonServiceImpl implements ILessonService {
         lessonDto.setCreatedAt(lesson.getCreatedAt());
         lessonDto.setStatus(lesson.getStatus());
         lessonDto.setImage(lesson.getImage());
-
-        // Lấy ID của Book từ đối tượng Book
-
-        BookDto bookDto = new BookDto();
-        bookDto.setBookId(lesson.getBook().getBookId());
-        bookDto.setName(lesson.getBook().getName());
-        bookDto.setDescription(lesson.getBook().getDescription());
-        bookDto.setImage(lesson.getBook().getImage());
-        lessonDto.setBookDto(bookDto);
+        lessonDto.setBookId(lesson.getBook().getBookId());
 
 
         return lessonDto;
