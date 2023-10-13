@@ -12,7 +12,19 @@ import { ListPostComponent } from './manage-post/list-post/list-post.component';
 import { PostDetailComponent } from './manage-post/post-detail/post-detail.component';
 import { ListLessonComponent } from './manage-lesson/list-lesson/list-lesson.component';
 import { LessonDetailComponent } from './manage-lesson/lesson-detail/lesson-detail.component';
-
+import { AdminRoutingModule } from './admin-routing.module';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { CreateBookComponent } from './manage-book/create-book/create-book.component';
+import { UpdateBookComponent } from './manage-book/update-book/update-book.component';
+import { ListBookComponent } from './manage-book/list-book/list-book.component';
+import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
 
 
 @NgModule({
@@ -28,10 +40,25 @@ import { LessonDetailComponent } from './manage-lesson/lesson-detail/lesson-deta
     ListPostComponent,
     PostDetailComponent,
     ListLessonComponent,
-    LessonDetailComponent
+    LessonDetailComponent,
+    CreateBookComponent,
+    UpdateBookComponent,
+    ListBookComponent,
+    DeleteBookComponent,
+
+
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AdminRoutingModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatGridListModule,
+    MatMenuModule,
   ]
 })
 export class AdminModule { }

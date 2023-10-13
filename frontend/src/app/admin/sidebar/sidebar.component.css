@@ -1,0 +1,10 @@
+.nav-container{
+    display:grid;
+    grid-template-columns: 80% 20%;
+    width: 100;
+}
+mat-drawer-content{
+  height: 80vh;
+  padding: 1rem; 
+}
+

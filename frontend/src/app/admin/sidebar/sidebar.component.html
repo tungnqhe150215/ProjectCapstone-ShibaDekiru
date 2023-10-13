@@ -1,1 +1,47 @@
-<p>sidebar works!</p>
+
+
+
+<mat-toolbar class="bg-success text-bg-secondary">
+    <div class="nav-container">
+    <button  mat-icon-button  class="example-icon" (click)="drawer.toggle()" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="mt-3">My App</span>
+    </div>
+</mat-toolbar>
+
+  <mat-drawer-container class="example-container" >
+    <mat-drawer #drawer mode="side" opened>
+        <mat-list role="list">
+            <mat-list-item class="w-100"role="listitem" routerLink="/admin">Dashboard</mat-list-item>
+            <mat-list-item role="listitem" routerLink="/admin/list-user">List User</mat-list-item>
+            <mat-list-item role="listitem" routerLink="/admin/list-post">List Post</mat-list-item>
+    
+            <mat-list-item role="listitem" routerLink="/admin/list-chat">List Chat</mat-list-item>
+            <mat-list-item role="listitem" routerLink="/admin/list-book">List Book</mat-list-item>
+            <mat-list-item role="listitem" routerLink="/admin/list-post">Item 3</mat-list-item>
+          </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+    
+  </mat-drawer-container>
+
+
+  <!-- <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+      <p>Auto-resizing sidenav</p>
+      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+        Toggle extra text
+      </button>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    </div>
+  
+  </mat-drawer-container> -->
