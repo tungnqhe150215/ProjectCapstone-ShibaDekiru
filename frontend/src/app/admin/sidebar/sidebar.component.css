@@ -1,0 +1,26 @@
+.nav-container{
+    display:grid;
+    grid-template-columns: 80% 20%;
+    width: 100;
+}
+mat-drawer-content{
+  height: 80vh;
+  padding: 1rem; 
+}
+
+/* .example-container {
+    width: 500px;
+    height: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+  } */

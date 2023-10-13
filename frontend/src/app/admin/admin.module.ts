@@ -13,8 +13,15 @@ import { PostDetailComponent } from './manage-post/post-detail/post-detail.compo
 import { ListLessonComponent } from './manage-lesson/list-lesson/list-lesson.component';
 import { LessonDetailComponent } from './manage-lesson/lesson-detail/lesson-detail.component';
 import { AdminRoutingModule } from './admin-routing.module';
-
-
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -29,11 +36,20 @@ import { AdminRoutingModule } from './admin-routing.module';
     ListPostComponent,
     PostDetailComponent,
     ListLessonComponent,
-    LessonDetailComponent
+    LessonDetailComponent,
+    DashboardComponent
   ],
   imports: [
     // CommonModule
-    AdminRoutingModule
+    AdminRoutingModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatGridListModule,
+    MatMenuModule,
   ]
 })
 export class AdminModule { }
