@@ -1,15 +1,77 @@
+<div class="mb-2">
+    <button mat-raised-button (click)="addData()">Add data</button>
+  </div>
 
-<app-sidebar></app-sidebar>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="No">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+      No.
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="book">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by book">
+      Book
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.book}} </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+      Name
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="content">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by content">
+      Content
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.content}} </td>
+  </ng-container>
+  <ng-container matColumnDef="created_at">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by created_at">
+      Created
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.created_at}} </td>
+  </ng-container>
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
+      Status
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.status}} </td>
+  </ng-container>
+  <ng-container matColumnDef="image">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by image">
+      Image
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.image}} </td>
+  </ng-container>
+    <!-- <mat-text-column mat-header-cell *matHeaderCellDef mat-sort-header name="No"></mat-text-column>
+    <mat-text-column name="book"></mat-text-column>
+    <mat-text-column name="name"></mat-text-column>
+    <mat-text-column name="content"></mat-text-column>
+    <mat-text-column name="created_at"></mat-text-column>
+    <mat-text-column name="status"></mat-text-column>
+    <mat-text-column name="image"></mat-text-column>
+    <mat-text-column name="action"></mat-text-column> -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let lesson; columns: displayedColumns;"></tr>
+  </table>
+<!-- </div> -->
+
+
+
+<!-- <app-sidebar></app-sidebar>
 
 <mat-drawer-container class="example-container w-80" >
     
 <mat-drawer-content>
     <mat-card>
         <mat-card-content>
-            <!-- <router-outlet></router-outlet> -->
+            <router-outlet></router-outlet>
         </mat-card-content>
     </mat-card>
 </mat-drawer-content>
-</mat-drawer-container>
+</mat-drawer-container> -->
 
 
