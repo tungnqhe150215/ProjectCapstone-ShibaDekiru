@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,7 +35,7 @@ public class AdminManageLessonController {
 
     @GetMapping("/lesson/{lessonId}")
     public ResponseEntity<LessonDto> getLessonById(@PathVariable (name = "lessonId") Long lessonId) {
-        LessonDto lesson = iLessonService.getLessonById(lessonId);
+        Lesson lesson = iLessonService.getLessonById(lessonId);
 
         // convert entity to DTO
         LessonDto lessonResponse = modelMapper.map(lesson, LessonDto.class);
@@ -44,27 +46,38 @@ public class AdminManageLessonController {
 
     @PostMapping("/lesson")
     public ResponseEntity<LessonDto> createLesson(@RequestBody LessonDto lessonDto) {
-        // Gọi service để tạo bài học và lấy kết quả trả về
-        LessonDto createdLesson = iLessonService.createLesson(lessonDto);
 
-        return new ResponseEntity<LessonDto>(createdLesson, HttpStatus.CREATED);
+        Lesson lessonRequest =  modelMapper.map(lessonDto, Lesson.class);
+
+        Lesson lesson =  iLessonService.createLesson(lessonRequest);
+
+        LessonDto lessonResponse = modelMapper.map(lesson, LessonDto.class);
+
+        return new ResponseEntity<LessonDto>(lessonResponse, HttpStatus.CREATED);
     }
 
     @PutMapping("/lesson/{lessonId}")
     public ResponseEntity<LessonDto> updateLesson(
             @PathVariable Long lessonId,
-            @RequestBody LessonDto updatedLessonDto
+            @RequestBody LessonDto lessonDto
     ) {
 
-        LessonDto updatedLesson = iLessonService.updateLesson(lessonId, updatedLessonDto);
+        Lesson lessonRequest =  modelMapper.map(lessonDto, Lesson.class);
 
-        return new ResponseEntity<LessonDto>(updatedLesson, HttpStatus.OK);
+        Lesson lesson =  iLessonService.updateLesson(lessonId ,lessonRequest);
+
+        LessonDto lessonResponse = modelMapper.map(lesson, LessonDto.class);
+
+        return ResponseEntity.ok().body(lessonResponse);
     }
 
-
-
-
-
+    @DeleteMapping("/lesson/{lessonId}")
+    public ResponseEntity<Map<String, Boolean>> deleteLesson(@PathVariable Long lessonId) {
+        iLessonService.deleteLesson(lessonId);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted",Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
 
 
 }

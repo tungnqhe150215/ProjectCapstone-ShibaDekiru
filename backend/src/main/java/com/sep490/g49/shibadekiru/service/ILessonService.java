@@ -8,15 +8,15 @@ import java.util.List;
 
 public interface ILessonService {
 
-    List<LessonDto> getAllLessons();
+    List<Lesson> getAllLessons();
 
-    LessonDto createLesson(LessonDto lesson);
+    Lesson createLesson(Lesson lesson);
 
-    LessonDto updateLesson(Long lessonId, LessonDto updatedLesson);
+    Lesson updateLesson(Long lessonId, Lesson updatedLesson);
 
     void deleteLesson(Long lessonId);
 
-    LessonDto getLessonById(Long lessonId);
+    Lesson getLessonById(Long lessonId);
 
 
 }

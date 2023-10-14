@@ -26,41 +26,21 @@ public class LessonServiceImpl implements ILessonService {
     @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     @Override
-    public List<LessonDto> getAllLessons() {
-        List<Lesson> lessons = lessonRepository.findAll();
-        List<LessonDto> lessonDtos = new ArrayList<>();
-
-        for (Lesson lesson : lessons) {
-            LessonDto lessonDto = new LessonDto();
-            lessonDto.setLessonId(lesson.getLessonId());
-            lessonDto.setName(lesson.getName());
-            lessonDto.setContent(lesson.getContent());
-            lessonDto.setCreatedAt(lesson.getCreatedAt());
-            lessonDto.setStatus(lesson.getStatus());
-            lessonDto.setImage(lesson.getImage());
-            lessonDto.setBookId(lesson.getBook().getBookId());
-
-            lessonDtos.add(lessonDto);
-        }
-
-        return lessonDtos;
+    public List<Lesson> getAllLessons() {
+        return lessonRepository.findAll();
     }
-
     @Override
-    public LessonDto createLesson(LessonDto lessonDto) {
+    public Lesson createLesson(Lesson lesson) {
 
         LocalDateTime currentDateTime = LocalDateTime.now();
 
 
-        String name = lessonDto.getName();
-        String content = lessonDto.getContent();
-        boolean status = lessonDto.getStatus();
-        String image = lessonDto.getImage();
-        Long bookId = lessonDto.getBookId();
+        String name = lesson.getName();
+        String content = lesson.getContent();
+        boolean status = lesson.getStatus();
+        String image = lesson.getImage();
+        Long bookId = lesson.getBook().getBookId();
 
 
         Optional<Book> bookOptional = bookRepository.findById(bookId);
@@ -69,19 +49,17 @@ public class LessonServiceImpl implements ILessonService {
             Book book = bookOptional.get();
 
 
-            Lesson lesson = new Lesson();
-            lesson.setName(name);
-            lesson.setContent(content);
-            lesson.setCreatedAt(currentDateTime);
-            lesson.setStatus(status);
-            lesson.setImage(image);
-            lesson.setBook(book);
+            Lesson lesson1 = new Lesson();
+            lesson1.setName(name);
+            lesson1.setContent(content);
+            lesson1.setCreatedAt(currentDateTime);
+            lesson1.setStatus(status);
+            lesson1.setImage(image);
+            lesson1.setBook(book);
 
 
-            Lesson createdLesson = lessonRepository.save(lesson);
+            return lessonRepository.save(lesson1);
 
-
-            return modelMapper.map(createdLesson, LessonDto.class);
         } else {
             throw new ResourceNotFoundException("Lesson can't be added.");
         }
@@ -89,7 +67,7 @@ public class LessonServiceImpl implements ILessonService {
 
 
     @Override
-    public LessonDto updateLesson(Long lessonId, LessonDto updatedLesson) {
+    public Lesson updateLesson(Long lessonId, Lesson updatedLesson) {
 
         Optional<Lesson> existingLesson = lessonRepository.findById(lessonId);
         if (existingLesson.isPresent()) {
@@ -102,10 +80,8 @@ public class LessonServiceImpl implements ILessonService {
             lesson.setImage(updatedLesson.getImage());
 
 
-            Lesson updated = lessonRepository.save(lesson);
+            return lessonRepository.save(lesson);
 
-
-            return modelMapper.map(updated, LessonDto.class);
         } else {
             throw new ResourceNotFoundException("Lesson not found");
         }
@@ -119,24 +95,13 @@ public class LessonServiceImpl implements ILessonService {
     }
 
     @Override
-    public LessonDto getLessonById(Long lessonId) {
+    public Lesson getLessonById(Long lessonId) {
 
         Lesson lesson = lessonRepository.findById(lessonId).orElse(null);
 
         if (lesson == null) {
-            return null;
+            throw new ResourceNotFoundException("Lesson not found with id: " +  lessonId);
         }
-
-        LessonDto lessonDto = new LessonDto();
-        lessonDto.setLessonId(lesson.getLessonId());
-        lessonDto.setName(lesson.getName());
-        lessonDto.setContent(lesson.getContent());
-        lessonDto.setCreatedAt(lesson.getCreatedAt());
-        lessonDto.setStatus(lesson.getStatus());
-        lessonDto.setImage(lesson.getImage());
-        lessonDto.setBookId(lesson.getBook().getBookId());
-
-
-        return lessonDto;
+        return lesson;
     }
 }
