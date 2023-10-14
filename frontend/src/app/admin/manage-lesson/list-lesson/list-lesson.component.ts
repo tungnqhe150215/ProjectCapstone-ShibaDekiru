@@ -36,7 +36,7 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class ListLessonComponent implements OnInit{
 
-  displayedColumns: string[] = ['No', 'book', 'name', 'content','created_at','status', 'image'];
+  displayedColumns: string[] = ['No', 'book', 'name', 'content','created_at','status', 'image','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -45,9 +45,15 @@ export class ListLessonComponent implements OnInit{
 
   }
   lesson: Lesson[] =[];
+
+  status: boolean = true; // Thay đổi giá trị này tùy theo trạng thái
+  statusF: boolean = false; // Thay đổi giá trị này tùy theo trạng thái
   ngOnInit(): void {
     this.getLesson();
   }
+
+   // Trong component.ts
+   
 
   private getLesson(){
     this.lessonService.getLessonList().subscribe({
