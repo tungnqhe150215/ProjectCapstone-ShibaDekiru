@@ -10,7 +10,7 @@ export class AdminManageWritingService {
 
   private baseUrl="http://localhost:8080/api/admin/lesson";
 
-  writing: Writing[] = [];
+  writings: Writing[] = [];
 
   constructor(private httpClient: HttpClient) { }
 

@@ -39,8 +39,7 @@ public class AdminManageWritingController {
     @GetMapping("/{id}/writing")
     public List<WritingDto> getWritingByLesson(@PathVariable(name = "id") Long lessonId) {
         Lesson lessonResponse = iLessonService.getLessonById(lessonId);
-        Lesson lesson = map.map(lessonResponse,Lesson.class);
-        return iWritingService.getWritingPartByLesson(lesson).stream().map(writing ->map.map(writing, WritingDto.class))
+        return iWritingService.getWritingPartByLesson(lessonResponse).stream().map(writing ->map.map(writing, WritingDto.class))
                 .collect(Collectors.toList());
     }
 

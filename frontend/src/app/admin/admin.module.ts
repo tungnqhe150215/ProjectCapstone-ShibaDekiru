@@ -35,6 +35,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { CreateLessonComponent } from './manage-lesson/create-lesson/create-lesson.component';
 import { DeleteLessonComponent } from './manage-lesson/delete-lesson/delete-lesson.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
@@ -55,13 +56,12 @@ import {MatDialogModule} from '@angular/material/dialog';
     UpdateBookComponent,
     ListBookComponent,
     DeleteBookComponent,
-    ListWritingComponent,
     WritingDetailComponent,
     ListWritingQuestionComponent,
     WritingQuestionDetailComponent,
     CreateLessonComponent,
     DeleteLessonComponent,
-    
+
 
   ],
   imports: [
@@ -79,10 +79,11 @@ import {MatDialogModule} from '@angular/material/dialog';
     HttpClientModule,
     MatPaginatorModule,
     MatDialogModule,
-   
+    MatInputModule,
+
     // MatSortModule,
-    
-    
+    //Standalone component
+    ListWritingComponent
 
   ]
 })
