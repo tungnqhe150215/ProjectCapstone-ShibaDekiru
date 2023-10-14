@@ -26,6 +26,10 @@ import { UpdateBookComponent } from './manage-book/update-book/update-book.compo
 import { ListBookComponent } from './manage-book/list-book/list-book.component';
 import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
 import {MatTableModule} from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 @NgModule({
   declarations: [
@@ -45,7 +49,7 @@ import {MatTableModule} from '@angular/material/table';
     UpdateBookComponent,
     ListBookComponent,
     DeleteBookComponent,
-
+    
 
   ],
   imports: [
@@ -60,6 +64,11 @@ import {MatTableModule} from '@angular/material/table';
     MatGridListModule,
     MatMenuModule,
     MatTableModule,
+    HttpClientModule,
+    // MatSortModule,
+    
+    
+
   ]
 })
 export class AdminModule { }
