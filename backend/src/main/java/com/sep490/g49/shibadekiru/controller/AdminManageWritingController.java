@@ -38,7 +38,7 @@ public class AdminManageWritingController {
 
     @GetMapping("/{id}/writing")
     public List<WritingDto> getWritingByLesson(@PathVariable(name = "id") Long lessonId) {
-        LessonDto lessonResponse = iLessonService.getLessonById(lessonId);
+        Lesson lessonResponse = iLessonService.getLessonById(lessonId);
         Lesson lesson = map.map(lessonResponse,Lesson.class);
         return iWritingService.getWritingPartByLesson(lesson).stream().map(writing ->map.map(writing, WritingDto.class))
                 .collect(Collectors.toList());
@@ -139,7 +139,7 @@ public class AdminManageWritingController {
         return ResponseEntity.ok().body(writingQuestionResponse);
     }
 
-    @DeleteMapping("/writing/{id}")
+    @DeleteMapping("/writing/writing-question/{id}")
     public ResponseEntity<Map<String,Boolean>> deleteWritingQuestion(@PathVariable(name = "id") Long id) {
         iWritingQuestionService.deleteWritingQuestion(id);
         Map<String, Boolean> response = new HashMap<>();
