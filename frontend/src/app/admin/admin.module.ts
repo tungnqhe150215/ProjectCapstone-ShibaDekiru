@@ -59,7 +59,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     WritingDetailComponent,
     ListWritingQuestionComponent,
     WritingQuestionDetailComponent,
-
+    CreateLessonComponent,
+    DeleteLessonComponent,
     
 
   ],
