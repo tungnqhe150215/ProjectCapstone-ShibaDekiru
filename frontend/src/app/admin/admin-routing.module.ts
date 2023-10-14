@@ -15,6 +15,7 @@ const routes: Routes = [
   {path: 'admin', component: SidebarComponent,
     children:[
       { path:'list-post', component:ListPostComponent},
+      {path: 'lesson', component:ListLessonComponent},
       {path: 'lesson-detail', component:LessonDetailComponent},
       { path:'list-user', component:UserListComponent},
       { path:'list-chat', component:ListChatComponent},

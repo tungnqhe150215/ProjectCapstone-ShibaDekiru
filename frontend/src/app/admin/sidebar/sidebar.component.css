@@ -8,3 +8,10 @@ mat-drawer-content{
   padding: 1rem; 
 }
 
+mat-drawer{
+  width: 12%;
+}
+
+mat-list-item{
+  
+} 

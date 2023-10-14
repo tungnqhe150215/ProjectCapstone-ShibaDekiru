@@ -29,6 +29,10 @@ import { ListWritingComponent } from './manage-writing/list-writing/list-writing
 import { WritingDetailComponent } from './manage-writing/writing-detail/writing-detail.component';
 import { ListWritingQuestionComponent } from './manage-writing/list-writing-question/list-writing-question.component';
 import { WritingQuestionDetailComponent } from './manage-writing/writing-question-detail/writing-question-detail.component';
+import {MatTableModule} from '@angular/material/table';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 
 @NgModule({
@@ -54,6 +58,7 @@ import { WritingQuestionDetailComponent } from './manage-writing/writing-questio
     ListWritingQuestionComponent,
     WritingQuestionDetailComponent,
 
+    
 
   ],
   imports: [
@@ -67,6 +72,12 @@ import { WritingQuestionDetailComponent } from './manage-writing/writing-questio
     MatCardModule,
     MatGridListModule,
     MatMenuModule,
+    MatTableModule,
+    HttpClientModule,
+    // MatSortModule,
+    
+    
+
   ]
 })
 export class AdminModule { }
