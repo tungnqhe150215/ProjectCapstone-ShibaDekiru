@@ -18,8 +18,8 @@ export class AdminManageWritingService {
     return this.httpClient.get<Writing[]>(`${this.baseUrl}/${id}/writing`);
   }
 
-  createWriting(writing:Writing): Observable<Object>{
-    return this.httpClient.post(this.baseUrl,writing);
+  createWriting(id:number,writing:Writing): Observable<Object>{
+    return this.httpClient.post(`${this.baseUrl}/${id}/writing`,writing);
   }
 
   getWritingById(id:number): Observable<Writing>{

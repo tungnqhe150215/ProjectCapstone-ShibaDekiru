@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
@@ -9,6 +9,9 @@ import {AdminManageWritingService} from "../admin-manage-writing.service";
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {FormsModule} from "@angular/forms";
+import {Lesson} from "../../../core/models/lesson";
 
 @Component({
   selector: 'app-list-writing',
@@ -27,7 +30,7 @@ export class ListWritingComponent implements OnInit{
   writing :Writing[] = [];
   id!: number;
 
-  constructor(private manageWritingService:AdminManageWritingService, private router:Router, private route:ActivatedRoute) {
+  constructor(private manageWritingService:AdminManageWritingService, private router:Router, private route:ActivatedRoute,public dialog: MatDialog) {
     // Assign the data to the data source for the table to render
   }
 
@@ -59,13 +62,67 @@ export class ListWritingComponent implements OnInit{
     // return this.courseService.getCourseList();
   }
 
-  deleteWriting(id:number){
-    this.manageWritingService.deleteWriting(id).subscribe(data => {
-      this.getWriting();
-    })
+  openDeleteWritingDialog(id:number){
+      this.dialog.open(WritingDeleteDialog, {
+        data: id
+      });
+  }
+  openCreateWritingDialog(id:number){
+    this.dialog.open(WritingCreateDialog,{
+      data: {
+        lessonId: id,
+      }
+    });
   }
 
   getWritingDetail(id:number){
     this.router.navigate(['writing',id]);
+  }
+}
+
+@Component({
+  selector: 'app-writing-delete-dialog',
+  templateUrl: 'writing-delete-dialog.html',
+  standalone: true,
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+})
+export class WritingDeleteDialog {
+  constructor(
+      public dialogRef: MatDialogRef<WritingDeleteDialog>,
+      private manageWritingService:AdminManageWritingService,
+      @Inject(MAT_DIALOG_DATA) public data: number,
+  ) {}
+  deleteWriting(id:number){
+    this.manageWritingService.deleteWriting(id).subscribe(data => {
+      this.dialogRef.close();
+    })
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'app-writing-create-dialog',
+  templateUrl: 'writing-create-dialog.html',
+  standalone: true,
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+})
+export class WritingCreateDialog {
+  constructor(
+      public dialogRef: MatDialogRef<WritingDeleteDialog>,
+      private manageWritingService:AdminManageWritingService,
+      @Inject(MAT_DIALOG_DATA) public data: {lessonId:number,writing:Writing},
+  ) {}
+
+  createWriting(id:number,writing:Writing){
+    this.manageWritingService.createWriting(id,writing).subscribe(data => {
+      console.log(data)
+      this.dialogRef.close();
+    })
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
