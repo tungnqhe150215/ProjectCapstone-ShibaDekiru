@@ -31,8 +31,10 @@ import { ListWritingQuestionComponent } from './manage-writing/list-writing-ques
 import { WritingQuestionDetailComponent } from './manage-writing/writing-question-detail/writing-question-detail.component';
 import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { CreateLessonComponent } from './manage-lesson/create-lesson/create-lesson.component';
+import { DeleteLessonComponent } from './manage-lesson/delete-lesson/delete-lesson.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -57,7 +59,8 @@ import { HttpClientModule } from '@angular/common/http';
     WritingDetailComponent,
     ListWritingQuestionComponent,
     WritingQuestionDetailComponent,
-
+    CreateLessonComponent,
+    DeleteLessonComponent,
     
 
   ],
@@ -74,6 +77,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     MatTableModule,
     HttpClientModule,
+    MatPaginatorModule,
+    MatDialogModule,
+   
     // MatSortModule,
     
     

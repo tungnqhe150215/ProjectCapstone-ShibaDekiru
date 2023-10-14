@@ -17,4 +17,18 @@ export class LessonService {
     return this.httpClient.get(`${this.baseURL}`);
   }
 
+  createLesson(data: any): Observable<any>{
+    return this.httpClient.get(`${this.baseURL}`,data);
+  }
+
+  updateLesson(id: number, data:any): Observable<any>{
+    return this.httpClient.get(`${this.baseURL}/${id}`,data);
+  }
+
+  deleteLesson(id: number): Observable<any>{
+    return this.httpClient.get(`${this.baseURL}/${id}`)
+  }
+  // getLessonByID(id:number):Observable<any>{
+  //   return this.httpClient.get<any>(`${this.baseURL}/${id}`);
+  // }
 }

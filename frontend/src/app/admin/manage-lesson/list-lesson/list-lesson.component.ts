@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import {MatRippleModule} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import { Lesson } from 'src/app/core/models/lesson';
-import { LessonService } from '../../service/lesson.service';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { LessonService } from 'src/app/core/services/lesson.service';
 
 // export interface PeriodicElement {
 //   name: string;
@@ -54,7 +54,7 @@ export class ListLessonComponent implements OnInit{
 
    // Trong component.ts
    
-
+  //dipsplay Data
   private getLesson(){
     this.lessonService.getLessonList().subscribe({
       // this.lesson = data;
@@ -66,7 +66,24 @@ export class ListLessonComponent implements OnInit{
       error: console.log,
     })
   }
+
+  //test paging
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
  
 
+  //edit Form
+ 
+
+  //insert form
   addData() {}
+
+  //delete form 
+
 }

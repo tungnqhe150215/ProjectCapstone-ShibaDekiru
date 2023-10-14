@@ -1,6 +1,6 @@
 .nav-container{
-    display:grid;
-    grid-template-columns: 80% 20%;
+    display:block;
+    /* grid-template-columns: 80% 20%; */
     width: 100;
 }
 mat-drawer-content{
