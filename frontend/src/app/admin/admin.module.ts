@@ -25,6 +25,10 @@ import { CreateBookComponent } from './manage-book/create-book/create-book.compo
 import { UpdateBookComponent } from './manage-book/update-book/update-book.component';
 import { ListBookComponent } from './manage-book/list-book/list-book.component';
 import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
+import { ListWritingComponent } from './manage-writing/list-writing/list-writing.component';
+import { WritingDetailComponent } from './manage-writing/writing-detail/writing-detail.component';
+import { ListWritingQuestionComponent } from './manage-writing/list-writing-question/list-writing-question.component';
+import { WritingQuestionDetailComponent } from './manage-writing/writing-question-detail/writing-question-detail.component';
 import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -51,8 +55,11 @@ import {MatDialogModule} from '@angular/material/dialog';
     UpdateBookComponent,
     ListBookComponent,
     DeleteBookComponent,
-    CreateLessonComponent,
-    DeleteLessonComponent,
+    ListWritingComponent,
+    WritingDetailComponent,
+    ListWritingQuestionComponent,
+    WritingQuestionDetailComponent,
+
     
 
   ],
