@@ -25,7 +25,7 @@ import { CreateBookComponent } from './manage-book/create-book/create-book.compo
 import { UpdateBookComponent } from './manage-book/update-book/update-book.component';
 import { ListBookComponent } from './manage-book/list-book/list-book.component';
 import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
-
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -59,6 +59,7 @@ import { DeleteBookComponent } from './manage-book/delete-book/delete-book.compo
     MatCardModule,
     MatGridListModule,
     MatMenuModule,
+    MatTableModule,
   ]
 })
 export class AdminModule { }
