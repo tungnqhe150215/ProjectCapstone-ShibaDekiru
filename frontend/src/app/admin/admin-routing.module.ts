@@ -14,7 +14,7 @@ import { ListBookComponent } from './manage-book/list-book/list-book.component';
 const routes: Routes = [
   {path: 'admin', component: SidebarComponent,
     children:[
-      { path:'list-post', component:ListPostComponent},
+      {path:'list-post', component:ListPostComponent},
       {path: 'lesson', component:ListLessonComponent},
       {path: 'lesson-detail', component:LessonDetailComponent},
       { path:'list-user', component:UserListComponent},

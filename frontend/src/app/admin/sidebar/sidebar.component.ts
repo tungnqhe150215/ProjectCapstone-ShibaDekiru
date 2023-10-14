@@ -12,4 +12,7 @@ export class SidebarComponent {
   public openUiElements() {
     this.isOpenUiElements = !this.isOpenUiElements;
   }
+
+ 
+
 }

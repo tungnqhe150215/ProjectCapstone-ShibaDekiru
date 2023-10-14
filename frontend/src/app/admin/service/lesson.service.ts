@@ -9,7 +9,7 @@ import { Lesson } from 'src/app/core/models/lesson';
 })
 export class LessonService {
 
-  private baseURL = "http://localhost:8080/api/admin";
+  private baseURL = "http://localhost:8080/api/admin/lesson";
   lesson: Lesson[] =[];
   constructor(private httpClient: HttpClient,) { }
 
