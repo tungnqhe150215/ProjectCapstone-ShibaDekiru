@@ -1,0 +1,28 @@
+<div class="col-md-6 offset-md-3">
+    <h3 class="text-center"> Create Lesson</h3>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" id="name" name="name"  [(ngModel)]="lesson.name">
+            <label class="m-2">Status</label>
+            <input type="radio" value="1"> Active
+            <input type="radio" value="0"> Disable
+        </div>
+        <div class="form-group">
+            <label class="mr-2" >BookID</label>
+            <select name="bookId" id="bookId" class="mb-2">
+                <option value="1">Dekiru Sơ Cấp</option>
+                <option value="0">Dekiru Trung Cấp</option>
+            </select>
+            </div>
+              <div class="form-group">
+                <label >Create at</label>
+                <input type="text" class="form-control" id="created_at" name="create_at" [(ngModel)]="lesson.created_at" >
+            <label >Image</label>
+            <input type="text" class="form-control" id="image" name="image"  [(ngModel)]="lesson.image">
+            <label>Content</label>
+            <input type="text" class="form-control" id="content" name="content"  [(ngModel)]="lesson.content">
+        </div>
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+</div>

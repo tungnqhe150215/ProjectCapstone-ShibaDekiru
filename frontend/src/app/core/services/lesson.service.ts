@@ -13,20 +13,23 @@ export class LessonService {
   lesson: Lesson[] =[];
   constructor(private httpClient: HttpClient,) { }
 
-  getLessonList(): Observable<any>{
-    return this.httpClient.get(`${this.baseURL}`);
+  getLessonList(): Observable<Lesson[]>{
+    return this.httpClient.get<Lesson[]>(`${this.baseURL}`);
   }
 
-  createLesson(data: any): Observable<any>{
-    return this.httpClient.get(`${this.baseURL}`,data);
+  createLesson(lesson: Lesson): Observable<Object>{
+    return this.httpClient.post(`${this.baseURL}`,lesson);
   }
 
-  updateLesson(id: number, data:any): Observable<any>{
-    return this.httpClient.get(`${this.baseURL}/${id}`,data);
+  getLessonByID(id:number):Observable<Lesson>{
+    return this.httpClient.get<Lesson>(`${this.baseURL}/${id}`);
+  }
+  updateLesson(id: number, lesson: Lesson): Observable<Object>{
+    return this.httpClient.put(`${this.baseURL}${id}`,lesson);
   }
 
-  deleteLesson(id: number): Observable<any>{
-    return this.httpClient.get(`${this.baseURL}/${id}`)
+  deleteLesson(id: number): Observable<Lesson>{
+    return this.httpClient.delete(`${this.baseURL}/${id}`)
   }
   // getLessonByID(id:number):Observable<any>{
   //   return this.httpClient.get<any>(`${this.baseURL}/${id}`);
