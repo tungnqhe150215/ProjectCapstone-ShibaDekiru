@@ -1,0 +1,62 @@
+<div class="mb-2">
+    <button mat-raised-button (click)="addData()">Add vocabulary</button>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by no">
+            No.
+        </th>
+        <td mat-cell *matCellDef="let vocabulary"> {{vocabulary.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="lesson_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lesson_id">
+            lesson_id
+        </th>
+        <td mat-cell *matCellDef="let vocabulary"> {{vocabulary.lesson.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vocabulary_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by character_kanji">
+            vocabulary_name
+        </th>
+        <td mat-cell *matCellDef="let vocabulary"> {{vocabulary.word}} </td>
+    </ng-container>
+    <ng-container matColumnDef="hiragana">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by chinese_mean">
+            hiragana
+        </th>
+        <td mat-cell *matCellDef="let vocabulary"> {{vocabulary.hiragana}} </td>
+    </ng-container>
+    <ng-container matColumnDef="meaning">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by chinese_mean">
+            meaning
+        </th>
+        <td mat-cell *matCellDef="let vocabulary"> {{vocabulary.meaning}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="example">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by example">
+            example
+        </th>
+        <td mat-cell *matCellDef="let vocabulary"> {{vocabulary.example}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+        <td mat-cell *matCellDef="let vocabulary">
+            <button mat-icon-button color="success">
+                <mat-icon>remove_red_eye</mat-icon>
+            </button>
+            <button mat-icon-button color="primary">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let vocabulary; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+<!-- </div> -->
