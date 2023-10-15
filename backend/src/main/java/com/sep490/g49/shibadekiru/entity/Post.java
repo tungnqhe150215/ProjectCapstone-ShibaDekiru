@@ -29,8 +29,8 @@ public class Post implements Serializable {
     @Column(nullable = true)
     private LocalDateTime createdAt;
 
-    @Column(name = "status", nullable = false)
-    private Boolean status;
+    @Column(name = "is_enabled", nullable = false)
+    private Boolean isEnabled;
 
     @OneToMany(mappedBy = "post")
     @JsonBackReference
@@ -40,5 +40,4 @@ public class Post implements Serializable {
     @JsonBackReference
     @JoinColumn(name = "lecture_id", referencedColumnName = "lecture_id")
     private Lectures lectures;
-
 }
