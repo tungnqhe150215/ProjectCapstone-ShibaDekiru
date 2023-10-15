@@ -6,7 +6,8 @@ import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { LessonService } from 'src/app/core/services/lesson.service';
-
+import { NotificationService } from 'src/app/core/services/notification.service';
+import { Router } from '@angular/router';
 // export interface PeriodicElement {
 //   name: string;
 //   No: number;
@@ -41,21 +42,20 @@ export class ListLessonComponent implements OnInit{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor (private lessonService: LessonService){
-
+  constructor (private lessonService: LessonService, private nofiService: NotificationService,private router:Router){
+    
   }
   lesson: Lesson[] =[];
 
-  status: boolean = true; // Thay đổi giá trị này tùy theo trạng thái
-  statusF: boolean = false; // Thay đổi giá trị này tùy theo trạng thái
+
   ngOnInit(): void {
-    this.getLesson();
+    this.getLessonList();
   }
 
    // Trong component.ts
    
   //dipsplay Data
-  private getLesson(){
+  private getLessonList(){
     this.lessonService.getLessonList().subscribe({
       // this.lesson = data;
       next:(res) =>{
@@ -77,13 +77,21 @@ export class ListLessonComponent implements OnInit{
     }
   }
  
-
-  //edit Form
- 
-
-  //insert form
-  addData() {}
+  lessonDetail(id:number){
+    this.router.navigate(['lesson-detail/',id]);
+  }
+  detailLesson(id:number){
+    this.router.navigate(['detail',id]);
+  }
 
   //delete form 
-
+  deleteLesson(id: number) {
+    this.lessonService.deleteLesson(id).subscribe({
+      next: (res) => {
+        this.nofiService.openSnackBar('Lesson deleted!', 'Ok');
+        this.getLessonList();
+      },
+      error: console.log,
+    });
+  }
 }
