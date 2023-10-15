@@ -1,2 +1,28 @@
 <p>list-post works!</p>
-<h1 class="text-bg-primary text-center">This is list Post</h1>
+<div class="container p-3 my-5 bg-light border border-1">
+    <!-- DataTable Code starts -->
+    <table id="example" class="table table-striped nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Lecturers</th>
+                <th>Post Content</th>
+                <th>Description</th>
+                <th>Create At</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                    <td>Tiger</td>
+                    <td>Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011-04-25</td>
+                <td><button (click)="postDetail(3)" class="btn btn-success">Detail</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
