@@ -63,5 +63,42 @@ public class KanjiServiceImpl implements IKanjiService {
         return kanjiRepository.findAll();
     }
 
+    @Override
+    public Kanji getKanjiById(long kanjiId) {
 
+        Kanji kanji = kanjiRepository.findById(kanjiId).orElse(null);
+
+        if(kanji == null) {
+            throw new ResourceNotFoundException("Kanji not found with id: " +  kanjiId);
+        }
+        return kanji;
+    }
+
+    @Override
+    public Kanji updateKanji(Long kanjiId, Kanji kanjiUpdate) {
+
+        Optional<Kanji> kanjiOptional = kanjiRepository.findById(kanjiId);
+
+        if(kanjiOptional.isPresent()) {
+            Kanji kanji = kanjiOptional.get();
+
+            kanji.setCharacterKanji(kanjiUpdate.getCharacterKanji());
+            kanji.setOnReading(kanjiUpdate.getOnReading());
+            kanji.setKunReading(kanjiUpdate.getKunReading());
+            kanji.setChineseMean(kanjiUpdate.getChineseMean());
+            kanji.setExample(kanjiUpdate.getExample());
+            kanji.setLesson(kanjiUpdate.getLesson());
+
+            return kanjiRepository.save(kanji);
+
+        } else {
+            throw new ResourceNotFoundException("Kanji not found");
+        }
+    }
+
+    @Override
+    public void deleteKanji(Long kanjiId) {
+        Kanji kanji = kanjiRepository.findById(kanjiId).orElseThrow(() -> new ResourceNotFoundException("Kanji not exist with id:" + kanjiId));
+        kanjiRepository.delete(kanji);
+    }
 }
