@@ -29,8 +29,9 @@ export class LessonService {
   }
 
   deleteLesson(id: number): Observable<Object>{
-    return this.httpClient.delete(`${this.baseURL}/${id}`)
+    return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
+  
   // getLessonByID(id:number):Observable<any>{
   //   return this.httpClient.get<any>(`${this.baseURL}/${id}`);
   // }

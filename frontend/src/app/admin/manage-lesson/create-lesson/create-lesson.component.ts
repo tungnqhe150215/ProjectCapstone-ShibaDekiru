@@ -18,6 +18,7 @@ export class CreateLessonComponent implements OnInit {
   ngOnInit(): void {
     // this.empForm.patchValue(this.data);
   }
+  
   saveLesson(){
     this.lessonService.createLesson(this.lesson).subscribe(data =>{
       console.log(data);
