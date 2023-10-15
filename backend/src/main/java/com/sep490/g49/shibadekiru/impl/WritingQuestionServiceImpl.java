@@ -38,7 +38,6 @@ public class WritingQuestionServiceImpl implements IWritingQuestionService {
         WritingQuestion writingQuestion = writingQuestionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
         writingQuestion.setQuestion(writingQuestionRequest.getQuestion());
-        writingQuestion.setWriting(writingQuestionRequest.getWriting());
         writingQuestion.setSampleAnswer(writingQuestionRequest.getSampleAnswer());
         return writingQuestionRepository.save(writingQuestion);
     }

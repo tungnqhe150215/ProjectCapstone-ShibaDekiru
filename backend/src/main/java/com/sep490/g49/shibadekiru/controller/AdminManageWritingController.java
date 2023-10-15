@@ -99,18 +99,19 @@ public class AdminManageWritingController {
     }
 
     @GetMapping("/writing/writing-question/{id}")
-    public ResponseEntity<WritingDto> getWritingQuestionById(@PathVariable(name = "id") Long id) {
-        Writing writing = iWritingService.getWritingById(id);
+    public ResponseEntity<WritingQuestionDto> getWritingQuestionById(@PathVariable(name = "id") Long id) {
+        WritingQuestion writingQuestion = iWritingQuestionService.getWritingQuestionById(id);
 
         // convert entity to DTO
-        WritingDto writingResponse = map.map(writing, WritingDto.class);
+        WritingQuestionDto writingResponse = map.map(writingQuestion, WritingQuestionDto.class);
 
         return ResponseEntity.ok().body(writingResponse);
     }
 
     @PostMapping("/writing/{id}/writing-question")
-    public ResponseEntity<WritingQuestionDto> createWritingQuestion(@RequestBody WritingQuestionDto writingQuestionDto) {
-
+    public ResponseEntity<WritingQuestionDto> createWritingQuestion(@RequestBody WritingQuestionDto writingQuestionDto, @PathVariable(name = "id") Long writingId) {
+        Writing writing = iWritingService.getWritingById(writingId);
+        writingQuestionDto.setWritingDto(map.map(writing,WritingDto.class));
         // convert DTO to entity
         WritingQuestion writingQuestionRequest = map.map(writingQuestionDto, WritingQuestion.class);
 

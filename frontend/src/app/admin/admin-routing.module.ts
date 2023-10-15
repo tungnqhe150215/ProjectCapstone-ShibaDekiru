@@ -17,6 +17,7 @@ import {
 import { UpdateLessonComponent } from './manage-lesson/update-lesson/update-lesson.component';
 import { CreateLessonComponent } from './manage-lesson/create-lesson/create-lesson.component';
 import { PostDetailComponent } from './manage-post/post-detail/post-detail.component';
+import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
 
 
 
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path:'list-user', component:UserListComponent},
       { path:'list-chat', component:ListChatComponent},
       { path:'list-book', component:ListBookComponent},
+      { path:'list-kanji', component:ListKanjiComponent},
       { path:'lesson/:id/writing',component:ListWritingComponent},
       { path:'lesson/writing/:id',component:WritingDetailComponent},
       { path:'lesson/writing/writing-question/:id',component:WritingQuestionDetailComponent}

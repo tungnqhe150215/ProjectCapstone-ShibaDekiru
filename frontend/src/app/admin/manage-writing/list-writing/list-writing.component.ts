@@ -96,7 +96,7 @@ export class ListWritingComponent implements OnInit{
   }
 
   getWritingDetail(id:number){
-    this.router.navigate(['writing',id]);
+    this.router.navigate(['admin/lesson/writing',id]);
   }
 }
 
@@ -133,7 +133,7 @@ export class WritingCreateDialog {
   writing:Writing =  new Writing;
 
   constructor(
-      public dialogRef: MatDialogRef<WritingDeleteDialog>,
+      public dialogRef: MatDialogRef<WritingCreateDialog>,
       private manageWritingService:AdminManageWritingService,
       @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
@@ -161,7 +161,7 @@ export class WritingUpdateDialog implements OnInit{
   writing:Writing =  new Writing;
 
   constructor(
-    public dialogRef: MatDialogRef<WritingDeleteDialog>,
+    public dialogRef: MatDialogRef<WritingUpdateDialog>,
     private manageWritingService:AdminManageWritingService,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
