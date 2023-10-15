@@ -35,10 +35,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { CreateLessonComponent } from './manage-lesson/create-lesson/create-lesson.component';
 import { DeleteLessonComponent } from './manage-lesson/delete-lesson/delete-lesson.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
-import { VocabularyListComponent } from './manage-vocabulary/vocabulary-list/vocabulary-list.component';
-import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
-import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
+
 
 @NgModule({
   declarations: [
@@ -64,10 +61,8 @@ import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.c
     WritingQuestionDetailComponent,
     CreateLessonComponent,
     DeleteLessonComponent,
-    ListKanjiComponent,
-    VocabularyListComponent,
-    ListGrammarComponent,
-    CreateKanjiComponent,
+    
+
   ],
   imports: [
     CommonModule,

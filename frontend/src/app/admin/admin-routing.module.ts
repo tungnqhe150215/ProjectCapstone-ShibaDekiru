@@ -9,10 +9,6 @@ import { LessonDetailComponent } from './manage-lesson/lesson-detail/lesson-deta
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ListBookComponent } from './manage-book/list-book/list-book.component';
-import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
-import { VocabularyListComponent } from './manage-vocabulary/vocabulary-list/vocabulary-list.component';
-import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
-import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
 
 
 const routes: Routes = [
@@ -24,12 +20,6 @@ const routes: Routes = [
       { path:'list-user', component:UserListComponent},
       { path:'list-chat', component:ListChatComponent},
       { path:'list-book', component:ListBookComponent},
-      { path:'list-kanji', component:ListKanjiComponent},
-      {path:'list-grammar',component:ListGrammarComponent},
-      {path:'list-vocabulary',component:VocabularyListComponent},
-      {path:'create-kanji', component:CreateKanjiComponent},
-
-
   ]},
   
 
