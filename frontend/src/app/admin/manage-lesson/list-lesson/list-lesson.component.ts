@@ -8,6 +8,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { LessonService } from 'src/app/core/services/lesson.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { Router } from '@angular/router';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {ActivatedRoute, Route} from "@angular/router";
+import { CreateBookComponent } from '../../manage-book/create-book/create-book.component';
+import { CreateLessonComponent } from '../create-lesson/create-lesson.component';
+
 // export interface PeriodicElement {
 //   name: string;
 //   No: number;
@@ -37,12 +42,18 @@ import { Router } from '@angular/router';
 })
 export class ListLessonComponent implements OnInit{
 
-  displayedColumns: string[] = ['No', 'book', 'name', 'content','created_at','status', 'image','action'];
+  displayedColumns: string[] = ['id', 'book', 'name', 'content','created_at','status', 'image','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor (private lessonService: LessonService, private nofiService: NotificationService,private router:Router){
+  constructor (
+    private lessonService: LessonService, 
+    private nofiService: NotificationService,
+    private router:Router, 
+    private route:ActivatedRoute,
+    public dialog: MatDialog
+    ){
     
   }
   lesson: Lesson[] =[];
@@ -77,12 +88,19 @@ export class ListLessonComponent implements OnInit{
     }
   }
  
+  openCreateLessonialog(){
+    this.dialog.open(CreateLessonComponent, {
+      
+    }).afterClosed().subscribe(() => this.getLessonList())
+  }
+  
+
   lessonDetail(id:number){
-    this.router.navigate(['lesson-detail',id]);
+    this.router.navigate(['/admin/lesson/lesson-detail',id]);
   }
-  detailLesson(id:number){
-    this.router.navigate(['detail',id]);
-  }
+  
+  
+
 
   //delete form 
   deleteLesson(id: number) {

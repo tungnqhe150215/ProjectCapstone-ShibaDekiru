@@ -1,11 +1,11 @@
-import {Lesson} from "./lesson";
+import { Lesson } from './lesson';
 
 export class Kanji {
-    id?:number
-    lesson?:Lesson
-    character_kanji?:String
-    on_reading?:String
-    kun_reading?:String
-    chinese_mean?:String
-    example?:String
+  kanjiId?: number;
+  characterKanji?: String;
+  onReading?: String;
+  kunReading?: String;
+  chineseMean?: String;
+  example?: String;
+  lessonId?: number;
 }

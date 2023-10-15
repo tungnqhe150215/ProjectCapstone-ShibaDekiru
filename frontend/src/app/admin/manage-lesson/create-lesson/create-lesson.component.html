@@ -1,7 +1,7 @@
 
 <div class="col-md-6 offset-md-3">
     <h3 class="text-center"> Create Lesson</h3>
-    <form (ngSubmit)="onSubmit()">
+    <form >
         <div class="form-group">
             <label>Name</label>
             <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "lesson.name" >
@@ -11,10 +11,11 @@
         </div>
         <div class="form-group">
             <label class="mr-2" >BookID</label>
-            <select name="bookid" id="bookid" class="mb-2" >
+            <input type="text" class="form-control" id="bookid" name="bookid" [(ngModel)] = "lesson.book">
+            <!-- <select name="bookid" id="bookid" class="mb-2" >
                 <option value="1" [(ngModel)] = "lesson.book.id">Dekiru Sơ Cấp</option>
                 <option value="2"  [(ngModel)] = "lesson.book.id">Dekiru Trung Cấp</option>
-              </select>
+              </select> -->
             </div>
               <div class="form-group">
             <label >Image</label>
@@ -22,34 +23,32 @@
             <label>Content</label>
             <input type="text" class="form-control" id="content" name="content" [(ngModel)] = "lesson.content">
         </div>
-        <button class="btn btn-success" type="submit">Submit</button>
+        <button class="btn btn-success" type="submit" (click)="createLesson()">Submit</button>
     </form>
 </div>
 
 
-<!-- <div class="example-container">
-    <h2>Lesson Add Form</h2>
-    <form (ngSubmit)="onSubmit()">
-        <div mat-dialog-content class="content">
-            <div class="row">
+
+    <!-- <h2>Lesson Add Form</h2> -->
+    <!-- <form (ngSubmit)="onSubmit()"> -->
+        <!-- <div mat-dialog-content class="content"> -->
+            <!-- <mat-dialog-content>
                 <mat-form-field class="example-full-width">
                     <mat-label>Lesson Name</mat-label>
-                    <input matInput id="name" name="name" >
+                    <input matInput id="name" name="name"  [(ngModel)] = "lesson.name" >
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
                     <mat-label >Book ID</mat-label>
-                    <input matInput id="bookId" name="bookId">
+                    <input matInput id="bookId" name="bookId" [(ngModel)] = "lesson.book.id">
                 </mat-form-field>
-            </div>
-            <div class="row">
+           
+            
                 <mat-radio-group aria-label="Select an option" formControlName="status">
                     <mat-label><b>Status</b></mat-label>
-                    <mat-radio-button value="1" id="status" name="status" >Active</mat-radio-button>
-                    <mat-radio-button value="0" is="status" name="status">Disable</mat-radio-button>
+                    <mat-radio-button value="1" id="status" name="status" [(ngModel)] = "lesson.status">Active</mat-radio-button>
+                    <mat-radio-button value="0" is="status" name="status" [(ngModel)] = "lesson.status">Disable</mat-radio-button>
                 </mat-radio-group>
-            </div>
-
-            <div class="row">
+          
                 <mat-form-field class="example-full-width">
                     <mat-label>Image</mat-label>
                     <input matInput placeholder="href link" id="image" name="image" type="text" formControlName="experience"  [(ngModel)] = "lesson.image">
@@ -58,8 +57,9 @@
                     <mat-label>Leave a content</mat-label>
                     <input matInput placeholder="href link" id="content" name="content" type="text" formControlName="experience"  [(ngModel)] = "lesson.content">
                 </mat-form-field>
-            </div>
-        </div>
-            <button mat-raised-button color="primary" type="submit">Save</button>
-    </form>
-</div> -->
+            </mat-dialog-content> -->
+        <!-- </div> -->
+            <!-- <button mat-raised-button color="primary" type="submit" (click)="createLesson()">Save</button> -->
+    <!-- </form> -->
+
+

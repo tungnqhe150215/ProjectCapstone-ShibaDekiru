@@ -49,6 +49,7 @@ import { FormsModule } from '@angular/forms';
 // import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSortModule} from "@angular/material/sort";
+import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
 
 @NgModule({
   declarations: [
@@ -72,38 +73,39 @@ import {MatSortModule} from "@angular/material/sort";
     WritingQuestionDetailComponent,
     CreateLessonComponent,
     UpdateLessonComponent,
-
+    ListKanjiComponent,
+    
 
   ],
-    imports: [
-        CommonModule,
-        AdminRoutingModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatListModule,
-        MatCardModule,
-        MatGridListModule,
-        MatMenuModule,
-        MatTableModule,
-        HttpClientModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        MatInputModule,
-        FormsModule,
-        // MatSortModule,
-        //Standalone component
-        ListWritingComponent,
-        WritingDetailComponent,
-        MatSnackBarModule,
-        MatFormFieldModule,
-        // MatSortModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatRadioModule,
-        MatSortModule,
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatTableModule,
+    HttpClientModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatInputModule,
+    FormsModule,
+    // MatSortModule,
+    //Standalone component
+    ListWritingComponent,
+    WritingDetailComponent,
+    MatSnackBarModule,
+    MatFormFieldModule,
+    // MatSortModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatRadioModule,
+    MatSortModule,
 
-    ]
+  ]
 })
 export class AdminModule { }
