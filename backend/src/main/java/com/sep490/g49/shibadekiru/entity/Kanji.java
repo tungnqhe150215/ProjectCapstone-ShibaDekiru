@@ -10,6 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "kanji")
 public class Kanji implements Serializable {
 
@@ -37,4 +38,5 @@ public class Kanji implements Serializable {
     @JsonBackReference
     @JoinColumn(name = "lesson_id", referencedColumnName = "lesson_id")
     private Lesson lesson;
+
 }
