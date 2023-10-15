@@ -11,5 +11,9 @@ public interface IKanjiService {
 
     List<Kanji> getAllKanji();
 
+    Kanji getKanjiById(long kanjiId);
 
+    Kanji updateKanji(Long kanjiId, Kanji kanjiUpdate);
+
+    void deleteKanji(Long kanjiId);
 }
