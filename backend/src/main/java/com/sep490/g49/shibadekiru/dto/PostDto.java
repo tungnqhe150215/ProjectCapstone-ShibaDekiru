@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.dto;
 
+import com.sep490.g49.shibadekiru.entity.Lectures;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,6 @@ public class PostDto {
     private String postContent;
     private String description;
     private LocalDateTime createdAt;
-    private Boolean status;
-    private List<CommentDto> commentDtoList;
-    private LecturesDto lecturesDto;
+    private Boolean isEnabled;
+    private LecturesDto lectures;
 }
