@@ -28,7 +28,7 @@ export class LessonService {
     return this.httpClient.put(`${this.baseURL}${id}`,lesson);
   }
 
-  deleteLesson(id: number): Observable<Lesson>{
+  deleteLesson(id: number): Observable<Object>{
     return this.httpClient.delete(`${this.baseURL}/${id}`)
   }
   // getLessonByID(id:number):Observable<any>{

@@ -2,11 +2,11 @@
 <mat-dialog-content>
     <mat-form-field>
     <mat-label>Topic</mat-label>
-    <input matInput [(ngModel)]="data.writing.topic" type="text">
+    <input matInput [(ngModel)]="writing.topic" type="text">
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancel</button>
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button mat-button [mat-dialog-close]="true" (click)="createWriting(data.lessonId,data.writing)">Create</button>
+    <button mat-button [mat-dialog-close]="true" (click)="createWriting()">Create</button>
 </mat-dialog-actions>

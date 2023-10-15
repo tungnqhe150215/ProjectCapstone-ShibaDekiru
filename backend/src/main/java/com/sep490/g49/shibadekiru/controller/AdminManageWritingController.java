@@ -53,9 +53,9 @@ public class AdminManageWritingController {
         return ResponseEntity.ok().body(writingResponse);
     }
 
-    @PostMapping("/{id}/writing")
+    @PostMapping( "/{id}/writing")
     public ResponseEntity<WritingDto> createWriting(@RequestBody WritingDto writingDto, @PathVariable(name = "id") Long lessonId) {
-        writingDto.setLesson(iLessonService.getLessonById(lessonId));
+        writingDto.setLessonId(iLessonService.getLessonById(lessonId).getLessonId());
         // convert DTO to entity
         Writing writingRequest = map.map(writingDto, Writing.class);
 
