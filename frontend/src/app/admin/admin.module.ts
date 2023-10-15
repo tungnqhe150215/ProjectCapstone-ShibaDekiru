@@ -35,7 +35,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { CreateLessonComponent } from './manage-lesson/create-lesson/create-lesson.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from "@angular/material/input";
-
+import {MatSortModule} from '@angular/material/sort';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 // import {
@@ -94,7 +94,7 @@ import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.compone
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    // MatSortModule,
+    MatSortModule,
     //Standalone component
     ListWritingComponent,
     WritingDetailComponent,

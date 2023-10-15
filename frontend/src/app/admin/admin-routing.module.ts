@@ -24,7 +24,7 @@ import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.compone
 const routes: Routes = [
   {path: 'admin', component: SidebarComponent,
     children:[
-      {path: 'lesson', component:ListLessonComponent , pathMatch: 'full'},
+      {path: 'lesson', component:ListLessonComponent},
       {path: 'lesson/create-lesson', component:CreateLessonComponent},
       {path: 'lesson/update-lesson/:id', component: UpdateLessonComponent},
       {path: 'lesson/lesson-detail/:id', component:LessonDetailComponent},

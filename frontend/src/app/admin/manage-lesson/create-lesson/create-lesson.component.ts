@@ -7,7 +7,8 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angula
 @Component({
   selector: 'app-create-lesson',
   templateUrl: './create-lesson.component.html',
-  styleUrls: ['./create-lesson.component.css']
+  styleUrls: ['./create-lesson.component.css'],
+
 })
 export class CreateLessonComponent implements OnInit {
   
@@ -23,7 +24,11 @@ export class CreateLessonComponent implements OnInit {
     createLesson(){
       this.lessonService.createLesson(this.lesson).subscribe(data =>{
         console.log(data);
+        this.gotoLessonList();
       })
     }
 
+    gotoLessonList(){
+      this.router.navigate(['/admin/lesson']);
+    }
 }
