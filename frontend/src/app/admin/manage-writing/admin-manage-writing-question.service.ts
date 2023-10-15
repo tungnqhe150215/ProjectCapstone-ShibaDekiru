@@ -16,12 +16,12 @@ export class AdminManageWritingQuestionService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getwritingQuestionByLesson(id:number): Observable<WritingQuestion[]>{
+  getwritingQuestionByWriting(id:number): Observable<WritingQuestion[]>{
     return this.httpClient.get<WritingQuestion[]>(`${this.baseUrl}/${id}/writing-question`);
   }
 
-  createWritingQuestion(writingQuestion:WritingQuestion): Observable<Object>{
-    return this.httpClient.post(this.baseUrl,writingQuestion);
+  createWritingQuestion(id:number,writingQuestion:WritingQuestion): Observable<Object>{
+    return this.httpClient.post(`${this.baseUrl}/${id}/writing-question`,writingQuestion);
   }
 
   getWritingQuestionById(id:number): Observable<WritingQuestion>{

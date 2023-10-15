@@ -45,9 +45,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 // } from '@angular/material/snack-bar';
 import { UpdateLessonComponent } from './manage-lesson/update-lesson/update-lesson.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 // import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSortModule} from "@angular/material/sort";
 import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
 
 @NgModule({
@@ -68,7 +69,6 @@ import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.compone
     UpdateBookComponent,
     ListBookComponent,
     DeleteBookComponent,
-    WritingDetailComponent,
     ListWritingQuestionComponent,
     WritingQuestionDetailComponent,
     CreateLessonComponent,
@@ -97,12 +97,15 @@ import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.compone
     // MatSortModule,
     //Standalone component
     ListWritingComponent,
+    WritingDetailComponent,
     MatSnackBarModule,
     MatFormFieldModule,
     // MatSortModule,
     ReactiveFormsModule,
+    MatInputModule,
     MatRadioModule,
-    
+    MatSortModule,
+
   ]
 })
 export class AdminModule { }
