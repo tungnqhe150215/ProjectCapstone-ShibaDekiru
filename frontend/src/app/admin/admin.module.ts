@@ -45,9 +45,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 // } from '@angular/material/snack-bar';
 import { UpdateLessonComponent } from './manage-lesson/update-lesson/update-lesson.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 // import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -67,41 +68,42 @@ import {MatRadioModule} from '@angular/material/radio';
     UpdateBookComponent,
     ListBookComponent,
     DeleteBookComponent,
-    WritingDetailComponent,
     ListWritingQuestionComponent,
     WritingQuestionDetailComponent,
     CreateLessonComponent,
     UpdateLessonComponent,
-    
+
 
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    MatCardModule,
-    MatGridListModule,
-    MatMenuModule,
-    MatTableModule,
-    HttpClientModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    MatInputModule,
-    FormsModule,
-    // MatSortModule,
-    //Standalone component
-    ListWritingComponent,
-    MatSnackBarModule,
-    MatFormFieldModule,
-    // MatSortModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatRadioModule,
-    
-  ]
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatListModule,
+        MatCardModule,
+        MatGridListModule,
+        MatMenuModule,
+        MatTableModule,
+        HttpClientModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        MatInputModule,
+        FormsModule,
+        // MatSortModule,
+        //Standalone component
+        ListWritingComponent,
+        WritingDetailComponent,
+        MatSnackBarModule,
+        MatFormFieldModule,
+        // MatSortModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatRadioModule,
+        MatSortModule,
+
+    ]
 })
 export class AdminModule { }

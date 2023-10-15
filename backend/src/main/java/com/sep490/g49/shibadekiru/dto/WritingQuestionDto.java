@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WritingQuestionDto {
     private Long writingQuestionId;
+
     private String question;
+
     private String sampleAnswer;
+
     private WritingDto writingDto;
 }
