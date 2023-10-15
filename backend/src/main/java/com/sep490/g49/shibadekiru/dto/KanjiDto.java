@@ -15,5 +15,5 @@ public class KanjiDto {
     private String kunReading;
     private String chineseMean;
     private String example;
-    private LessonDto lessonDto;
+    private Long lessonId;
 }
