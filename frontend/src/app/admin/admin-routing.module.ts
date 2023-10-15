@@ -14,14 +14,19 @@ import {WritingDetailComponent} from "./manage-writing/writing-detail/writing-de
 import {
   WritingQuestionDetailComponent
 } from "./manage-writing/writing-question-detail/writing-question-detail.component";
+import { UpdateLessonComponent } from './manage-lesson/update-lesson/update-lesson.component';
+import { CreateLessonComponent } from './manage-lesson/create-lesson/create-lesson.component';
+
 
 
 const routes: Routes = [
   {path: 'admin', component: SidebarComponent,
     children:[
+      {path: 'lesson', component:ListLessonComponent , pathMatch: 'full'},
+      {path: 'lesson/create-lesson', component:CreateLessonComponent},
+      {path: 'lesson/update-lesson/:id', component: UpdateLessonComponent},
+      {path: 'lesson/lesson-detail/:id', component:LessonDetailComponent},
       {path:'list-post', component:ListPostComponent},
-      {path: 'lesson', component:ListLessonComponent},
-      {path: 'lesson-detail', component:LessonDetailComponent},
       { path:'list-user', component:UserListComponent},
       { path:'list-chat', component:ListChatComponent},
       { path:'list-book', component:ListBookComponent},
