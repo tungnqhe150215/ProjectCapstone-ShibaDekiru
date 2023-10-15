@@ -1,7 +1,7 @@
 import {Book} from "./book";
 
 export class Lesson {
-    id?:number
+    id!:number
     book!:Book
     name?:String
     content?:String

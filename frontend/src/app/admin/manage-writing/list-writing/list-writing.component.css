@@ -11,4 +11,11 @@ td, th {
   width: 25%;
 }
 
+.mat-column-id{
+  width: 10%;
+}
 
+.mat-column-topic,
+.mat-column-lesson-name{
+  width: 37%;
+}
