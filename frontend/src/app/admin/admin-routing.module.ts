@@ -16,6 +16,7 @@ import {
 } from "./manage-writing/writing-question-detail/writing-question-detail.component";
 import { UpdateLessonComponent } from './manage-lesson/update-lesson/update-lesson.component';
 import { CreateLessonComponent } from './manage-lesson/create-lesson/create-lesson.component';
+import { PostDetailComponent } from './manage-post/post-detail/post-detail.component';
 
 
 
@@ -26,7 +27,8 @@ const routes: Routes = [
       {path: 'lesson/create-lesson', component:CreateLessonComponent},
       {path: 'lesson/update-lesson/:id', component: UpdateLessonComponent},
       {path: 'lesson/lesson-detail/:id', component:LessonDetailComponent},
-      {path:'list-post', component:ListPostComponent},
+      {path:'post', component:ListPostComponent},
+      {path:'post/post-detail/:id', component:PostDetailComponent },
       { path:'list-user', component:UserListComponent},
       { path:'list-chat', component:ListChatComponent},
       { path:'list-book', component:ListBookComponent},

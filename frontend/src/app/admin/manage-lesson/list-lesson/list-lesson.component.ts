@@ -78,7 +78,7 @@ export class ListLessonComponent implements OnInit{
   }
  
   lessonDetail(id:number){
-    this.router.navigate(['lesson-detail/',id]);
+    this.router.navigate(['lesson-detail',id]);
   }
   detailLesson(id:number){
     this.router.navigate(['detail',id]);
