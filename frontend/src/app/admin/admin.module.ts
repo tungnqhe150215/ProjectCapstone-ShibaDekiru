@@ -33,9 +33,21 @@ import {MatTableModule} from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { CreateLessonComponent } from './manage-lesson/create-lesson/create-lesson.component';
-import { DeleteLessonComponent } from './manage-lesson/delete-lesson/delete-lesson.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from "@angular/material/input";
 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { UpdateLessonComponent } from './manage-lesson/update-lesson/update-lesson.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; 
+// import {MatInputModule} from '@angular/material/input';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -55,12 +67,11 @@ import {MatDialogModule} from '@angular/material/dialog';
     UpdateBookComponent,
     ListBookComponent,
     DeleteBookComponent,
-    ListWritingComponent,
     WritingDetailComponent,
     ListWritingQuestionComponent,
     WritingQuestionDetailComponent,
     CreateLessonComponent,
-    DeleteLessonComponent,
+    UpdateLessonComponent,
     
 
   ],
@@ -79,11 +90,18 @@ import {MatDialogModule} from '@angular/material/dialog';
     HttpClientModule,
     MatPaginatorModule,
     MatDialogModule,
-   
+    MatInputModule,
+    FormsModule,
     // MatSortModule,
+    //Standalone component
+    ListWritingComponent,
+    MatSnackBarModule,
+    MatFormFieldModule,
+    // MatSortModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatRadioModule,
     
-    
-
   ]
 })
 export class AdminModule { }

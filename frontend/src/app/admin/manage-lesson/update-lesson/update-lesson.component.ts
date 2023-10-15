@@ -1,0 +1,34 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Lesson } from 'src/app/core/models/lesson';
+import { LessonService } from 'src/app/core/services/lesson.service';
+
+@Component({
+  selector: 'app-update-lesson',
+  templateUrl: './update-lesson.component.html',
+  styleUrls: ['./update-lesson.component.css']
+})
+export class UpdateLessonComponent implements OnInit {
+  id!:number;
+  lesson: Lesson = new Lesson();
+
+  constructor(private lessonService: LessonService, private route: ActivatedRoute, private router: Router){
+
+  }
+  ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    this.lessonService.getLessonByID(this.id).subscribe(data =>{
+      this.lesson = data;
+    },error => console.log(error));
+  }
+  onSubmit(){
+    this.lessonService.updateLesson(this.id, this.lesson).subscribe(data =>{
+      this.goTolessonList();
+    },
+    error => console.log(error));
+  }
+  goTolessonList(){
+    this.router.navigate(['/lesson']);
+  }
+
+}

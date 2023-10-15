@@ -15,7 +15,12 @@ export class LessonDetailComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    
+    this.id = this.route.snapshot.params['id'];
+
+    this.lesson = new Lesson();
+    this.lessonService.getLessonByID(this.id).subscribe(data =>{
+      this.lesson = data
+    })
   }
 
 
