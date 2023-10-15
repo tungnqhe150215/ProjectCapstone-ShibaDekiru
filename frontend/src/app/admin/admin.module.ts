@@ -48,6 +48,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms'; 
 // import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
+import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import {MatRadioModule} from '@angular/material/radio';
     WritingQuestionDetailComponent,
     CreateLessonComponent,
     UpdateLessonComponent,
+    ListKanjiComponent,
     
 
   ],
