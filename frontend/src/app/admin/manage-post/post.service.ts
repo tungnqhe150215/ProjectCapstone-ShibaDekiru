@@ -19,7 +19,7 @@ export class PostService {
     return this.httpClient.get<Post[]>(`${this.baseURL}`);
   }
 
-  getPostByID(id:number): Observable<Post>{
+  getPostByID(id:number): Observable<Object>{
     return this.httpClient.get(`${this.baseURL}/${id}`);
   }
 
@@ -27,7 +27,7 @@ export class PostService {
     return this.httpClient.post(`${this.baseURL}`,post);
     
   }
-  deletePost(id: number): Observable<Post>{
+  deletePost(id: number): Observable<Object>{
     return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
 
