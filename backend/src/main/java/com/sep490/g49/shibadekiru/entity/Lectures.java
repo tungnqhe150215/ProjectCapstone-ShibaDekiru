@@ -38,15 +38,4 @@ public class Lectures implements Serializable {
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private UserAccount userAccount;
 
-    @OneToMany(mappedBy = "lectures")
-    @JsonBackReference
-    private List<Post> post;
-
-    @OneToMany(mappedBy = "lectures")
-    @JsonBackReference
-    private List<Class> aClass;
-
-    @OneToMany(mappedBy = "lectures")
-    @JsonBackReference
-    private List<Test> test;
 }

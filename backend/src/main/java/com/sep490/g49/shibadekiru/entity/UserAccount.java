@@ -35,7 +35,7 @@ public class UserAccount implements Serializable {
     @Column(name = "email", nullable = false, unique = true ,length = 45)
     private String email;
 
-    @Column(name = "reset_code", nullable = false)
+    @Column(name = "reset_code", nullable = true)
     private String resetCode;
 
     @Column(name = "is_banned", nullable = false)

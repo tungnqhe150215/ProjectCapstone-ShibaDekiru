@@ -78,6 +78,7 @@ public class LessonServiceImpl implements ILessonService {
             lesson.setContent(updatedLesson.getContent());
             lesson.setStatus(updatedLesson.getStatus());
             lesson.setImage(updatedLesson.getImage());
+            lesson.setBook(updatedLesson.getBook());
 
 
             return lessonRepository.save(lesson);
