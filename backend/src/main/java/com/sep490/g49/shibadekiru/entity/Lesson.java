@@ -35,30 +35,6 @@ public class Lesson implements Serializable {
     @Column(name = "image", length = 250)
     private String image;
 
-    @OneToMany(mappedBy = "lesson")
-    @JsonBackReference
-    private List<Grammar> grammar;
-
-    @OneToMany(mappedBy = "lesson")
-    @JsonBackReference
-    private List<Vocabulary> vocabulary;
-
-    @OneToMany(mappedBy = "lesson")
-    @JsonBackReference
-    private List<Kanji> kanji;
-
-    @OneToMany(mappedBy = "lesson")
-    @JsonBackReference
-    private List<Writing> writing;
-
-    @OneToMany(mappedBy = "lesson")
-    @JsonBackReference
-    private List<Listening> listening;
-
-    @OneToMany(mappedBy = "lesson")
-    @JsonBackReference
-    private List<Reading> reading;
-
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "book_id", referencedColumnName = "book_id")
