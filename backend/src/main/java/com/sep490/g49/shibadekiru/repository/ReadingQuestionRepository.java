@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface ReadingQuestionRepository extends JpaRepository<ReadingQuestion,Long> {
     List<ReadingQuestion> findAllByReading(Reading reading);
+
+    ReadingQuestion findReadingQuestionByReadingQuestionId(Long id);
 }
