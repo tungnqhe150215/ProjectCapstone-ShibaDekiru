@@ -1,10 +1,10 @@
 import {Lecture} from "./lecture";
 
 export class Post {
-  id?:number
-  lecture?:Lecture
-  post_content?:String
+  postId?:number
+  LecturesDto?:Lecture
+  postContent?:String
   description?:String
-  created_at?:Date
-  status?:String
+  createdAt?:Date
+  isEnabled?:boolean
 }

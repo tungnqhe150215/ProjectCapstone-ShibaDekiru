@@ -90,7 +90,6 @@ public class KanjiServiceImpl implements IKanjiService {
             kanji.setLesson(kanjiUpdate.getLesson());
 
             return kanjiRepository.save(kanji);
-
         } else {
             throw new ResourceNotFoundException("Kanji not found");
         }

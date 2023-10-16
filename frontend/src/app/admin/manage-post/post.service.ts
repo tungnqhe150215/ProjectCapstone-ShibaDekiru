@@ -27,7 +27,7 @@ export class PostService {
     return this.httpClient.post(`${this.baseURL}`,post);
     
   }
-  deletePost(id: number): Observable<Post>{
+  deletePost(id: number): Observable<Object>{
     return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
 

@@ -1,27 +1,24 @@
 
-<div class="col-md-6 offset-md-3">
+<div class="container">
     <h3 class="text-center"> Create Lesson</h3>
     <form >
         <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "lesson.name" >
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "lesson.name" [ngModelOptions]="{standalone: true}" >
             <label class="m-2">Status</label>
-            <input type="radio" value="1" [(ngModel)] = "lesson.status" > Active
-            <input type="radio" value="0" [(ngModel)] = "lesson.status" > Disable
+            <input type="radio" [(ngModel)] = "lesson.status" value="true" name="status" [ngModelOptions]="{standalone: true}" > Active
+            <input type="radio" [(ngModel)] = "lesson.status" value="false" name="status"  [ngModelOptions]="{standalone: true}"> Disable
         </div>
         <div class="form-group">
             <label class="mr-2" >BookID</label>
-            <input type="text" class="form-control" id="bookid" name="bookid" [(ngModel)] = "lesson.book">
-            <!-- <select name="bookid" id="bookid" class="mb-2" >
-                <option value="1" [(ngModel)] = "lesson.book.id">Dekiru Sơ Cấp</option>
-                <option value="2"  [(ngModel)] = "lesson.book.id">Dekiru Trung Cấp</option>
-              </select> -->
+            <input type="text" class="form-control" id="bookId" name="bookId" [(ngModel)] = "lesson.bookId" [ngModelOptions]="{standalone: true}" >
+            
             </div>
               <div class="form-group">
             <label >Image</label>
-            <input type="text" class="form-control" id="image" name="image" [(ngModel)] = "lesson.image">
+            <input type="text" class="form-control" id="image" name="image" [(ngModel)] = "lesson.image" [ngModelOptions]="{standalone: true}"> 
             <label>Content</label>
-            <input type="text" class="form-control" id="content" name="content" [(ngModel)] = "lesson.content">
+            <input type="text" class="form-control" id="content" name="content" [(ngModel)] = "lesson.content" [ngModelOptions]="{standalone: true}">
         </div>
         <button class="btn btn-success" type="submit" (click)="createLesson()">Submit</button>
     </form>

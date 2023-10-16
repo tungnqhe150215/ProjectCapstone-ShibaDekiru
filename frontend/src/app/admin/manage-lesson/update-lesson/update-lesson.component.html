@@ -5,19 +5,16 @@
             <label>Name</label>
             <input type="text" class="form-control" id="name" name="name"  [(ngModel)]="lesson.name">
             <label class="m-2">Status</label>
-            <input type="radio" value="1"> Active
-            <input type="radio" value="0"> Disable
+            <input type="radio" value="true" name="status" id="status"  [(ngModel)] = "lesson.status"> Active 
+            <input type="radio" value="false" name="status" id="status" > Disable
         </div>
         <div class="form-group">
             <label class="mr-2" >BookID</label>
-            <select name="bookId" id="bookId" class="mb-2">
-                <option value="1">Dekiru Sơ Cấp</option>
-                <option value="0">Dekiru Trung Cấp</option>
-            </select>
+            <input type="text" class="form-control" id="bookId" name="bookId" [(ngModel)] = "lesson.bookId"  >
             </div>
               <div class="form-group">
                 <label >Create at</label>
-                <input type="text" class="form-control" id="created_at" name="create_at" [(ngModel)]="lesson.created_at" >
+                <input type="text" class="form-control" id="created_at" name="create_at" [(ngModel)]="lesson.createdAt" >
             <label >Image</label>
             <input type="text" class="form-control" id="image" name="image"  [(ngModel)]="lesson.image">
             <label>Content</label>

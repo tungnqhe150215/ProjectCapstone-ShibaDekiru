@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<h2>Kanji List</h2>
+<h2>Katakana List</h2>
 <div>
-    <input type="text" placeholder="Search by kanji" style="width: 450px;padding: 2px 20px; margin:10px 0px; height:30px;
+    <input type="text" placeholder="Search katakana character" style="width: 450px;padding: 2px 20px; margin:10px 0px; height:30px;
           " [(ngModel)]="filterText">
 </div>
 <table class="table table-striped table-bordered">
@@ -11,35 +11,20 @@
         <th>ID&nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
-        <th>Character Kanji&nbsp;
+        <th>Character Katakana&nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
-        <th>On Reading&nbsp;
-            <i class="fa fa-thin fa-sort"></i>
-        </th>
-        <th>Kun Reading&nbsp;
-            <i class="fa fa-thin fa-sort"></i>
-        </th>
-        <th>Chinese mean&nbsp;
-            <i class="fa fa-thin fa-sort"></i>
-        </th>
-        <th>Example&nbsp;
-            <i class="fa fa-thin fa-sort"></i>
-        </th>
-        <th>Lesson ID&nbsp;
+        <th>Romanji&nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
         <th>Actions</th>
     </thead>
     <tbody>
-        <tr *ngFor="let kanji of kanjis">
-            <td>{{kanji.kanjiId}}</td>
-            <td>{{kanji.characterKanji}}</td>
-            <td>{{kanji.onReading}}</td>
-            <td>{{kanji.kunReading}}</td>
-            <td>{{kanji.chineseMean}}</td>
-            <td>{{kanji.example}}</td>
-            <td>{{kanji.lessonId}}</td>
+        <tr *ngFor="let katakana of katakanas">
+            <td>{{katakana.katakanaId}}</td>
+            <td>{{katakana.katakanaCharacter}}</td>
+            <td>{{katakana.romanji}}</td>
+
             <td>
                 <button class="btn btn-info">Update</button>
                 <button class="btn btn-danger" style="margin-left: 10px;">Delete</button>
