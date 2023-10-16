@@ -13,5 +13,5 @@ public class VocabularyDto {
     private String hiragana;
     private String meaning;
     private String example;
-    private LessonDto lessonDto;
+    private Long lessonId;
 }

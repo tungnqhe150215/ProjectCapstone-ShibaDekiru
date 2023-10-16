@@ -3,6 +3,8 @@ package com.sep490.g49.shibadekiru.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.List;
 
@@ -18,9 +20,5 @@ public class UserAccountDto {
     private String email;
     private String resetCode;
     private Boolean isBanned;
-    private ChatDto chatDto;
-    private StudentDto studentDto;
-    private LecturesDto lecturesDto;
-    private List<CommentDto> commentDtoList;
-    private RoleDto roleDto;
+    private Long roleId;
 }

@@ -41,22 +41,6 @@ public class UserAccount implements Serializable {
     @Column(name = "is_banned", nullable = false)
     private Boolean isBanned;
 
-    @OneToOne(mappedBy = "userAccount")
-    @JsonBackReference
-    private Chat chat;
-
-    @OneToOne(mappedBy = "userAccount")
-    @JsonBackReference
-    private Student student;
-
-    @OneToOne(mappedBy = "userAccount")
-    @JsonBackReference
-    private Lectures lectures;
-
-    @OneToMany(mappedBy = "userAccount")
-    @JsonBackReference
-    private List<Comment> comment;
-
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
