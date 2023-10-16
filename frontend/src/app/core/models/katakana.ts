@@ -1,5 +1,5 @@
 export class Katakana {
-    id?:number
-    character?:String
+    katakanaId?:number
+    katakanaCharacter?:String
     romanji?:String
 }

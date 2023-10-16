@@ -50,6 +50,8 @@ import { FormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 // import {MatSortModule} from "@angular/material/sort";
 import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
+import { ListHiraganaComponent } from './manage-alphabet/list-hiragana/list-hiragana.component';
+import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-katakana.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.compone
     CreateLessonComponent,
     UpdateLessonComponent,
     ListKanjiComponent,
+    ListHiraganaComponent,
+    ListKatakanaComponent,
     
 
   ],
