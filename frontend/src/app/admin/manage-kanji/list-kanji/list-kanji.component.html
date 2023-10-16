@@ -1,7 +1,21 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<h2>Kanji List</h2>
+
+<div class="navbar-nav">
+    <div class="">
+        <a routerLink="../list-kanji" routerLinkActive="active" class="nav-link">
+            <h2>Kanji List</h2>
+        </a>
+    </div>
+    <div class="">
+        <button mat-raised-button>
+            <a routerLink="../create-kanji" routerLinkActive="active" class="nav-link">
+                Create Kanji
+            </a>
+        </button>
+    </div>
+</div>
 <div>
     <input type="text" placeholder="Search by kanji" style="width: 450px;padding: 2px 20px; margin:10px 0px; height:30px;
           " [(ngModel)]="filterText">

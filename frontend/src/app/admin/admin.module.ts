@@ -52,6 +52,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
 import { ListHiraganaComponent } from './manage-alphabet/list-hiragana/list-hiragana.component';
 import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-katakana.component';
+import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-kata
     ListKanjiComponent,
     ListHiraganaComponent,
     ListKatakanaComponent,
+    CreateKanjiComponent,
     
 
   ],

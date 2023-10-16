@@ -1,0 +1,43 @@
+
+<div class="col-md-6 offset-md-3">
+    <h3>Create Kanji</h3>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="">Character Kanji</label>
+            <input type="text" class="form-control" id="characterKanji" 
+            [(ngModel)]="kanji.characterKanji" name="characterKanji" />
+
+        </div>
+        <div class="form-group">
+            <label for="">On Reading</label>
+            <input type="text" class="form-control" id="onReading"
+            [(ngModel)]="kanji.onReading" name="onReading" />
+
+        </div>
+        <div class="form-group">
+            <label for="">Kun Reading</label>
+            <input type="text" class="form-control" id="kunReading"
+            [(ngModel)]="kanji.kunReading" name="kunReading" />
+        </div>
+
+        <div class="form-group">
+            <label for="">Chinese Mean</label>
+            <input type="text" class="form-control" id="chineseMean" 
+            [(ngModel)]="kanji.chineseMean" name="chineseMean" />
+        </div>
+
+        <div class="form-group">
+            <label for="">Example</label>
+            <input type="text" class="form-control" id="example" 
+            [(ngModel)]="kanji.example" name="example" />
+        </div>
+
+        <div class="form-group">
+            <label for="">Lesson Id</label>
+            <input type="text" class="form-control" id="lessonId" 
+            [(ngModel)]="kanji.lessonId" name="lessonId" />
+        </div>
+        <br>
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+</div>
