@@ -25,13 +25,13 @@ export class LessonService {
     return this.httpClient.get<Lesson>(`${this.baseURL}/${id}`);
   }
   updateLesson(id: number, lesson: Lesson): Observable<Object>{
-    return this.httpClient.put(`${this.baseURL}/update-lesson/${id}`,lesson);
+    return this.httpClient.put(`${this.baseURL}/${id}`,lesson);
   }
 
   deleteLesson(id: number): Observable<Object>{
     return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
-  
+
   getStatus(): Observable<{status: boolean}>{
     const getURL =  '${this.baseURL}/${id}';
     return this.httpClient.get<{status: boolean}>(getURL);

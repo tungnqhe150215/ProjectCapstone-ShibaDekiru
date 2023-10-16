@@ -33,7 +33,7 @@ export class UpdateLessonComponent implements OnInit {
     error => console.log(error));
   }
   goTolessonList(){
-    this.router.navigate(['/lesson']);
+    this.router.navigate(['admin/lesson']);
   }
 
 }
