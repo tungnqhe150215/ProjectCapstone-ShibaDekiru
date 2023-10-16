@@ -20,6 +20,8 @@ import { PostDetailComponent } from './manage-post/post-detail/post-detail.compo
 import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
 import { ListHiraganaComponent } from './manage-alphabet/list-hiragana/list-hiragana.component';
 import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-katakana.component';
+import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
+import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.component';
 
 
 
@@ -41,6 +43,8 @@ const routes: Routes = [
       { path:'lesson/writing/writing-question/:id',component:WritingQuestionDetailComponent},
       {path:'list-hiragana',component:ListHiraganaComponent},
       {path:'list-katakana',component:ListKatakanaComponent},
+      {path:'create-kanji',component:CreateKanjiComponent},
+      {path:'update-kanji/:id',component:UpdateKanjiComponent},
   ]},
 
 
