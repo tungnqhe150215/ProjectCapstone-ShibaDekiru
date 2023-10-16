@@ -21,6 +21,7 @@ import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.compone
 import { ListHiraganaComponent } from './manage-alphabet/list-hiragana/list-hiragana.component';
 import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-katakana.component';
 import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
+import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.component';
 
 
 
@@ -43,6 +44,7 @@ const routes: Routes = [
       {path:'list-hiragana',component:ListHiraganaComponent},
       {path:'list-katakana',component:ListKatakanaComponent},
       {path:'create-kanji',component:CreateKanjiComponent},
+      {path:'update-kanji/:id',component:UpdateKanjiComponent},
   ]},
 
 

@@ -55,8 +55,9 @@
             <td>{{kanji.example}}</td>
             <td>{{kanji.lessonId}}</td>
             <td>
-                <button class="btn btn-info">Update</button>
-                <button class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+                <button (click)="updateKanji(kanji.kanjiId)" class="btn btn-info">Update</button>
+                <button (click)="deleteKanji(kanji.kanjiId)" class="btn btn-danger"
+                    style="margin-left: 10px;">Delete</button>
                 <button class="btn btn-info" style="margin-left: 10px;">View</button>
             </td>
         </tr>

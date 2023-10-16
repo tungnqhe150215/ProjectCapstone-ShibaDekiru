@@ -53,6 +53,7 @@ import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.compone
 import { ListHiraganaComponent } from './manage-alphabet/list-hiragana/list-hiragana.component';
 import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-katakana.component';
 import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
+import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.c
     ListHiraganaComponent,
     ListKatakanaComponent,
     CreateKanjiComponent,
+    UpdateKanjiComponent,
     
 
   ],

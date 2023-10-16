@@ -12,7 +12,7 @@ export class KanjiService {
   getKanjisList(): Observable<Kanji[]> {
     return this.httpClient.get<Kanji[]>(`${this.baseURL}`);
   }
-  
+
   createKanji(kanji: Kanji): Observable<Object> {
     return this.httpClient.post(`${this.baseURL}`, kanji);
   }

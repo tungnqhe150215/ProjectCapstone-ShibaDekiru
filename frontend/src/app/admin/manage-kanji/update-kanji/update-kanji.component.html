@@ -1,18 +1,21 @@
-<div class="col-md-6 offset-md-3" >
+<div class="col-md-6 offset-md-3">
     <button mat-raised-button>
-        <a routerLink="../list-kanji" routerLinkActive="active" class="nav-link">
+        <a routerLink="/admin/list-kanji" routerLinkActive="active" class="nav-link">
             List Kanji
         </a>
     </button>
     <h3 class="center" style="display: flex;
     justify-content: center;
-    align-items: center;">Create Kanji</h3>
+    align-items: center;">Update Kanji</h3>
     <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="">Character Kanji id</label>
+            <input  readonly type="text" class="form-control" id="kanjiId" [(ngModel)]="kanji.kanjiId" name="kanjiId" />
+        </div>
         <div class="form-group">
             <label for="">Character Kanji</label>
             <input type="text" class="form-control" id="characterKanji" [(ngModel)]="kanji.characterKanji"
                 name="characterKanji" />
-
         </div>
         <div class="form-group">
             <label for="">On Reading</label>
