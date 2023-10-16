@@ -48,7 +48,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 // import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatSortModule} from "@angular/material/sort";
+// import {MatSortModule} from "@angular/material/sort";
 import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
 
 @NgModule({

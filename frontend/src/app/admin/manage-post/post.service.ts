@@ -19,7 +19,7 @@ export class PostService {
     return this.httpClient.get<Post[]>(`${this.baseURL}`);
   }
 
-  getPostByID(id:number): Observable<Object>{
+  getPostByID(id:number): Observable<Post>{
     return this.httpClient.get(`${this.baseURL}/${id}`);
   }
 

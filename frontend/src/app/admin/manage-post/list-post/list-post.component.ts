@@ -63,6 +63,6 @@ export class ListPostComponent implements OnInit{
   }
 
   postDetail(id:number){
-    this.router.navigate(['post-detail',id]);
+    this.router.navigate(['/admin/post/post-detail',id]);
   }
 }
