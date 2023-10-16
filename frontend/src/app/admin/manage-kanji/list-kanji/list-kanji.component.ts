@@ -21,18 +21,18 @@ export class ListKanjiComponent implements OnInit {
       this.kanjis = data;
     });
   }
-  // courseDetails(id: number) {
-  //   this.router.navigate(['course-details', id]);
-  // }
-  // updateCourse(id: number) {
-  //   this.router.navigate(['update-course', id]);
-  // }
-  // deleteCourse(id: number) {
-  //   this.kanjiService.deleteKanji(id).subscribe((data) => {
-  //     console.log(data);
-  //     this.getKanjis();
-  //   });
-  // }
+  kanjiDetails(id: number) {
+    this.router.navigate(['/admin/kanji-details', id]);
+  }
+  updateKanji(kanjiId: number) {
+    this.router.navigate(['/admin/update-kanji', kanjiId]);
+  }
+  deleteKanji(id: number) {
+    this.kanjiService.deleteKanji(id).subscribe((data) => {
+      console.log(data);
+      this.getKanjis();
+    });
+  }
   key: string = 'id';
   reverse: boolean = false;
   sort(key: string) {

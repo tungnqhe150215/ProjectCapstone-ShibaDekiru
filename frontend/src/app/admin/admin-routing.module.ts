@@ -22,6 +22,8 @@ import { ListHiraganaComponent } from './manage-alphabet/list-hiragana/list-hira
 import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-katakana.component';
 import {ListReadingComponent} from "./manage-reading/list-reading/list-reading.component";
 import {ReadingDetailComponent} from "./manage-reading/reading-detail/reading-detail.component";
+import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
+import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.component';
 
 
 
@@ -45,6 +47,8 @@ const routes: Routes = [
       { path:'lesson/writing/writing-question/:id',component:WritingQuestionDetailComponent},
       {path:'list-hiragana',component:ListHiraganaComponent},
       {path:'list-katakana',component:ListKatakanaComponent},
+      {path:'create-kanji',component:CreateKanjiComponent},
+      {path:'update-kanji/:id',component:UpdateKanjiComponent},
   ]},
 
 

@@ -54,6 +54,8 @@ import { ListHiraganaComponent } from './manage-alphabet/list-hiragana/list-hira
 import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-katakana.component';
 import { ListReadingComponent } from './manage-reading/list-reading/list-reading.component';
 import { ReadingDetailComponent } from './manage-reading/reading-detail/reading-detail.component';
+import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
+import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { ReadingDetailComponent } from './manage-reading/reading-detail/reading-
     ListKanjiComponent,
     ListHiraganaComponent,
     ListKatakanaComponent,
-
+    CreateKanjiComponent,
+    UpdateKanjiComponent,
+    
 
   ],
   imports: [

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,13 +7,35 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  showFiller = false;
-  public isOpenUiElements = false;
+  // showFiller = false;
+  // public isOpenUiElements = false;
 
-  public openUiElements() {
-    this.isOpenUiElements = !this.isOpenUiElements;
-  }
+  // public openUiElements() {
+  //   this.isOpenUiElements = !this.isOpenUiElements;
+  // }
 
+  // @ViewChild('sidenav') sidenav!: MatSidenavModule;
+  // isExpanded = true;
+  // showSubmenu: boolean = false;
+  // isShowing = false;
+  // showSubSubMenu: boolean = false;
+
+  // mouseenter() {
+  //   if (!this.isExpanded) {
+  //     this.isShowing = true;
+  //   }
+  // }
+
+  // mouseleave() {
+  //   if (!this.isExpanded) {
+  //     this.isShowing = false;
+  //   }
+  // }
  
+  activeItem: number = -1; // Mặc định không có thẻ nào được kích hoạt.
+
+  setActiveItem(index: number) {
+    this.activeItem = index;
+  }
 
 }

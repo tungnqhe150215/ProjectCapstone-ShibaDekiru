@@ -6,6 +6,6 @@ export class Lesson {
     name?:String
     content?:String
     createdAt?:Date
-    status?:String
+    status?:boolean
     image?:String
 }
