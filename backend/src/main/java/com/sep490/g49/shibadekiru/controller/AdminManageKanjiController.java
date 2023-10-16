@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor //Inject KanjiService vào controller
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequestMapping("/api/admin/kanji")
-public class KanjiManageController {
+public class AdminManageKanjiController {
 
     ModelMapper modelMapper;
 
