@@ -11,7 +11,7 @@ import { LessonService } from 'src/app/core/services/lesson.service';
 export class LessonDetailComponent implements OnInit{
   id!:number;
   lesson:Lesson = new Lesson;
-  
+
   constructor(private route: ActivatedRoute, private lessonService: LessonService){
 
   }
@@ -22,8 +22,8 @@ export class LessonDetailComponent implements OnInit{
     this.lessonService.getLessonByID(this.id).subscribe(data =>{
       this.lesson = data
     });
-    
-9  }
+
+  }
 
 
 }

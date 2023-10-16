@@ -24,6 +24,8 @@ import {ListReadingComponent} from "./manage-reading/list-reading/list-reading.c
 import {ReadingDetailComponent} from "./manage-reading/reading-detail/reading-detail.component";
 import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
 import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.component';
+import { UserDetailComponent } from './manage-user/user-detail/user-detail.component';
+import { CreateUserComponent } from './manage-user/create-user/create-user.component';
 
 
 
@@ -34,6 +36,10 @@ const routes: Routes = [
       {path: 'lesson/create-lesson', component:CreateLessonComponent},
       {path: 'lesson/update-lesson/:id', component: UpdateLessonComponent},
       {path: 'lesson/lesson-detail/:id', component:LessonDetailComponent},
+      {path:'user-account', component:UserListComponent},
+      {path:'user-account/userAccountDetail/:id', component:UserDetailComponent},
+      {path:'user-account/create-userAccount', component:CreateUserComponent},
+      // {path:'user-account/update-userAccount', component:Up},
       {path:'post', component:ListPostComponent},
       {path:'post/post-detail/:id', component:PostDetailComponent },
       { path:'list-user', component:UserListComponent},
