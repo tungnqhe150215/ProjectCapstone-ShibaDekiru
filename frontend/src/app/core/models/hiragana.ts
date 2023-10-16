@@ -1,5 +1,5 @@
 export class Hiragana {
-    id?:number
-    character?:String
+    hiraganaId?:number
+    hiraganaCharacter?:String
     romanji?:String
 }
