@@ -52,6 +52,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import { ListKanjiComponent } from './manage-kanji/list-kanji/list-kanji.component';
 import { ListHiraganaComponent } from './manage-alphabet/list-hiragana/list-hiragana.component';
 import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-katakana.component';
+import { ListReadingComponent } from './manage-reading/list-reading/list-reading.component';
+import { ReadingDetailComponent } from './manage-reading/reading-detail/reading-detail.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,7 @@ import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-kata
     ListKanjiComponent,
     ListHiraganaComponent,
     ListKatakanaComponent,
-    
+
 
   ],
   imports: [
@@ -102,6 +104,8 @@ import { ListKatakanaComponent } from './manage-alphabet/list-katakana/list-kata
     //Standalone component
     ListWritingComponent,
     WritingDetailComponent,
+    ListReadingComponent,
+    ReadingDetailComponent,
     MatSnackBarModule,
     MatFormFieldModule,
     // MatSortModule,
