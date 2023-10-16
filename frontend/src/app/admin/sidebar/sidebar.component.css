@@ -12,6 +12,11 @@ mat-drawer{
   width: 12%;
 }
 
-mat-list-item{
-  
-} 
+mat-list-item {
+ 
+}
+
+.mat-list-item.active {
+  background-color: #3b92df; /* Màu nền cho mục được kích hoạt */
+  color: rgb(18, 123, 14); /* Màu chữ cho mục được kích hoạt */
+}

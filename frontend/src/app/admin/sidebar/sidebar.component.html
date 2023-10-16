@@ -7,8 +7,10 @@
 </mat-toolbar>
   <mat-drawer-container class="example-container" >
     <mat-drawer #drawer mode="side" opened>
-        <mat-list role="list">
-           <mat-list-item role="listitem" routerLink="/admin"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="library_books"></mat-icon>Dashboard</mat-list-item>
+        <mat-list role="list" >
+           <mat-list-item role="listitem" routerLink="/admin" *ngFor=" let i = index" 
+           [class.active]="i === activeItem"
+           (click)="setActiveItem(i)"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="library_books"></mat-icon>Dashboard</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/list-user">Manage User</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/post">Manage Post</mat-list-item>
 
