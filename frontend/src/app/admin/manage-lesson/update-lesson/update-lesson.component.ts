@@ -11,7 +11,7 @@ import { LessonService } from 'src/app/core/services/lesson.service';
 export class UpdateLessonComponent implements OnInit {
   id!:number;
   lesson: Lesson = new Lesson();
-
+  status!: boolean;
   constructor(private lessonService: LessonService, private route: ActivatedRoute, private router: Router){
 
   }
@@ -20,6 +20,11 @@ export class UpdateLessonComponent implements OnInit {
     this.lessonService.getLessonByID(this.id).subscribe(data =>{
       this.lesson = data;
     },error => console.log(error));
+
+
+    this.lessonService.getStatus().subscribe(res =>{
+      this.status = res.status;
+    })
   }
   onSubmit(){
     this.lessonService.updateLesson(this.id, this.lesson).subscribe(data =>{
