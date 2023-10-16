@@ -15,6 +15,5 @@ public class ReadingDto {
     private String title;
     private String content;
     private String image;
-    private List<ReadingQuestionDto> readingQuestionDtoList;
-    private LessonDto lessonDto;
+    private Long lessonId;
 }

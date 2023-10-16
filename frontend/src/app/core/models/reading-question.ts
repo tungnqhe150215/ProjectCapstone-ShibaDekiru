@@ -1,8 +1,8 @@
 import {Reading} from "./reading";
 
 export class ReadingQuestion {
-    id?:number
+    readingQuestionId?:number
     reading?:Reading
     question?:String
-    sample_answer?:String
+    sampleAnswer?:String
 }
