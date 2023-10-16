@@ -14,5 +14,5 @@ public class GrammarDto {
     private String grammarStructure;
     private String description;
     private String example;
-    private LessonDto lessonDto;
+    private Long lessonId;
 }
