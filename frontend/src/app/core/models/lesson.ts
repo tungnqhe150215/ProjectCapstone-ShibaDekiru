@@ -5,7 +5,7 @@ export class Lesson {
     bookId!:number
     name?:String
     content?:String
-    created_at?:Date
+    createdAt?:Date
     status?:String
     image?:String
 }

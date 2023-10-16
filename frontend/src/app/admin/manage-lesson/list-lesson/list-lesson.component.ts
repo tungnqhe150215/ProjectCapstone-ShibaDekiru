@@ -12,6 +12,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angula
 import {ActivatedRoute, Route} from "@angular/router";
 import { CreateBookComponent } from '../../manage-book/create-book/create-book.component';
 import { CreateLessonComponent } from '../create-lesson/create-lesson.component';
+import { UpdateLessonComponent } from '../update-lesson/update-lesson.component';
 
 // export interface PeriodicElement {
 //   name: string;
@@ -75,7 +76,7 @@ export class ListLessonComponent implements OnInit{
         this.dataSource.paginator = this.paginator;
       },
       error: console.log,
-    })
+    });
   }
 
   //test paging
@@ -99,8 +100,13 @@ export class ListLessonComponent implements OnInit{
     this.router.navigate(['/admin/lesson/lesson-detail',id]);
   }
   
-  
-
+  // openUpdateLessonialog(id:number){
+  //   this.dialog.open(UpdateLessonComponent,
+  //   data:id  )
+  // }
+  updateLesson(id:number){
+    this.router.navigate(['admin/lesson/update-lesson',id]);
+  }
 
   //delete form 
   deleteLesson(id: number) {

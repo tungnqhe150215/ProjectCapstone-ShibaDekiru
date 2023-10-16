@@ -1,4 +1,4 @@
-<p>list-post works!</p>
+<!-- <p>list-post works!</p> -->
 <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
@@ -44,7 +44,7 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
         <td mat-cell *matCellDef="let row">
-
+          <button (click)="postDetail(row.postId)" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button>
 
         </td>
       </ng-container>
