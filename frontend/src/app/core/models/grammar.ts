@@ -1,10 +1,8 @@
-import {Lesson} from "./lesson";
-
 export class Grammar {
-    id?:number
-    lesson?:Lesson
-    name?:String
-    structure?:String
-    description?:String
-    example?:String
+  'grammarId': number;
+  'grammarName': String;
+  'grammarStructure': String;
+  'description': String;
+  'example': String;
+  'lessonId': String;
 }

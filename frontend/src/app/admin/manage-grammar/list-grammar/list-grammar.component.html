@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="navbar-nav">
+    <div class="">
+        <a routerLink="../list-grammar" routerLinkActive="active" class="nav-link">
+            <h2>Grammar List</h2>
+        </a>
+    </div>
+    <div class="">
+        <button mat-raised-button>
+            <a routerLink="../create-grammar" routerLinkActive="active" class="nav-link">
+                Create Grammar
+            </a>
+        </button>
+    </div>
+</div>
+<div>
+    <input type="text" placeholder="Search by Grammar" style="width: 450px;padding: 2px 20px; margin:10px 0px; height:30px;
+          " [(ngModel)]="filterText">
+</div>
+<table class="table table-striped table-bordered">
+    <thead>
+        <th>ID&nbsp;
+            <i class="fa fa-thin fa-sort"></i>
+        </th>
+        <th>Grammar Name&nbsp;
+            <i class="fa fa-thin fa-sort"></i>
+        </th>
+        <th>Grammar Structure&nbsp;
+            <i class="fa fa-thin fa-sort"></i>
+        </th>
+        <th>Description&nbsp;
+            <i class="fa fa-thin fa-sort"></i>
+        </th>
+        <th>Example&nbsp;
+            <i class="fa fa-thin fa-sort"></i>
+        </th>
+        <th>Lesson ID&nbsp;
+            <i class="fa fa-thin fa-sort"></i>
+        </th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let grammar of grammars">
+            <td>{{grammar.grammarId}}</td>
+            <td>{{grammar.grammarName}}</td>
+            <td>{{grammar.grammarStructure}}</td>
+            <td>{{grammar.description}}</td>
+            <td>{{grammar.example}}</td>
+            <td>{{grammar.lessonId}}</td>
+            <td>
+                <button (click)="updateGrammar(grammar.grammarId)" class="btn btn-info">Update</button>
+                <button (click)="deleteGrammar(grammar.grammarId)" class="btn btn-danger"
+                    style="margin-left: 10px;">Delete</button>
+                <!-- <button class="btn btn-info" style="margin-left: 10px;">View</button> -->
+            </td>
+        </tr>
+    </tbody>
+    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+</table>
