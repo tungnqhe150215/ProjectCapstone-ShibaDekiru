@@ -14,6 +14,5 @@ public class ListeningDto {
     private String title;
     private String link;
     private String script;
-    private List<ListeningQuestionDto> listeningQuestionDtoList;
-    private LessonDto lessonDto;
+    private Long lessonId;
 }
