@@ -32,6 +32,7 @@ import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary
 import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
 import { CreateGrammarComponent } from './manage-grammar/create-grammar/create-grammar.component';
 import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-grammar.component';
+import { UpdateUserComponent } from './manage-user/update-user/update-user.component';
 
 
 
@@ -46,6 +47,7 @@ const routes: Routes = [
       {path:'user-account/userAccountDetail/:id', component:UserDetailComponent},
       {path:'user-account/create-userAccount', component:CreateUserComponent},
       // {path:'user-account/update-userAccount', component:Up},
+      {path:'user-account/update-userAccount/:id', component:UpdateUserComponent},
       {path:'post', component:ListPostComponent},
       {path:'post/post-detail/:id', component:PostDetailComponent },
       { path:'list-user', component:UserListComponent},

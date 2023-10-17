@@ -76,6 +76,7 @@ export class UserListComponent implements OnInit{
 
     });
   }
+  
 
   openCreateUserAccountDialog(){
     this.dialog.open(CreateUserComponent, {
