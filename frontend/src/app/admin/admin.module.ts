@@ -56,6 +56,12 @@ import { ListReadingComponent } from './manage-reading/list-reading/list-reading
 import { ReadingDetailComponent } from './manage-reading/reading-detail/reading-detail.component';
 import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.component';
 import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.component';
+import { ListVocabularyComponent } from './manage-vocabulary/list-vocabulary/list-vocabulary.component';
+import { CreateVocabularyComponent } from './manage-vocabulary/create-vocabulary/create-vocabulary.component';
+import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary/update-vocabulary.component';
+import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
+import { CreateGrammarComponent } from './manage-grammar/create-grammar/create-grammar.component';
+import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-grammar.component';
 
 @NgModule({
   declarations: [
@@ -84,8 +90,13 @@ import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.c
     ListKatakanaComponent,
     CreateKanjiComponent,
     UpdateKanjiComponent,
+    ListVocabularyComponent,
+    CreateVocabularyComponent,
+    UpdateVocabularyComponent,
+    ListGrammarComponent,
+    CreateGrammarComponent,
+    UpdateGrammarComponent,
     
-
   ],
   imports: [
     CommonModule,

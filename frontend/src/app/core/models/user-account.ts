@@ -1,12 +1,13 @@
 import {Role} from "./role";
 
 export class UserAccount {
-  id?:number
-  role?:Role
-  nick_name?:String
-  username?:String
+  userAccountId!:number
+  roleId?:number
+  nickName?:String
+  userName?:String
   password?:String
   email?:String
-  reset_code?:String
-  is_banned?:Boolean
+  memberId?:String
+  resetCode?:String
+  isBanned!:Boolean
 }

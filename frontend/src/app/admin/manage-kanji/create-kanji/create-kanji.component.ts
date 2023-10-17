@@ -13,21 +13,21 @@ export class CreateKanjiComponent implements OnInit {
   constructor(private kanjiService: KanjiService, private router: Router) {}
   ngOnInit(): void {}
 
-  saveCourse() {
+  saveKanji() {
     this.kanjiService.createKanji(this.kanji).subscribe(
       (data) => {
         console.log(data);
-        this.goToCourseList();
+        this.goToKanjiesList();
       },
       (error) => console.log(error)
     );
   }
 
-  goToCourseList() {
+  goToKanjiesList() {
     this.router.navigate(['admin/list-kanji']);
   }
   onSubmit() {
     console.log(this.kanji);
-    this.saveCourse();
+    this.saveKanji();
   }
 }

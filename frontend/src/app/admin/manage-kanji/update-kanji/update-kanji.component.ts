@@ -36,6 +36,6 @@ export class UpdateKanjiComponent {
   }
 
   goToKanjiList() {
-    this.router.navigate(['/list-kanji']);
+    this.router.navigate(['/admin/list-kanji']);
   }
 }

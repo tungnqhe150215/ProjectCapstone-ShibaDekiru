@@ -1,0 +1,45 @@
+<div class="col-md-6 offset-md-3" >
+    <button mat-raised-button>
+        <a routerLink="../list-grammar" routerLinkActive="active" class="nav-link">
+            List Grammar
+        </a>
+    </button>
+    <h3 class="center" style="display: flex;
+    justify-content: center;
+    align-items: center;">Update grammar</h3>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="grammarName">Grammar ID</label>
+            <input type="text" class="form-control" id="grammarId" [(ngModel)]="grammar.grammarId"
+                name="grammarId" />
+
+        </div>
+        <div class="form-group">
+            <label for="grammarName">Grammar Name</label>
+            <input type="text" class="form-control" id="grammarName" [(ngModel)]="grammar.grammarName"
+                name="grammarName" />
+
+        </div>
+        <div class="form-group">
+            <label for="grammarStructure">Grammar Structure</label>
+            <input type="text" class="form-control" id="onReading" [(ngModel)]="grammar.grammarStructure" name="grammarStructure" />
+
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" [(ngModel)]="grammar.description" name="kunReading" />
+        </div>
+
+        <div class="form-group">
+            <label for="">Example</label>
+            <input type="text" class="form-control" id="example" [(ngModel)]="grammar.example" name="example" />
+        </div>
+
+        <div class="form-group">
+            <label for="">Lesson Id</label>
+            <input type="text" class="form-control" id="lessonId" [(ngModel)]="grammar.lessonId" name="lessonId" />
+        </div>
+        <br>
+        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Submit</button>
+    </form>
+</div>

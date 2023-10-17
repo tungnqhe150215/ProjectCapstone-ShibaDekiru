@@ -1,10 +1,10 @@
-import {Lesson} from "./lesson";
+import { Lesson } from './lesson';
 
 export class Vocabulary {
-    id?:number
-    lesson?:Lesson
-    word?:String
-    hiragana?:String
-    meaning?:String
-    example?:String
+  'vocabularyId': number;
+  'vocabularyName': String;
+ 'hiragana': String;
+  'meaning': String;
+  'example': String;
+  'lessonId': number;
 }

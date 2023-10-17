@@ -4,20 +4,20 @@
 
 <div class="navbar-nav">
     <div class="">
-        <a routerLink="../list-kanji" routerLinkActive="active" class="nav-link">
-            <h2>Kanji List</h2>
+        <a routerLink="../list-vocabulary" routerLinkActive="active" class="nav-link">
+            <h2>Vocabulary List</h2>
         </a>
     </div>
     <div class="">
         <button mat-raised-button>
-            <a routerLink="../create-kanji" routerLinkActive="active" class="nav-link">
-                Create Kanji
+            <a routerLink="../create-vocabulary" routerLinkActive="active" class="nav-link">
+                Create Vocabulary
             </a>
         </button>
     </div>
 </div>
 <div>
-    <input type="text" placeholder="Search by kanji" style="width: 450px;padding: 2px 20px; margin:10px 0px; height:30px;
+    <input type="text" placeholder="Search by Vocabulary" style="width: 450px;padding: 2px 20px; margin:10px 0px; height:30px;
           " [(ngModel)]="filterText">
 </div>
 <table class="table table-striped table-bordered">
@@ -25,16 +25,13 @@
         <th>ID&nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
-        <th>Character Kanji&nbsp;
+        <th>Vocabulary Name &nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
-        <th>On Reading&nbsp;
+        <th>Hiragana&nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
-        <th>Kun Reading&nbsp;
-            <i class="fa fa-thin fa-sort"></i>
-        </th>
-        <th>Chinese mean&nbsp;
+        <th>Meaning &nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
         <th>Example&nbsp;
@@ -46,18 +43,16 @@
         <th>Actions</th>
     </thead>
     <tbody>
-        <tr *ngFor="let kanji of kanjis">
-            <td>{{kanji.kanjiId}}</td>
-            <td>{{kanji.characterKanji}}</td>
-            <td>{{kanji.onReading}}</td>
-            <td>{{kanji.kunReading}}</td>
-            <td>{{kanji.chineseMean}}</td>
-            <td>{{kanji.example}}</td>
-            <td>{{kanji.lessonId}}</td>
+        <tr *ngFor="let vocabulary of vocabularies">
+            <td>{{vocabulary.vocabularyId}}</td>
+            <td>{{vocabulary.vocabularyName}}</td>
+            <td>{{vocabulary.hiragana}}</td>
+            <td>{{vocabulary.meaning}}</td>
+            <td>{{vocabulary.example}}</td>
+            <td>{{vocabulary.lessonId}}</td>
             <td>
-                <button (click)="updateKanji(kanji.kanjiId)" class="btn btn-info">Update</button>
-                <button (click)="deleteKanji(kanji.kanjiId)" class="btn btn-danger"
-                    style="margin-left: 10px;">Delete</button>
+                <button (click)="updateVocabulary(vocabulary.vocabularyId)" class="btn btn-info">Update</button>
+                <button (click)="deleteVocabulary(vocabulary.vocabularyId)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
                 <!-- <button class="btn btn-info" style="margin-left: 10px;">View</button> -->
             </td>
         </tr>
