@@ -62,6 +62,8 @@ import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary
 import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
 import { CreateGrammarComponent } from './manage-grammar/create-grammar/create-grammar.component';
 import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-grammar.component';
+import { ListListeningComponent } from './manage-listening/list-listening/list-listening.component';
+import { ListeningDetailComponent } from './manage-listening/listening-detail/listening-detail.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +98,8 @@ import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-g
     ListGrammarComponent,
     CreateGrammarComponent,
     UpdateGrammarComponent,
-    
+
+
   ],
   imports: [
     CommonModule,
@@ -121,6 +124,8 @@ import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-g
     WritingDetailComponent,
     ListReadingComponent,
     ReadingDetailComponent,
+    ListListeningComponent,
+    ListeningDetailComponent,
     MatSnackBarModule,
     MatFormFieldModule,
     // MatSortModule,

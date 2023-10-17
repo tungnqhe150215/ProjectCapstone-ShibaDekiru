@@ -11,9 +11,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ListBookComponent } from './manage-book/list-book/list-book.component';
 import {ListWritingComponent} from "./manage-writing/list-writing/list-writing.component";
 import {WritingDetailComponent} from "./manage-writing/writing-detail/writing-detail.component";
-import {
-  WritingQuestionDetailComponent
-} from "./manage-writing/writing-question-detail/writing-question-detail.component";
 import { UpdateLessonComponent } from './manage-lesson/update-lesson/update-lesson.component';
 import { CreateLessonComponent } from './manage-lesson/create-lesson/create-lesson.component';
 import { PostDetailComponent } from './manage-post/post-detail/post-detail.component';
@@ -32,6 +29,8 @@ import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary
 import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
 import { CreateGrammarComponent } from './manage-grammar/create-grammar/create-grammar.component';
 import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-grammar.component';
+import {ListListeningComponent} from "./manage-listening/list-listening/list-listening.component";
+import {ListeningDetailComponent} from "./manage-listening/listening-detail/listening-detail.component";
 
 
 
@@ -56,7 +55,8 @@ const routes: Routes = [
       { path:'lesson/writing/:id',component:WritingDetailComponent},
       { path:'lesson/:id/reading',component:ListReadingComponent},
       { path:'lesson/reading/:id',component:ReadingDetailComponent},
-      { path:'lesson/writing/writing-question/:id',component:WritingQuestionDetailComponent},
+      { path:'lesson/:id/listening',component:ListListeningComponent},
+      { path:'lesson/listening/:id',component:ListeningDetailComponent},
       {path:'list-hiragana',component:ListHiraganaComponent},
       {path:'list-katakana',component:ListKatakanaComponent},
       {path:'create-kanji',component:CreateKanjiComponent},
