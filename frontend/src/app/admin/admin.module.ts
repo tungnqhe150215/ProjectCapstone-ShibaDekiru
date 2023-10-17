@@ -59,6 +59,9 @@ import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.c
 import { ListVocabularyComponent } from './manage-vocabulary/list-vocabulary/list-vocabulary.component';
 import { CreateVocabularyComponent } from './manage-vocabulary/create-vocabulary/create-vocabulary.component';
 import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary/update-vocabulary.component';
+import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
+import { CreateGrammarComponent } from './manage-grammar/create-grammar/create-grammar.component';
+import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-grammar.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +93,9 @@ import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary
     ListVocabularyComponent,
     CreateVocabularyComponent,
     UpdateVocabularyComponent,
+    ListGrammarComponent,
+    CreateGrammarComponent,
+    UpdateGrammarComponent,
     
   ],
   imports: [
