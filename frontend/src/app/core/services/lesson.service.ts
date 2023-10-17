@@ -31,7 +31,7 @@ export class LessonService {
   deleteLesson(id: number): Observable<Object>{
     return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
-  
+
   getStatus(): Observable<{status: boolean}>{
     const getURL =  '${this.baseURL}/${id}';
     return this.httpClient.get<{status: boolean}>(getURL);

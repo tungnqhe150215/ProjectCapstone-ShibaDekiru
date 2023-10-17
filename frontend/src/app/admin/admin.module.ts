@@ -62,6 +62,8 @@ import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary
 import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
 import { CreateGrammarComponent } from './manage-grammar/create-grammar/create-grammar.component';
 import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-grammar.component';
+import { ListListeningComponent } from './manage-listening/list-listening/list-listening.component';
+import { ListeningDetailComponent } from './manage-listening/listening-detail/listening-detail.component';
 import { UpdateUserComponent } from './manage-user/update-user/update-user.component';
 import {MatSelectModule} from '@angular/material/select';
 
@@ -125,6 +127,8 @@ import {MatSelectModule} from '@angular/material/select';
     WritingDetailComponent,
     ListReadingComponent,
     ReadingDetailComponent,
+    ListListeningComponent,
+    ListeningDetailComponent,
     MatSnackBarModule,
     MatFormFieldModule,
     // MatSortModule,

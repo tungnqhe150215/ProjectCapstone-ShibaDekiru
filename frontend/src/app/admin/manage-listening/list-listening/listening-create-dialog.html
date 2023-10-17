@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Create new listening</h2>
+<mat-dialog-content>
+
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="listening.title" type="text">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Link</mat-label>
+    <input matInput [(ngModel)]="listening.link" type="text">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Script</mat-label>
+    <textarea matInput [(ngModel)]="listening.script" type="text"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true" (click)="createListening()">Create</button>
+</mat-dialog-actions>
