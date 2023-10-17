@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   private baseURL = "http://localhost:8080/api/admin/user-account";
+  private baseBanURL = "http://localhost:8080/api/admin/user-account/update-is-banned";
   user_account: UserAccount[] = [];
 
   constructor(private httpClient: HttpClient) { }
@@ -28,6 +29,10 @@ export class UserService {
 
   updateUser(id:number, userAccount: UserAccount): Observable<Object>{
     return this.httpClient.put(`${this.baseURL}/${id}`,userAccount);
+  }
+
+  banAccountUser(id:number){
+    return this.httpClient.put<void>(`${this.baseBanURL}/${id}`,{});
   }
 
 }

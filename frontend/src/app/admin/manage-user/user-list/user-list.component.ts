@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { CreateUserComponent } from '../create-user/create-user.component';
 import {ActivatedRoute, Route} from "@angular/router";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import { BanUserComponent } from '../ban-user/ban-user.component';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 
 @Component({
@@ -23,6 +25,8 @@ export class UserListComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
 
   userAccount: UserAccount[] = [];
+  bannedAccount: UserAccount = new UserAccount;
+
   ngOnInit(): void {
     this.getUserAccountList();
   }
@@ -31,7 +35,8 @@ export class UserListComponent implements OnInit{
     private userAccountService: UserService,
      private router: Router,
     private route:ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private nofiService: NotificationService
      ){
 
   }
@@ -61,6 +66,16 @@ export class UserListComponent implements OnInit{
     }
   }
 
+
+  banAccount( bannedAccount: UserAccount): void {
+    this.userAccountService.banAccountUser(bannedAccount.userAccountId).subscribe(() => {
+      // Sau khi cập nhật thành công, cập nhật trạng thái đánh dấu sao trong danh sách
+      bannedAccount.isBanned = !bannedAccount.isBanned;
+      this.nofiService.openSnackBar('Change status successful','OK');
+      // flashcard.favorite = !flashcard.favorite;
+
+    });
+  }
 
   openCreateUserAccountDialog(){
     this.dialog.open(CreateUserComponent, {

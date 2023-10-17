@@ -1,7 +1,7 @@
 import {Role} from "./role";
 
 export class UserAccount {
-  userAccountId?:number
+  userAccountId!:number
   roleId?:number
   nickName?:String
   userName?:String
@@ -9,5 +9,5 @@ export class UserAccount {
   email?:String
   memberId?:String
   resetCode?:String
-  isBanned?:Boolean
+  isBanned!:Boolean
 }
