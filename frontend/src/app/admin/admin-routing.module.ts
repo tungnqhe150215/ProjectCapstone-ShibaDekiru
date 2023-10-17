@@ -47,7 +47,7 @@ const routes: Routes = [
       {path:'user-account/userAccountDetail/:id', component:UserDetailComponent},
       {path:'user-account/create-userAccount', component:CreateUserComponent},
       {path:'user-account/update-userAccount/:id', component:UpdateUserComponent},
-      {path:'user-account/update-userAccount/:id', component:UpdateUserComponent},
+      // {path:'user-account/update-userAccount/:id', component:UpdateUserComponent},
       {path:'post', component:ListPostComponent},
       {path:'post/post-detail/:id', component:PostDetailComponent },
       { path:'list-user', component:UserListComponent},
