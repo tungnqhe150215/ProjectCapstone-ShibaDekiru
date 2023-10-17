@@ -29,6 +29,9 @@ import { CreateUserComponent } from './manage-user/create-user/create-user.compo
 import { ListVocabularyComponent } from './manage-vocabulary/list-vocabulary/list-vocabulary.component';
 import { CreateVocabularyComponent } from './manage-vocabulary/create-vocabulary/create-vocabulary.component';
 import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary/update-vocabulary.component';
+import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
+import { CreateGrammarComponent } from './manage-grammar/create-grammar/create-grammar.component';
+import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-grammar.component';
 
 
 
@@ -61,6 +64,9 @@ const routes: Routes = [
       {path:'list-vocabulary',component:ListVocabularyComponent},
       {path:'create-vocabulary',component:CreateVocabularyComponent},
       {path:'update-vocabulary/:id',component:UpdateVocabularyComponent},
+      {path:'list-grammar',component:ListGrammarComponent},
+      {path:'create-grammar',component:CreateGrammarComponent},
+      {path:'update-grammar/:id',component:UpdateGrammarComponent},
   ]},
 
 
