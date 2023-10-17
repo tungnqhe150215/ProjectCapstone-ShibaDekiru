@@ -20,7 +20,7 @@ export class KanjiService {
     return this.httpClient.get<Kanji>(`${this.baseURL}/${id}`);
   }
   updateKanji(id: number, kanji: Kanji): Observable<Object> {
-    return this.httpClient.put(`${this.baseURL}${id}`, kanji);
+    return this.httpClient.put(`${this.baseURL}/${id}`, kanji);
   }
   deleteKanji(id: number): Observable<Object> {
     return this.httpClient.delete(`${this.baseURL}/${id}`);

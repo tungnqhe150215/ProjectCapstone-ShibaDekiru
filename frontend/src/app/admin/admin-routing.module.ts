@@ -26,6 +26,9 @@ import { CreateKanjiComponent } from './manage-kanji/create-kanji/create-kanji.c
 import { UpdateKanjiComponent } from './manage-kanji/update-kanji/update-kanji.component';
 import { UserDetailComponent } from './manage-user/user-detail/user-detail.component';
 import { CreateUserComponent } from './manage-user/create-user/create-user.component';
+import { ListVocabularyComponent } from './manage-vocabulary/list-vocabulary/list-vocabulary.component';
+import { CreateVocabularyComponent } from './manage-vocabulary/create-vocabulary/create-vocabulary.component';
+import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary/update-vocabulary.component';
 
 
 
@@ -55,6 +58,9 @@ const routes: Routes = [
       {path:'list-katakana',component:ListKatakanaComponent},
       {path:'create-kanji',component:CreateKanjiComponent},
       {path:'update-kanji/:id',component:UpdateKanjiComponent},
+      {path:'list-vocabulary',component:ListVocabularyComponent},
+      {path:'create-vocabulary',component:CreateVocabularyComponent},
+      {path:'update-vocabulary/:id',component:UpdateVocabularyComponent},
   ]},
 
 

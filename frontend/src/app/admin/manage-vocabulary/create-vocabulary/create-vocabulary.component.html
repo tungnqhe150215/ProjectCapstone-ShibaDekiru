@@ -1,0 +1,39 @@
+<div class="col-md-6 offset-md-3" >
+    <button mat-raised-button>
+        <a routerLink="../list-vocabulary" routerLinkActive="active" class="nav-link">
+            List Vocabularies
+        </a>
+    </button>
+    <h3 class="center" style="display: flex;
+    justify-content: center;
+    align-items: center;">Create Vocabulary</h3>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="">Vocabulary Name</label>
+            <input type="text" class="form-control" id="vocabularyName" [(ngModel)]="vocabulary.vocabularyName"
+                name="vocabularyName" />
+
+        </div>
+        <div class="form-group">
+            <label for="">Hiragana</label>
+            <input type="text" class="form-control" id="hiragana" [(ngModel)]="vocabulary.hiragana" name="hiragana" />
+
+        </div>
+        <div class="form-group">
+            <label for="">Meaning</label>
+            <input type="text" class="form-control" id="meaning" [(ngModel)]="vocabulary.meaning" name="meaning" />
+        </div>
+
+        <div class="form-group">
+            <label for="">Example</label>
+            <input type="text" class="form-control" id="example" [(ngModel)]="vocabulary.example" name="example" />
+        </div>
+
+        <div class="form-group">
+            <label for="">Lesson Id</label>
+            <input type="text" class="form-control" id="lessonId" [(ngModel)]="vocabulary.lessonId" name="lessonId" />
+        </div>
+        <br>
+        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Submit</button>
+    </form>
+</div>
