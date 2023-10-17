@@ -31,6 +31,7 @@ import { CreateGrammarComponent } from './manage-grammar/create-grammar/create-g
 import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-grammar.component';
 import {ListListeningComponent} from "./manage-listening/list-listening/list-listening.component";
 import {ListeningDetailComponent} from "./manage-listening/listening-detail/listening-detail.component";
+import { UpdateUserComponent } from './manage-user/update-user/update-user.component';
 
 
 
@@ -44,7 +45,8 @@ const routes: Routes = [
       {path:'user-account', component:UserListComponent},
       {path:'user-account/userAccountDetail/:id', component:UserDetailComponent},
       {path:'user-account/create-userAccount', component:CreateUserComponent},
-      // {path:'user-account/update-userAccount', component:Up},
+      {path:'user-account/update-userAccount/:id', component:UpdateUserComponent},
+      // {path:'user-account/update-userAccount/:id', component:UpdateUserComponent},
       {path:'post', component:ListPostComponent},
       {path:'post/post-detail/:id', component:PostDetailComponent },
       { path:'list-user', component:UserListComponent},

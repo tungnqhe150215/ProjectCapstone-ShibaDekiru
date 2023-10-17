@@ -1,0 +1,55 @@
+<h3 class="text-center"> Update User</h3>
+<div class="container">
+<form>
+    <div class="form-group">
+        <label>UserName</label>
+        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="userAccount.userName"  [value]="userAccount.userName"
+            [ngModelOptions]="{standalone: true}"> 
+        <label class="m-2">Status</label>
+        <input type="radio" [(ngModel)]="userAccount.isBanned" value="true" name="banned"
+            [ngModelOptions]="{standalone: true}"> Active
+        <input type="radio" [(ngModel)]="userAccount.isBanned" value="false" name="banned"
+            [ngModelOptions]="{standalone: true}"> Disable
+    </div>
+    <div class="form-group">
+        <label class="mr-2">MemberID</label>
+        <input type="text" class="form-control" id="memberID" name="memberID" [(ngModel)]="userAccount.memberId"
+            [ngModelOptions]="{standalone: true}">
+
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control" id="emai" name="email" [(ngModel)]="userAccount.email"
+            [ngModelOptions]="{standalone: true}">
+        <label>Password</label>
+        <input type="text" class="form-control" id="password" name="password" [(ngModel)]="userAccount.password"
+            [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div class="form-group">
+        <label>Nick Name</label>
+        <input type="text" class="form-control" id="nickname" name="nickname" [(ngModel)]="userAccount.nickName"
+            [ngModelOptions]="{standalone: true}">
+        <label>Reset Code</label>
+        <input type="text" class="form-control" id="resetcode" name="resetcode" [(ngModel)]="userAccount.resetCode"
+            [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+        <!-- <select name="role" id="role">
+            <option value="1" id="role" name="role" [(ngModel)]="userAccount.roleId"
+                [ngModelOptions]="{standalone: true}">Student</option>
+            <option value="2" id="role" name="role" [(ngModel)]="userAccount.roleId"
+                [ngModelOptions]="{standalone: true}">Lecturers</option>
+            <option value="3" id="role" name="role" [(ngModel)]="userAccount.roleId"
+                [ngModelOptions]="{standalone: true}">Admin</option>
+        </select> -->
+
+        <input type="radio" [(ngModel)]="userAccount.roleId" value="1"  id="role" name="role" [ngModelOptions]="{standalone: true}"> Student
+        <input type="radio" [(ngModel)]="userAccount.roleId" value="2"  id="role" name="role"  [ngModelOptions]="{standalone: true}"> Lecturers
+        <input type="radio" [(ngModel)]="userAccount.roleId" value="3" id="role" name="role" [ngModelOptions]="{standalone: true}"> Admin
+    </div>
+
+
+    <button class="btn btn-success" type="submit" (click)="updateUser()">Submit</button>
+</form>
+</div>

@@ -11,9 +11,10 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angula
 
 })
 export class CreateLessonComponent implements OnInit {
-  
+
   lesson: Lesson = new Lesson();
   constructor(
+    public dialogRef: MatDialogRef<CreateLessonComponent>,
     private lessonService: LessonService,
     private router:Router,
     @Inject(MAT_DIALOG_DATA) public data: number,
@@ -24,7 +25,7 @@ export class CreateLessonComponent implements OnInit {
     createLesson(){
       this.lessonService.createLesson(this.lesson).subscribe(data =>{
         console.log(data);
-        this.gotoLessonList();
+        this.dialogRef.close();
       })
     }
 
