@@ -10,6 +10,7 @@ import {ActivatedRoute, Route} from "@angular/router";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import { BanUserComponent } from '../ban-user/ban-user.component';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { UpdateUserComponent } from '../update-user/update-user.component';
 
 
 @Component({
@@ -76,6 +77,16 @@ export class UserListComponent implements OnInit{
 
     });
   }
+  
+  updateUser(id:number){
+    this.dialog.open(UpdateUserComponent,{
+
+    }).afterClosed().subscribe(() => this.getUserAccountList())
+  }
+  // updateUser(id:number){
+  //   this.router.navigate(['admin/lesson/update-lesson',id]);
+  // }
+
 
   openCreateUserAccountDialog(){
     this.dialog.open(CreateUserComponent, {

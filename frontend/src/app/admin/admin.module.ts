@@ -62,12 +62,15 @@ import { UpdateVocabularyComponent } from './manage-vocabulary/update-vocabulary
 import { ListGrammarComponent } from './manage-grammar/list-grammar/list-grammar.component';
 import { CreateGrammarComponent } from './manage-grammar/create-grammar/create-grammar.component';
 import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-grammar.component';
+import { UpdateUserComponent } from './manage-user/update-user/update-user.component';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
     SidebarComponent,
     BanUserComponent,
-    CreateUserComponent,
+
     UserDetailComponent,
     UserListComponent,
     DeleteChatComponent,
@@ -96,6 +99,7 @@ import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-g
     ListGrammarComponent,
     CreateGrammarComponent,
     UpdateGrammarComponent,
+    UpdateUserComponent,
     
   ],
   imports: [
@@ -128,7 +132,8 @@ import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-g
     MatInputModule,
     MatRadioModule,
     MatSortModule,
-
+    CreateUserComponent,
+    MatSelectModule,
   ]
 })
 export class AdminModule { }
