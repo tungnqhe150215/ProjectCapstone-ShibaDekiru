@@ -3,6 +3,9 @@ import { UserAccount } from 'src/app/core/models/user-account';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
+
+
 @Component({
   selector: 'app-update-user',
   templateUrl: './update-user.component.html',
@@ -17,6 +20,7 @@ export class UpdateUserComponent implements OnInit{
     private router:Router,
     // @Inject(MAT_DIALOG_DATA) public data: number,
     private route: ActivatedRoute, 
+    private nofiService: NotificationService
   ){}
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -32,6 +36,7 @@ export class UpdateUserComponent implements OnInit{
     this.userAccountService.updateUser(this.id, this.userAccount).subscribe(
       data =>{
         this.goToUserList();
+        this.nofiService.openSnackBar('Update user successful','OK');
       },error => console.log(error)
     );
   }

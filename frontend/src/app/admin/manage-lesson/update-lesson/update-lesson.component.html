@@ -6,8 +6,8 @@
             <label>Name</label>
             <input type="text" class="form-control" id="name" name="name"  [(ngModel)]="lesson.name">
             <label class="m-2">Status</label>
-            <input type="radio" value="true" name="status" id="status"  *ngIf="status"  [(ngModel)]="lesson.status"> Active 
-            <input type="radio" value="false" name="status" id="status" *ngIf="!status"> Disable
+            <input type="radio" value="true" name="status" id="status"  [(ngModel)]="lesson.status"> Active 
+            <input type="radio" value="false" name="status" id="status"  [(ngModel)]="lesson.status"> Disable
         </div>
         <div class="form-group">
             <label class="mr-2" >BookID</label>
