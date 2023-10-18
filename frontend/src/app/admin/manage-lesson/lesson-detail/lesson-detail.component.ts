@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Lesson } from 'src/app/core/models/lesson';
 import { LessonService } from 'src/app/core/services/lesson.service';
 
@@ -12,7 +12,7 @@ export class LessonDetailComponent implements OnInit{
   id!:number;
   lesson:Lesson = new Lesson;
 
-  constructor(private route: ActivatedRoute, private lessonService: LessonService){
+  constructor(private route: ActivatedRoute, private lessonService: LessonService, private router:Router,){
 
   }
   ngOnInit(): void {
@@ -25,5 +25,7 @@ export class LessonDetailComponent implements OnInit{
 
   }
 
-
+  backtoList(){
+    this.router.navigate(['admin/lesson']);
+  }
 }

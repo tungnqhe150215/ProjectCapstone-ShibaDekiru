@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { UserAccount } from 'src/app/core/models/user-account';
 
@@ -13,7 +13,7 @@ export class UserDetailComponent implements OnInit{
   id!:number;
   userAccount:UserAccount = new UserAccount;
 
-  constructor(private route: ActivatedRoute, private userAccountService: UserService){
+  constructor(private route: ActivatedRoute, private userAccountService: UserService, private router:Router,){
 
   }
 
@@ -28,4 +28,7 @@ export class UserDetailComponent implements OnInit{
     );
   }
 
+  goToUserList(){
+    this.router.navigate(['admin/user-account']);
+  }
 }
