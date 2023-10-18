@@ -9,13 +9,13 @@ import { UserService } from '../user.service';
   styleUrls: ['./update-user.component.css']
 })
 export class UpdateUserComponent implements OnInit{
-  userAccount: UserAccount = new UserAccount;
+  userAccount: UserAccount = new UserAccount();
   id!:number;
   constructor(
-    public dialogRef: MatDialogRef<UpdateUserComponent>,
+    // public dialogRef: MatDialogRef<UpdateUserComponent>,
     private userAccountService: UserService,
     private router:Router,
-    @Inject(MAT_DIALOG_DATA) public data: number,
+    // @Inject(MAT_DIALOG_DATA) public data: number,
     private route: ActivatedRoute, 
   ){}
   ngOnInit(): void {
@@ -28,14 +28,23 @@ export class UpdateUserComponent implements OnInit{
   }
 
 
-  
-
-  updateUser(){
+  onSubmit(){
     this.userAccountService.updateUser(this.id, this.userAccount).subscribe(
       data =>{
-        console.log(data);
-        this.dialogRef.close();
-      }
-    )
+        this.goToUserList();
+      },error => console.log(error)
+    );
   }
+
+  goToUserList(){
+    this.router.navigate(['admin/user-account']);
+  }
+  // updateUser(){
+  //   this.userAccountService.updateUser(this.id, this.userAccount).subscribe(
+  //     data =>{
+  //       console.log(data);
+  //       // this.dialogRef.close();
+  //     }
+  //   )
+  // }
 }
