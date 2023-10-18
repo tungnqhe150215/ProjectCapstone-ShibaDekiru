@@ -7,6 +7,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import { NotificationService } from 'src/app/core/services/notification.service';
+
 
 @Component({
   selector: 'app-create-user',
@@ -24,6 +26,7 @@ export class CreateUserComponent implements OnInit {
     private userAccountService: UserService,
     private router:Router,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ){}
   ngOnInit(): void {
     
@@ -34,6 +37,7 @@ export class CreateUserComponent implements OnInit {
      data =>{
         console.log(data);
         this.dialogRef.close();
+        this.nofiService.openSnackBar('Create User successful','OK');
       }
     )
   }
