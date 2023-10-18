@@ -78,14 +78,14 @@ export class UserListComponent implements OnInit{
     });
   }
   
-  updateUser(id:number){
-    this.dialog.open(UpdateUserComponent,{
-
-    }).afterClosed().subscribe(() => this.getUserAccountList())
-  }
   // updateUser(id:number){
-  //   this.router.navigate(['admin/lesson/update-lesson',id]);
+  //   this.dialog.open(UpdateUserComponent,{
+
+  //   }).afterClosed().subscribe(() => this.getUserAccountList())
   // }
+  updateUser(id:number){
+    this.router.navigate(['admin/user-account/update-userAccount',id]);
+  }
 
 
   openCreateUserAccountDialog(){
