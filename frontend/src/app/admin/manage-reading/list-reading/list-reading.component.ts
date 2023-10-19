@@ -103,6 +103,7 @@ export class ListReadingComponent implements OnInit{
 @Component({
   selector: 'app-reading-delete-dialog',
   templateUrl: 'reading-delete-dialog.html',
+  styleUrls: ['./list-reading.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -125,6 +126,7 @@ export class ReadingDeleteDialog {
 @Component({
   selector: 'app-reading-create-dialog',
   templateUrl: 'reading-create-dialog.html',
+  styleUrls: ['./list-reading.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -153,6 +155,7 @@ export class ReadingCreateDialog {
 @Component({
   selector: 'app-reading-update-dialog',
   templateUrl: 'reading-update-dialog.html',
+  styleUrls: ['./list-reading.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })

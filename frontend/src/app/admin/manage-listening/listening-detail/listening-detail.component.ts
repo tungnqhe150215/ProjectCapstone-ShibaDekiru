@@ -7,12 +7,9 @@ import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {Listening} from "../../../core/models/listening";
-import {Lesson} from "../../../core/models/lesson";
 import {AdminManageListeningService} from "../admin-manage-listening.service";
-import {LessonService} from "../../../core/services/lesson.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {ListeningCreateDialog, ListeningDeleteDialog, ListeningUpdateDialog} from "../list-listening/list-listening.component";
 import {AdminManageListeningQuestionService} from "../admin-manage-listening-question.service";
 import {ListeningQuestion} from "../../../core/models/listening-question";
 import {FormsModule} from "@angular/forms";
@@ -36,11 +33,11 @@ export class ListeningDetailComponent implements OnInit{
   id!: number;
 
   constructor(
-    private manageListeningService:AdminManageListeningService,
-    private manageListeningQuestionService: AdminManageListeningQuestionService,
-    private router:Router,
-    private route:ActivatedRoute,
-    public dialog: MatDialog) {
+      private manageListeningService:AdminManageListeningService,
+      private manageListeningQuestionService: AdminManageListeningQuestionService,
+      private router:Router,
+      private route:ActivatedRoute,
+      public dialog: MatDialog) {
     // Assign the data to the data source for the table to render
   }
 
@@ -85,9 +82,9 @@ export class ListeningDetailComponent implements OnInit{
 
   openUpdateListeningQuestionDialog(id:number){
     this.dialog.open(ListeningQuestionUpdateDialog,
-      {
-        data: id
-      }
+        {
+          data: id
+        }
     ).afterClosed().subscribe(() => this.getListeningQuestion());
   }
 }
@@ -98,14 +95,15 @@ export class ListeningDetailComponent implements OnInit{
 @Component({
   selector: 'app-listening-question-delete-dialog',
   templateUrl: 'listening-question-delete-dialog.html',
+  styleUrls: ['./listening-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class ListeningQuestionDeleteDialog {
   constructor(
-    public dialogRef: MatDialogRef<ListeningQuestionDeleteDialog>,
-    private manageListeningQuestionService: AdminManageListeningQuestionService,
-    @Inject(MAT_DIALOG_DATA) public data: number,
+      public dialogRef: MatDialogRef<ListeningQuestionDeleteDialog>,
+      private manageListeningQuestionService: AdminManageListeningQuestionService,
+      @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
   deleteListeningQuestion(id:number){
     this.manageListeningQuestionService.deleteListeningQuestion(id).subscribe(data => {
@@ -123,6 +121,7 @@ export class ListeningQuestionDeleteDialog {
 @Component({
   selector: 'app-listening-question-create-dialog',
   templateUrl: 'listening-question-create-dialog.html',
+  styleUrls: ['./listening-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -131,9 +130,9 @@ export class ListeningQuestionCreateDialog {
   listeningQuestion:ListeningQuestion =  new ListeningQuestion();
 
   constructor(
-    public dialogRef: MatDialogRef<ListeningQuestionCreateDialog>,
-    private manageListeningQuestionService: AdminManageListeningQuestionService,
-    @Inject(MAT_DIALOG_DATA) public data: number,
+      public dialogRef: MatDialogRef<ListeningQuestionCreateDialog>,
+      private manageListeningQuestionService: AdminManageListeningQuestionService,
+      @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
   createListeningQuestion(){
@@ -154,18 +153,20 @@ export class ListeningQuestionCreateDialog {
 @Component({
   selector: 'app-listening-question-update-dialog',
   templateUrl: 'listening-question-update-dialog.html',
+  styleUrls: ['./listening-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
-export class ListeningQuestionUpdateDialog implements OnInit{
+export class ListeningQuestionUpdateDialog implements OnInit {
 
-  listeningQuestion:ListeningQuestion =  new ListeningQuestion();
+  listeningQuestion: ListeningQuestion = new ListeningQuestion();
 
   constructor(
-    public dialogRef: MatDialogRef<ListeningQuestionUpdateDialog>,
-    private manageListeningQuestionService: AdminManageListeningQuestionService,
-    @Inject(MAT_DIALOG_DATA) public data: number,
-  ) {}
+      public dialogRef: MatDialogRef<ListeningQuestionUpdateDialog>,
+      private manageListeningQuestionService: AdminManageListeningQuestionService,
+      @Inject(MAT_DIALOG_DATA) public data: number,
+  ) {
+  }
 
   ngOnInit(): void {
     this.listeningQuestion = new ListeningQuestion();
@@ -174,10 +175,10 @@ export class ListeningQuestionUpdateDialog implements OnInit{
     })
   }
 
-  updateListeningQuestion(){
+  updateListeningQuestion() {
     console.log(this.listeningQuestion)
     console.log(this.data)
-    this.manageListeningQuestionService.updateListeningQuestion(this.data,this.listeningQuestion).subscribe(data => {
+    this.manageListeningQuestionService.updateListeningQuestion(this.data, this.listeningQuestion).subscribe(data => {
       this.dialogRef.close();
     })
   }

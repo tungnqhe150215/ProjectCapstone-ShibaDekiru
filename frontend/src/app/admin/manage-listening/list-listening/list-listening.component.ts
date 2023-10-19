@@ -103,6 +103,7 @@ export class ListListeningComponent implements OnInit{
 @Component({
   selector: 'app-listening-delete-dialog',
   templateUrl: 'listening-delete-dialog.html',
+  styleUrls: ['./list-listening.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -125,6 +126,7 @@ export class ListeningDeleteDialog {
 @Component({
   selector: 'app-listening-create-dialog',
   templateUrl: 'listening-create-dialog.html',
+  styleUrls: ['./list-listening.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -153,6 +155,7 @@ export class ListeningCreateDialog {
 @Component({
   selector: 'app-listening-update-dialog',
   templateUrl: 'listening-update-dialog.html',
+  styleUrls: ['./list-listening.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })

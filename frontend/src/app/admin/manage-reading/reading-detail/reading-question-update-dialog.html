@@ -1,14 +1,16 @@
-<h2 mat-dialog-title class="m-auto">Update reading question</h2>
+<h2 mat-dialog-title cclass="text-center border-bottom text-bg-info">Update question</h2>
 <mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Question</mat-label>
-    <textarea matInput [(ngModel)]="readingQuestion.question" >{{readingQuestion.question}}</textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>Sample answer</mat-label>
-    <textarea matInput [(ngModel)]="readingQuestion.sampleAnswer" >{{readingQuestion.sampleAnswer}}</textarea>
-  </mat-form-field>
+  <form class="form-dialog">
+    <mat-form-field>
+      <mat-label>Question</mat-label>
+      <textarea matInput [(ngModel)]="readingQuestion.question" required>{{readingQuestion.question}}</textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Sample answer</mat-label>
+      <textarea matInput [(ngModel)]="readingQuestion.sampleAnswer" >{{readingQuestion.sampleAnswer}}</textarea>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>

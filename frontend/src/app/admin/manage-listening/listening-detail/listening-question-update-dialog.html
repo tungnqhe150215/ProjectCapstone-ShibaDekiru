@@ -1,32 +1,36 @@
-<h2 mat-dialog-title class="m-auto">Update reading question</h2>
+<form class="form-dialog">
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Update question</h2>
 <mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Question</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.question" >{{listeningQuestion.question}}</textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field >
-    <mat-label>First choice</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.firstChoice" >{{listeningQuestion.firstChoice}}</textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field >
-    <mat-label>Second choice</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.secondChoice" >{{listeningQuestion.secondChoice}}</textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field >
-    <mat-label>Third choice</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.thirdChoice" >{{listeningQuestion.thirdChoice}}</textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field >
-    <mat-label>Correct answer</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.correctAnswer" >{{listeningQuestion.correctAnswer}}</textarea>
-  </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Question</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.question" [ngModelOptions]="{standalone: true}" required>{{listeningQuestion.question}}</textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field >
+      <mat-label>First choice</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.firstChoice" [ngModelOptions]="{standalone: true}" required>{{listeningQuestion.firstChoice}}</textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field >
+      <mat-label>Second choice</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.secondChoice" [ngModelOptions]="{standalone: true}" required>{{listeningQuestion.secondChoice}}</textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field >
+      <mat-label>Third choice (Optional)</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.thirdChoice" [ngModelOptions]="{standalone: true}">{{listeningQuestion.thirdChoice}}</textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field >
+      <mat-label>Correct answer</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.correctAnswer" [ngModelOptions]="{standalone: true}" required>{{listeningQuestion.correctAnswer}}</textarea>
+    </mat-form-field>
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <button mat-button [mat-dialog-close]="true" (click)="updateListeningQuestion()">Update</button>
 </mat-dialog-actions>
+</form>

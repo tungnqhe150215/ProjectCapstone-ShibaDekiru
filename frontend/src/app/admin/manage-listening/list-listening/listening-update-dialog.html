@@ -1,19 +1,21 @@
-<h2 mat-dialog-title class="m-auto">Update listening</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Update listening part</h2>
 <mat-dialog-content>
+  <form class="form-dialog">
   <mat-form-field>
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="listening.title" [value]="listening.title" type="text">
+    <input matInput [(ngModel)]="listening.title" [value]="listening.title" [ngModelOptions]="{standalone: true}" type="text" required>
   </mat-form-field>
   <br>
   <mat-form-field>
     <mat-label>Link</mat-label>
-    <input matInput [(ngModel)]="listening.link" [value]="listening.link" type="text">
+    <input matInput [(ngModel)]="listening.link" [value]="listening.link" [ngModelOptions]="{standalone: true}" type="text" required>
   </mat-form-field>
   <br>
   <mat-form-field>
     <mat-label>Script</mat-label>
-    <textarea matInput [(ngModel)]="listening.script" [value]="listening.script" type="text">{{listening.script}}</textarea>
+    <textarea rows="7" matInput [(ngModel)]="listening.script" [value]="listening.script" [ngModelOptions]="{standalone: true}" type="text">{{listening.script}}</textarea>
   </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
