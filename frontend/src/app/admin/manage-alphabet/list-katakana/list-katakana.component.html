@@ -1,7 +1,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<h2>Katakana List</h2>
+    <div class="navbar-nav">
+        <div class="">
+            <a routerLink="../list-katakana" routerLinkActive="active" class="nav-link">
+                <h2>Katakana List</h2>
+            </a>
+        </div>
+        <div class="">
+            <button mat-raised-button>
+                <a routerLink="../create-katakana" routerLinkActive="active" class="nav-link">
+                    Create Katakana
+                </a>
+            </button>
+        </div>
+    </div>
 <div>
     <input type="text" placeholder="Search katakana character" style="width: 450px;padding: 2px 20px; margin:10px 0px; height:30px;
           " [(ngModel)]="filterText">
@@ -26,8 +39,8 @@
             <td>{{katakana.romanji}}</td>
 
             <td>
-                <button class="btn btn-info">Update</button>
-                <button class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+                <button (click)="updateKatakana(katakana.katakanaId)" class="btn btn-info">Update</button>
+                <button (click)="deleteKatakana(katakana.katakanaId)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
                 <button class="btn btn-info" style="margin-left: 10px;">View</button>
             </td>
         </tr>

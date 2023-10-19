@@ -68,6 +68,8 @@ import { UpdateUserComponent } from './manage-user/update-user/update-user.compo
 import {MatSelectModule} from '@angular/material/select';
 import { CreateHiraganaComponent } from './manage-alphabet/create-hiragana/create-hiragana.component';
 import { UpdateHiraganaComponent } from './manage-alphabet/update-hiragana/update-hiragana.component';
+import { CreateKatakanaComponent } from './manage-alphabet/create-katakana/create-katakana.component';
+import { UpdateKatakanaComponent } from './manage-alphabet/update-katakana/update-katakana.component';
 
 
 @NgModule({
@@ -106,6 +108,8 @@ import { UpdateHiraganaComponent } from './manage-alphabet/update-hiragana/updat
     CreateGrammarComponent,
     UpdateGrammarComponent,
     UpdateUserComponent,
+    CreateKatakanaComponent,
+    UpdateKatakanaComponent,
     
   ],
   imports: [
