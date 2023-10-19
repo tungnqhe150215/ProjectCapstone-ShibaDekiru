@@ -65,7 +65,7 @@ public class HiraganaServiceImpl implements IHiraganaService {
 
     @Override
     public void deleteHiragana(Long hiraganaId) {
-        Hiragana hiragana = hiraganaRepository.findById(hiraganaId).orElseThrow(() -> new ResourceNotFoundException("Kanji not exist with id:" + hiraganaId));
+        Hiragana hiragana = hiraganaRepository.findById(hiraganaId).orElseThrow(() -> new ResourceNotFoundException("Hiragana not exist with id:" + hiraganaId));
         hiraganaRepository.delete(hiragana);
     }
 }

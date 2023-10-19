@@ -64,7 +64,7 @@ public class KatakanaServiceImpl implements IKatakanaService {
 
     @Override
     public void deleteKatakana(Long katakanaId) {
-        Katakana katakana = katakanaRepository.findById(katakanaId).orElseThrow(() -> new ResourceNotFoundException("Kanji not exist with id:" + katakanaId));
+        Katakana katakana = katakanaRepository.findById(katakanaId).orElseThrow(() -> new ResourceNotFoundException("Katakana not exist with id:" + katakanaId));
         katakanaRepository.delete(katakana);
     }
 }
