@@ -26,4 +26,23 @@ export class ListHiraganaComponent implements OnInit {
       this.hiraganas = data;
     });
   }
+
+  hiraganaDetails(id: number) {
+    this.router.navigate(['/admin/hiragana-details', id]);
+  }
+  updateHiragana(id: number) {
+    this.router.navigate(['/admin/update-hiragana', id]);
+  }
+  deleteHiragana(id: number) {
+    this.hiraganaService.deleteHiragana(id).subscribe((data) => {
+      console.log(data);
+      this.getHiragana();
+    });
+  }
+  key: string = 'id';
+  reverse: boolean = false;
+  sort(key: string) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 }
