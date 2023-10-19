@@ -1,9 +1,11 @@
-<h2 mat-dialog-title class="m-auto">Update writing</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Update writing part</h2>
 <mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Topic</mat-label>
-    <input matInput [(ngModel)]="writing.topic" [value]="writing.topic" type="text">
-  </mat-form-field>
+  <form class="form-dialog">
+    <mat-form-field>
+      <mat-label>Topic</mat-label>
+      <input matInput [(ngModel)]="writing.topic" [value]="writing.topic" [ngModelOptions]="{standalone: true}" type="text" required>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>

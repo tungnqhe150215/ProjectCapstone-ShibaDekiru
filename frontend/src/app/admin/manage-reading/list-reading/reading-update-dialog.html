@@ -1,19 +1,22 @@
-<h2 mat-dialog-title class="m-auto">Update reading</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Update reading part</h2>
 <mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="reading.title" [value]="reading.title" type="text">
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>Content</mat-label>
-    <input matInput [(ngModel)]="reading.content" [value]="reading.content" type="text">
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>Image</mat-label>
-    <input matInput [(ngModel)]="reading.image" [value]="reading.image" type="text">
-  </mat-form-field>
+  <form class="form-dialog">
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="reading.title" [value]="reading.title" [ngModelOptions]="{standalone: true}" type="text" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Content</mat-label>
+      <input matInput [(ngModel)]="reading.content" [value]="reading.content" [ngModelOptions]="{standalone: true}" type="text" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Image</mat-label>
+      <input matInput [(ngModel)]="reading.image" [value]="reading.image" [ngModelOptions]="{standalone: true}" type="text">
+    </mat-form-field>
+  </form>
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>

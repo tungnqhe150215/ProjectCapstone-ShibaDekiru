@@ -3,6 +3,7 @@ table {
 }
 
 .mat-mdc-form-field {
+  margin-top: 20px;
   font-size: 14px;
   width: 100%;
 }
@@ -18,4 +19,8 @@ td, th {
 .mat-column-topic,
 .mat-column-lesson-name{
   width: 37%;
+}
+
+.form-dialog{
+  width: 500px;
 }

@@ -103,6 +103,7 @@ export class ListWritingComponent implements OnInit{
 @Component({
   selector: 'app-writing-delete-dialog',
   templateUrl: 'writing-delete-dialog.html',
+  styleUrls: ['./list-writing.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -125,6 +126,7 @@ export class WritingDeleteDialog {
 @Component({
   selector: 'app-writing-create-dialog',
   templateUrl: 'writing-create-dialog.html',
+  styleUrls: ['./list-writing.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -153,6 +155,7 @@ export class WritingCreateDialog {
 @Component({
   selector: 'app-writing-update-dialog',
   templateUrl: 'writing-update-dialog.html',
+  styleUrls: ['./list-writing.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })

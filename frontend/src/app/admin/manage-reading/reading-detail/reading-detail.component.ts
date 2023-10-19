@@ -7,12 +7,9 @@ import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {Reading} from "../../../core/models/reading";
-import {Lesson} from "../../../core/models/lesson";
 import {AdminManageReadingService} from "../admin-manage-reading.service";
-import {LessonService} from "../../../core/services/lesson.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {ReadingCreateDialog, ReadingDeleteDialog, ReadingUpdateDialog} from "../list-reading/list-reading.component";
 import {AdminManageReadingQuestionService} from "../admin-manage-reading-question.service";
 import {ReadingQuestion} from "../../../core/models/reading-question";
 import {FormsModule} from "@angular/forms";
@@ -98,6 +95,7 @@ export class ReadingDetailComponent implements OnInit{
 @Component({
   selector: 'app-reading-question-delete-dialog',
   templateUrl: 'reading-question-delete-dialog.html',
+  styleUrls: ['./reading-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -123,6 +121,7 @@ export class ReadingQuestionDeleteDialog {
 @Component({
   selector: 'app-reading-question-create-dialog',
   templateUrl: 'reading-question-create-dialog.html',
+  styleUrls: ['./reading-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -154,6 +153,7 @@ export class ReadingQuestionCreateDialog {
 @Component({
   selector: 'app-reading-question-update-dialog',
   templateUrl: 'reading-question-update-dialog.html',
+  styleUrls: ['./reading-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })

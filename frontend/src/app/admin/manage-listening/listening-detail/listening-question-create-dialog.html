@@ -1,29 +1,32 @@
-<h2 mat-dialog-title>Create new listening question</h2>
+<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Add new question</h2>
 <mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Question</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.question" ></textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field >
-    <mat-label>First choice</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.firstChoice" ></textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field >
-    <mat-label>Second choice</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.secondChoice" ></textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field >
-    <mat-label>Third choice</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.thirdChoice" ></textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field >
-    <mat-label>Correct answer</mat-label>
-    <textarea matInput [(ngModel)]="listeningQuestion.correctAnswer" ></textarea>
-  </mat-form-field>
+  <form class="form-dialog">
+    <mat-form-field>
+      <mat-label>Question</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.question" [ngModelOptions]="{standalone: true}" required></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field >
+      <mat-label>First choice</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.firstChoice" [ngModelOptions]="{standalone: true}" required></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field >
+      <mat-label>Second choice</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.secondChoice" [ngModelOptions]="{standalone: true}" required></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field >
+      <mat-label>Third choice (Optional)</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.thirdChoice" [ngModelOptions]="{standalone: true}"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field >
+      <mat-label>Correct answer</mat-label>
+      <textarea matInput [(ngModel)]="listeningQuestion.correctAnswer" [ngModelOptions]="{standalone: true}" required></textarea>
+    </mat-form-field>
+  </form>
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>

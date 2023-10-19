@@ -98,6 +98,7 @@ export class WritingDetailComponent implements OnInit{
 @Component({
   selector: 'app-writing-question-delete-dialog',
   templateUrl: 'writing-question-delete-dialog.html',
+  styleUrls: ['./writing-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -123,6 +124,7 @@ export class WritingQuestionDeleteDialog {
 @Component({
   selector: 'app-writing-question-create-dialog',
   templateUrl: 'writing-question-create-dialog.html',
+  styleUrls: ['./writing-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
@@ -154,6 +156,7 @@ export class WritingQuestionCreateDialog {
 @Component({
   selector: 'app-writing-question-update-dialog',
   templateUrl: 'writing-question-update-dialog.html',
+  styleUrls: ['./writing-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
