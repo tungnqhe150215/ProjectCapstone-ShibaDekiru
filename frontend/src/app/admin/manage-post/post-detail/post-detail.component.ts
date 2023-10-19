@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../post.service';
 import { Post } from 'src/app/core/models/post';
 
@@ -12,7 +12,7 @@ export class PostDetailComponent implements OnInit{
 
   id!:number;
   post:Post = new Post;
-  constructor(private route: ActivatedRoute, private postService: PostService ){
+  constructor(private route: ActivatedRoute, private postService: PostService, private router:Router, ){
 
   }
 
@@ -26,4 +26,7 @@ export class PostDetailComponent implements OnInit{
     
   }
 
+  goToPost(){
+    this.router.navigate(['admin/post']);
+  }
 }

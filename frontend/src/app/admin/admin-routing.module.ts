@@ -32,6 +32,10 @@ import { UpdateGrammarComponent } from './manage-grammar/update-grammar/update-g
 import {ListListeningComponent} from "./manage-listening/list-listening/list-listening.component";
 import {ListeningDetailComponent} from "./manage-listening/listening-detail/listening-detail.component";
 import { UpdateUserComponent } from './manage-user/update-user/update-user.component';
+import { CreateHiraganaComponent } from './manage-alphabet/create-hiragana/create-hiragana.component';
+import { UpdateHiraganaComponent } from './manage-alphabet/update-hiragana/update-hiragana.component';
+import { CreateKatakanaComponent } from './manage-alphabet/create-katakana/create-katakana.component';
+import { UpdateKatakanaComponent } from './manage-alphabet/update-katakana/update-katakana.component';
 
 
 
@@ -60,7 +64,11 @@ const routes: Routes = [
       { path:'lesson/:id/listening',component:ListListeningComponent},
       { path:'lesson/listening/:id',component:ListeningDetailComponent},
       {path:'list-hiragana',component:ListHiraganaComponent},
+      {path:'create-hiragana',component:CreateHiraganaComponent},
+      {path:'update-hiragana/:id',component:UpdateHiraganaComponent},
       {path:'list-katakana',component:ListKatakanaComponent},
+      {path:'create-katakana',component:CreateKatakanaComponent},
+      {path:'update-katakana/:id',component:UpdateKatakanaComponent},
       {path:'create-kanji',component:CreateKanjiComponent},
       {path:'update-kanji/:id',component:UpdateKanjiComponent},
       {path:'list-vocabulary',component:ListVocabularyComponent},

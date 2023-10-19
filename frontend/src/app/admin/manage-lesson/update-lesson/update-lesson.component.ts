@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lesson } from 'src/app/core/models/lesson';
 import { LessonService } from 'src/app/core/services/lesson.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-update-lesson',
@@ -12,7 +13,11 @@ export class UpdateLessonComponent implements OnInit {
   id!:number;
   lesson: Lesson = new Lesson();
   status!: boolean;
-  constructor(private lessonService: LessonService, private route: ActivatedRoute, private router: Router){
+  constructor(
+    private lessonService: LessonService,
+     private route: ActivatedRoute, 
+     private router: Router,
+     private nofiService: NotificationService){
 
   }
   ngOnInit(): void {
@@ -29,11 +34,12 @@ export class UpdateLessonComponent implements OnInit {
   onSubmit(){
     this.lessonService.updateLesson(this.id, this.lesson).subscribe(data =>{
       this.goTolessonList();
+      this.nofiService.openSnackBar('Update lesson successful','OK');
     },
     error => console.log(error));
   }
   goTolessonList(){
-    this.router.navigate(['admin/list-kanji']);
+    this.router.navigate(['admin/lesson']);
   }
 
 }

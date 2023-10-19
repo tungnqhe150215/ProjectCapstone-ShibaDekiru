@@ -1,0 +1,24 @@
+<div class="col-md-6 offset-md-3" >
+    <button mat-raised-button>
+        <a routerLink="../list-hiragana" routerLinkActive="active" class="nav-link">
+            List Hiraganas
+        </a>
+    </button>
+    <h3 class="center" style="display: flex;
+    justify-content: center;
+    align-items: center;">Create hiragana</h3>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="hiraganaCharacter">Hiragana Character</label>
+            <input type="text" class="form-control" id="hiraganaCharacter" [(ngModel)]="hiragana.hiraganaCharacter"
+                name="hiraganaCharacter" />
+        </div>
+        <div class="form-group">
+            <label for="hiraganaCharacter">Romanji</label>
+            <input type="text" class="form-control" id="romanji" [(ngModel)]="hiragana.romanji"
+                name="romanji" />
+        </div>
+        <br>
+        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Submit</button>
+    </form>
+</div>

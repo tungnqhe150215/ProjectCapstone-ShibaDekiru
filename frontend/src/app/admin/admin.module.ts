@@ -66,6 +66,10 @@ import { ListListeningComponent } from './manage-listening/list-listening/list-l
 import { ListeningDetailComponent } from './manage-listening/listening-detail/listening-detail.component';
 import { UpdateUserComponent } from './manage-user/update-user/update-user.component';
 import {MatSelectModule} from '@angular/material/select';
+import { CreateHiraganaComponent } from './manage-alphabet/create-hiragana/create-hiragana.component';
+import { UpdateHiraganaComponent } from './manage-alphabet/update-hiragana/update-hiragana.component';
+import { CreateKatakanaComponent } from './manage-alphabet/create-katakana/create-katakana.component';
+import { UpdateKatakanaComponent } from './manage-alphabet/update-katakana/update-katakana.component';
 
 
 @NgModule({
@@ -92,6 +96,8 @@ import {MatSelectModule} from '@angular/material/select';
     UpdateLessonComponent,
     ListKanjiComponent,
     ListHiraganaComponent,
+    CreateHiraganaComponent,
+    UpdateHiraganaComponent,
     ListKatakanaComponent,
     CreateKanjiComponent,
     UpdateKanjiComponent,
@@ -102,6 +108,8 @@ import {MatSelectModule} from '@angular/material/select';
     CreateGrammarComponent,
     UpdateGrammarComponent,
     UpdateUserComponent,
+    CreateKatakanaComponent,
+    UpdateKatakanaComponent,
     
   ],
   imports: [

@@ -17,11 +17,30 @@ export class ListKatakanaComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.getHiragana();
+    this.getKatakana();
   }
-  private getHiragana() {
+  private getKatakana() {
     this.katakanaService.getKatakanaList().subscribe((data) => {
       this.katakanas = data;
     });
+  }
+  katakanaDetails(id: number) {
+    this.router.navigate(['/admin/katakana-details', id]);
+  }
+
+  updateKatakana(id: number) {
+    this.router.navigate(['/admin/update-katakana', id]);
+  }
+  deleteKatakana(id: number) {
+    this.katakanaService.deleteKatakana(id).subscribe((data) => {
+      console.log(data);
+      this.getKatakana();
+    });
+  }
+  key: string = 'id';
+  reverse: boolean = false;
+  sort(key: string) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 }

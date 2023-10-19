@@ -43,7 +43,7 @@ public class GrammarServiceImpl implements IGrammarService {
 
         String grammarName = grammar.getGrammarName();
         String grammarStructure = grammar.getGrammarStructure();
-        String description = grammar.getGrammarStructure();
+        String description = grammar.getDescription();
         String example = grammar.getExample();
         Long lessonId = grammar.getLesson().getLessonId();
 

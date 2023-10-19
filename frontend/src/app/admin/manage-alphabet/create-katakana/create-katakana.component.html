@@ -1,0 +1,24 @@
+<div class="col-md-6 offset-md-3" >
+    <button mat-raised-button>
+        <a routerLink="../list-katakana" routerLinkActive="active" class="nav-link">
+            List Katakanas
+        </a>
+    </button>
+    <h3 class="center" style="display: flex;
+    justify-content: center;
+    align-items: center;">Create Katakana</h3>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="katakanaCharacter">Katakana Character</label>
+            <input type="text" class="form-control" id="katakanaCharacter" [(ngModel)]="katakana.katakanaCharacter"
+                name="katakanaCharacter" />
+        </div>
+        <div class="form-group">
+            <label for="romanji">Romanji</label>
+            <input type="text" class="form-control" id="romanji" [(ngModel)]="katakana.romanji"
+                name="romanji" />
+        </div>
+        <br>
+        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Submit</button>
+    </form>
+</div>
