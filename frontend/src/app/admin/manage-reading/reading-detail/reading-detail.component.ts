@@ -13,13 +13,15 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angula
 import {AdminManageReadingQuestionService} from "../admin-manage-reading-question.service";
 import {ReadingQuestion} from "../../../core/models/reading-question";
 import {FormsModule} from "@angular/forms";
+import {MatCardModule} from "@angular/material/card";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-reading-detail',
   templateUrl: './reading-detail.component.html',
   styleUrls: ['./reading-detail.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule],
 })
 export class ReadingDetailComponent implements OnInit{
   displayedColumns: string[] = ['id', 'question', 'sample-answer','action'];
@@ -103,12 +105,17 @@ export class ReadingQuestionDeleteDialog {
   constructor(
     public dialogRef: MatDialogRef<ReadingQuestionDeleteDialog>,
     private manageReadingQuestionService: AdminManageReadingQuestionService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
   deleteReadingQuestion(id:number){
     this.manageReadingQuestionService.deleteReadingQuestion(id).subscribe(data => {
       this.dialogRef.close();
     })
+    this._snackBar.open('Deleted!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -132,6 +139,7 @@ export class ReadingQuestionCreateDialog {
   constructor(
     public dialogRef: MatDialogRef<ReadingQuestionCreateDialog>,
     private manageReadingQuestionService: AdminManageReadingQuestionService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
@@ -140,6 +148,10 @@ export class ReadingQuestionCreateDialog {
     this.manageReadingQuestionService.createReadingQuestion(this.data,this.readingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
+    this._snackBar.open('New reading question added!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   onNoClick(): void {
@@ -164,6 +176,7 @@ export class ReadingQuestionUpdateDialog implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<ReadingQuestionUpdateDialog>,
     private manageReadingQuestionService: AdminManageReadingQuestionService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
@@ -180,6 +193,10 @@ export class ReadingQuestionUpdateDialog implements OnInit{
     this.manageReadingQuestionService.updateReadingQuestion(this.data,this.readingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
+    this._snackBar.open('Reading question added!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   onNoClick(): void {

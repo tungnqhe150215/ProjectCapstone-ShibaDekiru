@@ -16,13 +16,15 @@ import {WritingCreateDialog, WritingDeleteDialog, WritingUpdateDialog} from "../
 import {AdminManageWritingQuestionService} from "../admin-manage-writing-question.service";
 import {WritingQuestion} from "../../../core/models/writing-question";
 import {FormsModule} from "@angular/forms";
+import {MatCardModule} from "@angular/material/card";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-writing-detail',
   templateUrl: './writing-detail.component.html',
   styleUrls: ['./writing-detail.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule],
 })
 export class WritingDetailComponent implements OnInit{
   displayedColumns: string[] = ['id', 'question', 'sample-answer','action'];
@@ -106,12 +108,17 @@ export class WritingQuestionDeleteDialog {
   constructor(
     public dialogRef: MatDialogRef<WritingQuestionDeleteDialog>,
     private manageWritingQuestionService: AdminManageWritingQuestionService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
   deleteWritingQuestion(id:number){
     this.manageWritingQuestionService.deleteWritingQuestion(id).subscribe(data => {
       this.dialogRef.close();
     })
+    this._snackBar.open('Deleted!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -135,6 +142,7 @@ export class WritingQuestionCreateDialog {
   constructor(
     public dialogRef: MatDialogRef<WritingQuestionCreateDialog>,
     private manageWritingQuestionService: AdminManageWritingQuestionService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
@@ -143,6 +151,10 @@ export class WritingQuestionCreateDialog {
     this.manageWritingQuestionService.createWritingQuestion(this.data,this.writingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
+    this._snackBar.open('New writing question created!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   onNoClick(): void {
@@ -167,6 +179,7 @@ export class WritingQuestionUpdateDialog implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<WritingQuestionUpdateDialog>,
     private manageWritingQuestionService: AdminManageWritingQuestionService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
@@ -183,6 +196,10 @@ export class WritingQuestionUpdateDialog implements OnInit{
     this.manageWritingQuestionService.updateWritingQuestion(this.data,this.writingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
+    this._snackBar.open('Writing question updated!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   onNoClick(): void {

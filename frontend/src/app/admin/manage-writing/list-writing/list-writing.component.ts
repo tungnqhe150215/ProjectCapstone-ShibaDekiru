@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import {Lesson} from "../../../core/models/lesson";
 import {LessonService} from "../../../core/services/lesson.service";
 import {data} from "autoprefixer";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-list-writing',
@@ -111,12 +112,17 @@ export class WritingDeleteDialog {
   constructor(
       public dialogRef: MatDialogRef<WritingDeleteDialog>,
       private manageWritingService:AdminManageWritingService,
+      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
   deleteWriting(id:number){
     this.manageWritingService.deleteWriting(id).subscribe(data => {
       this.dialogRef.close();
     })
+    this._snackBar.open('Deleted!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -137,6 +143,7 @@ export class WritingCreateDialog {
   constructor(
       public dialogRef: MatDialogRef<WritingCreateDialog>,
       private manageWritingService:AdminManageWritingService,
+      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
@@ -146,6 +153,10 @@ export class WritingCreateDialog {
       console.log(data)
       this.dialogRef.close();
     })
+    this._snackBar.open('New writing part added!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   onNoClick(): void {
@@ -166,6 +177,7 @@ export class WritingUpdateDialog implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<WritingUpdateDialog>,
     private manageWritingService:AdminManageWritingService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
@@ -182,6 +194,10 @@ export class WritingUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close();
     })
+    this._snackBar.open('Writing part updated!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   onNoClick(): void {

@@ -13,13 +13,15 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angula
 import {AdminManageListeningQuestionService} from "../admin-manage-listening-question.service";
 import {ListeningQuestion} from "../../../core/models/listening-question";
 import {FormsModule} from "@angular/forms";
+import {MatCardModule} from "@angular/material/card";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-listening-detail',
   templateUrl: './listening-detail.component.html',
   styleUrls: ['./listening-detail.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule],
 })
 export class ListeningDetailComponent implements OnInit{
   displayedColumns: string[] = ['id', 'question', 'correct-answer','action'];
@@ -103,12 +105,17 @@ export class ListeningQuestionDeleteDialog {
   constructor(
       public dialogRef: MatDialogRef<ListeningQuestionDeleteDialog>,
       private manageListeningQuestionService: AdminManageListeningQuestionService,
+      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
   deleteListeningQuestion(id:number){
     this.manageListeningQuestionService.deleteListeningQuestion(id).subscribe(data => {
       this.dialogRef.close();
     })
+      this._snackBar.open('Deleted!!', 'Close', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+      });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -132,6 +139,7 @@ export class ListeningQuestionCreateDialog {
   constructor(
       public dialogRef: MatDialogRef<ListeningQuestionCreateDialog>,
       private manageListeningQuestionService: AdminManageListeningQuestionService,
+      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
@@ -140,6 +148,10 @@ export class ListeningQuestionCreateDialog {
     this.manageListeningQuestionService.createListeningQuestion(this.data,this.listeningQuestion).subscribe(data => {
       this.dialogRef.close();
     })
+      this._snackBar.open('Listening question added!!', 'Close', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+      });
   }
 
   onNoClick(): void {
@@ -164,6 +176,7 @@ export class ListeningQuestionUpdateDialog implements OnInit {
   constructor(
       public dialogRef: MatDialogRef<ListeningQuestionUpdateDialog>,
       private manageListeningQuestionService: AdminManageListeningQuestionService,
+      private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
   ) {
   }
@@ -181,6 +194,10 @@ export class ListeningQuestionUpdateDialog implements OnInit {
     this.manageListeningQuestionService.updateListeningQuestion(this.data, this.listeningQuestion).subscribe(data => {
       this.dialogRef.close();
     })
+      this._snackBar.open('Listening question updated!!', 'Close', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+      });
   }
 
   onNoClick(): void {
