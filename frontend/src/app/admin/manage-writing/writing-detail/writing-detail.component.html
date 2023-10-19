@@ -1,5 +1,13 @@
-
-<h3 class="text-center m-auto mb-28">Writing details </h3>
+<h1 class="text-center m-auto mb-28">Writing details </h1>
+<hr>
+<mat-card class="detail-card">
+  <mat-card-header>
+    <mat-card-title>
+      <h4 class="text-center" style="margin: auto">{{writing.topic}}</h4>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content></mat-card-content>
+</mat-card>
 <hr>
 <button mat-raised-button (click)="openCreateWritingQuestionDialog(id)"> Create writing question </button>
 <mat-form-field>

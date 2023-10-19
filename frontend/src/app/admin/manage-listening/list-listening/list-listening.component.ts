@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import {Lesson} from "../../../core/models/lesson";
 import {LessonService} from "../../../core/services/lesson.service";
 import {data} from "autoprefixer";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-list-listening',
@@ -111,12 +112,17 @@ export class ListeningDeleteDialog {
   constructor(
     public dialogRef: MatDialogRef<ListeningDeleteDialog>,
     private manageListeningService:AdminManageListeningService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
   deleteListening(id:number){
     this.manageListeningService.deleteListening(id).subscribe(data => {
       this.dialogRef.close();
     })
+    this._snackBar.open('Deleted!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -137,6 +143,7 @@ export class ListeningCreateDialog {
   constructor(
     public dialogRef: MatDialogRef<ListeningCreateDialog>,
     private manageListeningService:AdminManageListeningService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
@@ -146,6 +153,10 @@ export class ListeningCreateDialog {
       console.log(data)
       this.dialogRef.close();
     })
+    this._snackBar.open('New listening part added!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   onNoClick(): void {
@@ -166,6 +177,7 @@ export class ListeningUpdateDialog implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<ListeningUpdateDialog>,
     private manageListeningService:AdminManageListeningService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
@@ -182,6 +194,10 @@ export class ListeningUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close();
     })
+    this._snackBar.open('Listening part updated!!', 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 
   onNoClick(): void {
