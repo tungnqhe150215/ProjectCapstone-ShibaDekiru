@@ -1,7 +1,7 @@
 import {UserAccount} from "./user-account";
 
 export class Lecture {
-  id?:number
+  lectureId?:number
   user?:UserAccount
   first_name?:String
   last_name?:String

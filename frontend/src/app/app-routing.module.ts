@@ -4,6 +4,9 @@ import {AdminModule} from "./admin/admin.module";
 import { LecturersModule } from './lecturers/lecturers.module';
 import { NavsideComponent } from './lecturers/navside/navside.component';
 import { ListPostComponent } from './lecturers/lecturers-post/list-post/list-post.component';
+import { ViewPostComponent } from './lecturers/lecturers-post/view-post/view-post.component';
+import { CreatePostComponent } from './lecturers/lecturers-post/create-post/create-post.component';
+import { UpdatePostComponent } from './lecturers/lecturers-post/update-post/update-post.component';
 
 
 const routes: Routes = [
@@ -21,7 +24,11 @@ const routes: Routes = [
     path: 'lecturers',
     component: NavsideComponent,
     children:[
-      {path: 'list-post' ,component: ListPostComponent}
+      {path: 'post' ,component: ListPostComponent},
+      {path: '', redirectTo: 'post', pathMatch: 'full'},
+      {path: 'post/post-detail/:id', component:ViewPostComponent},
+      {path: 'post/create-post', component:CreatePostComponent},
+      {path: 'post/update-post/:id', component:UpdatePostComponent}
     ]
   }
 
