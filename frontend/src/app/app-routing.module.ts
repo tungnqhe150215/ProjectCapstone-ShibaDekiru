@@ -21,14 +21,15 @@ const routes: Routes = [
   //   loadChildren: () => import('./lecturers/lecturers.module').then(m => m.LecturersModule)
   // },
   {
-    path: 'lecturers',
+    path: 'lecturer',
     component: NavsideComponent,
     children:[
       {path: 'post' ,component: ListPostComponent},
       {path: '', redirectTo: 'post', pathMatch: 'full'},
       {path: 'post/post-detail/:id', component:ViewPostComponent},
       {path: 'post/create-post', component:CreatePostComponent},
-      {path: 'post/update-post/:id', component:UpdatePostComponent}
+      {path: 'post/update-post/:id', component:UpdatePostComponent},
+      // {path: ':id/post' ,component: ListPostComponent},
     ]
   }
 
