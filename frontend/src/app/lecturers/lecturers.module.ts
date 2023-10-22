@@ -7,8 +7,15 @@ import { ListPostComponent } from './lecturers-post/list-post/list-post.componen
 import { ViewPostComponent } from './lecturers-post/view-post/view-post.component';
 import { NavsideComponent } from './navside/navside.component';
 import { RouterModule } from '@angular/router';
-
-
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatIconModule} from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,8 +27,17 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    MatButtonModule,
     // LecturersRoutingModule,
-    RouterModule
+    RouterModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
   ]
 })
 export class LecturersModule { }
