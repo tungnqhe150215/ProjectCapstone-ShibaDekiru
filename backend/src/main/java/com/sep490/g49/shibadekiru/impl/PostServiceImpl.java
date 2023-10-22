@@ -40,6 +40,11 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
+    public List<Post> getPostPartByLecture(Lectures lectures) {
+        return postRepository.findByLecture(lectures);
+    }
+
+    @Override
     public List<Lectures> getAllLectures() {
         return lecturersRepository.findAll();
     }
@@ -49,11 +54,10 @@ public class PostServiceImpl implements IPostService {
         // Convert PostDTO to Post entity
         Post post = modelMapper.map(postDTO, Post.class);
 
-        // Set Lecture for the post
-        Lectures lecture = lecturersRepository.findById(postDTO.getLectures().getLectureId())
+        Lectures lecture = lecturersRepository.findById(postDTO.getLectureId())
                 .orElseThrow(() -> new ResourceNotFoundException("Lecture not found"));
 
-        post.setLectures(lecture);
+        post.setLecture(lecture);
         post.setCreatedAt(LocalDateTime.now());
 
         // Save the post
@@ -77,12 +81,11 @@ public class PostServiceImpl implements IPostService {
             post.setDescription(updatedPostDto.getDescription());
             post.setCreatedAt(LocalDateTime.now());
             post.setIsEnabled(updatedPostDto.getIsEnabled());
-
             Post updated = postRepository.save(post);
 
             return modelMapper.map(updated, PostDto.class);
         } else {
-            throw new ResourceNotFoundException("Post not found");
+            throw new ResourceNotFoundException("Post not found " + postId);
         }
     }
 
