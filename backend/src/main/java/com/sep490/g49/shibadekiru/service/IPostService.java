@@ -11,6 +11,8 @@ public interface IPostService {
 
     List<Post> getAllPosts();
 
+    List<Post> getPostPartByLecture(Lectures lectures);
+
     PostDto createPost(PostDto post);
 
     PostDto updatePost(Long id, PostDto post);

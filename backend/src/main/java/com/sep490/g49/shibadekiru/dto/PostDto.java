@@ -17,5 +17,5 @@ public class PostDto {
     private String description;
     private LocalDateTime createdAt;
     private Boolean isEnabled;
-    private LecturesDto lectures;
+    private Long lectureId;
 }
