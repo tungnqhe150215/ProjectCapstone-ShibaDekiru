@@ -28,7 +28,7 @@ public class AdminManageHiraganaController {
 
     IHiraganaService hiraganaService;
 
-    @GetMapping
+    @GetMapping()
     public List<HiraganaDto> getAllHiragana () {
         return hiraganaService.getAllHiragana().stream().map(hiragana -> modelMapper.map(hiragana, HiraganaDto.class)).collect(Collectors.toList());
     }
