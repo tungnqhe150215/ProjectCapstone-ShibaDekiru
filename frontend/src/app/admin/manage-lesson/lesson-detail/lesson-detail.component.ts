@@ -28,4 +28,10 @@ export class LessonDetailComponent implements OnInit{
   backtoList(){
     this.router.navigate(['admin/lesson']);
   }
+  gotoKanji(){
+    this.router.navigate(['admin/list-kanji']);
+  }
+  gotoWriting(){
+    this.router.navigate(['admin/lesson/'+this.id+'/writing']);
+  }
 }
