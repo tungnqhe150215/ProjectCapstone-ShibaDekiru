@@ -34,4 +34,10 @@ export class LessonDetailComponent implements OnInit{
   gotoWriting(){
     this.router.navigate(['admin/lesson/'+this.id+'/writing']);
   }
+  gotoListening(){
+    this.router.navigate(['admin/lesson/'+this.id+'/listening']);
+  }
+  gotoReading(){
+    this.router.navigate(['admin/lesson/'+this.id+'/reading']);
+  }
 }
