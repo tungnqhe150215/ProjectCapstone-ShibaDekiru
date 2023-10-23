@@ -1,6 +1,5 @@
 package com.sep490.g49.shibadekiru.controller.lecture;
 
-import com.sep490.g49.shibadekiru.dto.HiraganaDto;
 import com.sep490.g49.shibadekiru.dto.QuestionBankDto;
 import com.sep490.g49.shibadekiru.entity.QuestionBank;
 import com.sep490.g49.shibadekiru.service.IQuestionBankService;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequestMapping("/api/admin/question")
-public class AdminManageQuestionBankController {
+public class LectureManageQuestionBankController {
 
     ModelMapper modelMapper;
 
