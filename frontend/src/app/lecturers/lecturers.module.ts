@@ -16,6 +16,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { ClassworkComponent } from './classwork/classwork.component';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     UpdatePostComponent,
     ListPostComponent,
     ViewPostComponent,
-    NavsideComponent
+    NavsideComponent,
+    ClassworkComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +42,8 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatInputModule,
     FormsModule,
+    MatTabsModule,
+    
   ]
 })
 export class LecturersModule { }
