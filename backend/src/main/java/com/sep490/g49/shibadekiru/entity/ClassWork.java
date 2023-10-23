@@ -40,5 +40,10 @@ public class ClassWork implements Serializable {
     @JsonBackReference
     private List<Exercise> exercise;
 
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "class_id", referencedColumnName = "class_id")
+    private Class cClass;
+
 
 }
