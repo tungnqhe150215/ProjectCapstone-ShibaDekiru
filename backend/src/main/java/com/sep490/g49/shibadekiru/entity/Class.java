@@ -33,7 +33,7 @@ public class Class implements Serializable {
     @JsonBackReference
     private List<ClassStudent> classStudent;
 
-    @ManyToOne()
+    @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "lecture_id", referencedColumnName = "lecture_id")
     private Lectures lectures;
