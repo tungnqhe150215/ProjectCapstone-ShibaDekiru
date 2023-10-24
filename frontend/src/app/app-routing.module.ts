@@ -7,6 +7,7 @@ import { ListPostComponent } from './lecturers/lecturers-post/list-post/list-pos
 import { ViewPostComponent } from './lecturers/lecturers-post/view-post/view-post.component';
 import { CreatePostComponent } from './lecturers/lecturers-post/create-post/create-post.component';
 import { UpdatePostComponent } from './lecturers/lecturers-post/update-post/update-post.component';
+import { ClassworkComponent } from './lecturers/classwork/classwork.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
       {path: 'post/post-detail/:id', component:ViewPostComponent},
       {path: 'post/create-post', component:CreatePostComponent},
       {path: 'post/update-post/:id', component:UpdatePostComponent},
+      {path: 'class-work', component: ClassworkComponent},
       // {path: ':id/post' ,component: ListPostComponent},
     ]
   }
