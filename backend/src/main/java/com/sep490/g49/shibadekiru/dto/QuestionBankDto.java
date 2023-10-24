@@ -16,5 +16,5 @@ public class QuestionBankDto {
     private String thirdChoice;
     private String fourthChoice;
     private String correctAnswer;
-    private TestDto testDto;
+    private Long testId;
 }
