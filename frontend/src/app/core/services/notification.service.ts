@@ -13,7 +13,8 @@ export class NotificationService {
     this.snackBar.open(message, action,{
       duration: 1000,
       verticalPosition: 'top',
-      horizontalPosition: 'right'
+      horizontalPosition: 'right',
+      panelClass: ['blue-snackbar']
     });
   }
 }
