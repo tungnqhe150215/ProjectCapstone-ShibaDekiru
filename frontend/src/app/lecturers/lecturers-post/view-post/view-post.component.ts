@@ -27,7 +27,7 @@ export class ViewPostComponent implements OnInit{
   }
 
   goToPost(){
-    this.router.navigate(['lecturer/post']);
+    this.router.navigate(['/lecturer/3/post']);
   }
 
 }
