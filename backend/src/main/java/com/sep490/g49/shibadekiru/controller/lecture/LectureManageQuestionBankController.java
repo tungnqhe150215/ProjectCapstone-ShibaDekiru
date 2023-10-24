@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/api/admin/question")
+@RequestMapping("/api/lecture/question")
 public class LectureManageQuestionBankController {
 
     ModelMapper modelMapper;

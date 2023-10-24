@@ -14,6 +14,5 @@ public class ClassDto {
     private String className;
     private String classCode;
     private Boolean isLocked;
-    private List<ClassStudentDto> classStudentDtoList;
-    private LecturesDto lecturesDto;
+    private Long lectureId;
 }

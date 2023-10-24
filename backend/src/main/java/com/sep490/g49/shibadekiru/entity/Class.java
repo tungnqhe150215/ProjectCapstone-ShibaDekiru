@@ -28,11 +28,6 @@ public class Class implements Serializable {
     @Column(name = "is_locked", nullable = false)
     private Boolean isLocked;
 
-
-    @OneToMany(mappedBy = "aclass")
-    @JsonBackReference
-    private List<ClassStudent> classStudent;
-
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "lecture_id", referencedColumnName = "lecture_id")
