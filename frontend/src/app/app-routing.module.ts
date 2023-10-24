@@ -8,6 +8,8 @@ import { ViewPostComponent } from './lecturers/lecturers-post/view-post/view-pos
 import { CreatePostComponent } from './lecturers/lecturers-post/create-post/create-post.component';
 import { UpdatePostComponent } from './lecturers/lecturers-post/update-post/update-post.component';
 import { ClassworkComponent } from './lecturers/classwork/classwork.component';
+import { AddClassworkComponent } from './lecturers/classwork/add-classwork/add-classwork.component';
+import { UpdateClassworkComponent } from './lecturers/classwork/update-classwork/update-classwork.component';
 
 
 const routes: Routes = [
@@ -32,6 +34,11 @@ const routes: Routes = [
       {path: 'post/update-post/:id', component:UpdatePostComponent},
       {path: 'class-work', component: ClassworkComponent},
       // {path: ':id/post' ,component: ListPostComponent},
+      // {path: 'class',component:ClassworkComponent},
+      {path: 'class/:id/class-work', component:ClassworkComponent},
+      {path: 'class/class-work/:id', component:UpdateClassworkComponent},
+      
+      // {path: 'class/:id/create-work', component:AddClassworkComponent},
     ]
   }
 

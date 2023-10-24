@@ -21,8 +21,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { AddClassworkComponent } from './classwork/add-classwork/add-classwork.component';
 import { UpdateClassworkComponent } from './classwork/update-classwork/update-classwork.component';
 import { DeleteClassworkComponent } from './classwork/delete-classwork/delete-classwork.component';
-
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 @NgModule({
   declarations: [
     CreatePostComponent,
@@ -49,7 +49,8 @@ import { DeleteClassworkComponent } from './classwork/delete-classwork/delete-cl
     MatInputModule,
     FormsModule,
     MatTabsModule,
-    
+    MatDatepickerModule,
+    MatNativeDateModule,
   ]
 })
 export class LecturersModule { }
