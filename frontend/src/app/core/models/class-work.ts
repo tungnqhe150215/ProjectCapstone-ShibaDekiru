@@ -1,9 +1,10 @@
 import {Class} from "./class";
 
 export class ClassWork {
-    id?:number
-    class?:Class
+    classWorkId?:number
+    classId?:number
     name?:String
-    created_at?:Date
-    is_locked?:Boolean
+    createdAt?:Date
+    deadline?:Date
+    isLocked?:Boolean
 }

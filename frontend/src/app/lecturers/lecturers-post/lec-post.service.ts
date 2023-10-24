@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 export class LecPostService {
 
   private baseURL = "http://localhost:8080/api/admin/post";
-  private baseLecURL = "http://localhost:8080/api/lecturer";
+  private baseLecURL = "http://localhost:8080/api/lecture";
   post: Post[] = [];
 
   constructor(private httpClient: HttpClient) { }
 
   getlistByUser(id: number): Observable<Post[]>{
-    return this.httpClient.get<Post[]>(`${this.baseLecURL}${id}/post`);
+    return this.httpClient.get<Post[]>(`${this.baseLecURL}/${id}/post`);
   }
 
   getPostlist(): Observable<Post[]>{
