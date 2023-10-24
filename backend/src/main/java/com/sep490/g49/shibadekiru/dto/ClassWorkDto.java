@@ -18,6 +18,6 @@ public class ClassWorkDto {
     private LocalDateTime createdAt;
     private LocalDateTime deadline;
     private Boolean isLocked;
-    private List<StudentClassWorkDto> studentClassWorkDtoList;
-    private List<ExerciseDto> exerciseDtoList;
+    private Long classId;
+
 }

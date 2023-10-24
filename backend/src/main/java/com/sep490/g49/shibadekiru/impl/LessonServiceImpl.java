@@ -84,7 +84,7 @@ public class LessonServiceImpl implements ILessonService {
             return lessonRepository.save(lesson);
 
         } else {
-            throw new ResourceNotFoundException("Lesson not found");
+            throw new ResourceNotFoundException("Lesson not found with: " + lessonId);
         }
     }
 

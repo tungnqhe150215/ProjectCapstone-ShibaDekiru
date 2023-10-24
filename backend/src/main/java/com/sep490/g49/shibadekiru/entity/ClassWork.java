@@ -32,18 +32,11 @@ public class ClassWork implements Serializable {
     @Column(name = "is_locked", nullable = false)
     private Boolean isLocked;
 
-    @OneToMany(mappedBy = "classWork")
-    @JsonBackReference
-    private List<StudentClassWork> studentClassWork;
-
-    @OneToMany(mappedBy = "classWork")
-    @JsonBackReference
-    private List<Exercise> exercise;
 
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "class_id", referencedColumnName = "class_id")
-    private Class cClass;
+    private Class aclasss;
 
 
 }
