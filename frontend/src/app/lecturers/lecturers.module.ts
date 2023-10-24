@@ -18,6 +18,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { ClassworkComponent } from './classwork/classwork.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { AddClassworkComponent } from './classwork/add-classwork/add-classwork.component';
+import { UpdateClassworkComponent } from './classwork/update-classwork/update-classwork.component';
+import { DeleteClassworkComponent } from './classwork/delete-classwork/delete-classwork.component';
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     ListPostComponent,
     ViewPostComponent,
     NavsideComponent,
-    ClassworkComponent
+    ClassworkComponent,
+    AddClassworkComponent,
+    UpdateClassworkComponent,
+    DeleteClassworkComponent
   ],
   imports: [
     CommonModule,

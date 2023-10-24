@@ -28,7 +28,7 @@ export class ListPostComponent implements OnInit {
 
   post: Post[] = [];
   user: UserAccount = new UserAccount;
-  idU = 3;
+  idU:number = 3;
   constructor(
     private postService: PostService,
     private lecpostService: LecPostService,
