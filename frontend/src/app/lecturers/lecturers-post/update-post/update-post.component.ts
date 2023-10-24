@@ -32,6 +32,6 @@ export class UpdatePostComponent implements OnInit {
     })
   }
   gotoPostList(){
-    this.router.navigate(['lecturer']);
+    this.router.navigate(['/lecturer/3/post']);
   }
 }
