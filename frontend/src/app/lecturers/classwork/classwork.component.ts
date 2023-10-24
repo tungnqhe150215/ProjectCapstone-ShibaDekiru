@@ -23,7 +23,7 @@ export class ClassworkComponent implements OnInit{
 
   classWork: ClassWork[] = [];
 
-  id:number = 1;
+  idU:number = 1;
   ngOnInit(): void {
     this.getClassWorkList();
   }
@@ -43,7 +43,7 @@ export class ClassworkComponent implements OnInit{
 
 
   getClassWorkList(){
-    this.classWorkService.getAllClassWorkInClass(this.id).subscribe({
+    this.classWorkService.getAllClassWorkInClass(this.idU).subscribe({
       next:(res) =>{
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
