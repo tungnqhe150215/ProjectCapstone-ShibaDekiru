@@ -13,7 +13,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 })
 export class AddClassworkComponent implements OnInit {
   classWork: ClassWork = new ClassWork();
-  id:number = 1;
+  idU:number = 1;
   constructor(
     private classWorkService: ClassworkService,
     private notifiService: NotificationService,
@@ -24,7 +24,7 @@ export class AddClassworkComponent implements OnInit {
   ngOnInit(): void { }
 
   createClassWork(){
-    this.classWorkService.createClassWork(this.id, this.classWork).subscribe(data =>{
+    this.classWorkService.createClassWork(this.idU, this.classWork).subscribe(data =>{
       console.log(data);
       this.notifiService.openSnackBar('Create Class Work Done','Cancel');
       this.dialogRef.close();
