@@ -39,7 +39,7 @@ public class ClassWorkServiceImpl implements IClassWorkService {
 
         ClassWork classWork = modelMapper.map(classWorkDto, ClassWork.class);
 
-        Class aclass = classRepository.findById(classWorkDto.getClassId())
+        Class aclass = classRepository.findById(classWorkDto.getAclasss().getClassId())
                 .orElseThrow(() -> new ResourceNotFoundException("Class not found"));
 
         classWork.setCreatedAt(LocalDateTime.now());

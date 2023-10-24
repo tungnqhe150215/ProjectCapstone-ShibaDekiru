@@ -49,7 +49,6 @@ public class LectureManageClassWorkController {
     @PostMapping("/{id}/class-work")
     public ResponseEntity<ClassWorkDto> createClassWork(@RequestBody ClassWorkDto classWorkDto, @PathVariable (name = "id") Long classId) {
         System.out.printf("Class Id: " + iClassService.getClassById(classId).getClassId() + "\n");
-        classWorkDto.setClassId(iClassService.getClassById(classId).getClassId());
         ClassWorkDto classWorkResponse = iClassWorkService.createClassWork(classWorkDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(classWorkResponse);
 
@@ -74,6 +73,12 @@ public class LectureManageClassWorkController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted",Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/class-work/update-is-locked/{id}")
+    public ResponseEntity<Void> updateIsLocked(@PathVariable Long id) {
+        iClassWorkService.updateIsLocked(id);
+        return ResponseEntity.ok().build();
     }
 
 
