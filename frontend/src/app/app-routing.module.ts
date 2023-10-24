@@ -27,17 +27,17 @@ const routes: Routes = [
     path: 'lecturer',
     component: NavsideComponent,
     children:[
-      {path: 'post' ,component: ListPostComponent},
-      {path: '', redirectTo: 'post', pathMatch: 'full'},
+      // {path: 'post' ,component: ListPostComponent},
+      // {path: '', redirectTo: 'post', pathMatch: 'full'},
       {path: 'post/post-detail/:id', component:ViewPostComponent},
-      {path: 'post/create-post', component:CreatePostComponent},
+      // {path: ':id/post', component:CreatePostComponent},
       {path: 'post/update-post/:id', component:UpdatePostComponent},
       {path: 'class-work', component: ClassworkComponent},
-      // {path: ':id/post' ,component: ListPostComponent},
+      {path: ':id/post' ,component: ListPostComponent},
       // {path: 'class',component:ClassworkComponent},
       {path: 'class/:id/class-work', component:ClassworkComponent},
       {path: 'class/class-work/:id', component:UpdateClassworkComponent},
-      
+
       // {path: 'class/:id/create-work', component:AddClassworkComponent},
     ]
   }

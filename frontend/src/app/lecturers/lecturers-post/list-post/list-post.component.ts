@@ -42,29 +42,11 @@ export class ListPostComponent implements OnInit {
   }
 
 
-  getPostbyUser() {
-    // this.id = this.route.snapshot.params['id'];
-    this.user = new UserAccount;
-    this.userService.getUserByID(this.idU).subscribe(data => {
-      this.user = data;
-      console.log(data);
-    });
-    this.post = []
-    this.lecpostService.getlistByUser(this.idU).subscribe(data => {
-      this.post = data;
-      this.dataSource = new MatTableDataSource(this.post);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      console.log(data)
-    })
-    console.log(this.post)
-    console.log(this.idU)
-
-  }
+ 
 
   ngOnInit(): void {
-    this.GetPost();
-    // this.getPostbyUser();
+    // this.GetPost();
+    this.getPostbyUser();
 
   }
 
@@ -78,7 +60,34 @@ export class ListPostComponent implements OnInit {
   }
 
 
+  getPostbyUser() {
 
+    this.lecpostService.getlistByUser(this.idU).subscribe({
+      next:(res) =>{
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
+      error: console.log,
+    })
+    // this.id = this.route.snapshot.params['id'];
+    // this.user = new UserAccount;
+    // this.userService.getUserByID(this.idU).subscribe(data => {
+    //   this.user = data;
+    //   console.log(data);
+    // });
+    // this.post = []
+    // this.lecpostService.getlistByUser(this.idU).subscribe(data => {
+    //   this.post = data;
+    //   this.dataSource = new MatTableDataSource(this.post);
+    //   this.dataSource.paginator = this.paginator;
+    //   this.dataSource.sort = this.sort;
+    //   console.log(data)
+    // })
+    // console.log(this.post)
+    // console.log(this.idU)
+
+  }
 
   private GetPost() {
     this.postService.getPostlist()
