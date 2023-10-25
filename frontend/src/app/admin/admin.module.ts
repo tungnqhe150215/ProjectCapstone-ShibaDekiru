@@ -70,6 +70,7 @@ import { CreateHiraganaComponent } from './manage-alphabet/create-hiragana/creat
 import { UpdateHiraganaComponent } from './manage-alphabet/update-hiragana/update-hiragana.component';
 import { CreateKatakanaComponent } from './manage-alphabet/create-katakana/create-katakana.component';
 import { UpdateKatakanaComponent } from './manage-alphabet/update-katakana/update-katakana.component';
+import { ListClassComponent } from './manage-class/list-class/list-class.component';
 
 
 @NgModule({
@@ -110,7 +111,7 @@ import { UpdateKatakanaComponent } from './manage-alphabet/update-katakana/updat
     UpdateUserComponent,
     CreateKatakanaComponent,
     UpdateKatakanaComponent,
-    
+
   ],
   imports: [
     CommonModule,
@@ -137,6 +138,7 @@ import { UpdateKatakanaComponent } from './manage-alphabet/update-katakana/updat
     ReadingDetailComponent,
     ListListeningComponent,
     ListeningDetailComponent,
+    ListClassComponent,
     MatSnackBarModule,
     MatFormFieldModule,
     // MatSortModule,
