@@ -37,7 +37,7 @@ const routes: Routes = [
       // {path: 'class',component:ClassworkComponent},
       {path: 'class/:id/class-work', component:ClassworkComponent},
       {path: 'class/class-work/:id', component:UpdateClassworkComponent},
-
+      
       // {path: 'class/:id/create-work', component:AddClassworkComponent},
     ]
   }

@@ -22,11 +22,15 @@ export class ClassworkService {
     return this.httpClient.post(`${this.baseURL}/${id}/class-work`, classWork);
   }
 
-  updateClassWork(id: number, classWork:ClassWork):Observable<Object>{
+  updateClassWork(id: number, classWork:ClassWork): Observable<Object>{
     return this.httpClient.put(`${this.baseURL}/class-work/${id}`,classWork);
   }
 
   deleteClassWork(id: number): Observable<Object>{
     return this.httpClient.delete(`${this.baseURL}/class-work/${id}`);
+  }
+
+  disableClassWork(id:number){
+    return this.httpClient.put<void>(`${this.baseURL}/class-work/update-is-locked/${id}`,{});
   }
 }
