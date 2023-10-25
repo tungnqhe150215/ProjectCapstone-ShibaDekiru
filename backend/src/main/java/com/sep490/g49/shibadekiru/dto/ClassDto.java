@@ -14,5 +14,5 @@ public class ClassDto {
     private String className;
     private String classCode;
     private Boolean isLocked;
-    private Long lectureId;
+    private LecturesDto lecture;
 }

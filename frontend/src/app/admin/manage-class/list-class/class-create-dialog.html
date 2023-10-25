@@ -5,6 +5,13 @@
     <mat-label>Name</mat-label>
     <input matInput [(ngModel)]="class.className" [ngModelOptions]="{standalone: true}" type="text" required>
   </mat-form-field>
+  <br>
+
+  <mat-form-field>
+    <mat-label>Lecture Id</mat-label>
+    <input matInput [(ngModel)]="lecture.lectureId" [ngModelOptions]="{standalone: true}" type="text" required>
+  </mat-form-field>
+  <mat-slide-toggle [(ngModel)]="class.isLocked" [ngModelOptions]="{standalone: true}" > Lock this class</mat-slide-toggle>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>

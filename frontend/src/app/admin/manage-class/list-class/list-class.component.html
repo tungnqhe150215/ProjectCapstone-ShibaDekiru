@@ -22,10 +22,15 @@
       <td mat-cell *matCellDef="let row"> {{row.className}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="lecture">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Lecture </th>
+      <td mat-cell *matCellDef="let row"> {{row.lecture.firstName + ' ' + row.lecture.lastName}} </td>
+    </ng-container>
+
     <!-- Name Column -->
     <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Is locked </th>
-      <td mat-cell *matCellDef="let row"> {{row.isLocked}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let row"> {{row.isLocked == true ? 'locked':'open'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">

@@ -15,6 +15,8 @@ import {Lesson} from "../../../core/models/lesson";
 import {LessonService} from "../../../core/services/lesson.service";
 import {data} from "autoprefixer";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Lecture} from "../../../core/models/lecture";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-list-class',
@@ -24,7 +26,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule],
 })
 export class ListClassComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'name', 'status','action'];
+  displayedColumns: string[] = ['id', 'name', 'lecture','status','action'];
   dataSource!: MatTableDataSource<Class> ;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -126,12 +128,13 @@ export class ClassDeleteDialog {
   templateUrl: 'class-create-dialog.html',
   styleUrls: ['./list-class.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatSlideToggleModule],
 })
 export class ClassCreateDialog {
 
   class:Class =  new Class;
-
+  lecture: Lecture = new Lecture();
+  lock = true;
   constructor(
     public dialogRef: MatDialogRef<ClassCreateDialog>,
     private manageClassService:AdminManageClassService,
@@ -141,6 +144,7 @@ export class ClassCreateDialog {
 
   createClass(){
     console.log(this.class)
+    this.class.lecture = this.lecture;
     this.manageClassService.createClass(this.data,this.class).subscribe(data => {
       console.log(data)
       this.dialogRef.close();
