@@ -25,6 +25,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ClassworkDetailComponent } from './classwork/classwork-detail/classwork-detail.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+
 
 @NgModule({
   declarations: [
@@ -56,7 +60,9 @@ import { ClassworkDetailComponent } from './classwork/classwork-detail/classwork
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
   ]
 })
 export class LecturersModule { }

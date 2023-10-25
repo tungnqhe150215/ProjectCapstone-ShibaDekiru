@@ -12,4 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class LecturesDto {
     private Long lectureId;
+    private String firstName;
+    private String lastName;
 }

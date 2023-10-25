@@ -45,12 +45,12 @@
         <td mat-cell *matCellDef="let row"> {{row.memberId}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="isBanned">
+      <!-- <ng-container matColumnDef="resetCode">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Code Reset </th>
         <td mat-cell *matCellDef="let row"> {{row.resetCode}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="resetCode">
+      </ng-container> -->
+      
+      <ng-container matColumnDef="isBanned">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Ban </th>
         <td mat-cell *matCellDef="let row"> {{row.isBanned}} </td>
       </ng-container>

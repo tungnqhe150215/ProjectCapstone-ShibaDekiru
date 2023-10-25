@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.dto;
 
+import com.sep490.g49.shibadekiru.entity.Lectures;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,5 @@ public class ClassDto {
     private String className;
     private String classCode;
     private Boolean isLocked;
-    private Long lectureId;
+    private LecturesDto lecture;
 }

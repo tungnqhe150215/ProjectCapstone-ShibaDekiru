@@ -1,9 +1,11 @@
 package com.sep490.g49.shibadekiru.controller.lecture;
 
 import com.sep490.g49.shibadekiru.dto.ClassDto;
-import com.sep490.g49.shibadekiru.dto.QuestionBankDto;
+import com.sep490.g49.shibadekiru.dto.LecturesDto;
 import com.sep490.g49.shibadekiru.entity.Class;
+import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.service.IClassService;
+import com.sep490.g49.shibadekiru.service.ILecturesService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,19 +23,23 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/api/lecture/class")
+@RequestMapping("/api/lecture")
 public class LectureManageClassController {
 
     ModelMapper modelMapper;
 
     IClassService classService;
 
-    @GetMapping()
-    public List<ClassDto> getAllClass(){
-        return classService.getAllClass().stream().map(classLecture -> modelMapper.map(classLecture, ClassDto.class)).collect(Collectors.toList());
+    ILecturesService lectureService;
+
+    @GetMapping("/{lectureId}/class")
+    public List<ClassDto> getAllClassByLecture(@PathVariable (name = "lectureId") Long lectureId){
+        Lectures lecturesResponse = lectureService.getLectureById(lectureId);
+
+        return classService.getAllClassByLecture(lecturesResponse).stream().map(classLecture -> modelMapper.map(classLecture, ClassDto.class)).collect(Collectors.toList());
     }
 
-    @GetMapping("/{classId}")
+    @GetMapping("/class/{classId}")
     public ResponseEntity<ClassDto> getClassById(@PathVariable (name = "classId") Long classId) {
 
         Class classs = classService.getClassById(classId);
@@ -43,8 +49,11 @@ public class LectureManageClassController {
         return ResponseEntity.ok().body(classResponse);
     }
 
-    @PostMapping()
-    public ResponseEntity<ClassDto> createClass(@RequestBody ClassDto classDto) {
+    @PostMapping("/{lectureId}/class")
+    public ResponseEntity<ClassDto> createClass(@PathVariable (name = "lectureId") Long lectureId, @RequestBody ClassDto classDto) {
+        LecturesDto lecturesDto = new LecturesDto();
+        lecturesDto.setLectureId(lectureId);
+        classDto.setLecture(lecturesDto);
 
         Class classRequest = modelMapper.map(classDto, Class.class);
 
@@ -55,8 +64,8 @@ public class LectureManageClassController {
         return new ResponseEntity<ClassDto>(classResonse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{classId}")
-    public ResponseEntity<ClassDto> updateClass(@PathVariable Long classId, @RequestBody ClassDto classDto) {
+    @PutMapping("/class/{classId}")
+    public ResponseEntity<ClassDto> updateClass(@PathVariable (name = "classId") Long classId, @RequestBody ClassDto classDto) {
 
         Class classRequest = modelMapper.map(classDto, Class.class);
 
@@ -67,12 +76,18 @@ public class LectureManageClassController {
         return ResponseEntity.ok().body(classResponse);
     }
 
-    @DeleteMapping("/{classId}")
-    public ResponseEntity<Map<String, Boolean>> deleteClass(@PathVariable Long classId) {
+    @DeleteMapping("/class/{classId}")
+    public ResponseEntity<Map<String, Boolean>> deleteClass(@PathVariable (name = "classId") Long classId) {
         classService.deleteClass(classId);
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted",Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/class/update-is-locked/{id}")
+    public ResponseEntity<Void> updateIsLocked(@PathVariable Long id) {
+        classService.updateIsLocked(id);
+        return ResponseEntity.ok().build();
     }
 }
