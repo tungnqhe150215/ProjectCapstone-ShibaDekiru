@@ -26,8 +26,8 @@ public class ClassServiceImpl implements IClassService {
     LecturersRepository lecturersRepository;
 
     @Override
-    public List<Class> getAllClass() {
-        return classRepository.findAll();
+    public List<Class> getAllClassByLecture(Lectures lecture) {
+        return classRepository.findByLecture(lecture);
     }
 
     @Override

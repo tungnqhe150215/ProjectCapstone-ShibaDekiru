@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.service;
 
 import com.sep490.g49.shibadekiru.entity.Class;
+import com.sep490.g49.shibadekiru.entity.Lectures;
 
 import java.util.List;
 
@@ -8,7 +9,7 @@ public interface IClassService {
 
     Class getClassById(Long classId);
 
-    List<Class> getAllClass();
+    List<Class> getAllClassByLecture(Lectures lecture);
 
     Class createClass(Class classs);
 
