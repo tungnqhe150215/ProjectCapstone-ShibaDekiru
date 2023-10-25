@@ -36,7 +36,7 @@ public class ClassWork implements Serializable {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "class_id", referencedColumnName = "class_id")
-    private Class aclasss;
+    private Class myC;
 
 
 }

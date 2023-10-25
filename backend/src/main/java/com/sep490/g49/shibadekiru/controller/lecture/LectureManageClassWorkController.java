@@ -46,9 +46,9 @@ public class LectureManageClassWorkController {
         return ResponseEntity.ok().body(classWorkResponse);
     }
 
-    @PostMapping("/{id}/class-work")
-    public ResponseEntity<ClassWorkDto> createClassWork(@RequestBody ClassWorkDto classWorkDto, @PathVariable (name = "id") Long classId) {
-        System.out.printf("Class Id: " + iClassService.getClassById(classId).getClassId() + "\n");
+    @PostMapping("/{classId}/class-work")
+    public ResponseEntity<ClassWorkDto> createClassWork( @PathVariable (name = "classId") Long classId, @RequestBody ClassWorkDto classWorkDto) {
+        classWorkDto.setMyCId(classId);
         ClassWorkDto classWorkResponse = iClassWorkService.createClassWork(classWorkDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(classWorkResponse);
 

@@ -16,6 +16,6 @@ public class ClassWorkDto {
     private LocalDateTime createdAt;
     private LocalDateTime deadline;
     private Boolean isLocked;
-    private ClassDto aclasss;
+    private Long myCId;
 
 }

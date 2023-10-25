@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -29,8 +30,8 @@ public class ClassWorkServiceImpl implements IClassWorkService {
 
 
     @Override
-    public List<ClassWork> getClassWorkByClass(Class aclasss) {
-        return classWorkRepository.findByAclasss(aclasss);
+    public List<ClassWork> getClassWorkByClass(Class myC) {
+        return classWorkRepository.findByMyC(myC);
     }
 
     @Override
@@ -39,15 +40,23 @@ public class ClassWorkServiceImpl implements IClassWorkService {
 
         ClassWork classWork = modelMapper.map(classWorkDto, ClassWork.class);
 
-        Class aclass = classRepository.findById(classWorkDto.getAclasss().getClassId())
+        Class aclass = classRepository.findById(classWorkDto.getMyCId())
                 .orElseThrow(() -> new ResourceNotFoundException("Class not found"));
 
+
+
         classWork.setCreatedAt(LocalDateTime.now());
-        classWork.setAclasss(aclass);
+        classWork.setName(classWorkDto.getName());
+        classWork.setDeadline(classWorkDto.getDeadline());
+        classWork.setIsLocked(classWork.getIsLocked());
+        //classWorkDto.setClassId(aclass.getClassId());
+        classWork.setMyC(aclass);
 
 
         ClassWork saveClassWork = classWorkRepository.save(classWork);
+
         ClassWorkDto workDto =  modelMapper.map(saveClassWork, ClassWorkDto.class);
+
 
         return workDto;
 

@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ClassWorkRepository extends JpaRepository<ClassWork, Long> {
-    List<ClassWork> findByAclasss(Class aclasss);
+    List<ClassWork> findByMyC(Class myC);
 }
