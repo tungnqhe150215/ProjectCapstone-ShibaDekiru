@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ClassworkService } from '../classwork.service';
 import { ClassWork } from 'src/app/core/models/class-work';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { Class } from 'src/app/core/models/class';
 
 @Component({
   selector: 'app-add-classwork',
@@ -14,6 +15,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 export class AddClassworkComponent implements OnInit {
   classWork: ClassWork = new ClassWork();
   idU:number = 1;
+  class: Class = new Class();
   constructor(
     private classWorkService: ClassworkService,
     private notifiService: NotificationService,
