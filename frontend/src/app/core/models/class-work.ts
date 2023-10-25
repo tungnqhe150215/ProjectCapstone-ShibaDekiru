@@ -1,8 +1,8 @@
 import {Class} from "./class";
 
 export class ClassWork {
-    classWorkId?:number
-    aclasss?:Class
+    classWorkId!:number
+    myCId?:number
     name?:String
     createdAt?:Date
     deadline?:Date

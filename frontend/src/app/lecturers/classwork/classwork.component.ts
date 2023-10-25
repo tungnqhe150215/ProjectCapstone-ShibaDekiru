@@ -11,6 +11,8 @@ import {MatTableModule} from '@angular/material/table';
 import { ClassworkService } from './classwork.service';
 import { ClassWork } from 'src/app/core/models/class-work';
 import { AddClassworkComponent } from './add-classwork/add-classwork.component';
+import { UpdateClassworkComponent } from './update-classwork/update-classwork.component';
+import { ClassworkDetailComponent } from './classwork-detail/classwork-detail.component';
 
 
 
@@ -52,8 +54,8 @@ export class ClassworkComponent implements OnInit{
       error: console.log,
     });
   }
-  
-  
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -69,5 +71,34 @@ export class ClassworkComponent implements OnInit{
     }).afterClosed().subscribe(() => this.getClassWorkList())
   }
 
+  disableClassWork(disableClassWork: ClassWork){
+    this.classWorkService.disableClassWork(disableClassWork.classWorkId).subscribe( () =>{
+      disableClassWork.isLocked = !disableClassWork.isLocked;
+      this.notifiService.openSnackBar('Change status successful','OK');
+    })
+  }
+
+
+  deleteClassWork(id:number){
+    this.classWorkService.deleteClassWork(id).subscribe({
+      next: (res) => {
+        this.notifiService.openSnackBar('Classwork deleted!', 'Ok');
+        this.getClassWorkList();
+      },
+      error: console.log,
+    })
+  }
+
+  openUpdateClassWorkDialog(id:number){
+    this.dialog.open(UpdateClassworkComponent,{
+      data:id
+    }).afterClosed().subscribe( () => this.getClassWorkList())
+  }
+
+  openClassWorkDetailDialog(id:number){
+    this.dialog.open(ClassworkDetailComponent,{
+      data:id
+    }).afterClosed().subscribe( ()=> this.getClassWorkList())
+  }
 
 }

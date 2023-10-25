@@ -42,7 +42,7 @@ export class ListPostComponent implements OnInit {
   }
 
 
- 
+
 
   ngOnInit(): void {
     // this.GetPost();
@@ -108,7 +108,7 @@ export class ListPostComponent implements OnInit {
   addData() {
     this.dialog.open(CreatePostComponent, {
 
-    }).afterClosed().subscribe(() => this.GetPost())
+    }).afterClosed().subscribe(() => this.getPostbyUser())
   }
 
   postDetail(id: number) {

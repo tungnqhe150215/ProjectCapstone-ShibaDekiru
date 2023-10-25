@@ -60,7 +60,7 @@
                             
                                   <ng-container matColumnDef="ClassID">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> ClassID </th>
-                                    <td mat-cell *matCellDef="let row"> {{row.aclasss.classId}} </td>
+                                    <td mat-cell *matCellDef="let row"> {{row.myCId}} </td>
                                   </ng-container>
                               
                                   <ng-container matColumnDef="Status">
@@ -71,9 +71,10 @@
                                   <ng-container matColumnDef="Action">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                                     <td mat-cell *matCellDef="let row">
-                                      <!-- <button (click)="updatePost(row.postId)" mat-icon-button> <mat-icon>edit</mat-icon> </button>
-                                      <button (click)="postDetail(row.postId)" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button>
-                                      <button mat-icon-button color="warn" (click)="deletePost(row.postId)"><mat-icon>remove_circle </mat-icon></button> -->
+                                      <button (click)="openUpdateClassWorkDialog(row.classWorkId)" mat-icon-button> <mat-icon>edit</mat-icon> </button>
+                                      <button (click)="openClassWorkDetailDialog(row.classWorkId)" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button>
+                                      <button mat-icon-button color="warn" (click)="deleteClassWork(row.classWorkId)"><mat-icon>remove_circle </mat-icon></button>
+                                      <button class="star-button" [class.star-marked]="row.isLocked" (click)="disableClassWork(row)"><mat-icon>power_settings_new</mat-icon></button>
                                     </td>
                                   </ng-container>
                             

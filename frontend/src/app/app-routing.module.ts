@@ -35,9 +35,9 @@ const routes: Routes = [
       {path: 'class-work', component: ClassworkComponent},
       {path: ':id/post' ,component: ListPostComponent},
       // {path: 'class',component:ClassworkComponent},
-      {path: ':id/class-work', component:ClassworkComponent},
+      {path: 'class/:id/class-work', component:ClassworkComponent},
       {path: 'class/class-work/:id', component:UpdateClassworkComponent},
-
+      
       // {path: 'class/:id/create-work', component:AddClassworkComponent},
     ]
   }

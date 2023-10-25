@@ -10,9 +10,9 @@ public interface IClassService {
 
     List<Class> getAllClass();
 
-    Class createClass(Class classRequest);
+    Class createClass(Class classs);
 
-    Class updateClass(Long id, Class classRequest);
+    Class updateClass(Long classId, Class classUpdate);
 
-    void deleteClass(Long id);
+    void deleteClass(Long classId);
 }
