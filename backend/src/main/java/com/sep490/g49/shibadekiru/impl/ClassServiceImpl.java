@@ -21,8 +21,10 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ClassServiceImpl implements IClassService {
 
+    @Autowired
     ClassRepository classRepository;
 
+    @Autowired
     LecturersRepository lecturersRepository;
 
     @Override
@@ -41,59 +43,23 @@ public class ClassServiceImpl implements IClassService {
     }
 
     @Override
-    public Class createClass(Class classs) {
-
-        String className = classs.getClassName();
-        String classCode = classs.getClassCode();
-        Boolean isLocked = classs.getIsLocked();
-        Long lectureId = classs.getLecture().getLectureId();
-
-        Optional<Lectures> lecturesOptional = lecturersRepository.findById(lectureId);
-
-        if(lecturesOptional.isPresent()) {
-
-            Lectures lectures = lecturesOptional.get();
-
-            Class class1 = new Class();
-            class1.setClassName(className);
-            class1.setClassCode(classCode);
-            class1.setIsLocked(isLocked);
-            class1.setLecture(lectures);
-
-            return classRepository.save(class1);
-        } else {
-            throw new ResourceNotFoundException("Class can't be added.");
-        }
+    public Class createClass(Class classRequest) {
+        return classRepository.save(classRequest);
     }
 
     @Override
-    public Class updateClass(Long classId, Class classUpdate) {
-
-        String className = classUpdate.getClassName();
-        String classCode = classUpdate.getClassCode();
-        Boolean isLocked = classUpdate.getIsLocked();
-        Lectures lecture = classUpdate.getLecture();
-
-        Optional<Class> classOptional = classRepository.findById(classId);
-
-        if(classOptional.isPresent()) {
-            Class classs = classOptional.get();
-
-            classs.setClassName(className);
-            classs.setClassCode(classCode);
-            classs.setIsLocked(isLocked);
-            classs.setLecture(lecture);
-
-            return classRepository.save(classs);
-        } else {
-            throw new ResourceNotFoundException("Class not found");
-        }
+    public Class updateClass(Long id, Class classRequest) {
+        Class aClass = classRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        aClass.setClassName(classRequest.getClassName());
+        aClass.setIsLocked(classRequest.getIsLocked());
+        return classRepository.save(aClass);
     }
 
     @Override
-    public void deleteClass(Long classId) {
-        Class classDelete = classRepository.findById(classId).orElseThrow(() -> new ResourceNotFoundException("Class not exist with id:" + classId));
-        classRepository.delete(classDelete);
+    public void deleteClass(Long id) {
+        Class aClass = classRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        classRepository.delete(aClass);
     }
-
 }

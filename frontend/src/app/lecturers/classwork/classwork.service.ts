@@ -18,6 +18,9 @@ export class ClassworkService {
     return this.httpClient.get<ClassWork[]>(`${this.baseURL}/${id}/class-work`);
   }
 
+  getClassWorkByID(id: number): Observable<ClassWork>{
+    return this.httpClient.get<ClassWork>(`${this.baseURL}/class-work/${id}`);
+  }
   createClassWork(id: number, classWork:ClassWork): Observable<Object>{
     return this.httpClient.post(`${this.baseURL}/${id}/class-work`, classWork);
   }

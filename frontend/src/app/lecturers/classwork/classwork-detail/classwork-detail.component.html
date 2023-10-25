@@ -1,0 +1,22 @@
+
+<div class="container">
+    <h3 class="text-center">Class Work Detail</h3>
+    <form >
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "classWork.name" [value]="classWork.name" [ngModelOptions]="{standalone: true}" >
+            <label class="m-2">Status</label>
+            <input type="radio" [(ngModel)] = "classWork.isLocked" value="true" name="isLocked" [ngModelOptions]="{standalone: true}" [value]="classWork.isLocked"  > Unlock
+            <input type="radio" [(ngModel)] = "classWork.isLocked" value="false" name="isLocked"  [ngModelOptions]="{standalone: true}" [value]="classWork.isLocked" > Lock
+        </div>
+        <div class="form-group">
+            <label class="mr-2" >Create At</label>
+            <input type="text" class="form-control" id="createdAt" name="createdAt"   [value]="classWork.createdAt">
+            <label class="mr-2" >Deadline</label>
+            <input type="text" class="form-control" id="deadline" name="deadline" [value]="classWork.deadline"  >
+            
+            </div>
+            <button mat-button mat-dialog-close>Cancel</button>   
+        <!-- <button class="btn btn-success" type="submit"  (click)="updateClassWork()">Submit</button> -->
+    </form>
+</div>
