@@ -52,8 +52,8 @@ export class ClassworkComponent implements OnInit{
       error: console.log,
     });
   }
-  
-  
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
