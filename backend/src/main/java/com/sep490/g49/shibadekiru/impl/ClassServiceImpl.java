@@ -21,10 +21,10 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ClassServiceImpl implements IClassService {
 
-    @Autowire
+    @Autowired
     ClassRepository classRepository;
 
-    @Autowire
+    @Autowired
     LecturersRepository lecturersRepository;
 
     @Override
