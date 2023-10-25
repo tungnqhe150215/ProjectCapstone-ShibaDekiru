@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.controller.lecture;
 
 import com.sep490.g49.shibadekiru.dto.ClassDto;
+import com.sep490.g49.shibadekiru.dto.LecturesDto;
 import com.sep490.g49.shibadekiru.entity.Class;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.service.IClassService;
@@ -50,8 +51,9 @@ public class LectureManageClassController {
 
     @PostMapping("/{lectureId}/class")
     public ResponseEntity<ClassDto> createClass(@PathVariable (name = "lectureId") Long lectureId, @RequestBody ClassDto classDto) {
-
-        classDto.setLectureId(lectureId);
+        LecturesDto lecturesDto = new LecturesDto();
+        lecturesDto.setLectureId(lectureId);
+        classDto.setLecture(lecturesDto);
 
         Class classRequest = modelMapper.map(classDto, Class.class);
 
@@ -81,5 +83,11 @@ public class LectureManageClassController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted",Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/class/update-is-locked/{id}")
+    public ResponseEntity<Void> updateIsLocked(@PathVariable Long id) {
+        classService.updateIsLocked(id);
+        return ResponseEntity.ok().build();
     }
 }

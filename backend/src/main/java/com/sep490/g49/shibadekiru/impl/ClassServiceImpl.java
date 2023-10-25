@@ -7,6 +7,7 @@ import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.ClassRepository;
 import com.sep490.g49.shibadekiru.repository.LecturersRepository;
 import com.sep490.g49.shibadekiru.service.IClassService;
+import com.sep490.g49.shibadekiru.util.RandomStringGeneratorService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,6 +28,9 @@ public class ClassServiceImpl implements IClassService {
     @Autowired
     LecturersRepository lecturersRepository;
 
+    @Autowired
+    RandomStringGeneratorService randomStringGeneratorService;
+
     @Override
     public List<Class> getAllClassByLecture(Lectures lecture) {
         return classRepository.findByLecture(lecture);
@@ -44,6 +48,7 @@ public class ClassServiceImpl implements IClassService {
 
     @Override
     public Class createClass(Class classRequest) {
+        classRequest.setClassCode(randomStringGeneratorService.randomAlphaNumeric(7));
         return classRepository.save(classRequest);
     }
 
@@ -61,5 +66,28 @@ public class ClassServiceImpl implements IClassService {
         Class aClass = classRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
         classRepository.delete(aClass);
+    }
+
+    @Override
+    public List<Class> getAllClass() {
+        return classRepository.findAll();
+    }
+
+    @Override
+    public void updateIsLocked(Long classId) {
+        Optional<Class> existingClassWork = classRepository.findById(classId);
+
+        if (existingClassWork.isPresent()) {
+            Class classWork = existingClassWork.get();
+            Boolean currentIsLocked = classWork.getIsLocked();
+
+            classWork.setIsLocked(!currentIsLocked);
+
+            classRepository.save(classWork);
+
+        }
+        else {
+            throw new ResourceNotFoundException("Class not found with: " + classId);
+        }
     }
 }
