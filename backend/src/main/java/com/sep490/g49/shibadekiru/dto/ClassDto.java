@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.dto;
 
+import com.sep490.g49.shibadekiru.entity.Lectures;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

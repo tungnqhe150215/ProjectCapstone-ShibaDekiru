@@ -9,5 +9,8 @@ import java.util.List;
 
 @Repository
 public interface ClassRepository extends JpaRepository<Class, Long> {
-    List<Class> findClassesByLecture(Lectures lectures);
+
+
+    List<Class> findByLecture(Lectures lecture);
+
 }
