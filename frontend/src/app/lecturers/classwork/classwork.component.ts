@@ -69,5 +69,22 @@ export class ClassworkComponent implements OnInit{
     }).afterClosed().subscribe(() => this.getClassWorkList())
   }
 
+  disableClassWork(disableClassWork: ClassWork){
+    this.classWorkService.disableClassWork(disableClassWork.classWorkId).subscribe( () =>{
+      disableClassWork.isLocked = !disableClassWork.isLocked;
+      this.notifiService.openSnackBar('Change status successful','OK');
+    })
+  }
+
+
+  deleteClassWork(id:number){
+    this.classWorkService.deleteClassWork(id).subscribe({
+      next: (res) => {
+        this.notifiService.openSnackBar('Classwork deleted!', 'Ok');
+        this.getClassWorkList();
+      },
+      error: console.log,
+    })
+  }
 
 }
