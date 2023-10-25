@@ -27,9 +27,9 @@ export class UpdateLessonComponent implements OnInit {
     },error => console.log(error));
 
 
-    this.lessonService.getStatus().subscribe(res =>{
-      this.status = res.status;
-    })
+    // this.lessonService.getStatus().subscribe(res =>{
+    //   this.status = res.status;
+    // })
   }
   onSubmit(){
     this.lessonService.updateLesson(this.id, this.lesson).subscribe(data =>{

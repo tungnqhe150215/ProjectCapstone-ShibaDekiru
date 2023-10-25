@@ -1,6 +1,56 @@
 
 
-<div id="app">
+<mat-toolbar class="mat-elevation-z3">
+<button mat-icon-button (click)="collapsed.set(!collapsed())">
+    <mat-icon>menu</mat-icon>
+</button>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+        <mat-nav-list>
+            <a mat-list-item routerLink="3/post"
+            routerLinkActive="selected-menu-item"
+            #rla="routerLinkActive"
+            [activated]="rla.isActive"
+            > 
+                <mat-icon matListItemIcon >dashboard</mat-icon>
+                <span>Dashboard</span>
+            </a>
+        </mat-nav-list>
+        <mat-nav-list>
+            <a mat-list-item routerLink="class/1/class-work"
+            routerLinkActive="selected-menu-item"
+            #rla1="routerLinkActive"
+            [activated]="rla1.isActive"> 
+                <mat-icon matListItemIcon>Content</mat-icon>
+                <span>ClassWork</span>
+            </a>
+        </mat-nav-list>
+        <!-- <mat-nav-list>
+            <a mat-list-item 
+            routerLinkActive="selected-menu-item"
+            class="menu-item"
+            #rla2="routerLinkActive"
+            [activated]="rla2.isActive"> 
+                <mat-icon matListItemIcon>analytics</mat-icon>
+                <span>Analytics</span>
+            </a>
+        </mat-nav-list>
+        <mat-nav-list>
+            <a mat-list-item> 
+                <mat-icon matListItemIcon>comment</mat-icon>
+                <span>Comment</span>
+            </a>
+        </mat-nav-list> -->
+    </mat-sidenav>
+    <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+<!-- <div id="app">
     <div id="sidebar" class="active">
         <div class="sidebar-wrapper active">
             <div class="sidebar-header">
@@ -23,80 +73,6 @@
                             <span>Manage Post</span>
                         </a>
                     </li>
-                    <!-- <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-collection-fill"></i>
-                        <span>Extra Components</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="extra-component-avatar.html">Avatar</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="extra-component-toastify.html">Toastify</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="extra-component-rating.html">Rating</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="extra-component-divider.html">Divider</a>
-                        </li>
-                    </ul>
-                </li> -->
-
-                    <!-- <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Layouts</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="layout-default.html">Default Layout</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="layout-vertical-1-column.html">1 Column</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="layout-vertical-navbar.html">Vertical with Navbar</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="layout-horizontal.html">Horizontal Menu</a>
-                        </li>
-                    </ul>
-                </li> -->
-<!--
-                    <li class="sidebar-title">Forms &amp; Tables</li> -->
-
-                    <!-- <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-hexagon-fill"></i>
-                        <span>Form Elements</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="form-element-input.html">Input</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="form-element-input-group.html">Input Group</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="form-element-select.html">Select</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="form-element-radio.html">Radio</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="form-element-checkbox.html">Checkbox</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="form-element-textarea.html">Textarea</a>
-                        </li>
-                    </ul>
-                </li> -->
-
                     <li class="sidebar-item  ">
                         <a routerLink="class/1/class-work" class='sidebar-link'>
                             <svg class="bi" width="1em" height="1em" fill="currentColor">
@@ -154,4 +130,4 @@
         </header>
         <router-outlet></router-outlet>
     </div>
-</div>
+</div> -->
