@@ -40,4 +40,7 @@ export class LessonDetailComponent implements OnInit{
   gotoReading(){
     this.router.navigate(['admin/lesson/'+this.id+'/reading']);
   }
+  gotoKaiwa(){
+    this.router.navigate(['admin/lesson/'+this.id+'/kaiwa']);
+  }
 }

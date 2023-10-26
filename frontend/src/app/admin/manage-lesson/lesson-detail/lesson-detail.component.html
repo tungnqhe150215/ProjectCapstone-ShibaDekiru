@@ -8,8 +8,8 @@
       <mat-card-title>Name: {{lesson.name}}</mat-card-title>
       <mat-card-subtitle>Date: {{lesson.createdAt}}</mat-card-subtitle>
       <mat-card-subtitle>Status:  {{lesson.status}}</mat-card-subtitle>
-    </mat-card-header> 
-    
+    </mat-card-header>
+
     <mat-card-content class="text-center mt-2">
       <p>
         {{lesson.content}}
@@ -20,6 +20,7 @@
       <button mat-button (click)="gotoKanji()">List Kanji</button>
       <button mat-button (click)="gotoWriting()">List Writing</button>
       <button mat-button (click)="gotoListening()">List Listening</button>
-      <button mat-button (click)="gotoListening()">List Reading</button>
+      <button mat-button (click)="gotoReading()">List Reading</button>
+      <button mat-button (click)="gotoKaiwa()">List Kaiwa</button>
     </mat-card-actions>
   </mat-card>
