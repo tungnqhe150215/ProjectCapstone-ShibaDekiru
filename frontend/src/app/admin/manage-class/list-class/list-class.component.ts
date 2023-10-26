@@ -17,6 +17,7 @@ import {data} from "autoprefixer";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Lecture} from "../../../core/models/lecture";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {interval, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-list-class',
@@ -34,6 +35,8 @@ export class ListClassComponent implements OnInit{
 
   class :Class[] = [];
   id!: number;
+  private updateSubscription: Subscription = new Subscription;
+
 
   constructor(
     private manageClassService:AdminManageClassService,
@@ -45,7 +48,9 @@ export class ListClassComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getClass();
+    this.updateSubscription = interval(1000).subscribe(
+      (val) => { this.getClass()});
+
   }
 
   applyFilter(event: Event) {
@@ -65,9 +70,6 @@ export class ListClassComponent implements OnInit{
       this.dataSource.sort = this.sort;
       console.log(data)
     })
-    console.log(this.class)
-    console.log(this.id)
-    // return this.courseService.getCourseList();
   }
 
   openDeleteClassDialog(id:number){
@@ -91,7 +93,7 @@ export class ListClassComponent implements OnInit{
   }
 
   getClassDetail(id:number){
-    this.router.navigate(['admin/lesson/class',id]);
+    this.router.navigate(['admin/class',id]);
   }
 }
 
@@ -134,7 +136,6 @@ export class ClassCreateDialog {
 
   class:Class =  new Class;
   lecture: Lecture = new Lecture();
-  lock = true;
   constructor(
     public dialogRef: MatDialogRef<ClassCreateDialog>,
     private manageClassService:AdminManageClassService,
@@ -149,7 +150,7 @@ export class ClassCreateDialog {
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('New class part added!!', 'Close', {
+    this._snackBar.open('New class added!!', 'Close', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -164,11 +165,12 @@ export class ClassCreateDialog {
   templateUrl: 'class-update-dialog.html',
   styleUrls: ['./list-class.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule,MatSlideToggleModule],
 })
 export class ClassUpdateDialog implements OnInit{
 
   class:Class =  new Class;
+  lecture:Lecture = new Lecture;
 
   constructor(
     public dialogRef: MatDialogRef<ClassUpdateDialog>,
@@ -181,6 +183,7 @@ export class ClassUpdateDialog implements OnInit{
     this.class = new Class();
     this.manageClassService.getClassById(this.data).subscribe(e => {
       this.class = e
+      this.lecture = this.class.lecture
     })
   }
 

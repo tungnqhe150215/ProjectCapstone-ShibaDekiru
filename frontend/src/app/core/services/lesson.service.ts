@@ -32,10 +32,10 @@ export class LessonService {
     return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
 
-  getStatus(): Observable<{status: boolean}>{
-    const getURL =  '${this.baseURL}/${id}';
-    return this.httpClient.get<{status: boolean}>(getURL);
-  }
+  // getStatus(): Observable<{status: boolean}>{
+  //   const getURL =  '${this.baseURL}/${id}';
+  //   return this.httpClient.get<{status: boolean}>(getURL);
+  // }
   // getLessonByID(id:number):Observable<any>{
   //   return this.httpClient.get<any>(`${this.baseURL}/${id}`);
   // }

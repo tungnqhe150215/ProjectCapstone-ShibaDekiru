@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @CrossOrigin("*")
 @RequestMapping("/api/admin/class")
 public class AdminManageClassController {
+
     @Autowired
     ModelMapper modelMapper;
 

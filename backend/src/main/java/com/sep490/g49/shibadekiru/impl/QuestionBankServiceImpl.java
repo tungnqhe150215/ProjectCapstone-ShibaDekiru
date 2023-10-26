@@ -24,8 +24,8 @@ public class QuestionBankServiceImpl implements IQuestionBankService {
     TestRepository testRepository;
 
     @Override
-    public List<QuestionBank> getAllQuestion() {
-        return questionBankRepository.findAll();
+    public List<QuestionBank> getAllQuestionByTest(Test test) {
+        return questionBankRepository.findByTest(test);
     }
 
     @Override
