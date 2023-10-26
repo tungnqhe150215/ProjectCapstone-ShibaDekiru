@@ -71,6 +71,8 @@ import { UpdateHiraganaComponent } from './manage-alphabet/update-hiragana/updat
 import { CreateKatakanaComponent } from './manage-alphabet/create-katakana/create-katakana.component';
 import { UpdateKatakanaComponent } from './manage-alphabet/update-katakana/update-katakana.component';
 import { ListClassComponent } from './manage-class/list-class/list-class.component';
+import { ClassDetailComponent } from './manage-class/class-detail/class-detail.component';
+import { ListKaiwaComponent } from './manage-kaiwa/list-kaiwa/list-kaiwa.component';
 
 
 @NgModule({
@@ -111,6 +113,8 @@ import { ListClassComponent } from './manage-class/list-class/list-class.compone
     UpdateUserComponent,
     CreateKatakanaComponent,
     UpdateKatakanaComponent,
+    ClassDetailComponent,
+
 
   ],
   imports: [
@@ -139,6 +143,7 @@ import { ListClassComponent } from './manage-class/list-class/list-class.compone
     ListListeningComponent,
     ListeningDetailComponent,
     ListClassComponent,
+    ListKaiwaComponent,
     MatSnackBarModule,
     MatFormFieldModule,
     // MatSortModule,

@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  margin-top: 20px;
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.mat-column-id{
+  width: 10%;
+}
+
+.mat-column-topic,
+.mat-column-lesson-name{
+  width: 37%;
+}
+
+.mat-dialog-content{
+  width: 500px;
+}
+
+.form-dialog{
+  width: 500px;
+}
