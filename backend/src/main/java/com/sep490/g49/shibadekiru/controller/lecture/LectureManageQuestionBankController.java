@@ -2,7 +2,9 @@ package com.sep490.g49.shibadekiru.controller.lecture;
 
 import com.sep490.g49.shibadekiru.dto.QuestionBankDto;
 import com.sep490.g49.shibadekiru.entity.QuestionBank;
+import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.service.IQuestionBankService;
+import com.sep490.g49.shibadekiru.service.ITestService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -20,19 +22,24 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/api/lecture/question")
+@RequestMapping("/api/lecture/test")
 public class LectureManageQuestionBankController {
 
     ModelMapper modelMapper;
 
     IQuestionBankService questionBankService;
 
-    @GetMapping()
-    public List<QuestionBankDto> getAllQuestion() {
-        return questionBankService.getAllQuestion().stream().map(question -> modelMapper.map(question, QuestionBankDto.class)).collect(Collectors.toList());
+    ITestService testService;
+
+    @GetMapping("/{testId}/question")
+    public List<QuestionBankDto> getAllQuestionByTest(@PathVariable (name = "testId") Long testId) {
+
+        Test test = testService.getTestById(testId);
+
+        return questionBankService.getAllQuestionByTest(test).stream().map(question -> modelMapper.map(question, QuestionBankDto.class)).collect(Collectors.toList());
     }
 
-    @GetMapping("/{questionId}")
+    @GetMapping("/question/{questionId}")
     public ResponseEntity<QuestionBankDto> getQuestionById(@PathVariable(name = "questionId") long questionId) {
 
         QuestionBank questionBank = questionBankService.getQuestionById(questionId);
@@ -43,8 +50,9 @@ public class LectureManageQuestionBankController {
         return ResponseEntity.ok().body(questionBankDto);
     }
 
-    @PostMapping()
-    public ResponseEntity<QuestionBankDto> createQuestion(@RequestBody QuestionBankDto questionBankDto) {
+    @PostMapping("/{testId}/question")
+    public ResponseEntity<QuestionBankDto> createQuestion(@PathVariable (name = "testId") Long testId,@RequestBody QuestionBankDto questionBankDto) {
+        questionBankDto.setTestId(testId);
 
         QuestionBank questionBankRequest = modelMapper.map(questionBankDto, QuestionBank.class);
 
@@ -55,7 +63,7 @@ public class LectureManageQuestionBankController {
         return new ResponseEntity<QuestionBankDto>(questionBankResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{questionId}")
+    @PutMapping("/question/{questionId}")
     public ResponseEntity<QuestionBankDto> updateQuestion(@PathVariable Long questionId, @RequestBody QuestionBankDto questionBankDto) {
 
         QuestionBank questionBankRequest = modelMapper.map(questionBankDto, QuestionBank.class);

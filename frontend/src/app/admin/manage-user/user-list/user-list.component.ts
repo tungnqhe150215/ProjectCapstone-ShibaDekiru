@@ -21,7 +21,7 @@ import { UpdateUserComponent } from '../update-user/update-user.component';
 export class UserListComponent implements OnInit{
 
   public dataSource !: MatTableDataSource<UserAccount>;
-  displayedColumns: string[] = ['userAccountId', 'roleId', 'nickName', 'userName','email','memberId', 'isBanned', 'resetCode','action'];
+  displayedColumns: string[] = ['userAccountId', 'roleId', 'nickName', 'userName','email','memberId', 'isBanned', 'action'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
