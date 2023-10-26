@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, computed, signal } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
@@ -32,10 +32,12 @@ export class SidebarComponent {
   //   }
   // }
  
-  activeItem: number = -1; // Mặc định không có thẻ nào được kích hoạt.
+  // activeItem: number = -1; // Mặc định không có thẻ nào được kích hoạt.
 
-  setActiveItem(index: number) {
-    this.activeItem = index;
-  }
+  // setActiveItem(index: number) {
+  //   this.activeItem = index;
+  // }
 
+  collapsed = signal(false);
+  sidenavWidth = computed( () => this.collapsed() ? '65px' : '250px' );
 }
