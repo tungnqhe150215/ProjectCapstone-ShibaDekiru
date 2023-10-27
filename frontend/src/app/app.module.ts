@@ -10,23 +10,27 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 // import { LecturersRoutingModule } from './lecturers/lecturers-routing.module';
 import { LecturersModule } from './lecturers/lecturers.module';
+import { HomeComponent } from './home/home.component';
+import {HomeModule} from "./home/home.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
-  imports: [
-    BrowserModule,
-    AdminModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    LecturersModule,
-    // LecturersRoutingModule,
+    imports: [
+        BrowserModule,
+        AdminModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        LecturersModule,
+        HomeModule,
+        // LecturersRoutingModule,
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
