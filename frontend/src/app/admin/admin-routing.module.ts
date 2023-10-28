@@ -44,10 +44,10 @@ import {ListKaiwaComponent} from "./manage-kaiwa/list-kaiwa/list-kaiwa.component
 const routes: Routes = [
   {path: 'admin', component: SidebarComponent,
     children:[
-      {path: 'lesson', component:ListLessonComponent},
-      {path: 'lesson/create-lesson', component:CreateLessonComponent},
+      {path: 'book/:id/lesson', component:ListLessonComponent},
+      // {path: 'lesson/create-lesson', component:CreateLessonComponent},
       {path: 'lesson/update-lesson/:id', component: UpdateLessonComponent},
-      {path: 'lesson/lesson-detail/:id', component:LessonDetailComponent},
+      // {path: 'book/lesson/lesson-detail/:id', component:LessonDetailComponent},
       {path:'user-account', component:UserListComponent},
       {path:'user-account/userAccountDetail/:id', component:UserDetailComponent},
       {path:'user-account/create-userAccount', component:CreateUserComponent},
@@ -57,7 +57,7 @@ const routes: Routes = [
       {path:'post/post-detail/:id', component:PostDetailComponent },
       { path:'list-user', component:UserListComponent},
       { path:'list-chat', component:ListChatComponent},
-      { path:'list-book', component:ListBookComponent},
+      // { path:'list-book', component:ListBookComponent},
       { path:'list-kanji', component:ListKanjiComponent},
       { path:'lesson/:id/writing',component:ListWritingComponent},
       { path:'lesson/writing/:id',component:WritingDetailComponent},
@@ -80,7 +80,9 @@ const routes: Routes = [
       {path:'create-grammar',component:CreateGrammarComponent},
       {path:'update-grammar/:id',component:UpdateGrammarComponent},
       {path:'class',component:ListClassComponent},
-      {path:'lesson/:id/kaiwa',component:ListKaiwaComponent}
+      {path:'lesson/:id/kaiwa',component:ListKaiwaComponent},
+      {path: 'book', component:ListBookComponent},
+      
   ]},
 
 

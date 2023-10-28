@@ -24,7 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { CreateBookComponent } from './manage-book/create-book/create-book.component';
 import { UpdateBookComponent } from './manage-book/update-book/update-book.component';
 import { ListBookComponent } from './manage-book/list-book/list-book.component';
-import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
+
 import { ListWritingComponent } from './manage-writing/list-writing/list-writing.component';
 import { WritingDetailComponent } from './manage-writing/writing-detail/writing-detail.component';
 import { ListWritingQuestionComponent } from './manage-writing/list-writing-question/list-writing-question.component';
@@ -73,13 +73,13 @@ import { UpdateKatakanaComponent } from './manage-alphabet/update-katakana/updat
 import { ListClassComponent } from './manage-class/list-class/list-class.component';
 import { ClassDetailComponent } from './manage-class/class-detail/class-detail.component';
 import { ListKaiwaComponent } from './manage-kaiwa/list-kaiwa/list-kaiwa.component';
+import { BookDetailComponent } from './manage-book/book-detail/book-detail.component';
 
 
 @NgModule({
   declarations: [
     SidebarComponent,
     BanUserComponent,
-
     UserDetailComponent,
     UserListComponent,
     DeleteChatComponent,
@@ -92,7 +92,6 @@ import { ListKaiwaComponent } from './manage-kaiwa/list-kaiwa/list-kaiwa.compone
     CreateBookComponent,
     UpdateBookComponent,
     ListBookComponent,
-    DeleteBookComponent,
     ListWritingQuestionComponent,
     WritingQuestionDetailComponent,
     CreateLessonComponent,
@@ -114,6 +113,7 @@ import { ListKaiwaComponent } from './manage-kaiwa/list-kaiwa/list-kaiwa.compone
     CreateKatakanaComponent,
     UpdateKatakanaComponent,
     ClassDetailComponent,
+    BookDetailComponent,
 
 
   ],
