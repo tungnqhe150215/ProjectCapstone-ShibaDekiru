@@ -3,6 +3,7 @@ package com.sep490.g49.shibadekiru.controller;
 import com.sep490.g49.shibadekiru.dto.LessonDto;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.repository.LessonRepository;
+import com.sep490.g49.shibadekiru.service.IBookService;
 import com.sep490.g49.shibadekiru.service.ILessonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
