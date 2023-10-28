@@ -30,6 +30,12 @@ public class LessonServiceImpl implements ILessonService {
     public List<Lesson> getAllLessons() {
         return lessonRepository.findAll();
     }
+
+    @Override
+    public List<Lesson> getLessonPartByBook(Book book) {
+        return lessonRepository.findByBook(book);
+    }
+
     @Override
     public Lesson createLesson(Lesson lesson) {
 
@@ -79,7 +85,6 @@ public class LessonServiceImpl implements ILessonService {
             lesson.setStatus(updatedLesson.getStatus());
             lesson.setImage(updatedLesson.getImage());
             lesson.setBook(updatedLesson.getBook());
-
 
             return lessonRepository.save(lesson);
 

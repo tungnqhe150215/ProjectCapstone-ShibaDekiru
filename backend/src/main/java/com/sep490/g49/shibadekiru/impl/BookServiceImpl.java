@@ -41,14 +41,12 @@ public class BookServiceImpl implements IBookService {
         } else {
             throw new ResourceNotFoundException("Book not found with id: " + bookId);
         }
-
     }
 
     @Override
     public void deleteBook(Long bookId) {
          Book book = bookRepository.findById(bookId).orElseThrow(()->
                  new ResourceNotFoundException("Book can not delete with id: " + bookId));
-
          bookRepository.delete(book);
     }
 

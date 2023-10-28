@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.controller;
 
 import com.sep490.g49.shibadekiru.dto.LessonDto;
+import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.repository.LessonRepository;
 import com.sep490.g49.shibadekiru.service.IBookService;
@@ -28,13 +29,22 @@ public class AdminManageLessonController {
     @Autowired
     private ILessonService iLessonService;
 
+    @Autowired
+    private IBookService iBookService;
+
 
     @GetMapping("/lesson")
     public List<LessonDto> getAllLessons() {
       return iLessonService.getAllLessons().stream().map(lesson -> modelMapper.map(lesson, LessonDto.class)).collect(Collectors.toList());
     }
 
-    @GetMapping("/lesson/{lessonId}")
+    @GetMapping("/book/{id}/lesson")
+    public List<LessonDto> getAllLessonByBook(@PathVariable (name = "id") Long bookId) {
+        Book book = iBookService.getBookById(bookId);
+        return iLessonService.getLessonPartByBook(book).stream().map(lesson -> modelMapper.map(lesson, LessonDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/book/lesson/{lessonId}")
     public ResponseEntity<LessonDto> getLessonById(@PathVariable (name = "lessonId") Long lessonId) {
         Lesson lesson = iLessonService.getLessonById(lessonId);
 
@@ -45,8 +55,10 @@ public class AdminManageLessonController {
     }
 
 
-    @PostMapping("/lesson")
-    public ResponseEntity<LessonDto> createLesson(@RequestBody LessonDto lessonDto) {
+    @PostMapping("/book/{id}/lesson")
+    public ResponseEntity<LessonDto> createLesson(@PathVariable (name = "id") Long bookId ,@RequestBody LessonDto lessonDto) {
+
+        lessonDto.setBookId(iBookService.getBookById(bookId).getBookId());
 
         Lesson lessonRequest =  modelMapper.map(lessonDto, Lesson.class);
 
@@ -62,7 +74,7 @@ public class AdminManageLessonController {
             @PathVariable Long lessonId,
             @RequestBody LessonDto lessonDto
     ) {
-
+        
         Lesson lessonRequest =  modelMapper.map(lessonDto, Lesson.class);
 
         Lesson lesson =  iLessonService.updateLesson(lessonId ,lessonRequest);
