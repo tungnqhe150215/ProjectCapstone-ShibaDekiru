@@ -28,6 +28,14 @@ public class AdminManageBookController {
         return iBookService.getAllBooks().stream().map(book -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
     }
 
+    @GetMapping("/book/{id}")
+    public ResponseEntity<BookDto> getBookById(@PathVariable (name = "id") Long bookId) {
+        Book book = iBookService.getBookById(bookId);
+
+        BookDto bookResponse = modelMapper.map(book, BookDto.class);
+
+        return ResponseEntity.ok().body(bookResponse);
+    }
 
     @PostMapping("/book")
     public ResponseEntity<BookDto> createBook (@RequestBody BookDto bookDto) {
