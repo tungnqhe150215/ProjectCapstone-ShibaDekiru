@@ -28,5 +28,7 @@ public class Book implements Serializable {
     @Column(name = "image", length = 250)
     private String image;
 
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<Lesson> lessonList;
 
 }

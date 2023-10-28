@@ -15,5 +15,4 @@ public class BookDto {
     private String name;
     private String description;
     private String image;
-    private List<LessonDto> lessonDtoList;
 }
