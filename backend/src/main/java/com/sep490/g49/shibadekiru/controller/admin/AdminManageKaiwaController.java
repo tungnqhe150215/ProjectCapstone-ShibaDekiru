@@ -1,4 +1,4 @@
-package com.sep490.g49.shibadekiru.controller;
+package com.sep490.g49.shibadekiru.controller.admin;
 
 import com.sep490.g49.shibadekiru.dto.KaiwaDto;
 import com.sep490.g49.shibadekiru.entity.Lesson;
