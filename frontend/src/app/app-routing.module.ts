@@ -10,6 +10,7 @@ import { UpdatePostComponent } from './lecturers/lecturers-post/update-post/upda
 import { ClassworkComponent } from './lecturers/classwork/classwork.component';
 import { AddClassworkComponent } from './lecturers/classwork/add-classwork/add-classwork.component';
 import { UpdateClassworkComponent } from './lecturers/classwork/update-classwork/update-classwork.component';
+import { HomeModule } from './home/home.module';
 
 
 const routes: Routes = [
@@ -40,7 +41,13 @@ const routes: Routes = [
       
       // {path: 'class/:id/create-work', component:AddClassworkComponent},
     ]
-  }
+  },
+  // {
+  //   path: 'home',
+  //   component: HomeModule,
+  //   loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+  // }
+
 
 
 ];
