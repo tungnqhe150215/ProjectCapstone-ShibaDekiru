@@ -1,24 +1,164 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <mat-toolbar class="bg-success text-bg-secondary">
-    <div class="nav-container">
-    <button  mat-icon-button  class="example-icon" (click)="drawer.toggle()" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon> Shiba Dekiru Admin
-    </button>
-    </div>
+  <button mat-icon-button class="example-icon" (click)="collapsed.set(!collapsed())"
+    aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon> Shiba Dekiru Admin
+  </button>
 </mat-toolbar>
-  <mat-drawer-container class="example-container" >
-    <mat-drawer #drawer mode="side" opened>
-        <mat-list role="list" >
+<mat-sidenav-container>
+  <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/list-user" routerLinkActive="selected-menu-item" 
+        #rla="routerLinkActive"
+        [activated]="rla.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">account_circle</span></mat-icon>
+        <span>Manage User</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/lesson" routerLinkActive="selected-menu-item" 
+        #rla11="routerLinkActive"
+        [activated]="rla11.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">newsmode</span></mat-icon>
+        <span>Manage Lesson</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/post" routerLinkActive="selected-menu-item" 
+        #rla1="routerLinkActive"
+        [activated]="rla1.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">
+          post_add
+          </span></mat-icon>
+        <span>Manage Post</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/lesson/1/writing" routerLinkActive="selected-menu-item"
+        #rla3="routerLinkActive" 
+        [activated]="rla3.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">draw</span></mat-icon>
+        <span>Manage Writing</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/lesson/1/reading" routerLinkActive="selected-menu-item"
+        #rla4="routerLinkActive"
+        [activated]="rla4.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">
+          library_books
+          </span></mat-icon>
+        <span>Manage Reading</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/lesson/1/listening" routerLinkActive="selected-menu-item"
+        #rla5="routerLinkActive" 
+        [activated]="rla5.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined"> text_to_speech </span></mat-icon>
+        <span>Manage Listening</span>
+      </a>
+    </mat-nav-list>
+
+    <!-- <mat-nav-list>
+      <a mat-list-item routerLink="/admin/lesson/1/writing"  routerLinkActive="selected-menu-item"
+        #rla4="routerLinkActive" 
+        [activated]="rla4.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined"> text_to_speech </span></mat-icon>
+        <span>Manage Writing</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/lesson/1/reading"  routerLinkActive="selected-menu-item"
+        #rla5="routerLinkActive" 
+        [activated]="rla5.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined"> text_to_speech </span></mat-icon>
+        <span>Manage Reading</span>
+      </a>
+    </mat-nav-list> -->
+
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/list-kanji" routerLinkActive="selected-menu-item"
+        #rla6="routerLinkActive" 
+        [activated]="rla6.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">
+          title
+          </span></mat-icon>
+        <span>Manage Kanji</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/list-vocabulary" routerLinkActive="selected-menu-item"
+        #rla7="routerLinkActive" 
+        [activated]="rla7.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined"> text_to_speech </span></mat-icon>
+        <span>Manage Vocabulary</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/list-grammar" routerLinkActive="selected-menu-item"
+        #rla8="routerLinkActive" 
+        [activated]="rla8.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">
+          account_tree
+          </span></mat-icon>
+        <span>Manage Grammar</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/list-hiragana"routerLinkActive="selected-menu-item"
+        #rla9="routerLinkActive" 
+        [activated]="rla9.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">
+          hdr_auto
+          </span></mat-icon>
+        <span>Manage Hiragana</span>
+      </a>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/list-katakana" routerLinkActive="selected-menu-item"
+        #rla10="routerLinkActive" 
+        [activated]="rla10.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">
+          hdr_auto
+          </span></mat-icon>
+        <span>Manage Katakana</span>
+      </a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+  <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!-- <mat-list role="list" >
            <mat-list-item role="listitem" routerLink="/admin" *ngFor=" let i = index"
            [class.active]="i === activeItem"
            (click)="setActiveItem(i)"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="library_books"></mat-icon>Dashboard</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/list-user">Manage User</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/post">Manage Post</mat-list-item>
 
-            <!-- <mat-list-item role="listitem" routerLink="/admin/list-chat">Manage Chat</mat-list-item> -->
+            <mat-list-item role="listitem" routerLink="/admin/list-chat">Manage Chat</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/list-book">Manage Book</mat-list-item>
-            <mat-list-item role="listitem" routerLink="/admin/lesson">Manage Lesson</mat-list-item>
+             <mat-list-item role="listitem" routerLink="/admin/list-chat">Manage Chat</mat-list-item> -->
+            <!-- <mat-list-item role="listitem" routerLink="/admin/list-book">Manage Book</mat-list-item> -->
+          <!--   <mat-list-item role="listitem" routerLink="/admin/lesson">Manage Lesson</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/lesson/1/writing">Manage Writing</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/lesson/1/reading">Manage Reading</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/lesson/1/listening">Manage Listening</mat-list-item>
@@ -28,29 +168,4 @@
             <mat-list-item role="listitem" routerLink="/admin/list-vocabulary">Manage Vocabulary</mat-list-item>
             <mat-list-item role="listitem" routerLink="/admin/list-grammar">Manage Grammar</mat-list-item>
           <mat-list-item role="listitem" routerLink="/admin/class">Manage Class</mat-list-item>
-          </mat-list>
-    </mat-drawer>
-    <mat-drawer-content>
-
-      <router-outlet></router-outlet>
-    </mat-drawer-content>
-
-  </mat-drawer-container>
-
-
-  <!-- <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
-      <p>Auto-resizing sidenav</p>
-      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-      <button (click)="showFiller = !showFiller" mat-raised-button>
-        Toggle extra text
-      </button>
-    </mat-drawer>
-
-    <div class="example-sidenav-content">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
-    </div>
-
-  </mat-drawer-container> -->
+          </mat-list> -->
