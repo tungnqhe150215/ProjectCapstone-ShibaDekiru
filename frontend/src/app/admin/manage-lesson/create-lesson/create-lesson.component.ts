@@ -25,7 +25,7 @@ export class CreateLessonComponent implements OnInit {
     // this.empForm.patchValue(this.data);
   }
     createLesson(){
-      this.lessonService.createLesson(this.lesson).subscribe(data =>{
+      this.lessonService.createLesson(this.data, this.lesson).subscribe(data =>{
         console.log(data);
         this.nofiService.openSnackBar('Create lesson successful','OK');
         this.dialogRef.close();
