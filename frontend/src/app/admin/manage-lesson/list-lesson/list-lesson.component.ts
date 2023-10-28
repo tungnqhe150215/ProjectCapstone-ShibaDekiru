@@ -125,6 +125,11 @@ export class ListLessonComponent implements OnInit{
   //   this.dialog.open(UpdateLessonComponent,
   //   data:id  )
   // }
+  UpdateLesson(id: number){
+    this.dialog.open(UpdateLessonComponent ,{
+      data:id
+    }).afterClosed().subscribe( () => this.getLessonList())
+  }
   updateLesson(id:number){
     this.router.navigate(['admin/lesson/update-lesson',id]);
   }

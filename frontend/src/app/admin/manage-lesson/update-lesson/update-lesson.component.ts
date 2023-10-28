@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lesson } from 'src/app/core/models/lesson';
 import { LessonService } from 'src/app/core/services/lesson.service';
@@ -14,15 +15,19 @@ export class UpdateLessonComponent implements OnInit {
   lesson: Lesson = new Lesson();
   status!: boolean;
   constructor(
+    public dialogRef: MatDialogRef<UpdateLessonComponent>,
     private lessonService: LessonService,
      private route: ActivatedRoute, 
      private router: Router,
-     private nofiService: NotificationService){
+     private nofiService: NotificationService,
+     @Inject(MAT_DIALOG_DATA) public data: number,
+     ){
 
   }
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    this.lessonService.getLessonByID(this.id).subscribe(data =>{
+    // this.id = this.route.snapshot.params['id'];
+    this.lesson = new Lesson
+    this.lessonService.getLessonByID(this.data).subscribe(data =>{
       this.lesson = data;
     },error => console.log(error));
 
@@ -32,9 +37,10 @@ export class UpdateLessonComponent implements OnInit {
     // })
   }
   onSubmit(){
-    this.lessonService.updateLesson(this.id, this.lesson).subscribe(data =>{
-      this.goTolessonList();
+    this.lessonService.updateLesson(this.data, this.lesson).subscribe(data =>{
+      // this.goTolessonList();
       this.nofiService.openSnackBar('Update lesson successful','OK');
+      this.dialogRef.close();
     },
     error => console.log(error));
   }

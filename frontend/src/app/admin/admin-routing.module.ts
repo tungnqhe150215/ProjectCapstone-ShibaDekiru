@@ -46,7 +46,7 @@ const routes: Routes = [
     children:[
       {path: 'book/:id/lesson', component:ListLessonComponent},
       // {path: 'lesson/create-lesson', component:CreateLessonComponent},
-      {path: 'lesson/update-lesson/:id', component: UpdateLessonComponent},
+      // {path: 'lesson/update-lesson/:id', component: UpdateLessonComponent},
       // {path: 'book/lesson/lesson-detail/:id', component:LessonDetailComponent},
       {path:'user-account', component:UserListComponent},
       {path:'user-account/userAccountDetail/:id', component:UserDetailComponent},
