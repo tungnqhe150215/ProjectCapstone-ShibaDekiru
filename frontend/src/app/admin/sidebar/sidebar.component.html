@@ -11,17 +11,6 @@
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
 
     <mat-nav-list>
-      <a mat-list-item routerLink="/admin/book" routerLinkActive="selected-menu-item"
-        #rlav="routerLinkActive" 
-        [activated]="rlav.isActive">
-        <mat-icon matListItemIcon><span class="material-symbols-outlined">
-          menu_book
-          </span></mat-icon>
-        <span>Manage Book</span>
-      </a>
-    </mat-nav-list>
-
-    <mat-nav-list>
       <a mat-list-item routerLink="/admin/list-user" routerLinkActive="selected-menu-item" 
         #rla="routerLinkActive"
         [activated]="rla.isActive">
@@ -30,14 +19,14 @@
       </a>
     </mat-nav-list>
 
-    <!-- <mat-nav-list>
-      <a mat-list-item routerLink="/admin/book/1/lesson" routerLinkActive="selected-menu-item" 
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin/lesson" routerLinkActive="selected-menu-item" 
         #rla11="routerLinkActive"
         [activated]="rla11.isActive">
         <mat-icon matListItemIcon><span class="material-symbols-outlined">newsmode</span></mat-icon>
         <span>Manage Lesson</span>
       </a>
-    </mat-nav-list> -->
+    </mat-nav-list>
 
     <mat-nav-list>
       <a mat-list-item routerLink="/admin/post" routerLinkActive="selected-menu-item" 
@@ -78,7 +67,16 @@
         <span>Manage Listening</span>
       </a>
     </mat-nav-list>
- <!--
+
+    <!-- <mat-nav-list>
+      <a mat-list-item routerLink="/admin/lesson/1/writing"  routerLinkActive="selected-menu-item"
+        #rla4="routerLinkActive" 
+        [activated]="rla4.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined"> text_to_speech </span></mat-icon>
+        <span>Manage Writing</span>
+      </a>
+    </mat-nav-list>
+
     <mat-nav-list>
       <a mat-list-item routerLink="/admin/lesson/1/reading"  routerLinkActive="selected-menu-item"
         #rla5="routerLinkActive" 

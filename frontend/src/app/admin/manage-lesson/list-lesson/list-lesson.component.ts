@@ -13,9 +13,6 @@ import {ActivatedRoute, Route} from "@angular/router";
 import { CreateBookComponent } from '../../manage-book/create-book/create-book.component';
 import { CreateLessonComponent } from '../create-lesson/create-lesson.component';
 import { UpdateLessonComponent } from '../update-lesson/update-lesson.component';
-import { Book } from 'src/app/core/models/book';
-import { ManageBookService } from '../../manage-book/manage-book.service';
-import { LessonDetailComponent } from '../lesson-detail/lesson-detail.component';
 
 // export interface PeriodicElement {
 //   name: string;
@@ -52,7 +49,6 @@ export class ListLessonComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor (
-    private bookService: ManageBookService,
     private lessonService: LessonService, 
     private nofiService: NotificationService,
     private router:Router, 
@@ -61,10 +57,8 @@ export class ListLessonComponent implements OnInit{
     ){
     
   }
-
   lesson: Lesson[] =[];
-  book: Book= new Book;
-  id!: number;
+
 
   ngOnInit(): void {
     this.getLessonList();
@@ -74,21 +68,12 @@ export class ListLessonComponent implements OnInit{
    
   //dipsplay Data
   private getLessonList(){
-
-    this.id = this.route.snapshot.params['id'];
-    this.book = new Book;
-    this.bookService.getBookByID(this.id).subscribe( data =>{
-      this.book = data
-      console.log(data)
-    });
-    this.lesson = [];
-    this.lessonService.getLessonList(this.id).subscribe({
+    this.lessonService.getLessonList().subscribe({
       // this.lesson = data;
       next:(res) =>{
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        console.log(res)
       },
       error: console.log,
     });
@@ -104,21 +89,15 @@ export class ListLessonComponent implements OnInit{
     }
   }
  
-  openCreateLessonialog(id:number){
+  openCreateLessonialog(){
     this.dialog.open(CreateLessonComponent, {
-      data:id
+      
     }).afterClosed().subscribe(() => this.getLessonList())
   }
   
 
-  LessonDetail(id:number){
-    this.dialog.open(LessonDetailComponent ,{
-      data:id
-    }).afterClosed().subscribe( () => this.getLessonList())
-  }
-
   lessonDetail(id:number){
-    this.router.navigate(['/admin/book/lesson/lesson-detail',id]);
+    this.router.navigate(['/admin/lesson/lesson-detail',id]);
   }
   
   // openUpdateLessonialog(id:number){

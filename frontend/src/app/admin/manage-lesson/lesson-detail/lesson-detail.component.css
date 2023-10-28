@@ -6,17 +6,12 @@ img{
 /* mat-card-image{
     height: 120px;
 } */
-
-.form-dialog{
-  width: 800px;
-  height: 500px;
-}
-/* mat-card{
+mat-card{
   margin-left: 20%
-} */
-/* .example-card {
+}
+.example-card {
     max-width: 800px;
-  } */
+  }
 .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;

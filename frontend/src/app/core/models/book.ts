@@ -1,5 +1,5 @@
 export class Book {
-    bookId?:number
+    id?:number
     name?:String
     description?:String
     image?:String

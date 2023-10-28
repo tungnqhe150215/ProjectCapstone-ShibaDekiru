@@ -10,20 +10,19 @@ import { Lesson } from 'src/app/core/models/lesson';
 export class LessonService {
 
   private baseURL = "http://localhost:8080/api/admin/lesson";
-  private lessonByBookURL =  "http://localhost:8080/api/admin/book";
   lesson: Lesson[] =[];
   constructor(private httpClient: HttpClient,) { }
 
-  getLessonList(id:number): Observable<Lesson[]>{
-    return this.httpClient.get<Lesson[]>(`${this.lessonByBookURL}/${id}/lesson`);
+  getLessonList(): Observable<Lesson[]>{
+    return this.httpClient.get<Lesson[]>(`${this.baseURL}`);
   }
 
-  createLesson(id: number, lesson: Lesson): Observable<Object>{
-    return this.httpClient.post(`${this.lessonByBookURL}/${id}/lesson`,lesson);
+  createLesson(lesson: Lesson): Observable<Object>{
+    return this.httpClient.post(`${this.baseURL}`,lesson);
   }
 
   getLessonByID(id:number):Observable<Lesson>{
-    return this.httpClient.get<Lesson>(`${this.lessonByBookURL}/lesson/${id}`);
+    return this.httpClient.get<Lesson>(`${this.baseURL}/${id}`);
   }
   updateLesson(id: number, lesson: Lesson): Observable<Object>{
     return this.httpClient.put(`${this.baseURL}/${id}`,lesson);

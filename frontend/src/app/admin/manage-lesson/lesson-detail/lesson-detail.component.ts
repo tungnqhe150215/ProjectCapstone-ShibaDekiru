@@ -1,8 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lesson } from 'src/app/core/models/lesson';
 import { LessonService } from 'src/app/core/services/lesson.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-lesson-detail',
@@ -13,26 +12,22 @@ export class LessonDetailComponent implements OnInit{
   id!:number;
   lesson:Lesson = new Lesson;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: number,
-    private route: ActivatedRoute, 
-    private lessonService: LessonService, 
-    private router:Router,
-    public dialogRef: MatDialogRef<LessonDetailComponent>,
-    ){}
+  constructor(private route: ActivatedRoute, private lessonService: LessonService, private router:Router,){
+
+  }
   ngOnInit(): void {
-    // this.id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params['id'];
 
     this.lesson = new Lesson();
-    this.lessonService.getLessonByID(this.data).subscribe(rs =>{
-      this.lesson = rs
+    this.lessonService.getLessonByID(this.id).subscribe(data =>{
+      this.lesson = data
     });
 
   }
 
-  // backtoList(){
-  //   this.router.navigate(['admin/book/'+this.id+'/lesson']);
-  // }
+  backtoList(){
+    this.router.navigate(['admin/lesson']);
+  }
   gotoKanji(){
     this.router.navigate(['admin/list-kanji']);
   }
