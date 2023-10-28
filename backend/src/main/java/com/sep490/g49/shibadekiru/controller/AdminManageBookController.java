@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -47,4 +49,25 @@ public class AdminManageBookController {
 
         return new ResponseEntity<BookDto>(bookResponse, HttpStatus.CREATED);
     }
+
+    @PutMapping("/book/{id}")
+    public ResponseEntity<BookDto> updateBook(@PathVariable(name = "id") Long bookId, @RequestBody BookDto bookDto) {
+        Book bookRequest = modelMapper.map(bookDto, Book.class);
+
+        Book book = iBookService.updateBook(bookId, bookRequest);
+
+        BookDto bookResponse = modelMapper.map(book, BookDto.class);
+
+        return ResponseEntity.ok().body(bookResponse);
+
+    }
+
+    @DeleteMapping("/book/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteBook(@PathVariable (name = "id") Long bookId) {
+        iBookService.deleteBook(bookId);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted",Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
+
 }
