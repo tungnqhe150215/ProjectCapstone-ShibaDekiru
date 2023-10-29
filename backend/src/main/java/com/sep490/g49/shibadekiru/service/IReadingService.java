@@ -18,5 +18,5 @@ public interface IReadingService {
 
     public void deleteReading(Long id);
 
-//    List<Reading> getAllReadingByLesson(Lesson lesson);
+    List<Reading> getAllReadingByLesson(Lesson lesson);
 }

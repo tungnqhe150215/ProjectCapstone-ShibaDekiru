@@ -42,15 +42,15 @@ public class StudentLessonController {
         return lessonService.getLessonPartByBook(bookResponse).stream().map(lessonDto -> modelMapper.map(lessonDto, LessonDto.class)).collect(Collectors.toList());
     }
 
-//    @GetMapping("/lesson/{lessonId}/reading")
-//    public List<ReadingDto> getAllReadingByLesson(@PathVariable (name = "lessonId") Long lessonId) {
-//        Lesson lessonResponse = lessonService.getLessonById(lessonId);
-//
-//        return readingService.getAllReadingByLesson(lessonResponse).stream().map(readingDto -> modelMapper.map(readingDto, ReadingDto.class)).collect(Collectors.toList());
-//    }
-//
-//
-//
+    @GetMapping("/lesson/{lessonId}/reading")
+    public List<ReadingDto> getAllReadingByLesson(@PathVariable (name = "lessonId") Long lessonId) {
+        Lesson lessonResponse = lessonService.getLessonById(lessonId);
+
+        return readingService.getAllReadingByLesson(lessonResponse).stream().map(readingDto -> modelMapper.map(readingDto, ReadingDto.class)).collect(Collectors.toList());
+    }
+
+
+
 //    @GetMapping("/lesson/{lessonId}/writing")
 //    public List<WritingDto> getAllWritingByLesson(@PathVariable (name = "lessonId") Long lessonId) {
 //        Lesson lessonResponse = lessonService.getLessonById(lessonId);
