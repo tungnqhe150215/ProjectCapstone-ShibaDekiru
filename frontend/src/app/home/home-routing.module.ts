@@ -3,8 +3,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./home.component";
 import {HomepageComponent} from "./homepage/homepage.component";
 import { UserLoginComponent } from './auth/user-login/user-login.component';
-import { HiraganaComponent } from './hiragana/hiragana.component';
-import { KatakanaComponent } from './katakana/katakana.component';
+import { HiraganaComponent } from './alphabet/hiragana/hiragana.component';
+import { KatakanaComponent } from './alphabet/katakana/katakana.component';
+
 
 
 const routes: Routes = [

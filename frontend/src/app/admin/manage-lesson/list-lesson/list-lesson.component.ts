@@ -144,4 +144,12 @@ export class ListLessonComponent implements OnInit{
       error: console.log,
     });
   }
+
+  // getStatusLesson(){
+  //   return {
+  //     'bg-success': this.lesson.status === 'true',
+
+  //   }
+  // }
+  
 }
