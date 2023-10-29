@@ -21,7 +21,4 @@ public interface ILessonService {
 
     Lesson getLessonById(Long lessonId);
 
-
-
-
 }

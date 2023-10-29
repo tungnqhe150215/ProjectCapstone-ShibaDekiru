@@ -42,5 +42,5 @@ public class Test implements Serializable {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "lecture_id", referencedColumnName = "lecture_id")
-    private Lectures lectures;
+    private Lectures lecture;
 }

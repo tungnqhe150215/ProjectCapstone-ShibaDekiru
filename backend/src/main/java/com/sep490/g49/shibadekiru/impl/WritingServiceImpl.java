@@ -47,4 +47,5 @@ public class WritingServiceImpl implements IWritingService {
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
         writingRepository.delete(writing);
     }
+
 }
