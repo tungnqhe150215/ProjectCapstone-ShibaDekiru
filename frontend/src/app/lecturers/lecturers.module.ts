@@ -28,6 +28,8 @@ import { ClassworkDetailComponent } from './classwork/classwork-detail/classwork
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import { ListExerciseComponent } from './exercise/list-exercise/list-exercise.component';
+import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import {MatListModule} from '@angular/material/list';
     AddClassworkComponent,
     UpdateClassworkComponent,
     DeleteClassworkComponent,
-    ClassworkDetailComponent
+    ClassworkDetailComponent,
+    ExerciseDetailComponent
   ],
   imports: [
     CommonModule,
@@ -63,6 +66,7 @@ import {MatListModule} from '@angular/material/list';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    ListExerciseComponent,
   ]
 })
 export class LecturersModule { }
