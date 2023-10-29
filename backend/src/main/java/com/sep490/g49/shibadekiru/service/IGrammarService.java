@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.service;
 
 import com.sep490.g49.shibadekiru.entity.Grammar;
+import com.sep490.g49.shibadekiru.entity.Lesson;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,4 +16,6 @@ public interface IGrammarService {
     Grammar updateGrammar(Long grammarId, Grammar grammarUpdate);
 
     void deleteGrammar(Long grammarId);
+
+    List<Grammar> getGrammarPartByLesson(Lesson lesson);
 }
