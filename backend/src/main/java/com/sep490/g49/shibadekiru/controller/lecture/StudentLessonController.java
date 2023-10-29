@@ -51,10 +51,10 @@ public class StudentLessonController {
 
 
 
-//    @GetMapping("/lesson/{lessonId}/writing")
-//    public List<WritingDto> getAllWritingByLesson(@PathVariable (name = "lessonId") Long lessonId) {
-//        Lesson lessonResponse = lessonService.getLessonById(lessonId);
-//
-//        return writingService.getWritingPartByLesson(lessonResponse).stream().map(writingDto -> modelMapper.map(writingDto, WritingDto.class)).collect(Collectors.toList());
-//    }
+    @GetMapping("/lesson/{lessonId}/writing")
+    public List<WritingDto> getAllWritingByLesson(@PathVariable (name = "lessonId") Long lessonId) {
+        Lesson lessonResponse = lessonService.getLessonById(lessonId);
+
+        return writingService.getWritingPartByLesson(lessonResponse).stream().map(writingDto -> modelMapper.map(writingDto, WritingDto.class)).collect(Collectors.toList());
+    }
 }
