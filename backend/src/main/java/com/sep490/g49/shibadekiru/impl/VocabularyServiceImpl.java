@@ -92,4 +92,9 @@ public class VocabularyServiceImpl implements IVocabularyService {
         Vocabulary vocabulary = vocabularyRepository.findById(vocabularyId).orElseThrow(() -> new ResourceNotFoundException("Kanji not exist with id:" + vocabularyId));
         vocabularyRepository.delete(vocabulary);
     }
+
+    @Override
+    public List<Vocabulary> getVocabularyPartByLesson(Lesson lesson) {
+        return vocabularyRepository.findVocabularyByLesson(lesson);
+    }
 }
