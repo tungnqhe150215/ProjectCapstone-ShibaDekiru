@@ -90,4 +90,9 @@ public class GrammarServiceImpl implements IGrammarService {
         Grammar grammar = grammarRepository.findById(grammarId).orElseThrow(() -> new ResourceNotFoundException("Grammar not exist with id:" + grammarId));
         grammarRepository.delete(grammar);
     }
+
+    @Override
+    public List<Grammar> getGrammarPartByLesson(Lesson lesson) {
+        return grammarRepository.findGrammarByLesson(lesson);
+    }
 }

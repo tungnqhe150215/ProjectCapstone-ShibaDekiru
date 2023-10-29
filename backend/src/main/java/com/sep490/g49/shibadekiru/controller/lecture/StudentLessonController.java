@@ -36,6 +36,8 @@ public class StudentLessonController {
 
     IVocabularyService vocabularyService;
 
+    IGrammarService grammarService;
+
     @GetMapping("/{id}/lesson")
     public List<LessonDto> getAllLessonByBook(@PathVariable (name = "id") Long bookId) {
         Book bookResponse = bookService.getBookById(bookId);
@@ -72,6 +74,12 @@ public class StudentLessonController {
     public List<VocabularyDto> getAllVocabularyByLesson(@PathVariable (name = "lessonId") Long lessonId) {
         Lesson lessonResponse = lessonService.getLessonById(lessonId);
         return vocabularyService.getVocabularyPartByLesson(lessonResponse).stream().map(vocabularyDto -> modelMapper.map(vocabularyDto, VocabularyDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/lesson/{lessonId}/grammar")
+    public List<GrammarDto> getAllGrammarByLesson(@PathVariable (name = "lessonId") Long lessonId) {
+        Lesson lessonResponse = lessonService.getLessonById(lessonId);
+        return grammarService.getGrammarPartByLesson(lessonResponse).stream().map(grammarDto -> modelMapper.map(grammarDto, GrammarDto.class)).collect(Collectors.toList());
     }
 
 }
