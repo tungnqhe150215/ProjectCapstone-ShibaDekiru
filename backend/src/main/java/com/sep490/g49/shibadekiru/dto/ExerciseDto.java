@@ -13,7 +13,5 @@ import java.util.List;
 public class ExerciseDto {
     private Long exerciseId;
     private String title;
-    private List<WritingExerciseDto> writingExerciseDtoList;
-    private List<MultipleChoiceAnswerDto> multipleChoiceAnswerDtoList;
-    private ClassWorkDto classWorkDto;
+    private ClassWorkDto classWork;
 }
