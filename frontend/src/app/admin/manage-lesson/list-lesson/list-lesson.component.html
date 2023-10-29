@@ -39,14 +39,18 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
       Status
     </th>
+    <td mat-cell *matCellDef="let lesson">
+      <h6> <span *ngIf="lesson.status === true" class="badge rounded-pill text-bg-success">Mở</span></h6>
+      <h6> <span *ngIf="lesson.status === false" class="badge rounded-pill text-bg-danger">Đóng</span></h6>
+    </td>
     
-    <td mat-cell *matCellDef="let lesson" >{{lesson.status}} </td>
   </ng-container>
   <ng-container matColumnDef="image">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by image">
       Image
     </th>
-    <td mat-cell *matCellDef="let lesson"> <img src="{{lesson.image}}"> </td>
+   
+    <td mat-cell *matCellDef="let lesson" > <img src="{{lesson.image}}"> </td>
   </ng-container>
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
