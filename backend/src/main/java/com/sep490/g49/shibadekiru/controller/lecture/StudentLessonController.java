@@ -1,15 +1,9 @@
 package com.sep490.g49.shibadekiru.controller.lecture;
 
-import com.sep490.g49.shibadekiru.dto.ClassWorkDto;
-import com.sep490.g49.shibadekiru.dto.LessonDto;
-import com.sep490.g49.shibadekiru.dto.ReadingDto;
-import com.sep490.g49.shibadekiru.dto.WritingDto;
+import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.Lesson;
-import com.sep490.g49.shibadekiru.service.IBookService;
-import com.sep490.g49.shibadekiru.service.ILessonService;
-import com.sep490.g49.shibadekiru.service.IReadingService;
-import com.sep490.g49.shibadekiru.service.IWritingService;
+import com.sep490.g49.shibadekiru.service.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -36,6 +30,8 @@ public class StudentLessonController {
 
     IWritingService writingService;
 
+    IListeningService listeningService;
+
     @GetMapping("/{id}/lesson")
     public List<LessonDto> getAllLessonByBook(@PathVariable (name = "id") Long bookId) {
         Book bookResponse = bookService.getBookById(bookId);
@@ -45,7 +41,6 @@ public class StudentLessonController {
     @GetMapping("/lesson/{lessonId}/reading")
     public List<ReadingDto> getAllReadingByLesson(@PathVariable (name = "lessonId") Long lessonId) {
         Lesson lessonResponse = lessonService.getLessonById(lessonId);
-
         return readingService.getAllReadingByLesson(lessonResponse).stream().map(readingDto -> modelMapper.map(readingDto, ReadingDto.class)).collect(Collectors.toList());
     }
 
@@ -54,7 +49,12 @@ public class StudentLessonController {
     @GetMapping("/lesson/{lessonId}/writing")
     public List<WritingDto> getAllWritingByLesson(@PathVariable (name = "lessonId") Long lessonId) {
         Lesson lessonResponse = lessonService.getLessonById(lessonId);
-
         return writingService.getWritingPartByLesson(lessonResponse).stream().map(writingDto -> modelMapper.map(writingDto, WritingDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/lesson/{lessonId}/listening")
+    public List<ListeningDto> getAllListeningByLesson(@PathVariable (name = "lessonId") Long lessonId) {
+        Lesson lessonResponse = lessonService.getLessonById(lessonId);
+        return listeningService.getListeningPartByLesson(lessonResponse).stream().map(listeningDto -> modelMapper.map(listeningDto, ListeningDto.class)).collect(Collectors.toList());
     }
 }
