@@ -231,7 +231,7 @@ input {
 }
 
 .overlay {
-  /* background-image: url('../img/image.gif'); */
+  background-image: url('src/assets/image.gif');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -300,16 +300,20 @@ input {
 
 .social-container a {
   border: 1px solid #dddddd;
-  border-radius: 50%;
+  border-radius: 20px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   margin: 0 5px;
   height: 40px;
-  width: 40px;
+  width: 100%;
   transition: 0.3s ease-in-out;
 }
 
 .social-container a:hover {
   border: 1px solid #4bb6b7;
+}
+
+.fab{
+  margin-right: 5px;
 }

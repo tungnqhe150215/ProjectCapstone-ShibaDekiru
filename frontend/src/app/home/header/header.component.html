@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light " >
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <a class="navbar-brand logo_h" href="index_home.html"><img class="logo" src="assets/logoShiba.png" alt=""></a>
+        <a class="navbar-brand logo_h" routerLink="./home"><img class="logo" src="assets/logoShiba.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -11,14 +11,14 @@
         </button>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse offset-1 float-right" id="navbarSupportedContent">
-          <ul class="nav navbar-nav menu_nav ml-3">
-            <li class="nav-item active"><a class="nav-link" href="index_home.html">Home</a></li>
+          <ul class="nav navbar-nav menu_nav ml-auto">
+            <li class="nav-item active"><a class="nav-link" routerLink="./home">Home</a></li>
             <!-- <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>  -->
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bảng chữ cái</a>
               <ul class="dropdown-menu">
-                <li class="nav-item"><a class="nav-link" href="Hiragana.html">Hiragana</a></li>
-                <li class="nav-item"><a class="nav-link" href="Katakana.html">Katakana</a></li>
+                <li class="nav-item"><a class="nav-link"  routerLink="./hiragana">Bảng Hiragana</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="./katakana">Bảng Katakana</a></li>
               </ul>
             </li>
             <li class="nav-item submenu dropdown">
@@ -47,11 +47,11 @@
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lớp học</a>
               <ul class="dropdown-menu">
-                <li class="nav-item"><a class="nav-link" href="elements.html">Join Class</a></li>
+                <li class="nav-item"><a class="nav-link" href="elements.html">Tham gia lớp học</a></li>
                 <li class="nav-item"><a class="nav-link" href="class.html">Lớp học của tôi</a></li>
               </ul>
             </li>
-            <li class="nav-item"><a class="nav-link main_btn2 rounded-pill px-3 text-light" href="Login.html">join Us <i class="fa fa-arrow-right ms-3"></i></a> </li>
+            <li class="nav-item"><a class="nav-link main_btn2 rounded-pill px-3 text-light" routerLink="./login">Đăng nhập<i class="fa fa-arrow-right ms-3"></i></a> </li>
             <!-- Search Area -->
             <!-- End Search Area-->
           </ul>

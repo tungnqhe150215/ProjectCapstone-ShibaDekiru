@@ -8,6 +8,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { UserLoginComponent } from './auth/user-login/user-login.component';
 import { UserChangePasswordComponent } from './auth/user-change-password/user-change-password.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { HiraganaComponent } from './alphabet/hiragana/hiragana.component';
+import { KatakanaComponent } from './alphabet/katakana/katakana.component';
+
 
 
 
@@ -19,6 +22,8 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     UserLoginComponent,
     UserChangePasswordComponent,
     ForgotPasswordComponent,
+    HiraganaComponent,
+    KatakanaComponent,
   ],
   exports: [
     FooterComponent,
