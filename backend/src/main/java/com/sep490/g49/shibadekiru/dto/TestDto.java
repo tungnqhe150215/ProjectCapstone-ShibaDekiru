@@ -18,6 +18,6 @@ public class TestDto {
     private Boolean isLocked;
     private List<TestResultDto> testResultDtoList;
     private List<QuestionBankDto> questionBankDtoList;
-    private LecturesDto lecturesDto;
+    private LecturesDto lecture;
 
 }

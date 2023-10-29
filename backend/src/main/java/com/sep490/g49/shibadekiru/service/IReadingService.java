@@ -1,5 +1,7 @@
 package com.sep490.g49.shibadekiru.service;
 
+import com.sep490.g49.shibadekiru.dto.ReadingDto;
+import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.entity.Reading;
 
@@ -15,4 +17,6 @@ public interface IReadingService {
     public Reading updateReading(Long id,Reading Reading);
 
     public void deleteReading(Long id);
+
+//    List<Reading> getAllReadingByLesson(Lesson lesson);
 }

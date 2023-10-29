@@ -13,4 +13,5 @@ public interface WritingRepository extends JpaRepository<Writing, Long> {
     List<Writing> findByLesson(Lesson lesson);
 
     Writing findByWritingId(Long id);
+
 }

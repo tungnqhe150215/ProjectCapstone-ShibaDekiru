@@ -1,5 +1,7 @@
 package com.sep490.g49.shibadekiru.impl;
 
+import com.sep490.g49.shibadekiru.dto.ReadingDto;
+import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.entity.Reading;
 import com.sep490.g49.shibadekiru.repository.ReadingRepository;
@@ -43,5 +45,10 @@ public class ReadingServiceImpl implements IReadingService {
     public void deleteReading(Long id) {
         Reading reading = readingRepository.findReadingByReadingId(id);
         readingRepository.delete(reading);
+    }
+
+    @Override
+    public List<Reading> getAllReadingByLesson(Lesson lesson) {
+        return readingRepository.findReadingByLesson(lesson);
     }
 }

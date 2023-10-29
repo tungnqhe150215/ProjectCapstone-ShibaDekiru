@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.repository;
 
+import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.entity.Reading;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,6 @@ public interface ReadingRepository extends JpaRepository<Reading, Long> {
     List<Reading> findReadingsByLesson(Lesson lesson);
 
     Reading findReadingByReadingId(Long id);
+
+    List<Reading> findReadingByLesson(Lesson lesson);
 }
