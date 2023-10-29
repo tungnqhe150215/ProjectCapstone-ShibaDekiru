@@ -14,9 +14,10 @@
             <input type="text" class="form-control" id="createdAt" name="createdAt"   [value]="classWork.createdAt">
             <label class="mr-2" >Deadline</label>
             <input type="text" class="form-control" id="deadline" name="deadline" [value]="classWork.deadline"  >
-            
+
             </div>
-            <button mat-button mat-dialog-close>Cancel</button>   
-        <!-- <button class="btn btn-success" type="submit"  (click)="updateClassWork()">Submit</button> -->
+            <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button (click)="openExercise(classWork.classWorkId)" mat-dialog-close>Chỉnh sửa bài tập</button>
+      <!-- <button class="btn btn-success" type="submit"  (click)="updateClassWork()">Submit</button> -->
     </form>
 </div>

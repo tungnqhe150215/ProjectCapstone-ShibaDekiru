@@ -13,7 +13,7 @@ import { ClassWork } from 'src/app/core/models/class-work';
 })
 export class ClassworkDetailComponent implements OnInit{
 
-  
+
   classWork: ClassWork = new ClassWork;
   constructor(
     private route: ActivatedRoute,
@@ -23,7 +23,7 @@ export class ClassworkDetailComponent implements OnInit{
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: number,
     ){
-      
+
     }
   ngOnInit(): void {
     this.classWork = new ClassWork();
@@ -32,4 +32,7 @@ export class ClassworkDetailComponent implements OnInit{
     })
   }
 
+  openExercise(classWorkId: number) {
+    this.router.navigate(['lecturer/class/class-work/',classWorkId,'exercise'])
+  }
 }
