@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.service;
 
+import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.entity.Vocabulary;
 
 import java.util.Collection;
@@ -15,4 +16,6 @@ public interface IVocabularyService {
     Vocabulary updateVocabulary(Long vocabularyId, Vocabulary vocabularyUpdate);
 
     void deleteVocabulary(Long vocabularyId);
+
+    List<Vocabulary> getVocabularyPartByLesson(Lesson lesson);
 }
