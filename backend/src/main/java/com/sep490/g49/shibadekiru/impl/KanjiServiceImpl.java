@@ -27,6 +27,10 @@ public class KanjiServiceImpl implements IKanjiService {
     LessonRepository lessonRepository;
 
 
+    @Override
+    public List<Kanji> getKanjiPartByLesson(Lesson lesson) {
+        return kanjiRepository.findKanjiByLesson(lesson);
+    }
 
     @Override
     public Kanji createKanji(Kanji kanji) {

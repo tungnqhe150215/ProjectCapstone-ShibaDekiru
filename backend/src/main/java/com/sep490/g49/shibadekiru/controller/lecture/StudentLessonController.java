@@ -32,6 +32,8 @@ public class StudentLessonController {
 
     IListeningService listeningService;
 
+    IKanjiService kanjiService;
+
     @GetMapping("/{id}/lesson")
     public List<LessonDto> getAllLessonByBook(@PathVariable (name = "id") Long bookId) {
         Book bookResponse = bookService.getBookById(bookId);
@@ -56,5 +58,11 @@ public class StudentLessonController {
     public List<ListeningDto> getAllListeningByLesson(@PathVariable (name = "lessonId") Long lessonId) {
         Lesson lessonResponse = lessonService.getLessonById(lessonId);
         return listeningService.getListeningPartByLesson(lessonResponse).stream().map(listeningDto -> modelMapper.map(listeningDto, ListeningDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/lesson/{lessonId}/kanji")
+    public  List<KanjiDto> getAllKanjiByLesson(@PathVariable (name = "lessonId") Long lessonId) {
+        Lesson lessonResponse = lessonService.getLessonById(lessonId);
+        return kanjiService.getKanjiPartByLesson(lessonResponse).stream().map(kanjiDto -> modelMapper.map(kanjiDto, KanjiDto.class)).collect(Collectors.toList());
     }
 }
