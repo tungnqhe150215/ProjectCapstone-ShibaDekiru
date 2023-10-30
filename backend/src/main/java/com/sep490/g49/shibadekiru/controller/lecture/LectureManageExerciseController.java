@@ -2,10 +2,15 @@ package com.sep490.g49.shibadekiru.controller.lecture;
 
 import com.sep490.g49.shibadekiru.dto.ClassWorkDto;
 import com.sep490.g49.shibadekiru.dto.ExerciseDto;
+import com.sep490.g49.shibadekiru.dto.WritingDto;
+import com.sep490.g49.shibadekiru.dto.WritingExerciseDto;
 import com.sep490.g49.shibadekiru.entity.ClassWork;
 import com.sep490.g49.shibadekiru.entity.Exercise;
+import com.sep490.g49.shibadekiru.entity.Writing;
+import com.sep490.g49.shibadekiru.entity.WritingExercise;
 import com.sep490.g49.shibadekiru.service.IClassWorkService;
 import com.sep490.g49.shibadekiru.service.IExerciseService;
+import com.sep490.g49.shibadekiru.service.IWritingExerciseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +31,9 @@ public class LectureManageExerciseController {
 
     @Autowired
     private IClassWorkService iClassWorkService;
+
+    @Autowired
+    private IWritingExerciseService iWritingExerciseService;
 
     @Autowired
     private ModelMapper map;
@@ -84,6 +92,61 @@ public class LectureManageExerciseController {
     @DeleteMapping("/exercise/{id}")
     public ResponseEntity<Map<String,Boolean>> deleteExercise(@PathVariable(name = "id") Long id) {
         iExerciseService.deleteExercise(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted",Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/exercise/{id}/writing-exercise")
+    public List<WritingExerciseDto> getWritingExerciseByExercise(@PathVariable(name = "id") Long exerciseId) {
+        Exercise exercise = iExerciseService.getExerciseById(exerciseId);
+        return iWritingExerciseService.getWritingExerciseByExercise(exercise).stream().map(writingExercise ->map.map(writingExercise, WritingExerciseDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/exercise/writing-exercise/{id}")
+    public ResponseEntity<WritingExerciseDto> getWritingExerciseById(@PathVariable(name = "id") Long id) {
+        WritingExercise writingExercise = iWritingExerciseService.getWritingExerciseById(id);
+
+        // convert entity to DTO
+        WritingExerciseDto writingResponse = map.map(writingExercise, WritingExerciseDto.class);
+
+        return ResponseEntity.ok().body(writingResponse);
+    }
+
+    @PostMapping("/exercise/{id}/writing-exercise")
+    public ResponseEntity<WritingExerciseDto> createWritingExercise(@RequestBody WritingExerciseDto writingExerciseDto, @PathVariable(name = "id") Long exerciseId) {
+        writingExerciseDto.setExercise(exerciseId);
+        // convert DTO to entity
+        WritingExercise writingExerciseRequest = map.map(writingExerciseDto, WritingExercise.class);
+
+        WritingExercise writingExercise = iWritingExerciseService.createWritingExercise(writingExerciseRequest);
+
+        // convert entity to DTO
+        WritingExerciseDto writingExerciseResponse = map.map(writingExercise, WritingExerciseDto.class);
+
+        return new ResponseEntity<WritingExerciseDto>(writingExerciseResponse, HttpStatus.CREATED);
+    }
+
+    // change the request for DTO
+    // change the response for DTO
+    @PutMapping("/exercise/writing-exercise/{id}")
+    public ResponseEntity<WritingExerciseDto> updateWritingExercise(@PathVariable long id, @RequestBody WritingExerciseDto writingExerciseDto) {
+
+        // convert DTO to Entity
+        WritingExercise writingExerciseRequest = map.map(writingExerciseDto, WritingExercise.class);
+
+        WritingExercise writingExercise = iWritingExerciseService.updateWritingExercise(id, writingExerciseRequest);
+
+        // entity to DTO
+        WritingExerciseDto writingExerciseResponse = map.map(writingExercise, WritingExerciseDto.class);
+
+        return ResponseEntity.ok().body(writingExerciseResponse);
+    }
+
+    @DeleteMapping("/exercise/writing-exercise/{id}")
+    public ResponseEntity<Map<String,Boolean>> deleteWritingExercise(@PathVariable(name = "id") Long id) {
+        iWritingExerciseService.deleteWritingExercise(id);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted",Boolean.TRUE);
         return ResponseEntity.ok(response);
