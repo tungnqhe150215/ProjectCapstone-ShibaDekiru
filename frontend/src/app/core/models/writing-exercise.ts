@@ -1,7 +1,7 @@
 import {Exercise} from "./exercise";
 
 export class WritingExercise {
-    id?:number
+    id!:number
     exercise?:Exercise
-    question?:String
+    question!:String
 }
