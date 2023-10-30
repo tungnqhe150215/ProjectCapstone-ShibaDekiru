@@ -14,6 +14,9 @@ export class LessonService {
   lesson: Lesson[] =[];
   constructor(private httpClient: HttpClient,) { }
 
+  getLessonNoneID():Observable<Lesson[]>{
+    return this.httpClient.get<Lesson[]>(`${this.baseURL}`);
+  }
   getLessonList(id:number): Observable<Lesson[]>{
     return this.httpClient.get<Lesson[]>(`${this.lessonByBookURL}/${id}/lesson`);
   }
