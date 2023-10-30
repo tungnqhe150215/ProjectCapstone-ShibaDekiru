@@ -15,9 +15,10 @@ const routes: Routes = [
             {path: 'home', component: HomepageComponent},
             {path: '', redirectTo: 'home', pathMatch: 'full'},
             {path: 'hiragana', component: HiraganaComponent},
-            {path: 'katakana', component: KatakanaComponent}
+            {path: 'katakana', component: KatakanaComponent},
         ]
     },
+    
     {path: 'login', component: UserLoginComponent},
     
 ];
