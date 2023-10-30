@@ -90,7 +90,7 @@ export class ExerciseDetailComponent implements OnInit{
     }).afterClosed().subscribe(() => this.getWritingExercise());
   }
 
-  openUpdateExerciseDialog(id:number){
+  openUpdateExerciseQuestionDialog(id:number){
     this.dialog.open(ExerciseQuestionUpdateDialog,
       {
         data: id
@@ -113,7 +113,7 @@ export class ExerciseQuestionDeleteDialog {
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
-  deleteExercise(id:number){
+  deleteWritingExercise(id:number){
     this.manageExerciseService.deleteExercise(id).subscribe(data => {
       this.dialogRef.close();
     })
