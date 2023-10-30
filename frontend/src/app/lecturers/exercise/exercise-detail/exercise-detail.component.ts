@@ -16,28 +16,30 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {ClassworkService} from "../../classwork/classwork.service";
 import {ClassWork} from "../../../core/models/class-work";
 import {MatTabsModule} from "@angular/material/tabs";
+import {WritingExercise} from "../../../core/models/writing-exercise";
+import {LecturerManageWritingExerciseService} from "../lecturer-manage-writing-exercise.service";
 
 @Component({
-  selector: 'app-list-exercise',
-  templateUrl: './list-exercise.component.html',
-  styleUrls: ['./list-exercise.component.css'],
+  selector: 'app-exercise-detail',
+  templateUrl: './exercise-detail.component.html',
+  styleUrls: ['./exercise-detail.component.css'],
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule],
 })
-export class ListExerciseComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'title','action'];
-  dataSource!: MatTableDataSource<Exercise> ;
+export class ExerciseDetailComponent implements OnInit{
+  displayedColumns: string[] = ['id', 'question','action'];
+  dataSource!: MatTableDataSource<WritingExercise> ;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  exercise :Exercise[] = [];
-  classWork: ClassWork = new ClassWork();
+  writingExercise :WritingExercise[] = [];
+  exercise: Exercise = new Exercise();
   id!: number;
 
   constructor(
     private manageExerciseService:LectureManageExerciseService,
-    private manageClassWorkService: ClassworkService,
+    private manageWritingExerciseService: LecturerManageWritingExerciseService,
     private router:Router,
     private route:ActivatedRoute,
     public dialog: MatDialog) {
@@ -45,8 +47,7 @@ export class ListExerciseComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getExercise();
-    console.log(this.classWork)
+    this.getWritingExercise();
   }
 
   applyFilter(event: Event) {
@@ -57,17 +58,17 @@ export class ListExerciseComponent implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   }
-  private getExercise(){
+  private getWritingExercise(){
     this.id = this.route.snapshot.params['id'];
-    this.classWork = new ClassWork();
-    this.manageClassWorkService.getClassWorkByID(this.id).subscribe(data => {
-      this.classWork = data
+    this.exercise = new Exercise();
+    this.manageExerciseService.getExerciseById(this.id).subscribe(data => {
+      this.exercise = data
       console.log(data)
     });
-    this.exercise = []
-    this.manageExerciseService.getExerciseByClasswork(this.id).subscribe(data => {
-      this.exercise = data;
-      this.dataSource = new MatTableDataSource(this.exercise);
+    this.writingExercise = []
+    this.manageWritingExerciseService.getWritingExerciseByExercise(this.id).subscribe(data => {
+      this.writingExercise = data;
+      this.dataSource = new MatTableDataSource(this.writingExercise);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       console.log(data)
@@ -77,41 +78,37 @@ export class ListExerciseComponent implements OnInit{
     // return this.courseService.getCourseList();
   }
 
-  openDeleteExerciseDialog(id:number){
-    this.dialog.open(ExerciseDeleteDialog, {
+  openDeleteExerciseQuestionDialog(id:number){
+    this.dialog.open(ExerciseQuestionDeleteDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getExercise());
+    }).afterClosed().subscribe(() => this.getWritingExercise());
   }
 
-  openCreateExerciseDialog(id:number){
-    this.dialog.open(ExerciseCreateDialog,{
+  openCreateExerciseQuestionDialog(id:number){
+    this.dialog.open(ExerciseQuestionCreateDialog,{
       data: id
-    }).afterClosed().subscribe(() => this.getExercise());
+    }).afterClosed().subscribe(() => this.getWritingExercise());
   }
 
   openUpdateExerciseDialog(id:number){
-    this.dialog.open(ExerciseUpdateDialog,
+    this.dialog.open(ExerciseQuestionUpdateDialog,
       {
         data: id
       }
-    ).afterClosed().subscribe(() => this.getExercise());
-  }
-
-  getExerciseDetail(id:number){
-    this.router.navigate(['lecture/class/class-work/exercise',id]);
+    ).afterClosed().subscribe(() => this.getWritingExercise());
   }
 }
 
 @Component({
-  selector: 'app-exercise-delete-dialog',
-  templateUrl: 'exercise-delete-dialog.html',
-  styleUrls: ['./list-exercise.component.css'],
+  selector: 'lecturer-exercise-question-delete-dialog',
+  templateUrl: 'exercise-question-delete-dialog.html',
+  styleUrls: ['./exercise-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
-export class ExerciseDeleteDialog {
+export class ExerciseQuestionDeleteDialog {
   constructor(
-    public dialogRef: MatDialogRef<ExerciseDeleteDialog>,
+    public dialogRef: MatDialogRef<ExerciseQuestionDeleteDialog>,
     private manageExerciseService:LectureManageExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
@@ -131,24 +128,24 @@ export class ExerciseDeleteDialog {
 }
 
 @Component({
-  selector: 'app-exercise-create-dialog',
-  templateUrl: 'exercise-create-dialog.html',
-  styleUrls: ['./list-exercise.component.css'],
+  selector: 'lecturer-exercise-question-create-dialog',
+  templateUrl: 'exercise-question-create-dialog.html',
+  styleUrls: ['./exercise-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
-export class ExerciseCreateDialog {
+export class ExerciseQuestionCreateDialog {
 
   exercise:Exercise =  new Exercise;
 
   constructor(
-    public dialogRef: MatDialogRef<ExerciseCreateDialog>,
+    public dialogRef: MatDialogRef<ExerciseQuestionCreateDialog>,
     private manageExerciseService:LectureManageExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
-  createExercise(){
+  createWritingExercise(){
     console.log(this.exercise)
     this.manageExerciseService.createExercise(this.data,this.exercise).subscribe(data => {
       console.log(data)
@@ -165,33 +162,33 @@ export class ExerciseCreateDialog {
   }
 }
 @Component({
-  selector: 'app-exercise-update-dialog',
-  templateUrl: 'exercise-update-dialog.html',
-  styleUrls: ['./list-exercise.component.css'],
+  selector: 'lecturer-exercise-question-update-dialog',
+  templateUrl: 'exercise-question-update-dialog.html',
+  styleUrls: ['./exercise-detail.component.css'],
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
-export class ExerciseUpdateDialog implements OnInit{
+export class ExerciseQuestionUpdateDialog implements OnInit{
 
-  exercise:Exercise =  new Exercise;
+  writingExercise:WritingExercise =  new WritingExercise();
 
   constructor(
-    public dialogRef: MatDialogRef<ExerciseUpdateDialog>,
-    private manageExerciseService:LectureManageExerciseService,
+    public dialogRef: MatDialogRef<ExerciseQuestionUpdateDialog>,
+    private manageWritingExerciseService:LecturerManageWritingExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
   ngOnInit(): void {
-    this.exercise = new Exercise();
-    this.manageExerciseService.getExerciseById(this.data).subscribe(e => {
-      this.exercise = e
+    this.writingExercise = new WritingExercise();
+    this.manageWritingExerciseService.getWritingExerciseById(this.data).subscribe(e => {
+      this.writingExercise = e
     })
   }
 
-  updateExercise(){
-    console.log(this.exercise)
-    this.manageExerciseService.updateExercise(this.data,this.exercise).subscribe(data => {
+  updateWritingExercise(){
+    console.log(this.writingExercise)
+    this.manageWritingExerciseService.updateWritingExercise(this.data,this.writingExercise).subscribe(data => {
       console.log(data)
       this.dialogRef.close();
     })

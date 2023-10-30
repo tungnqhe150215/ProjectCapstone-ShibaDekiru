@@ -43,8 +43,7 @@ import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-det
     AddClassworkComponent,
     UpdateClassworkComponent,
     DeleteClassworkComponent,
-    ClassworkDetailComponent,
-    ExerciseDetailComponent
+    ClassworkDetailComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +66,7 @@ import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-det
     MatSidenavModule,
     MatListModule,
     ListExerciseComponent,
+    ExerciseDetailComponent
   ]
 })
 export class LecturersModule { }
