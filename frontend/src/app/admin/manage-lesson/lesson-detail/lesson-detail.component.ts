@@ -37,15 +37,15 @@ export class LessonDetailComponent implements OnInit{
     this.router.navigate(['admin/list-kanji']);
   }
   gotoWriting(){
-    this.router.navigate(['admin/lesson/'+this.id+'/writing']);
+    this.router.navigate(['admin/lesson/'+this.data+'/writing']);
   }
   gotoListening(){
-    this.router.navigate(['admin/lesson/'+this.id+'/listening']);
+    this.router.navigate(['admin/lesson/'+this.data+'/listening']);
   }
   gotoReading(){
-    this.router.navigate(['admin/lesson/'+this.id+'/reading']);
+    this.router.navigate(['admin/lesson/'+this.data+'/reading']);
   }
   gotoKaiwa(){
-    this.router.navigate(['admin/lesson/'+this.id+'/kaiwa']);
+    this.router.navigate(['admin/lesson/'+this.data+'/kaiwa']);
   }
 }

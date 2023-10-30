@@ -45,9 +45,10 @@ const routes: Routes = [
   {path: 'admin', component: SidebarComponent,
     children:[
       {path: 'book/:id/lesson', component:ListLessonComponent},
+      // {path: 'lesson', component: ListLessonComponent},
       // {path: 'lesson/create-lesson', component:CreateLessonComponent},
       // {path: 'lesson/update-lesson/:id', component: UpdateLessonComponent},
-      // {path: 'book/lesson/lesson-detail/:id', component:LessonDetailComponent},
+      {path: 'book/lesson/lesson-detail/:id', component:LessonDetailComponent},
       {path:'user-account', component:UserListComponent},
       {path:'user-account/userAccountDetail/:id', component:UserDetailComponent},
       {path:'user-account/create-userAccount', component:CreateUserComponent},

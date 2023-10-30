@@ -68,11 +68,23 @@ export class ListLessonComponent implements OnInit{
 
   ngOnInit(): void {
     this.getLessonList();
+    // this.getLesson();
   }
 
    // Trong component.ts
    
   //dipsplay Data
+  private getLesson(){
+    this.lessonService.getLessonNoneID().subscribe( data =>{
+      this.lesson = data;
+      this.dataSource = new MatTableDataSource(this.lesson);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      console.log(data)
+    })
+  
+  }
+
   private getLessonList(){
 
     this.id = this.route.snapshot.params['id'];
@@ -116,6 +128,8 @@ export class ListLessonComponent implements OnInit{
       data:id
     }).afterClosed().subscribe( () => this.getLessonList())
   }
+
+  
 
   lessonDetail(id:number){
     this.router.navigate(['/admin/book/lesson/lesson-detail',id]);
