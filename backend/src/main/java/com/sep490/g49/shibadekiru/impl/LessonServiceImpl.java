@@ -106,7 +106,7 @@ public class LessonServiceImpl implements ILessonService {
         Lesson lesson = lessonRepository.findById(lessonId).orElse(null);
 
         if (lesson == null) {
-            throw new ResourceNotFoundException("Lesson not found with id: " +  lessonId);
+            throw new ResourceNotFoundException("Lesson of lesson impl not found with id: " +  lessonId);
         }
         return lesson;
     }
