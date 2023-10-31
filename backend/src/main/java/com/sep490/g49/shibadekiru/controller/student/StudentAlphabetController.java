@@ -4,6 +4,8 @@ import com.sep490.g49.shibadekiru.dto.HiraganaDto;
 import com.sep490.g49.shibadekiru.dto.KatakanaDto;
 import com.sep490.g49.shibadekiru.entity.Hiragana;
 import com.sep490.g49.shibadekiru.entity.Katakana;
+import com.sep490.g49.shibadekiru.repository.HiraganaRepository;
+import com.sep490.g49.shibadekiru.repository.KatakanaRepository;
 import com.sep490.g49.shibadekiru.service.IHiraganaService;
 import com.sep490.g49.shibadekiru.service.IKatakanaService;
 import org.modelmapper.ModelMapper;
