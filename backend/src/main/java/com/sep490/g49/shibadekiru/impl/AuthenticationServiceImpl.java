@@ -1,10 +1,7 @@
 package com.sep490.g49.shibadekiru.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sep490.g49.shibadekiru.dto.AuthenticationDto;
-import com.sep490.g49.shibadekiru.dto.AuthenticationLoginDto;
-import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
-import com.sep490.g49.shibadekiru.dto.UserAccountDto;
+import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.RoleRepository;
@@ -22,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthenticationServiceImpl {
@@ -50,8 +48,8 @@ public class AuthenticationServiceImpl {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public AuthenticationDto register(UserAccountDto request) {
-        Role role = roleRepository.findById(request.getRole().getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role "));
+    public void register(RegisterResponse request) {
+        Role role = roleRepository.findById(request.getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role "));
         var user = UserAccount.builder()
                 .nickName(request.getNickName())
                 .memberId(request.getMemberId())
@@ -62,27 +60,44 @@ public class AuthenticationServiceImpl {
                 .isBanned(false)
                 .role(role)
                 .build();
-        var savedUser = userAccountRepository.save(user);
 
-        for (RoleType roleType : RoleType.values()) {
-            if (roleType.getId() == role.getRoleId()) {
-                if (roleType == RoleType.STUDENT) {
-                    studentService.createStudentFromUserAccount(savedUser);
-                } else if (roleType == RoleType.LECTURE) {
-                    lecturesService.createLecturerFromUserAccount(savedUser);
+        Optional<UserAccount> existingUser = userAccountRepository.findByEmailOrMemberId(request.getEmail(), request.getMemberId());
+        if (existingUser.isPresent()) {
+            throw new IllegalStateException("Email already or member be exists.");
+        } else {
+            var savedUser = userAccountRepository.save(user);
+
+            for (RoleType roleType : RoleType.values()) {
+                if (roleType.getId() == role.getRoleId()) {
+                    if (roleType == RoleType.STUDENT) {
+                        Student student = new Student();
+                        student.setFirstName(request.getFirstName());
+                        student.setLastName(request.getLastName());
+                        student.setEmail(request.getEmail());
+                        student.setUserAccount(savedUser);
+                        studentService.createStudentFromUserAccount(student);
+                    } else if (roleType == RoleType.LECTURE) {
+                        Lectures lectures = new Lectures();
+                        lectures.setFirstName(request.getFirstName());
+                        lectures.setLastName(request.getLastName());
+                        lectures.setEmail(request.getEmail());
+                        lectures.setUserAccount(savedUser);
+                        lecturesService.createLecturerFromUserAccount(lectures);
+                    }
+                    break;
                 }
-                break;
             }
+
+
+            var jwtToken = jwtService.generateToken( user);
+            //var refreshToken = jwtService.generateRefreshToken(user);
+            saveUserToken(savedUser, jwtToken);
+
         }
 
 
-        var jwtToken = jwtService.generateToken( user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-        saveUserToken(savedUser, jwtToken);
-        return AuthenticationDto.builder()
-                .accessToken(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
+
+
     }
 
 

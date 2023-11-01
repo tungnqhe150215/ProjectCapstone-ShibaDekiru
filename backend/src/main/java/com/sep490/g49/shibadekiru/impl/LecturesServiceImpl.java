@@ -22,25 +22,13 @@ public class LecturesServiceImpl implements ILecturesService {
 
 
 
-    public void createLecturerFromUserAccount(UserAccount userAccount) {
+    public void createLecturerFromUserAccount(Lectures lectures) {
 
-         String memberId = userAccount.getMemberId();
-
-        Optional<UserAccount> userAccountOptional = userAccountRepository.findByMemberId(memberId);
-        if (userAccountOptional.isPresent()) {
-
-            UserAccount userAccount1 = userAccountOptional.get();
-
-            Lectures lectures = new Lectures();
-            lectures.setFirstName(userAccount1.getNickName());
-            lectures.setLastName(userAccount1.getNickName());
-            lectures.setEmail(userAccount1.getEmail());
             lectures.setPhone("");
             lectures.setAvatar("");
-            lectures.setUserAccount(userAccount1);
+            lectures.setUserAccount(lectures.getUserAccount());
 
             lecturersRepository.save(lectures);
-        }
 
     }
 

@@ -16,28 +16,14 @@ public class StudentServiceImpl implements IStudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    private UserAccountRepository userAccountRepository;
+    public void createStudentFromUserAccount(Student student){
 
-    public void createStudentFromUserAccount(UserAccount userAccount){
-
-        String memberId = userAccount.getMemberId();
-
-        Optional<UserAccount> userAccountOptional = userAccountRepository.findByMemberId(memberId);
-        if (userAccountOptional.isPresent()) {
-
-            UserAccount userAccount1 = userAccountOptional.get();
-
-            Student student = new Student();
-            student.setFirstName(userAccount1.getNickName());
-            student.setLastName(userAccount1.getNickName());
-            student.setEmail(userAccount1.getEmail());
             student.setGender(false);
             student.setAvatar("");
-            student.setUserAccount(userAccount1);
+            student.setUserAccount(student.getUserAccount());
 
             studentRepository.save(student);
         }
 
-    }
+
 }
