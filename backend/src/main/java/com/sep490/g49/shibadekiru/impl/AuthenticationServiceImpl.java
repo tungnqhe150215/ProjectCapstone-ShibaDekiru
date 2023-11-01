@@ -3,6 +3,7 @@ package com.sep490.g49.shibadekiru.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sep490.g49.shibadekiru.dto.AuthenticationDto;
 import com.sep490.g49.shibadekiru.dto.AuthenticationLoginDto;
+import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
 import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
@@ -19,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
 
 @Service
 public class AuthenticationServiceImpl {
@@ -48,7 +51,7 @@ public class AuthenticationServiceImpl {
     private AuthenticationManager authenticationManager;
 
     public AuthenticationDto register(UserAccountDto request) {
-        Role role = roleRepository.findById(request.getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role "));
+        Role role = roleRepository.findById(request.getRole().getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role "));
         var user = UserAccount.builder()
                 .nickName(request.getNickName())
                 .memberId(request.getMemberId())
@@ -95,26 +98,91 @@ public class AuthenticationServiceImpl {
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
+        revokeAllUserRefreshTokens(user);
         saveUserToken(user, jwtToken);
+        saveUserRefreshToken(user, refreshToken);
         return AuthenticationDto.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
     }
 
+
     private void saveUserToken(UserAccount user, String jwtToken) {
-        var token = Token.builder()
-                .userAccount(user)
-                .token(jwtToken)
-                .tokenType(TokenType.BEARER)
-                .expired(false)
-                .revoked(false)
-                .build();
+        var existingToken = tokenRepository.findByUserAccountAndExpiredAndRevoked(user, false, false);
+        Token token;
+        if (existingToken.isPresent()) {
+            token = existingToken.get();
+            token.setToken(jwtToken);
+        } else {
+
+            token = Token.builder()
+                    .userAccount(user)
+                    .token(jwtToken)
+                    .tokenType(TokenType.BEARER)
+                    .expired(false)
+                    .revoked(false)
+                    .build();
+        }
         tokenRepository.save(token);
     }
 
+    private void saveUserRefreshToken(UserAccount user, String jwtToken) {
+        var existingToken = tokenRepository.findByUserAccountAndExpiredAndRevoked(user, true, true);
+        Token token;
+        if (existingToken.isPresent()) {
+            token = existingToken.get();
+            token.setToken(jwtToken);
+        } else {
+
+            token = Token.builder()
+                    .userAccount(user)
+                    .token(jwtToken)
+                    .tokenType(TokenType.BEARER)
+                    .expired(true)
+                    .revoked(true)
+                    .build();
+        }
+        tokenRepository.save(token);
+    }
+
+
     private void revokeAllUserTokens(UserAccount user) {
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getUserAccountId());
+        if (validUserTokens.isEmpty())
+            return;
+        validUserTokens.forEach(token -> {
+            token.setExpired(false);
+            token.setRevoked(false);
+        });
+        tokenRepository.saveAll(validUserTokens);
+    }
+
+    public UserAccountDto getUserInfoByToken(String token) {
+        UserAccount users = tokenRepository.findUserAccountByToken(token);
+
+
+            UserAccount user = users;
+
+            UserAccountDto userAccountDto = new UserAccountDto();
+            userAccountDto.setUserAccountId(user.getUserAccountId());
+            userAccountDto.setUserName(user.getUsername());
+            userAccountDto.setEmail(user.getEmail());
+            userAccountDto.setNickName(user.getNickName());
+            userAccountDto.setMemberId(user.getMemberId());
+            userAccountDto.setPassword(user.getPassword());
+            userAccountDto.setIsBanned(user.getIsBanned());
+            userAccountDto.setResetCode(user.getResetCode());
+            userAccountDto.setRole(user.getRole());
+
+            return userAccountDto;
+
+    }
+
+
+
+    private void revokeAllUserRefreshTokens(UserAccount user) {
+        var validUserTokens = tokenRepository.findAllValidRefreshTokenByUser(user.getUserAccountId());
         if (validUserTokens.isEmpty())
             return;
         validUserTokens.forEach(token -> {
@@ -142,7 +210,9 @@ public class AuthenticationServiceImpl {
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
+                revokeAllUserRefreshTokens(user);
                 saveUserToken(user, accessToken);
+                saveUserRefreshToken(user, accessToken);
                 var authResponse = AuthenticationDto.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
