@@ -1,4 +1,4 @@
-package com.sep490.g49.shibadekiru.controller.lecture;
+package com.sep490.g49.shibadekiru.controller.student;
 
 import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.Book;
@@ -37,6 +37,8 @@ public class StudentLessonController {
     IVocabularyService vocabularyService;
 
     IGrammarService grammarService;
+
+    IKaiwaService kaiwaService;
 
     @GetMapping("/{id}/lesson")
     public List<LessonDto> getAllLessonByBook(@PathVariable (name = "id") Long bookId) {
@@ -81,5 +83,13 @@ public class StudentLessonController {
         Lesson lessonResponse = lessonService.getLessonById(lessonId);
         return grammarService.getGrammarPartByLesson(lessonResponse).stream().map(grammarDto -> modelMapper.map(grammarDto, GrammarDto.class)).collect(Collectors.toList());
     }
+
+    @GetMapping("/lesson/{lessonId}/kaiwa")
+    public List<KaiwaDto> getAllKaiwaByLesson(@PathVariable (name = "lessonId") Long lessonId) {
+        Lesson lessonResponse = lessonService.getLessonById(lessonId);
+        return kaiwaService.getKaiwaPartByLesson(lessonResponse).stream().map(kaiwaDto -> modelMapper.map(kaiwaDto, KaiwaDto.class)).collect(Collectors.toList());
+    }
+
+//    @GetMapping("/lesson/listening/{listeningId}/listening-question")
 
 }
