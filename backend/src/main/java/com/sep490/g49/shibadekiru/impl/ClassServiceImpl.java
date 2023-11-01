@@ -58,6 +58,7 @@ public class ClassServiceImpl implements IClassService {
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
         aClass.setClassName(classRequest.getClassName());
         aClass.setIsLocked(classRequest.getIsLocked());
+        //ko cần set lại id của Lecture
         return classRepository.save(aClass);
     }
 

@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -55,6 +57,23 @@ public class TestServiceImpl implements ITestService {
         testCreate.setIsLocked(isLocked);
         testCreate.setLecture(lecture);
         return testRepository.save(testCreate);
+    }
+
+    @Override
+    public Test updateTest(Long testId, Test testUpdate) {
+
+        Optional<Test> testOptional = testRepository.findById(testId);
+
+        if (testOptional.isPresent()) {
+            Test test = testOptional.get();
+            test.setTitle(testUpdate.getTitle());
+            test.setDuration(testUpdate.getDuration());
+            test.setIsLocked(testUpdate.getIsLocked());
+            //ko cần set lại id của Lecture
+            return testRepository.save(test);
+        } else {
+            throw new ResourceNotFoundException("Test not found");
+        }
     }
 
 }
