@@ -1,9 +1,6 @@
 package com.sep490.g49.shibadekiru.controller.auth;
 
-import com.sep490.g49.shibadekiru.dto.AuthenticationDto;
-import com.sep490.g49.shibadekiru.dto.AuthenticationLoginDto;
-import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
-import com.sep490.g49.shibadekiru.dto.UserAccountDto;
+import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
 import com.sep490.g49.shibadekiru.impl.JWTServiceImpl;
 import com.sep490.g49.shibadekiru.impl.RoleServiceImpl;
@@ -26,14 +23,18 @@ public class AuthenticationController {
 
     private final AuthenticationServiceImpl authenticationService;
 
-   @Autowired
-    private RoleServiceImpl roleService;
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationDto> register(
-            @RequestBody UserAccountDto request
+    public ResponseEntity<?> register(
+            @RequestBody RegisterResponse request
     ) {
-        request.setRole(roleService.getByRoleId(3L));
-        return ResponseEntity.ok(authenticationService.register(request));
+        try {
+            request.setRoleId((2L));
+            authenticationService.register(request);
+            return ResponseEntity.ok().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage()); // Trả về thông báo lỗi nếu có lỗi xảy ra
+        }
+
     }
 
 
@@ -53,6 +54,7 @@ public class AuthenticationController {
             System.out.println("Member id: " +  userAccountDto.getMemberId());
             System.out.println("Pass word:" + userAccountDto.getPassword());
             System.out.println("Role id: " +  userAccountDto.getRole());
+            System.out.println("US id: " +  userAccountDto.getUserName());
             authResult.setRole(userAccountDto.getRole());
             authResult.setEmail(userAccountDto.getEmail());
             authResult.setUserAccountId(userAccountDto.getUserAccountId());
