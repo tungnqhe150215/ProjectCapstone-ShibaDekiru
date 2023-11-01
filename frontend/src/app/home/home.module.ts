@@ -12,6 +12,8 @@ import { HiraganaComponent } from './alphabet/hiragana/hiragana.component';
 import { KatakanaComponent } from './alphabet/katakana/katakana.component';
 import { HiraganaDetailComponent } from './alphabet/hiragana/hiragana-detail/hiragana-detail.component';
 import { KatakanaDetailComponent } from './alphabet/katakana/katakana-detail/katakana-detail.component';
+import { ClassListComponent } from './class/class-list/class-list.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 
@@ -28,6 +30,7 @@ import { KatakanaDetailComponent } from './alphabet/katakana/katakana-detail/kat
     KatakanaComponent,
     HiraganaDetailComponent,
     KatakanaDetailComponent,
+    ClassListComponent,
   ],
   exports: [
     FooterComponent,
@@ -36,7 +39,8 @@ import { KatakanaDetailComponent } from './alphabet/katakana/katakana-detail/kat
   imports: [
     CommonModule,
     HomeRoutingModule,
-    MatCardModule
+    MatCardModule,
+    FontAwesomeModule
   ]
 })
 export class HomeModule { }
