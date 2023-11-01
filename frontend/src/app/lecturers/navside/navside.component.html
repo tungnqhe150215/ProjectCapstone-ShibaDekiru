@@ -1,53 +1,68 @@
-
-
 <mat-toolbar class="mat-elevation-z3">
-<button mat-icon-button (click)="collapsed.set(!collapsed())">
+  <button mat-icon-button (click)="collapsed.set(!collapsed())">
     <mat-icon>menu</mat-icon>
-</button>
+  </button>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
-        <mat-nav-list>
-            <a mat-list-item routerLink="3/post"
-            routerLinkActive="selected-menu-item"
-            #rla="routerLinkActive"
-            [activated]="rla.isActive"
-            > 
-                <mat-icon matListItemIcon >Post Manage</mat-icon>
-                <span>Dashboard</span>
-            </a>
-        </mat-nav-list>
-        <mat-nav-list>
-            <a mat-list-item routerLink="class/1/class-work"
-            routerLinkActive="selected-menu-item"
-            #rla1="routerLinkActive"
-            [activated]="rla1.isActive"> 
-                <mat-icon matListItemIcon>Content</mat-icon>
-                <span>ClassWork</span>
-            </a>
-        </mat-nav-list>
-        <!-- <mat-nav-list>
-            <a mat-list-item 
-            routerLinkActive="selected-menu-item"
-            class="menu-item"
-            #rla2="routerLinkActive"
-            [activated]="rla2.isActive"> 
-                <mat-icon matListItemIcon>analytics</mat-icon>
-                <span>Analytics</span>
-            </a>
-        </mat-nav-list>
-        <mat-nav-list>
-            <a mat-list-item> 
-                <mat-icon matListItemIcon>comment</mat-icon>
-                <span>Comment</span>
-            </a>
-        </mat-nav-list> -->
-    </mat-sidenav>
-    <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
+  <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+    <mat-nav-list>
+      <a mat-list-item routerLink="222222/post"
+         routerLinkActive="selected-menu-item"
+         #rla="routerLinkActive"
+         [activated]="rla.isActive"
+      >
+        <mat-icon matListItemIcon>B</mat-icon>
+        <span>Bài viết của tôi</span>
+      </a>
+    </mat-nav-list>
+    <mat-nav-list>
+      <a mat-list-item routerLink="class"
+         routerLinkActive="selected-menu-item"
+         #rlaClass="routerLinkActive"
+         [activated]="rlaClass.isActive">
+        <mat-icon matListItemIcon>Danh sách lớp</mat-icon>
+        <span>Danh sách lớp</span>
+      </a>
+    </mat-nav-list>
+    <mat-nav-list>
+      <a mat-list-item routerLink="class/1/class-work"
+         routerLinkActive="selected-menu-item"
+         #rla1="routerLinkActive"
+         [activated]="rla1.isActive">
+        <mat-icon matListItemIcon>Quản lí lớp</mat-icon>
+        <span>Quản lí lớp</span>
+      </a>
+    </mat-nav-list>
+    <mat-nav-list>
+      <a mat-list-item routerLink="test"
+         routerLinkActive="selected-menu-item"
+         #rlaTest="routerLinkActive"
+         [activated]="rlaTest.isActive">
+        <mat-icon matListItemIcon>T</mat-icon>
+        <span>Quản lí bài kiểm tra </span>
+      </a>
+    </mat-nav-list>
+    <!-- <mat-nav-list>
+        <a mat-list-item
+        routerLinkActive="selected-menu-item"
+        class="menu-item"
+        #rla2="routerLinkActive"
+        [activated]="rla2.isActive">
+            <mat-icon matListItemIcon>analytics</mat-icon>
+            <span>Analytics</span>
+        </a>
+    </mat-nav-list>
+    <mat-nav-list>
+        <a mat-list-item>
+            <mat-icon matListItemIcon>comment</mat-icon>
+            <span>Comment</span>
+        </a>
+    </mat-nav-list> -->
+  </mat-sidenav>
+  <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>
-
 
 
 <!-- <div id="app">

@@ -12,6 +12,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { LecturersModule } from './lecturers/lecturers.module';
 import { HomeComponent } from './home/home.component';
 import {HomeModule} from "./home/home.module";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {HomeModule} from "./home/home.module";
         MatIconModule,
         LecturersModule,
         HomeModule,
+        FontAwesomeModule
         // LecturersRoutingModule,
 
     ],

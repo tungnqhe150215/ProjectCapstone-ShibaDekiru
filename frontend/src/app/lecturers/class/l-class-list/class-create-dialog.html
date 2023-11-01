@@ -1,0 +1,16 @@
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Thêm lớp học mới</h2>
+<mat-dialog-content>
+  <form class="form-dialog"></form>
+  <mat-form-field>
+    <mat-label>Tên lớp</mat-label>
+    <input matInput [(ngModel)]="iClass.className" [ngModelOptions]="{standalone: true}" type="text" required>
+  </mat-form-field>
+  <br>
+  <mat-slide-toggle [(ngModel)]="iClass.isLocked" [ngModelOptions]="{standalone: true}" > Khóa lớp học </mat-slide-toggle>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true" (click)="createClass()">Create</button>
+</mat-dialog-actions>
+

@@ -2,14 +2,15 @@
   <div class="page-title">
     <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
-        <h3>Bài tập</h3>
-        <p class="text-subtitle text-muted">Quản lí bài tập của công việc trên lớp</p>
+        <h3>Câu hỏi </h3>
+        <p class="text-subtitle text-muted">Quản lí câu hỏi trong 1 bài</p>
       </div>
       <div class="col-12 col-md-6 order-md-2 order-first">
         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">Lecturer</li>
             <li class="breadcrumb-item active" aria-current="page">Class Work</li>
+            <li class="breadcrumb-item active" aria-current="page">Exercise</li>
           </ol>
         </nav>
       </div>
@@ -18,59 +19,68 @@
   <section class="section">
     <div class="card">
       <div class="card-header">
-        Danh sách bài tập
+        <div class="row">
+            Danh sách bài tập
+        </div>
       </div>
       <div class="card-body">
-        <mat-tab-group animationDuration="0ms" mat-stretch-tabs="false">
-          <mat-tab label="Class Work">
-            <div class="card-body">
-              <mat-form-field>
-                <mat-label>Bộ lọc</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-              </mat-form-field>
-              <div class="mb-2">
-                <button mat-raised-button (click)="openCreateExerciseQuestionDialog(exercise.exerciseId)">Thêm bài tập</button>
-              </div>
-              <div class="mat-elevation-z8">
-                <table mat-table [dataSource]="dataSource" matSort>
+        <div class="row">
+          <div class="col-10  order-md-1 order-first">
+            <h4>Đề bài </h4>
+            <p class="text-subtitle text-muted">{{exercise.title}}</p>
+          </div>
+          <div class="col-2 order-last">
+            <button appBackButton class="btn btn-outline-info">Back</button>
+          </div>
+        </div>
 
-                  <!-- ID Column -->
-                  <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                    <td mat-cell *matCellDef="let row"> {{row.exerciseId}} </td>
-                  </ng-container>
+        <mat-form-field>
+          <mat-label>Bộ lọc</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+        </mat-form-field>
+        <div class="mb-2">
+          <button mat-raised-button (click)="openCreateExerciseQuestionDialog(exercise.exerciseId)">Thêm câu hỏi cho bài
+            tập
+          </button>
+        </div>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
 
-                  <!-- Progress Column -->
-                  <ng-container matColumnDef="question">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Câu hỏi </th>
-                    <td mat-cell *matCellDef="let row"> {{row.title}} </td>
-                  </ng-container>
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> #</th>
+              <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
+            </ng-container>
 
-                  <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động </th>
-                    <td mat-cell *matCellDef="let row">
-                      <button (click)="openUpdateExerciseQuestionDialog(row.exerciseId)"  title="cập nhật" mat-icon-button> <mat-icon>edit</mat-icon> </button>
-                      <button mat-icon-button color="warn" (click)="openDeleteExerciseQuestionDialog(row.exerciseId)" title="xóa"><mat-icon>remove_circle </mat-icon></button>
-                    </td>
-                  </ng-container>
+            <!-- Progress Column -->
+            <ng-container matColumnDef="question">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Câu hỏi</th>
+              <td mat-cell *matCellDef="let row"> {{row.question}} </td>
+            </ng-container>
 
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động</th>
+              <td mat-cell *matCellDef="let row">
+                <button (click)="openUpdateExerciseQuestionDialog(row.writingQuizId)" title="cập nhật" mat-icon-button>
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="openDeleteExerciseQuestionDialog(row.writingQuizId)"
+                        title="xóa">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
-                  <!-- Row shown when there is no matching data. -->
-                  <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                  </tr>
-                </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-              </div>
-            </div>
-
-          </mat-tab>
-          <mat-tab label="Member">Content 2</mat-tab>
-          <mat-tab label="Sroce">Content 3</mat-tab>
-        </mat-tab-group>
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
       </div>
     </div>
   </section>

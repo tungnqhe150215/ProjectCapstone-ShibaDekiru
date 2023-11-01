@@ -31,7 +31,7 @@ public class ClassStudent implements Serializable {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "class_id", referencedColumnName = "class_id")
-    private Class aclass;
+    private Class belongClass;
 
 
 }

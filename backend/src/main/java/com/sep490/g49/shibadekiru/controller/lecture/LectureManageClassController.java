@@ -1,10 +1,12 @@
 package com.sep490.g49.shibadekiru.controller.lecture;
 
 import com.sep490.g49.shibadekiru.dto.ClassDto;
+import com.sep490.g49.shibadekiru.dto.ClassStudentDto;
 import com.sep490.g49.shibadekiru.dto.LecturesDto;
 import com.sep490.g49.shibadekiru.entity.Class;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.service.IClassService;
+import com.sep490.g49.shibadekiru.service.IClassStudentService;
 import com.sep490.g49.shibadekiru.service.ILecturesService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,8 @@ public class LectureManageClassController {
     IClassService classService;
 
     ILecturesService lectureService;
+
+    IClassStudentService iClassStudentService;
 
     @GetMapping("/{lectureId}/class")
     public List<ClassDto> getAllClassByLecture(@PathVariable (name = "lectureId") Long lectureId){
@@ -89,5 +93,13 @@ public class LectureManageClassController {
     public ResponseEntity<Void> updateIsLocked(@PathVariable Long id) {
         classService.updateIsLocked(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/class/{classId}/member")
+    public List<ClassStudentDto> getAllClassMember(@PathVariable (name = "classId") Long classId){
+
+        Class aClass = classService.getClassById(classId);
+
+        return iClassStudentService.getClassStudentByClass(aClass).stream().map(classStudent -> modelMapper.map(classStudent, ClassStudentDto.class)).collect(Collectors.toList());
     }
 }
