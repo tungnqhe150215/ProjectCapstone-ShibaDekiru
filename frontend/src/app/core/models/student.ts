@@ -1,11 +1,11 @@
 import {UserAccount} from "./user-account";
 
 export class Student {
-  id?:number
-  user?:UserAccount
-  first_name?:String
-  last_name?:String
+  studentId?:number
+  // user?:UserAccount
+  firstName?:String
+  lastName?:String
   email?:String
-  gender?:String
+  gender?:Boolean
   avatar?:String
 }

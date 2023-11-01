@@ -12,7 +12,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { LecturersModule } from './lecturers/lecturers.module';
 import { HomeComponent } from './home/home.component';
 import {HomeModule} from "./home/home.module";
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule }   from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,8 +30,10 @@ import {HomeModule} from "./home/home.module";
         MatIconModule,
         LecturersModule,
         HomeModule,
+        ReactiveFormsModule,
         // LecturersRoutingModule,
-
+        FormsModule,
+        HttpClientModule,
     ],
   providers: [],
   bootstrap: [AppComponent]
