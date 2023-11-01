@@ -14,6 +14,6 @@ public class ClassStudentDto {
 
     private Long classStudentId;
     private LocalDateTime joinedAt;
-    private StudentDto studentDto;
-    private ClassDto classDto;
+    private StudentDto student;
+    private ClassDto belongClass;
 }
