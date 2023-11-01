@@ -62,4 +62,16 @@ public class LectureManageTestController {
         return new ResponseEntity<TestDto>(testResponse, HttpStatus.CREATED);
     }
 
+    @PutMapping("/test/{testId}")
+    public ResponseEntity<TestDto> updateTest (@PathVariable (name = "testId") Long testId, @RequestBody TestDto testDto) {
+
+        Test testRequest = modelMapper.map(testDto, Test.class);
+
+        Test testUpdate = testService.updateTest(testId, testRequest);
+
+        TestDto testResponse = modelMapper.map(testUpdate, TestDto.class);
+
+        return ResponseEntity.ok().body(testResponse);
+    }
+
 }

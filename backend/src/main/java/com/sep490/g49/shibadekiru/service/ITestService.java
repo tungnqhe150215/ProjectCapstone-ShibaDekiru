@@ -12,4 +12,6 @@ public interface ITestService {
     List<Test> getAllTestByLecture(Lectures lecture);
 
     Test createTest(Test test);
+
+    Test updateTest(Long testId, Test testUpdate);
 }
