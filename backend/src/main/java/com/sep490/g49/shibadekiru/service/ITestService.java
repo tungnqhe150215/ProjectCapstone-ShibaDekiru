@@ -10,4 +10,6 @@ public interface ITestService {
     Test getTestById(Long testId);
 
     List<Test> getAllTestByLecture(Lectures lecture);
+
+    Test createTest(Test test);
 }

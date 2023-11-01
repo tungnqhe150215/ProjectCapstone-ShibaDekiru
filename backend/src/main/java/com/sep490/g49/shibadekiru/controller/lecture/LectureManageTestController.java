@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.controller.lecture;
 
 import com.sep490.g49.shibadekiru.dto.ClassDto;
+import com.sep490.g49.shibadekiru.dto.LecturesDto;
 import com.sep490.g49.shibadekiru.dto.TestDto;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.entity.Test;
@@ -10,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +44,22 @@ public class LectureManageTestController {
         TestDto testResponse = modelMapper.map(test, TestDto.class);
 
         return ResponseEntity.ok().body(testResponse);
+    }
+
+    @PostMapping("/{lectureId}/test")
+    public ResponseEntity<TestDto> createTest (@PathVariable (name = "lectureId") Long lectureId, @RequestBody TestDto testDto) {
+
+        LecturesDto lecturesDto = new LecturesDto();
+        lecturesDto.setLectureId(lectureId);
+        testDto.setLecture(lecturesDto);
+
+        Test testRequest = modelMapper.map(testDto, Test.class);
+
+        Test testCreate = testService.createTest(testRequest);
+
+        TestDto testResponse = modelMapper.map(testCreate, TestDto.class);
+
+        return new ResponseEntity<TestDto>(testResponse, HttpStatus.CREATED);
     }
 
 }
