@@ -16,8 +16,8 @@ public class TestDto {
     private LocalDateTime createdAt;
     private Long duration;
     private Boolean isLocked;
-    private List<TestResultDto> testResultDtoList;
-    private List<QuestionBankDto> questionBankDtoList;
+//    private List<TestResultDto> testResultDtoList;
+//    private List<QuestionBankDto> questionBankDtoList;
     private LecturesDto lecture;
 
 }
