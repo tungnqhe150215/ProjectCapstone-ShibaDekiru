@@ -30,6 +30,10 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { ListExerciseComponent } from './exercise/list-exercise/list-exercise.component';
 import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-detail.component';
+import { LClassListComponent } from './class/l-class-list/l-class-list.component';
+import {SharedModule} from "../shared/shared.module";
+import { LectureListTestComponent } from './test/lecture-list-test/lecture-list-test.component';
+import { LectureTestDetailComponent } from './test/lecture-test-detail/lecture-test-detail.component';
 
 
 @NgModule({
@@ -43,7 +47,7 @@ import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-det
     AddClassworkComponent,
     UpdateClassworkComponent,
     DeleteClassworkComponent,
-    ClassworkDetailComponent
+    ClassworkDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -66,7 +70,11 @@ import { ExerciseDetailComponent } from './exercise/exercise-detail/exercise-det
     MatSidenavModule,
     MatListModule,
     ListExerciseComponent,
-    ExerciseDetailComponent
+    ExerciseDetailComponent,
+    SharedModule,
+    LClassListComponent,
+    LectureListTestComponent,
+    LectureTestDetailComponent,
   ]
 })
 export class LecturersModule { }
