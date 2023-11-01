@@ -3,12 +3,14 @@ package com.sep490.g49.shibadekiru.controller.lecture;
 import com.sep490.g49.shibadekiru.dto.ClassDto;
 import com.sep490.g49.shibadekiru.dto.TestDto;
 import com.sep490.g49.shibadekiru.entity.Lectures;
+import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.service.ILecturesService;
 import com.sep490.g49.shibadekiru.service.ITestService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +30,18 @@ public class LectureManageTestController {
     ILecturesService lecturesService;
 
     @GetMapping("/{lectureId}/test")
-    public List<TestDto> getAllTestByLecture (@PathVariable(name = "lectureId") Long lectureId) {
+    public List<TestDto> getAllTestByLecture (@PathVariable (name = "lectureId") Long lectureId) {
         Lectures lecturesResponse = lecturesService.getLectureById(lectureId);
         return testService.getAllTestByLecture(lecturesResponse).stream().map(testLecture -> modelMapper.map(testLecture, TestDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/test/{testId}")
+    public ResponseEntity<TestDto> getTestById (@PathVariable (name = "testId") Long testId) {
+        Test test = testService.getTestById(testId);
+
+        TestDto testResponse = modelMapper.map(test, TestDto.class);
+
+        return ResponseEntity.ok().body(testResponse);
     }
 
 }
