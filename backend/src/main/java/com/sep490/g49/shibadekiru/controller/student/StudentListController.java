@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -34,17 +35,17 @@ public class StudentListController {
 
     @GetMapping("/kanji")
     public List<KanjiDto> getAllKanji() {
-        return null;
+        return kanjiService.getAllKanji().stream().map(kanji -> modelMapper.map(kanji, KanjiDto.class)).collect(Collectors.toList());
     }
 
     @GetMapping("/vocabulary")
     public List<VocabularyDto> getAllVocabulary() {
-        return null;
+        return vocabularyService.getAllVocabulary().stream().map(vocabulary -> modelMapper.map(vocabulary, VocabularyDto.class)).collect(Collectors.toList());
     }
 
     @GetMapping("/grammar")
     public List<GrammarDto> getAllGrammar() {
-        return null;
+        return grammarService.getAllGrammar().stream().map(grammar -> modelMapper.map(grammar, GrammarDto.class)).collect(Collectors.toList());
     }
 
 }
