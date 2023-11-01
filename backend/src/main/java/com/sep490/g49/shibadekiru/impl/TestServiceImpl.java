@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,6 +28,7 @@ public class TestServiceImpl implements ITestService {
         return testRepository.findAllByLecture(lecture);
     }
 
+
     @Override
     public Test getTestById(Long testId) {
 
@@ -38,5 +40,21 @@ public class TestServiceImpl implements ITestService {
         return test;
     }
 
+    @Override
+    public Test createTest(Test test) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        String title = test.getTitle();
+        Long duration = test.getDuration();
+        Boolean isLocked = test.getIsLocked();
+        Lectures lecture = test.getLecture();
+
+        Test testCreate = new Test();
+        testCreate.setTitle(title);
+        testCreate.setCreatedAt(currentDateTime);
+        testCreate.setDuration(duration);
+        testCreate.setIsLocked(isLocked);
+        testCreate.setLecture(lecture);
+        return testRepository.save(testCreate);
+    }
 
 }
