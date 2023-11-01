@@ -1,0 +1,57 @@
+<div class="courses_area p_120">
+    <div class="table-content">
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+        </mat-form-field>
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
+                    <td  (click)="grammarDetail(row.grammarId)" style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.grammarId}} </td>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên công thức </th>
+                    <td (click)="grammarDetail(row.grammarId)"  style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.grammarName}}  <p style="color: red">{{row.description}}</p> </td>
+                  
+                </ng-container>
+<!--           
+                <ng-container matColumnDef="structure">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cấu trúc </th>
+                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.grammarStructure}} </td>
+                </ng-container>
+
+              
+                <ng-container matColumnDef="explain">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Giải thích </th>
+                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.description}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Example">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ví dụ </th>
+                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.description}} </td>
+                </ng-container> -->
+
+                <ng-container matColumnDef="lesson">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Bài học</th>
+                    <td (click)="grammarDetail(row.grammarId)" style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.lessonId}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+    </div>
+</div>

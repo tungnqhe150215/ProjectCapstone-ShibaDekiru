@@ -11,9 +11,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,13 @@ public class TestServiceImpl implements ITestService {
     LecturersRepository lecturersRepository;
 
     TestRepository testRepository;
-    
+
+    @Override
+    public List<Test> getAllTestByLecture(Lectures lecture) {
+        return testRepository.findAllByLecture(lecture);
+    }
+
+
     @Override
     public Test getTestById(Long testId) {
 
@@ -37,27 +44,43 @@ public class TestServiceImpl implements ITestService {
 
     @Override
     public Test createTest(Test test) {
-        return testRepository.save(test);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        String title = test.getTitle();
+        Long duration = test.getDuration();
+        Boolean isLocked = test.getIsLocked();
+        Lectures lecture = test.getLecture();
+
+        Test testCreate = new Test();
+        testCreate.setTitle(title);
+        testCreate.setCreatedAt(currentDateTime);
+        testCreate.setDuration(duration);
+        testCreate.setIsLocked(isLocked);
+        testCreate.setLecture(lecture);
+        return testRepository.save(testCreate);
     }
 
     @Override
-    public Test updateTest(Long id, Test testRequest) {
-        Test test = testRepository.findTestByTestId(id);
-        test.setDuration(testRequest.getDuration());
-        test.setTitle(testRequest.getTitle());
-        test.setCreatedAt(LocalDateTime.parse(LocalDateTime.now().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        test.setIsLocked(testRequest.getIsLocked());
-        return testRepository.save(test);
+    public Test updateTest(Long testId, Test testUpdate) {
+
+        Optional<Test> testOptional = testRepository.findById(testId);
+
+        if (testOptional.isPresent()) {
+            Test test = testOptional.get();
+            test.setTitle(testUpdate.getTitle());
+            test.setDuration(testUpdate.getDuration());
+            test.setIsLocked(testUpdate.getIsLocked());
+            //ko cần set lại id của Lecture
+            return testRepository.save(test);
+        } else {
+            throw new ResourceNotFoundException("Test not found");
+        }
     }
 
     @Override
-    public void deleteTest(Long id) {
-        Test test = testRepository.findTestByTestId(id);
-        testRepository.delete(test);
+    public void deleteTest(Long testId) {
+        Test testDelete = testRepository.findById(testId)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        testRepository.delete(testDelete);
     }
 
-    @Override
-    public List<Test> getAllTestByLecture(Lectures lectures) {
-        return testRepository.findTestsByLecture(lectures);
-    }
 }

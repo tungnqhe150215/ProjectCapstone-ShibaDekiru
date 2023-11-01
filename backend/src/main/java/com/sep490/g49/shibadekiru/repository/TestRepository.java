@@ -11,5 +11,5 @@ import java.util.List;
 public interface TestRepository extends JpaRepository<Test, Long> {
     Test findTestByTestId(Long id);
 
-    List<Test> findTestsByLecture(Lectures lectures);
+    List<Test> findAllByLecture(Lectures lecture);
 }

@@ -14,9 +14,16 @@ import { HiraganaDetailComponent } from './alphabet/hiragana/hiragana-detail/hir
 import { KatakanaDetailComponent } from './alphabet/katakana/katakana-detail/katakana-detail.component';
 import { ClassListComponent } from './class/class-list/class-list.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-
-
-
+import { KanjiComponent } from './list-knowledge/kanji/kanji.component';
+import { VocabComponent } from './list-knowledge/vocab/vocab.component';
+import { GrammarComponent } from './list-knowledge/grammar/grammar.component';
+import { GrammarDetailComponent } from './list-knowledge/grammar/grammar-detail/grammar-detail.component';
+import { KanjiDetailComponent } from './list-knowledge/kanji/kanji-detail/kanji-detail.component';
+import { VocabDetailComponent } from './list-knowledge/vocab/vocab-detail/vocab-detail.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -31,6 +38,12 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     HiraganaDetailComponent,
     KatakanaDetailComponent,
     ClassListComponent,
+    KanjiComponent,
+    VocabComponent,
+    GrammarComponent,
+    GrammarDetailComponent,
+    KanjiDetailComponent,
+    VocabDetailComponent,
   ],
   exports: [
     FooterComponent,
@@ -40,7 +53,11 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     CommonModule,
     HomeRoutingModule,
     MatCardModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
   ]
 })
 export class HomeModule { }
