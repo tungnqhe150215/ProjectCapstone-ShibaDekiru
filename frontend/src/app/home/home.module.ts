@@ -1,3 +1,4 @@
+import { LessonModule } from './lesson/lesson.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
@@ -12,8 +13,6 @@ import { HiraganaComponent } from './alphabet/hiragana/hiragana.component';
 import { KatakanaComponent } from './alphabet/katakana/katakana.component';
 import { HiraganaDetailComponent } from './alphabet/hiragana/hiragana-detail/hiragana-detail.component';
 import { KatakanaDetailComponent } from './alphabet/katakana/katakana-detail/katakana-detail.component';
-
-
 
 
 @NgModule({
@@ -36,7 +35,8 @@ import { KatakanaDetailComponent } from './alphabet/katakana/katakana-detail/kat
   imports: [
     CommonModule,
     HomeRoutingModule,
-    MatCardModule
+    MatCardModule,
+    LessonModule,
   ]
 })
 export class HomeModule { }
