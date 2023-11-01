@@ -20,7 +20,7 @@ public class TestResult implements Serializable {
     private Long testResultId;
 
     @Column(name = "result", nullable = false)
-    private String result;
+    private Double result;
 
     @Column(nullable = true)
     private LocalDateTime doneTime;
