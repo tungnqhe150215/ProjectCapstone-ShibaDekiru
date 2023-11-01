@@ -16,13 +16,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {ClassworkService} from "../../classwork/classwork.service";
 import {ClassWork} from "../../../core/models/class-work";
 import {MatTabsModule} from "@angular/material/tabs";
+import {SharedModule} from "../../../shared/shared.module";
 
 @Component({
   selector: 'app-list-exercise',
   templateUrl: './list-exercise.component.html',
   styleUrls: ['./list-exercise.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule],
+    imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, SharedModule],
 })
 export class ListExerciseComponent implements OnInit{
   displayedColumns: string[] = ['id', 'title','action'];
@@ -98,7 +99,7 @@ export class ListExerciseComponent implements OnInit{
   }
 
   getExerciseDetail(id:number){
-    this.router.navigate(['lecture/class/class-work/exercise',id]);
+    this.router.navigate(['lecturer/class/class-work/exercise',id]);
   }
 }
 
