@@ -1,0 +1,17 @@
+.modal-content {
+  margin: 0 auto;
+  /* Căn giữa theo chiều ngang */
+}
+
+.text-2{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-font{
+  font-family: "Tahoma";
+  font-size: 15px;
+}
