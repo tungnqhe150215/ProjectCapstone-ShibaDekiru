@@ -14,4 +14,6 @@ public interface ITestService {
     Test createTest(Test test);
 
     Test updateTest(Long testId, Test testUpdate);
+
+    void deleteTest(Long testId);
 }

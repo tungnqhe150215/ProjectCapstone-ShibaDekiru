@@ -75,7 +75,7 @@ public class LectureManageQuestionBankController {
         return ResponseEntity.ok().body(questionBankResponse);
     }
 
-    @DeleteMapping("/{questionId}")
+    @DeleteMapping("/question/{questionId}")
     public ResponseEntity<Map<String, Boolean>> deleteQuestion(@PathVariable Long questionId) {
         questionBankService.deleteQuestion(questionId);
 
