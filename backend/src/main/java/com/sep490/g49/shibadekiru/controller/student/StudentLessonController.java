@@ -1,9 +1,7 @@
 package com.sep490.g49.shibadekiru.controller.student;
 
 import com.sep490.g49.shibadekiru.dto.*;
-import com.sep490.g49.shibadekiru.entity.Book;
-import com.sep490.g49.shibadekiru.entity.Lesson;
-import com.sep490.g49.shibadekiru.entity.Listening;
+import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.service.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -105,12 +103,14 @@ public class StudentLessonController {
 
     @GetMapping("/lesson/writing/{writingId}/writing-question")
     public List<WritingQuestionDto> getAllWritingQuestionByWriting (@PathVariable (name = "writingId") Long writingId) {
-        return null;
+        Writing writingResponse = writingService.getWritingById(writingId);
+        return writingQuestionService.getWritingQuestionByWriting(writingResponse).stream().map(writingQuestion -> modelMapper.map(writingQuestion, WritingQuestionDto.class)).collect(Collectors.toList());
     }
 
     @GetMapping("/lesson/reading/{readingId}/reading-question")
     public List<ReadingQuestionDto> getAllReadingQuestionByReading (@PathVariable (name = "readingId") Long readingId) {
-        return null;
+        Reading readingResponse = readingService.getReadingById(readingId);
+        return readingQuestionService.getReadingQuestionByReading(readingResponse).stream().map(readingQuestion -> modelMapper.map(readingQuestion, ReadingQuestionDto.class)).collect(Collectors.toList());
     }
 
 }
