@@ -76,4 +76,11 @@ public class TestServiceImpl implements ITestService {
         }
     }
 
+    @Override
+    public void deleteTest(Long testId) {
+        Test testDelete = testRepository.findById(testId)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        testRepository.delete(testDelete);
+    }
+
 }
