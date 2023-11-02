@@ -1,6 +1,6 @@
 package com.sep490.g49.shibadekiru.impl;
 
-import ch.qos.logback.classic.Logger;
+import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.Role;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
