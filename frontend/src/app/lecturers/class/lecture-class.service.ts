@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Class} from "../../core/models/class";
+import {ClassStudent} from "../../core/models/class-student";
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,9 @@ export class LectureClassService {
 
   deleteClass(id:number): Observable<Object>{
     return this.httpClient.delete(`${this.baseUrl}/class/${id}`);
+  }
+
+  getMemberbyClass(id:number): Observable<ClassStudent[]>{
+    return this.httpClient.get<ClassStudent[]>(`${this.baseUrl}/class/${id}/member`);
   }
 }

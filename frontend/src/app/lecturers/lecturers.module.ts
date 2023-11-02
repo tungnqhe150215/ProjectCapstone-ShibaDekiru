@@ -34,6 +34,7 @@ import { LClassListComponent } from './class/l-class-list/l-class-list.component
 import {SharedModule} from "../shared/shared.module";
 import { LectureListTestComponent } from './test/lecture-list-test/lecture-list-test.component';
 import { LectureTestDetailComponent } from './test/lecture-test-detail/lecture-test-detail.component';
+import { ClassMemberComponent } from './class/class-member/class-member.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { LectureTestDetailComponent } from './test/lecture-test-detail/lecture-t
     UpdateClassworkComponent,
     DeleteClassworkComponent,
     ClassworkDetailComponent,
+    ClassMemberComponent,
   ],
   imports: [
     CommonModule,

@@ -20,7 +20,7 @@ export class PostService {
   }
 
   getPostByID(id:number): Observable<Post>{
-    return this.httpClient.get(`${this.baseURL}/${id}`);
+    return this.httpClient.get<Post>(`${this.baseURL}/${id}`);
   }
 
   createPost(post: Post): Observable<Object>{
