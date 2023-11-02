@@ -10,6 +10,7 @@ import { VocabComponent } from './list-knowledge/vocab/vocab.component';
 import { GrammarComponent } from './list-knowledge/grammar/grammar.component';
 import { KanjiComponent } from './list-knowledge/kanji/kanji.component';
 import { LessonModule } from './lesson/lesson.module';
+import {ClassLandingComponent} from "./class/class-landing/class-landing.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path: 'hiragana', component: HiraganaComponent},
       {path: 'katakana', component: KatakanaComponent},
       {path: 'class', component: ClassListComponent},
+      {path: 'class/:id', component: ClassLandingComponent},
       {path: 'vocabulary', component: VocabComponent},
       {path: 'grammar', component: GrammarComponent},
       {path: 'kanji', component: KanjiComponent},
@@ -31,7 +33,7 @@ const routes: Routes = [
   },
 
   {path: 'login', component: UserLoginComponent},
-    
+
 ];
 
 @NgModule({

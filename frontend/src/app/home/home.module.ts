@@ -25,6 +25,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from "@angular/material/input";
+import { ClassLandingComponent } from './class/class-landing/class-landing.component';
+import { ClassworkComponent } from './class/class-landing/classwork/classwork.component';
+import { ClassBoardComponent } from './class/class-landing/class-board/class-board.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -45,6 +49,9 @@ import {MatInputModule} from "@angular/material/input";
     GrammarDetailComponent,
     KanjiDetailComponent,
     VocabDetailComponent,
+    ClassLandingComponent,
+    ClassworkComponent,
+    ClassBoardComponent,
   ],
   exports: [
     FooterComponent,
@@ -60,6 +67,7 @@ import {MatInputModule} from "@angular/material/input";
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
+    MatTabsModule,
   ]
 })
 export class HomeModule { }
