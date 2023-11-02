@@ -18,7 +18,14 @@
   <section class="section">
     <div class="card">
       <div class="card-header">
-        All Classwork
+        <div class="row">
+          <div class="col-9">
+            Nội dung lớp học
+          </div>
+          <div class="col-3">
+            Mã lớp: {{aClass.classCode}}
+          </div>
+        </div>
       </div>
       <div class="card-body">
         <mat-tab-group animationDuration="0ms" mat-stretch-tabs="false">
@@ -65,7 +72,7 @@
 
                   <ng-container matColumnDef="Status">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                    <td mat-cell *matCellDef="let row"> 
+                    <td mat-cell *matCellDef="let row">
                       <h6> <span *ngIf="row.isLocked === true" class="badge rounded-pill text-bg-success">Mở</span>
                       </h6>
                       <h6> <span *ngIf="row.isLocked === false" class="badge rounded-pill text-bg-danger">Khóa</span>
@@ -101,7 +108,9 @@
             </div>
 
           </mat-tab>
-          <mat-tab label="Member">Content 2</mat-tab>
+          <mat-tab label="Member">
+            <lecture-class-member></lecture-class-member>
+          </mat-tab>
           <mat-tab label="Sroce">Content 3</mat-tab>
         </mat-tab-group>
       </div>
