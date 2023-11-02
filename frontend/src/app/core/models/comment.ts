@@ -1,8 +1,10 @@
 import {UserAccount} from "./user-account";
 
 export class Comment {
-    id?:number
+    commentId?:number
     user?:UserAccount
+    createdAt?:Date
     content?:String
-    created_at?:Date
+    userId?:number
+    postId?:number
 }

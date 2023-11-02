@@ -25,6 +25,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from "@angular/material/input";
+import { ListPostComponent } from './post/list-post/list-post.component';
+import { PostDetailComponent } from './post/post-detail/post-detail.component';
+import { ListCommentComponent } from './post/post-detail/list-comment/list-comment.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import {MatInputModule} from "@angular/material/input";
     GrammarDetailComponent,
     KanjiDetailComponent,
     VocabDetailComponent,
+    ListPostComponent,
+    PostDetailComponent,
+    ListCommentComponent,
   ],
   exports: [
     FooterComponent,
