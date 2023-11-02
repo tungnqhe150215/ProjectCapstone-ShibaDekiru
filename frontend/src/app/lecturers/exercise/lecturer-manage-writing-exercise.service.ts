@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class LecturerManageWritingExerciseService {
-  private baseUrl="http://localhost:8080/api/lecturer/class/classwork/exercise";
+  private baseUrl="http://localhost:8080/api/lecture/class/classwork/exercise";
 
   writingExercises: WritingExercise[] = [];
 

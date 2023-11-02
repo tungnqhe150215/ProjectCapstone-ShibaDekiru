@@ -32,7 +32,7 @@ public class Post implements Serializable {
     @Column(name = "is_enabled", nullable = false)
     private Boolean isEnabled;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<Comment> comment;
 

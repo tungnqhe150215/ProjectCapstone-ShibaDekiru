@@ -46,4 +46,9 @@ public class UserAccount implements Serializable {
     @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
     private Role role;
 
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Comment> comment;
+
+
 }

@@ -13,6 +13,9 @@ import { UpdateClassworkComponent } from './lecturers/classwork/update-classwork
 import { HomeModule } from './home/home.module';
 import {ExerciseDetailComponent} from "./lecturers/exercise/exercise-detail/exercise-detail.component";
 import {ListExerciseComponent} from "./lecturers/exercise/list-exercise/list-exercise.component";
+import {LClassListComponent} from "./lecturers/class/l-class-list/l-class-list.component";
+import {LectureListTestComponent} from "./lecturers/test/lecture-list-test/lecture-list-test.component";
+import {LectureTestDetailComponent} from "./lecturers/test/lecture-test-detail/lecture-test-detail.component";
 
 
 const routes: Routes = [
@@ -41,8 +44,10 @@ const routes: Routes = [
       {path: 'class/:id/class-work', component:ClassworkComponent},
       {path: 'class/class-work/:id', component:UpdateClassworkComponent},
       {path: 'class/class-work/:id/exercise', component:ListExerciseComponent},
-      {path: 'class/class-work/exercise/:id', component:ExerciseDetailComponent}
-
+      {path: 'class/class-work/exercise/:id', component:ExerciseDetailComponent},
+      {path: 'class', component:LClassListComponent},
+      {path: 'test',component:LectureListTestComponent},
+      {path: 'test/:id',component:LectureTestDetailComponent},
       // {path: 'class/:id/create-work', component:AddClassworkComponent},
     ]
   },

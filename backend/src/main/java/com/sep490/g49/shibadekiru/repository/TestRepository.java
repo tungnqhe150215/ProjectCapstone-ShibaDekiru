@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface TestRepository extends JpaRepository<Test, Long> {
+    Test findTestByTestId(Long id);
 
     List<Test> findAllByLecture(Lectures lecture);
 }

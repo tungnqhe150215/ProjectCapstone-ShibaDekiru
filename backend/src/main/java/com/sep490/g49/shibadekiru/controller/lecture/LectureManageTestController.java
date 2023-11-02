@@ -1,16 +1,15 @@
 package com.sep490.g49.shibadekiru.controller.lecture;
 
-import com.sep490.g49.shibadekiru.dto.ClassDto;
-import com.sep490.g49.shibadekiru.dto.LecturesDto;
 import com.sep490.g49.shibadekiru.dto.TestDto;
+import com.sep490.g49.shibadekiru.dto.TestResultDto;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.entity.Test;
+import com.sep490.g49.shibadekiru.entity.TestResult;
 import com.sep490.g49.shibadekiru.service.ILecturesService;
+import com.sep490.g49.shibadekiru.service.ITestResultService;
 import com.sep490.g49.shibadekiru.service.ITestService;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,69 +19,97 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*")
 @RestController
-@RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/api/lecture")
+@CrossOrigin(origins = "*")
+@RequestMapping("/api/lecture/")
 public class LectureManageTestController {
 
-    ModelMapper modelMapper;
+    @Autowired
+    private ITestService iTestService;
 
-    ITestService testService;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    ILecturesService lecturesService;
+    @Autowired
+    private ILecturesService iLecturesService;
 
-    @GetMapping("/{lectureId}/test")
-    public List<TestDto> getAllTestByLecture (@PathVariable (name = "lectureId") Long lectureId) {
-        Lectures lecturesResponse = lecturesService.getLectureById(lectureId);
-        return testService.getAllTestByLecture(lecturesResponse).stream().map(testLecture -> modelMapper.map(testLecture, TestDto.class)).collect(Collectors.toList());
+    @Autowired
+    private ITestResultService iTestResultService;
+
+    @GetMapping("/test")
+    public List<TestDto> getAllTestByLecture() {
+
+        Lectures lectures = iLecturesService.getLectureById(1L);
+
+        return iTestService.getAllTestByLecture(lectures).stream().map(test -> modelMapper.map(test, TestDto.class)).collect(Collectors.toList());
     }
 
     @GetMapping("/test/{testId}")
-    public ResponseEntity<TestDto> getTestById (@PathVariable (name = "testId") Long testId) {
-        Test test = testService.getTestById(testId);
+    public ResponseEntity<TestDto> getTestById(@PathVariable(name = "testId") long testId) {
 
-        TestDto testResponse = modelMapper.map(test, TestDto.class);
+        Test testBank = iTestService.getTestById(testId);
 
-        return ResponseEntity.ok().body(testResponse);
+        //convert Entity to DTO
+        TestDto testBankDto = modelMapper.map(testBank, TestDto.class);
+
+        return ResponseEntity.ok().body(testBankDto);
     }
 
-    @PostMapping("/{lectureId}/test")
-    public ResponseEntity<TestDto> createTest (@PathVariable (name = "lectureId") Long lectureId, @RequestBody TestDto testDto) {
+    @PostMapping("/test")
+    public ResponseEntity<TestDto> createTest( @RequestBody TestDto testBankDto) {
 
-        LecturesDto lecturesDto = new LecturesDto();
-        lecturesDto.setLectureId(lectureId);
-        testDto.setLecture(lecturesDto);
+        Test testRequest = modelMapper.map(testBankDto, Test.class);
 
-        Test testRequest = modelMapper.map(testDto, Test.class);
+        Test testBank = iTestService.createTest(testRequest);
 
-        Test testCreate = testService.createTest(testRequest);
+        TestDto testBankResponse = modelMapper.map(testBank, TestDto.class);
 
-        TestDto testResponse = modelMapper.map(testCreate, TestDto.class);
-
-        return new ResponseEntity<TestDto>(testResponse, HttpStatus.CREATED);
+        return new ResponseEntity<TestDto>(testBankResponse, HttpStatus.CREATED);
     }
 
     @PutMapping("/test/{testId}")
-    public ResponseEntity<TestDto> updateTest (@PathVariable (name = "testId") Long testId, @RequestBody TestDto testDto) {
+    public ResponseEntity<TestDto> updateQuestion(@PathVariable Long testId, @RequestBody TestDto testBankDto) {
 
-        Test testRequest = modelMapper.map(testDto, Test.class);
+        Test testRequest = modelMapper.map(testBankDto, Test.class);
 
-        Test testUpdate = testService.updateTest(testId, testRequest);
+        Test testBank = iTestService.updateTest(testId, testRequest);
 
-        TestDto testResponse = modelMapper.map(testUpdate, TestDto.class);
+        TestDto testBankResponse = modelMapper.map(testBank, TestDto.class);
 
-        return ResponseEntity.ok().body(testResponse);
+        return ResponseEntity.ok().body(testBankResponse);
     }
 
     @DeleteMapping("/test/{testId}")
-    public ResponseEntity<Map<String, Boolean>> deleteTest(@PathVariable (name = "testId") Long testId) {
-        testService.deleteTest(testId);
+    public ResponseEntity<Map<String, Boolean>> deleteQuestion(@PathVariable Long testId) {
+        iTestService.deleteTest(testId);
 
         Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted",Boolean.TRUE);
+        response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/test/{testId}/test-result")
+    public List<TestResultDto> getAllTestResultByTest(@PathVariable(name = "testId") Long testId) {
+
+        Test test = iTestService.getTestById(testId);
+
+        return iTestResultService.getTestResultByTest(test).stream().map(testResult -> modelMapper.map(testResult, TestResultDto.class)).collect(Collectors.toList());
+    }
+
+    @PostMapping("/test/{testId}/test-result")
+    public ResponseEntity<TestResultDto> createTestResult(@PathVariable(name = "testId") Long testId, @RequestBody TestResultDto testResultDto) {
+        TestDto testDto = new TestDto();
+
+        testDto.setTestId(testId);
+
+        testResultDto.setTest(testDto);
+
+        TestResult testResultRequest = modelMapper.map(testResultDto, TestResult.class);
+
+        TestResult testResult = iTestResultService.createTestResult(testResultRequest);
+
+        TestResultDto testBankResponse = modelMapper.map(testResult, TestResultDto.class);
+
+        return new ResponseEntity<TestResultDto>(testBankResponse, HttpStatus.CREATED);
+    }
 }

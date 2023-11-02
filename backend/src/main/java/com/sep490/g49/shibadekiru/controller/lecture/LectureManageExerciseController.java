@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/lecturer/class/classwork")
+@RequestMapping("/api/lecture/class/classwork")
 public class LectureManageExerciseController {
     @Autowired
     private IExerciseService iExerciseService;
@@ -116,9 +116,10 @@ public class LectureManageExerciseController {
 
     @PostMapping("/exercise/{id}/writing-exercise")
     public ResponseEntity<WritingExerciseDto> createWritingExercise(@RequestBody WritingExerciseDto writingExerciseDto, @PathVariable(name = "id") Long exerciseId) {
-        writingExerciseDto.setExercise(exerciseId);
         // convert DTO to entity
         WritingExercise writingExerciseRequest = map.map(writingExerciseDto, WritingExercise.class);
+
+        writingExerciseRequest.setExercise(iExerciseService.getExerciseById(exerciseId));
 
         WritingExercise writingExercise = iWritingExerciseService.createWritingExercise(writingExerciseRequest);
 
