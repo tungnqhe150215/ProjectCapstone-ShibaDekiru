@@ -11,6 +11,9 @@ import { GrammarComponent } from './list-knowledge/grammar/grammar.component';
 import { KanjiComponent } from './list-knowledge/kanji/kanji.component';
 import { LessonModule } from './lesson/lesson.module';
 import {ClassLandingComponent} from "./class/class-landing/class-landing.component";
+import { PostDetailComponent } from './post/post-detail/post-detail.component';
+import { ListPostComponent } from './post/list-post/list-post.component';
+
 
 const routes: Routes = [
   {
@@ -29,6 +32,8 @@ const routes: Routes = [
         path: 'lesson',
         loadChildren: () => import('./lesson/lesson.module').then(m => m.LessonModule)
       },
+      {path: 'post', component: ListPostComponent },
+      {path: 'post/post-detail/:id', component:PostDetailComponent},
     ]
   },
 

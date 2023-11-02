@@ -25,10 +25,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from "@angular/material/input";
-import { ClassLandingComponent } from './class/class-landing/class-landing.component';
-import { ClassworkComponent } from './class/class-landing/classwork/classwork.component';
-import { ClassBoardComponent } from './class/class-landing/class-board/class-board.component';
-import {MatTabsModule} from "@angular/material/tabs";
+import { ListPostComponent } from './post/list-post/list-post.component';
+import { PostDetailComponent } from './post/post-detail/post-detail.component';
+import { ListCommentComponent } from './post/post-detail/list-comment/list-comment.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -49,13 +49,13 @@ import {MatTabsModule} from "@angular/material/tabs";
     GrammarDetailComponent,
     KanjiDetailComponent,
     VocabDetailComponent,
-    ClassLandingComponent,
-    ClassworkComponent,
-    ClassBoardComponent,
+    ListPostComponent,
+    PostDetailComponent,
+    ListCommentComponent,
   ],
   exports: [
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     CommonModule,

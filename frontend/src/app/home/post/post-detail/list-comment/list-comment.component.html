@@ -1,0 +1,20 @@
+<div class="comment-list" *ngFor="let comment of comment">
+    <div class="single-comment justify-content-between d-flex">
+        <div class="user justify-content-between d-flex">
+            <div class="thumb">
+                <img height="60px" width="60px" src="https://dogily.vn/wp-content/uploads/2022/12/Anh-avatar-cho-Shiba-4.jpg" alt="">
+            </div>
+            <div class="desc">
+                <h5><a href="#">Emilly Blunt</a></h5>
+                <p class="date">{{comment.createdAt}} </p>
+                <p class="comment">
+                    Never say goodbye till the end comes!
+                    {{comment.content}}
+                </p>
+            </div>
+        </div>
+        <div class="reply-btn">
+            <a href="" class="btn-reply text-uppercase">reply</a>
+        </div>
+    </div>
+</div>

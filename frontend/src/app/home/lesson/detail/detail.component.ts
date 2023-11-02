@@ -52,6 +52,41 @@ export class DetailComponent implements OnInit {
     },
   ]
 
+  lessons = [
+    {
+      img: 'https://www.vnjpclub.com/images/icon/tuvung.png',
+      name: '1'
+    },
+    {
+      img: 'https://www.vnjpclub.com/images/icon/nguphap.png',
+      name: '2'
+    },
+    {
+      img: 'https://www.vnjpclub.com/images/icon/luyendoc.png',
+      name: '3'
+    },
+    {
+      img: 'https://www.vnjpclub.com/images/icon/hoithoai.png',
+      name: '4'
+    },
+    {
+      img: 'https://www.vnjpclub.com/images/icon/luyennghe.png',
+      name: '5'
+    },
+    {
+      img: 'https://www.vnjpclub.com/images/icon/baitap.png',
+      name: '6'
+    },
+    {
+      img: 'https://www.vnjpclub.com/images/icon/luyennghe.png',
+      name: '7'
+    },
+    {
+      img: 'https://www.vnjpclub.com/images/icon/baitap.png',
+      name: '8'
+    },
+  ]
+
   ngOnInit(): void {
   }
 }
