@@ -1,0 +1,10 @@
+<div class="list-lesson">
+  <h1 class="title">
+    みんなの日本語 第2版
+  </h1>
+  <ul>
+    <li *ngFor="let lesson of lessons, let i = index" [ngClass]="{'even-row': i % 2 == 0}">
+      <a [routerLink]="['detail', lesson.id]">{{ lesson.name }}</a>
+    </li>
+  </ul>
+</div>

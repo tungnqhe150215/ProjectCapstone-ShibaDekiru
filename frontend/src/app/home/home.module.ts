@@ -1,3 +1,4 @@
+import { LessonModule } from './lesson/lesson.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
@@ -53,6 +54,7 @@ import {MatInputModule} from "@angular/material/input";
     CommonModule,
     HomeRoutingModule,
     MatCardModule,
+    LessonModule,
     FontAwesomeModule,
     MatFormFieldModule,
     MatTableModule,

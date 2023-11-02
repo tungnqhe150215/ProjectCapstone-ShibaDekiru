@@ -9,7 +9,7 @@ import {ClassListComponent} from "./class/class-list/class-list.component";
 import { VocabComponent } from './list-knowledge/vocab/vocab.component';
 import { GrammarComponent } from './list-knowledge/grammar/grammar.component';
 import { KanjiComponent } from './list-knowledge/kanji/kanji.component';
-
+import { LessonModule } from './lesson/lesson.module';
 
 const routes: Routes = [
   {
@@ -23,6 +23,10 @@ const routes: Routes = [
       {path: 'vocabulary', component: VocabComponent},
       {path: 'grammar', component: GrammarComponent},
       {path: 'kanji', component: KanjiComponent},
+      {
+        path: 'lesson',
+        loadChildren: () => import('./lesson/lesson.module').then(m => m.LessonModule)
+      },
     ]
   },
 

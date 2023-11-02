@@ -1,0 +1,23 @@
+<div class="section-detail">
+  <h1>Bài 1</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Từ vựng</th>
+        <th>Hán tự</th>
+        <th>Âm hán</th>
+        <th>Phát âm</th>
+        <th>Nghĩa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of sectionDetail">
+        <td>{{ item.vocabulary }}</td>
+        <td>{{ item.chineseCharacters }}</td>
+        <td><i class="fa fa-solid fa-play"></i></td>
+        <td>{{ item.pronounce }}</td>
+        <td>{{ item.means }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
