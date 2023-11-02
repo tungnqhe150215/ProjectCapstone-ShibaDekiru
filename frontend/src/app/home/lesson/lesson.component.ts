@@ -3,7 +3,7 @@ import {Component, ViewChild} from '@angular/core';
 @Component({
   selector: 'app-lesson',
   templateUrl: './lesson.component.html',
-  styleUrls: ['./lesson.component.css',]
+  styleUrls: ['./lesson.component.scss',]
 })
 export class LessonComponent {
 
