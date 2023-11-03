@@ -39,7 +39,6 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
     this.userService.login(email, password).subscribe({
       next: data =>{
         this.storageService.saveUser(data);
-        
         this.isLoginFailed=false;
         this.isLoggedIn = true;
         this.roleId = this.storageService.getUser().roleId;
@@ -57,7 +56,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
     window.location.reload();
   }
 
-  
+
   ngAfterViewInit(): void {
     const registerButton = document.getElementById("register");
     const loginButton = document.getElementById("login");
@@ -73,7 +72,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
       });
     }
   }
-  
+
 
 
 

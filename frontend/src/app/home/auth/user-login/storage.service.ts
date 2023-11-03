@@ -17,16 +17,16 @@ export class StorageService {
   constructor() { }
 
 
-  
+
 
   clean(): void {
     window.sessionStorage.clear();
-    window.sessionStorage.removeItem(USER_KEY);
   }
 
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    console.log(window.sessionStorage.getItem(USER_KEY))
   }
 
   public getUser(): any {

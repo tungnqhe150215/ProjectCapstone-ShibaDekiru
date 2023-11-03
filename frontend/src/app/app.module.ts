@@ -14,7 +14,8 @@ import { HomeComponent } from './home/home.component';
 import {HomeModule} from "./home/home.module";
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
+import {TokenInterceptor} from "./shared/interceptor/token.interceptor";
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,13 @@ import { HttpClientModule } from '@angular/common/http'
         FormsModule,
         HttpClientModule,
     ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

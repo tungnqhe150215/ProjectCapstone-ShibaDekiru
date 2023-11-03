@@ -35,7 +35,7 @@ export class HeaderComponent implements AfterViewInit,OnInit{
   }
   currentUser: any;
 
- 
+
   ngOnInit(): void {
     this.currentUser = this.storageService.getUser();
     this.isLoggedIn = this.storageService.isLoggedIn();
@@ -56,7 +56,7 @@ export class HeaderComponent implements AfterViewInit,OnInit{
   //       console.log(res);
   //       this.storageService.clean();
   //       this.router.navigateByUrl('/home');
-        
+
   //     },
   //     error: err =>{
   //       console.log(err);
@@ -64,6 +64,7 @@ export class HeaderComponent implements AfterViewInit,OnInit{
   //   })
   // }
   logout(): void {
+    this.storageService.clean();
     this.userService.logout().subscribe({
       next: res => {
         console.log(res);
