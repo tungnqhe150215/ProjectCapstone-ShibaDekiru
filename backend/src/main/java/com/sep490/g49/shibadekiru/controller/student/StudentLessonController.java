@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/api/book")
+@RequestMapping("/api")
 public class StudentLessonController {
 
     ModelMapper modelMapper;
@@ -45,7 +45,11 @@ public class StudentLessonController {
 
     IReadingQuestionService readingQuestionService;
 
-    @GetMapping("/{id}/lesson")
+    @GetMapping("/book")
+    public List<BookDto> getAllBook(){
+        return bookService.getAllBooks().stream().map(book -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
+    }
+    @GetMapping("/book/{id}/lesson")
     public List<LessonDto> getAllLessonByBook(@PathVariable (name = "id") Long bookId) {
         Book bookResponse = bookService.getBookById(bookId);
         return lessonService.getLessonPartByBook(bookResponse).stream().map(lesson -> modelMapper.map(lesson, LessonDto.class)).collect(Collectors.toList());
