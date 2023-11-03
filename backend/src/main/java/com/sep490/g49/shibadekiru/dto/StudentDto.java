@@ -16,10 +16,5 @@ public class StudentDto {
     private String email;
     private Boolean gender;
     private String avatar;
-    private UserAccountDto userAccountDto;
-    private List<TestResultDto> testResultDtoList;
-    private List<ClassStudentDto> classStudentDtoList;
-    private List<StudentClassWorkDto> studentClassWorkDtoList ;
-    private List<WritingExerciseAnswerDto> writingExerciseAnswerDtoList;
-    private List<ChoiceExerciseAnswerDto> choiceExerciseAnswerDtoList;
+    private String memberId;
 }

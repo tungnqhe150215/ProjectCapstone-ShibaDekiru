@@ -28,7 +28,7 @@ public class AuthenticationController {
             @RequestBody RegisterResponse request
     ) {
         try {
-            request.setRoleId((2L));
+            request.setRoleId((3L));
             authenticationService.register(request);
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
