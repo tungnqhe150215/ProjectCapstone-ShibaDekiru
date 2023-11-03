@@ -175,10 +175,10 @@ public class AuthenticationServiceImpl {
 
     public UserAccountDto getUserInfoByToken(String token) {
         UserAccount users = tokenRepository.findUserAccountByToken(token);
-
-
+        System.out.println("usser" + users.getRole().getRoleId());
             UserAccount user = users;
-
+            RoleType roleType = RoleType.valueOf(RoleType.getRoleTypeById(Math.toIntExact(user.getRole().getRoleId())));
+            user.getRole().setRoleType(roleType);
             UserAccountDto userAccountDto = new UserAccountDto();
             userAccountDto.setUserAccountId(user.getUserAccountId());
             userAccountDto.setUserName(user.getUsername());

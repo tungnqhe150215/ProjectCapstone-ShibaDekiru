@@ -1,7 +1,10 @@
 package com.sep490.g49.shibadekiru.controller.admin;
 
 import com.sep490.g49.shibadekiru.dto.BookDto;
+import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.Book;
+import com.sep490.g49.shibadekiru.entity.RoleType;
+import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
 import com.sep490.g49.shibadekiru.service.IBookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/admin")
 public class AdminManageBookController {
 

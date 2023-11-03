@@ -52,17 +52,5 @@ public class Role  {
 //    }
 
 
-    public List<SimpleGrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-        if (roleType != null) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + roleType.getRoleType()));
-        }
-
-        System.out.println("Role  " + authorities.toString());
-
-        return authorities;
-    }
-
 
 }

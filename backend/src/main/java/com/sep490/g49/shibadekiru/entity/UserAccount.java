@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -55,11 +57,6 @@ public class UserAccount implements UserDetails {
     private List<Token> tokens;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthorities();
-    }
-
-    @Override
     public String getUsername() {
         return email;
     }
@@ -87,5 +84,20 @@ public class UserAccount implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        if (role != null) {
+            RoleType roleType = RoleType.valueOf(RoleType.getRoleTypeById(Math.toIntExact(role.getRoleId())));
+            System.out.println("check authourity " + roleType);
+            if (roleType != null) {
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + roleType.getRoleType()));
+            }
+        }
+
+        return authorities;
     }
 }

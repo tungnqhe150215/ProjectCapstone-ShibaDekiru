@@ -25,7 +25,6 @@ public class SecurityConfiguration {
     private static final String[] WHITE_LIST_URL = {
             "/api/auth/**",
             "/api/alphabet/**"
-
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -39,11 +38,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-//                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-//                                .requestMatchers(GET, "/api/lecture/**").hasAnyRole("ADMIN", "LECTURE")
-//                                .requestMatchers(POST, "/api/lecture/**").hasAnyRole("ADMIN", "LECTURE")
-//                                .requestMatchers(PUT, "/api/lecture/**").hasAnyRole("ADMIN", "LECTURE")
-//                                .requestMatchers(DELETE, "/api/lecture/**").hasAnyRole("ADMIN", "LECTURE")
+                                .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+                                .requestMatchers(GET, "/api/lecture/**").hasAnyRole("ADMIN", "LECTURE")
+                                .requestMatchers(POST, "/api/lecture/**").hasAnyRole("ADMIN", "LECTURE")
+                                .requestMatchers(PUT, "/api/lecture/**").hasAnyRole("ADMIN", "LECTURE")
+                                .requestMatchers(DELETE, "/api/lecture/**").hasAnyRole("ADMIN", "LECTURE")
                                 .anyRequest()
                                 .authenticated()
                         )
