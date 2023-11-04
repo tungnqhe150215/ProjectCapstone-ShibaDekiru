@@ -1,5 +1,5 @@
 <div class="mb-2">
-  <button mat-raised-button (click)="addData()"> Add Book</button>
+  <button mat-raised-button (click)="addData()">Thêm sách</button>
 </div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
@@ -11,19 +11,19 @@
 </ng-container>
 <ng-container matColumnDef="name">
   <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by book">
-    Name
+    Tên sách
   </th>
   <td mat-cell *matCellDef="let row"> {{row.name}} </td>
 </ng-container>
 <ng-container matColumnDef="description">
   <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
-    Name
+    Mô tả
   </th>
   <td mat-cell *matCellDef="let row"> {{row.description}} </td>
 </ng-container>
 <ng-container matColumnDef="image">
   <th mat-header-cell *matHeaderCellDef >
-    Image
+    Ảnh
   </th>
   <td mat-cell *matCellDef="let row">  <img src="{{row.image}}"> </td>
 </ng-container>
@@ -37,7 +37,7 @@
       <mat-icon>remove_circle </mat-icon>
     </button>
     <button mat-icon-button (click)="GotoBookLesson(row.bookId)">
-      <mat-icon><span class="material-symbols-outlined">  dictionary </span></mat-icon>
+      <mat-icon><span class="material-symbols-outlined">  dictionary </span> </mat-icon>
     </button>
 
     

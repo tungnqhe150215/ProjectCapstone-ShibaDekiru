@@ -1,15 +1,15 @@
 <div class="col-md-6 offset-md-3" >
     <button mat-raised-button>
         <a routerLink="../list-katakana" routerLinkActive="active" class="nav-link">
-            List Katakanas
+            Danh sách Katakana
         </a>
     </button>
     <h3 class="center" style="display: flex;
     justify-content: center;
-    align-items: center;">Create Katakana</h3>
+    align-items: center;">Tạo Katakana</h3>
     <form (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="katakanaCharacter">Katakana Character</label>
+            <label for="katakanaCharacter">Chữ Katakana</label>
             <input type="text" class="form-control" id="katakanaCharacter" [(ngModel)]="katakana.katakanaCharacter"
                 name="katakanaCharacter" />
         </div>

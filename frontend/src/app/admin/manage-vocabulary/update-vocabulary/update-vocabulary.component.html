@@ -1,20 +1,20 @@
 <div class="col-md-6 offset-md-3" >
     <button mat-raised-button>
         <a routerLink="/admin/list-vocabulary" routerLinkActive="active" class="nav-link">
-            List Vocabularies
+            Danh sách từ vựng
         </a>
     </button>
     <h3 class="center" style="display: flex;
     justify-content: center;
-    align-items: center;">Update Vocabulary</h3>
+    align-items: center;">Cập nhật từ vựng</h3>
     <form (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="vocabularyId">Vocabulary ID</label>
+            <label for="vocabularyId" hidden>ID từ vựng</label>
             <input readonly type="text" class="form-control" id="vocabularyId" [(ngModel)]="vocabulary.vocabularyId"
-                name="vocabularyId" />
+                name="vocabularyId" readonly hidden />
         </div>
         <div class="form-group">
-            <label for="">Vocabulary Name</label>
+            <label for="">Tên từ vựng</label>
             <input type="text" class="form-control" id="vocabularyName" [(ngModel)]="vocabulary.vocabularyName"
                 name="vocabularyName" />
         </div>
@@ -24,20 +24,20 @@
 
         </div>
         <div class="form-group">
-            <label for="">Meaning</label>
+            <label for="">Nghĩa</label>
             <input type="text" class="form-control" id="meaning" [(ngModel)]="vocabulary.meaning" name="meaning" />
         </div>
 
         <div class="form-group">
-            <label for="">Example</label>
+            <label for="">Ví dụ</label>
             <input type="text" class="form-control" id="example" [(ngModel)]="vocabulary.example" name="example" />
         </div>
 
         <div class="form-group">
-            <label for="">Lesson Id</label>
-            <input type="text" class="form-control" id="lessonId" [(ngModel)]="vocabulary.lessonId" name="lessonId" />
+            <label for="">Id Bài học</label>
+            <input type="text" class="form-control" id="lessonId" [(ngModel)]="vocabulary.lessonId" name="lessonId" readonly/>
         </div>
         <br>
-        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Submit</button>
+        <button class="btn btn-success"  type="submit">Cập nhật</button>
     </form>
 </div>

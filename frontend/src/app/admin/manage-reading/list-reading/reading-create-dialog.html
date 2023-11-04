@@ -1,23 +1,23 @@
-<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Create new reading</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Tạo bài đọc</h2>
 <mat-dialog-content>
   <form class="form-dialog"></form>
   <mat-form-field>
-    <mat-label>Title</mat-label>
+    <mat-label>Tiêu đề</mat-label>
     <input matInput [(ngModel)]="reading.title" [ngModelOptions]="{standalone: true}" type="text" required>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <mat-label>Content</mat-label>
+    <mat-label>Nội dung</mat-label>
     <input matInput [(ngModel)]="reading.content" [ngModelOptions]="{standalone: true}" type="text" required>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <mat-label>Image</mat-label>
+    <mat-label>Ảnh</mat-label>
     <input matInput [(ngModel)]="reading.image" [ngModelOptions]="{standalone: true}" type="text">
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="createReading()">Create</button>
+  <button mat-button [mat-dialog-close]="true" (click)="createReading()">Tạo</button>
 </mat-dialog-actions>

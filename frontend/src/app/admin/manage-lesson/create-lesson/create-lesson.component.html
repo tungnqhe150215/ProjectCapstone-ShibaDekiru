@@ -1,13 +1,13 @@
 
 <div class="container">
-    <h3 class="text-center"> Create Lesson</h3>
+    <h3 class="text-center">Tạo bài học</h3>
     <form class="form-dialog">
         <div class="form-group">
-            <label>Name</label>
+            <label>Tên</label>
             <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "lesson.name" [ngModelOptions]="{standalone: true}" >
-            <label class="m-2">Status</label>
-            <input type="radio" [(ngModel)] = "lesson.status" value="true" name="status" [ngModelOptions]="{standalone: true}" > Active
-            <input type="radio" [(ngModel)] = "lesson.status" value="false" name="status"  [ngModelOptions]="{standalone: true}"> Disable
+            <label class="m-2">Trạng thái</label>
+            <input type="radio" [(ngModel)] = "lesson.status" value="true" name="status" [ngModelOptions]="{standalone: true}" > Mở
+            <input type="radio" [(ngModel)] = "lesson.status" value="false" name="status"  [ngModelOptions]="{standalone: true}"> Đóng
         </div>
         <div class="form-group">
             <!-- <label class="mr-2" >BookID</label>
@@ -15,12 +15,12 @@
             
             </div>
               <div class="form-group">
-            <label >Image</label>
+            <label >Ảnh</label>
             <input type="text" class="form-control" id="image" name="image" [(ngModel)] = "lesson.image" [ngModelOptions]="{standalone: true}"> 
-            <label>Content</label>
+            <label>Nội dung</label>
             <input type="text" class="form-control" id="content" name="content" [(ngModel)] = "lesson.content" [ngModelOptions]="{standalone: true}">
         </div>
-        <button class="btn btn-success mt-2" type="submit" (click)="createLesson()">Submit</button>
+        <button class="btn btn-success mt-2" type="submit" (click)="createLesson()">Tạo</button>
     </form>
 </div>
 
