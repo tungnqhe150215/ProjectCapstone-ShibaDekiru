@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.service;
 
+import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import org.springframework.data.jpa.repository.Modifying;
 
@@ -17,6 +18,5 @@ public interface IUserAccountService {
     void updateIsBanned(Long userAccountId);
 
     UserAccount getUserAccountById(Long userAccountId);
-
 
 }

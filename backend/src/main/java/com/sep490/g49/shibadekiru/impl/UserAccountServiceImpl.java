@@ -4,9 +4,11 @@ import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
 import com.sep490.g49.shibadekiru.dto.RegisterResponse;
 import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.*;
+import com.sep490.g49.shibadekiru.dto.UserAccountDto;
+import com.sep490.g49.shibadekiru.entity.Role;
+import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.RoleRepository;
-import com.sep490.g49.shibadekiru.repository.TokenRepository;
 import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
 import com.sep490.g49.shibadekiru.service.IUserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +51,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
     @Override
     public UserAccount createUserAccount(UserAccount userAccount) {
-        Long roleId = 3L;
-        String password = passwordEncoder.encode(userAccount.getPassword());
+        Long roleId = userAccount.getRole().getRoleId();
 
         Optional<Role> roleOptional = roleRepository.findById(roleId);
         if (roleOptional.isPresent()) {
@@ -61,8 +62,8 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
-            userAccount1.setUserName(userAccount.getUsername());
-            userAccount1.setPassword(password);
+            userAccount1.setUserName(userAccount.getUserName());
+            userAccount1.setPassword(userAccount.getPassword());
             userAccount1.setEmail(userAccount.getEmail());
             userAccount1.setResetCode(userAccount.getResetCode());
             userAccount1.setIsBanned(userAccount.getIsBanned());
@@ -70,8 +71,8 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             return userAccountRepository.save(userAccount1);
 
-
-        } else {
+        }
+        else {
             throw new ResourceNotFoundException("User Account can't be added.");
         }
     }
@@ -86,7 +87,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
-            userAccount1.setUserName(userAccount.getUsername());
+            userAccount1.setUserName(userAccount.getUserName());
             userAccount1.setPassword(userAccount.getPassword());
             userAccount1.setEmail(userAccount.getEmail());
             userAccount1.setResetCode(userAccount.getResetCode());
@@ -116,6 +117,8 @@ public class UserAccountServiceImpl implements IUserAccountService {
             throw new ResourceNotFoundException("Lesson not found with id: " + userAccountId);
         }
     }
+
+
 
 
     @Override

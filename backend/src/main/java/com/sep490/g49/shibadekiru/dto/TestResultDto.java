@@ -11,9 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TestResultDto {
     private Long testResultId;
-    private String result;
-    private LocalDateTime doneTime;
-    private StudentDto studentDto;
-    private TestDto testDto;
+    private Double result;
+    private StudentDto student;
+    private TestDto test;
 
 }

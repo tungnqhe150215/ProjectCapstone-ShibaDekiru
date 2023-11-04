@@ -18,13 +18,14 @@ import {ClassWork} from "../../../core/models/class-work";
 import {MatTabsModule} from "@angular/material/tabs";
 import {WritingExercise} from "../../../core/models/writing-exercise";
 import {LecturerManageWritingExerciseService} from "../lecturer-manage-writing-exercise.service";
+import {SharedModule} from "../../../shared/shared.module";
 
 @Component({
   selector: 'app-exercise-detail',
   templateUrl: './exercise-detail.component.html',
   styleUrls: ['./exercise-detail.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, SharedModule],
 })
 export class ExerciseDetailComponent implements OnInit{
   displayedColumns: string[] = ['id', 'question','action'];
@@ -73,8 +74,6 @@ export class ExerciseDetailComponent implements OnInit{
       this.dataSource.sort = this.sort;
       console.log(data)
     })
-    console.log(this.exercise)
-    console.log(this.id)
     // return this.courseService.getCourseList();
   }
 
@@ -109,12 +108,12 @@ export class ExerciseDetailComponent implements OnInit{
 export class ExerciseQuestionDeleteDialog {
   constructor(
     public dialogRef: MatDialogRef<ExerciseQuestionDeleteDialog>,
-    private manageExerciseService:LectureManageExerciseService,
+    private manageWritingExerciseService:LecturerManageWritingExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
   deleteWritingExercise(id:number){
-    this.manageExerciseService.deleteExercise(id).subscribe(data => {
+    this.manageWritingExerciseService.deleteWritingExercise(id).subscribe(data => {
       this.dialogRef.close();
     })
     this._snackBar.open('Deleted!!', 'Close', {
@@ -136,18 +135,18 @@ export class ExerciseQuestionDeleteDialog {
 })
 export class ExerciseQuestionCreateDialog {
 
-  exercise:Exercise =  new Exercise;
+  writingExercise:WritingExercise =  new WritingExercise();
 
   constructor(
     public dialogRef: MatDialogRef<ExerciseQuestionCreateDialog>,
-    private manageExerciseService:LectureManageExerciseService,
+    private manageWritingExerciseService:LecturerManageWritingExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
   createWritingExercise(){
-    console.log(this.exercise)
-    this.manageExerciseService.createExercise(this.data,this.exercise).subscribe(data => {
+    console.log(this.writingExercise)
+    this.manageWritingExerciseService.createWritingExercise(this.data,this.writingExercise).subscribe(data => {
       console.log(data)
       this.dialogRef.close();
     })

@@ -7,74 +7,17 @@
     </div>
 
     <div class="container mb-5">
-        <div class="row justify-content-center">
-            <div class="col-md-1 border border-success p-2 m-1 ">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/a.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modala">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/i.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modali">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1 ">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/u.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalu">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-md-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/e.png" alt="a" class="img-fluid" data-toggle="modal" data-target="#modale">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1 ">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/o.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalo">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1 ">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/ga.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalga">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1 ">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/gi.png" alt="a" class="img-fluid" data-toggle="modal" data-target="#modalgi">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1 ">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/gu.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalgu">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1 ">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/ge.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalge">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1 ">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/go.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalgo">
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-1 border border-success p-2 m-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/ka.png" alt="a" class="img-fluid" data-toggle="modal" data-target="#modalka">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/ki.png" alt="a" class="img-fluid" data-toggle="modal" data-target="#modalki">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/ku.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalku">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/ke.png" alt="a" class="img-fluid" data-toggle="modal" data-target="#modalke">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/ko.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalko">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/za.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalza">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/ji.png" alt="a" class="img-fluid" data-toggle="modal" data-target="#modalji">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/zu.png" alt="a" class="img-fluid" data-toggle="modal" data-target="#modalzu">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1 character">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/ze.png" alt="a" class="img-fluid"  data-toggle="modal" data-target="#modalze">
-            </div>
-            <div class="col-md-1 border border-success p-2 m-1 character">
-                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/zo.png" alt="a" class="img-fluid" data-toggle="modal" data-target="#modalzo">
+        <div class="row justify-content-center" *ngFor="let row of chunkedObjects(hiragana, 10)">
+            <div class="col-md-1 border border-success p-2 m-1 " *ngFor="let hiragana of row">
+                <img src="https://www.nhk.or.jp/lesson/assets/images/letters/hira/{{hiragana.romanji}}.png" alt="a"
+                    class="img-fluid"  style="cursor: pointer" (click)="ViewDetail(hiragana.hiraganaId) ">
+                    
             </div>
         </div>
     </div>
 
-     <!-- Modal pop up -->
-     <div class="modal fade" id="modala" tabindex="-1" role="dialog" aria-labelledby="modal1Label"
+    <!-- Modal pop up -->
+    <!-- <div class="modal fade" id="modala" tabindex="-1" role="dialog" aria-labelledby="modal1Label"
      aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
@@ -495,6 +438,6 @@
              </div>
          </div>
      </div>
- </div>
- <!-- End modal pop up -->
- </div>
+ </div> -->
+    <!-- End modal pop up -->
+</div>

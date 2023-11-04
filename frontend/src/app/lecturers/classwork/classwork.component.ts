@@ -13,6 +13,9 @@ import { ClassWork } from 'src/app/core/models/class-work';
 import { AddClassworkComponent } from './add-classwork/add-classwork.component';
 import { UpdateClassworkComponent } from './update-classwork/update-classwork.component';
 import { ClassworkDetailComponent } from './classwork-detail/classwork-detail.component';
+import {Class} from "../../core/models/class";
+import {LectureClassService} from "../class/lecture-class.service";
+import {data} from "autoprefixer";
 
 
 
@@ -25,7 +28,9 @@ export class ClassworkComponent implements OnInit{
 
   classWork: ClassWork[] = [];
 
-  idU:number = 1;
+  aClass: Class = new Class();
+
+  idU!:number;
   ngOnInit(): void {
     this.getClassWorkList();
   }
@@ -38,6 +43,7 @@ export class ClassworkComponent implements OnInit{
   constructor(
     private classWorkService: ClassworkService,
     private notifiService: NotificationService,
+    private letcureClassService: LectureClassService,
     private router: Router,
     private route:ActivatedRoute,
     public dialog: MatDialog
@@ -45,6 +51,10 @@ export class ClassworkComponent implements OnInit{
 
 
   getClassWorkList(){
+    this.idU = this.route.snapshot.params['id'];
+    this.letcureClassService.getClassById(this.idU).subscribe(data => {
+      this.aClass = data
+    })
     this.classWorkService.getAllClassWorkInClass(this.idU).subscribe({
       next:(res) =>{
         this.dataSource = new MatTableDataSource(res);

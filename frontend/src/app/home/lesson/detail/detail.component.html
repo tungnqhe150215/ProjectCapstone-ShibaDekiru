@@ -1,0 +1,23 @@
+<div class="detail container">
+  <div class="section-container">
+    <h1>Bài 1</h1>
+  <div class="list-sections">
+    <div class="section" *ngFor="let section of sections">
+      <a [routerLink]="['section']">
+        <img [src]="section.img"/>
+        <p>{{ section.name }}</p>
+      </a>
+    </div>
+  </div>
+  </div>
+  <div class="lesson-container">
+    <h3>Tiếng nhật sơ cấp</h3>
+    <div class="list-lesson">
+      <div class="lesson" *ngFor="let lesson of lessons">
+        <a [routerLink]="['lesson']">          
+          <p>{{ lesson.name }}</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
