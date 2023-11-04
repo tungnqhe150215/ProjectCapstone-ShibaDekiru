@@ -12,6 +12,10 @@ import {MatIconModule} from '@angular/material/icon';
 import { LecturersModule } from './lecturers/lecturers.module';
 import { HomeComponent } from './home/home.component';
 import {HomeModule} from "./home/home.module";
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule }   from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
+import {TokenInterceptor} from "./shared/interceptor/token.interceptor";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
@@ -29,11 +33,19 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
         MatIconModule,
         LecturersModule,
         HomeModule,
-        FontAwesomeModule
+        ReactiveFormsModule,
+        FontAwesomeModule,
         // LecturersRoutingModule,
-
+        FormsModule,
+        HttpClientModule,
     ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

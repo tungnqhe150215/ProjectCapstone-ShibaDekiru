@@ -1,20 +1,64 @@
-<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-<!-- <body> -->
-<div class="body">
+<div class="col-md-12">
+    <div class="card card-container">
+      <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+      <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" name="email" [(ngModel)]="form.email" required #email="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && email.errors }" />
+          <div *ngIf="email.errors && f.submitted" class="invalid-feedback">
+            Email is required!
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="4"
+            #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
+          <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+            <div *ngIf="password.errors['required']">Password is required</div>
+            <div *ngIf="password.errors['minlength']">
+              Password must be at least 4 characters
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block">
+            Login
+          </button>
+        </div>
+        <div class="form-group">
+          <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
+            Login failed: {{ errorMessage }}
+          </div>
+        </div>
+      </form>
+  
+      <div class="alert alert-success" *ngIf="isLoggedIn">
+        Logged in as --{{ roleId }}.
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" /> -->
+
+<!-- <div class="body">
     <div class="container" id="container">
 
         <div class="form-container register-container">
             <form action="#">
                 <h1>Đăng Ký</h1>
-                <input type="text" placeholder="Tên">
+                <input type="text" placeholder="Nick Name">
+                <input type="text" placeholder="Mã số SV">
+                <input type="text" placeholder="username">
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Mật Khẩu">
                 <button>Đăng Ký</button>
                 <span>hoặc sử dụng tải khoản của bạn</span>
                 <div class="social-container">
-                    <!-- <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a> -->
                     <a href="#" class="social"><i class="lni lni-google fab"></i> Login with Google</a>
-                    <!-- <a href="#" class="social"><i class="lni lni-linkedin-original"></i></a> -->
                 </div>
             </form>
         </div>
@@ -36,9 +80,7 @@
                 <button>Login</button>
                 <span>hoặc sử dụng tải khoản của bạn</span>
                 <div class="social-container">
-                    <!-- <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a> -->
                     <a href="#" class="social"><i class="lni lni-google fab"></i> Login with Google</a>
-                    <!-- <a href="#" class="social"><i class="lni lni-linkedin-original"></i></a> -->
                 </div>
             </form>
         </div>
@@ -64,7 +106,7 @@
 
     </div>
 
-</div>
+</div> -->
 
 <!-- <script>
     const registerButton = document.getElementById("register");

@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.dto;
 
+import com.sep490.g49.shibadekiru.entity.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 public class RoleDto {
     private Long roleId;
-    private String roleName;
-    private List<UserAccountDto> userAccountDtoList;
+    private RoleType roleType;
 
 }

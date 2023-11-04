@@ -1,7 +1,7 @@
 import {UserAccount} from "./user-account";
 
 export class Student {
-  id!:number
+studentId!:number
   user!:UserAccount
   firstName!:String
   lastName!:String
