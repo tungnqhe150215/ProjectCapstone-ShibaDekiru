@@ -1,7 +1,7 @@
-<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Delete this class ?</h2>
-<mat-dialog-content>This will delete all elements that are currently on this page and cannot be undone.</mat-dialog-content>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Xóa bỏ lớp học này ?</h2>
+<mat-dialog-content>Thao tác này sẽ xóa tất cả các thành phần hiện có trên trang này và không thể hoàn tác được.</mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="deleteClass(data)">Delete</button>
+  <button mat-button [mat-dialog-close]="true" (click)="deleteClass(data)">Xác nhận</button>
 </mat-dialog-actions>

@@ -21,21 +21,21 @@
                 <li class="nav-item"><a class="nav-link" routerLink="./katakana">Bảng Katakana</a></li>
               </ul>
             </li>
-            <li class="nav-item submenu dropdown">
+            <li class="nav-item submenu dropdown" >
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bài học</a>
               <ul class="dropdown-menu">
-                <li class="nav-item"><a class="nav-link" routerLink="./lesson">Dekiru Nihongo Sơ cấp</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="./lesson">Dekiru Nihongo Sơ trung</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="./lesson">Dekiru Nihongo Trung cấp</a></li>
+                <li class="nav-item" *ngFor="let book of book"><a class="nav-link" style="cursor: pointer;" (click)="LessonByBook(book.bookId)">{{book.name}}</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" routerLink="./lesson">Dekiru Nihongo Sơ trung</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="./lesson">Dekiru Nihongo Trung cấp</a></li> -->
               </ul>
             </li>
             <li class="nav-item submenu dropdown">
 
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tổng hợp kiến thức</a>
               <ul class="dropdown-menu">
-                <li class="nav-item"><a class="nav-link" routerLink="./kanji">Chữ Hán</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="./grammar">Ngữ pháp</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="./vocabulary">Từ vựng</a></li>
+                <li class="nav-item"><a class="nav-link" style="cursor: pointer;" routerLink="./kanji">Chữ Hán</a></li>
+                <li class="nav-item"><a class="nav-link" style="cursor: pointer;" routerLink="./grammar">Ngữ pháp</a></li>
+                <li class="nav-item"><a class="nav-link" style="cursor: pointer;" routerLink="./vocabulary">Từ vựng</a></li>
               </ul>
             </li>
             <li class="nav-item submenu dropdown">

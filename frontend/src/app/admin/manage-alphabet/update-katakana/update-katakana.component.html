@@ -1,20 +1,20 @@
 <div class="col-md-6 offset-md-3">
     <button mat-raised-button>
         <a routerLink="../list-hiragana" routerLinkActive="active" class="nav-link">
-            List Katakana
+            Danh sách Katakana
         </a>
     </button>
     <h3 class="center" style="display: flex;
     justify-content: center;
-    align-items: center;">Update Katakana </h3>
+    align-items: center;">Sửa Katakana </h3>
     <form (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="katakanaId">Katakana ID</label>
+            <label for="katakanaId">ID</label>
             <input type="text" class="form-control" id="katakanaId" [(ngModel)]="katakana.katakanaId"
                 name="katakanaId" />
         </div>
         <div class="form-group">
-            <label for="katakanaCharacter">Katakana Character</label>
+            <label for="katakanaCharacter">Chữ Katakana</label>
             <input type="text" class="form-control" id="katakanaCharacter" [(ngModel)]="katakana.katakanaCharacter"
                 name="katakanaCharacter" />
         </div>

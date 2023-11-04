@@ -1,5 +1,5 @@
 
-<h3 class="text-center m-auto mb-28">Listening details </h3>
+<h3 class="text-center m-auto mb-28">Thông tin bài nghe</h3>
 <hr>
 <mat-card class="detail-card">
   <mat-card-header class="mb-4 ">
@@ -14,9 +14,9 @@
   </mat-card-content>
 </mat-card>
 <hr>
-<button mat-raised-button (click)="openCreateListeningQuestionDialog(id)"> Create listening question </button>
+<button mat-raised-button (click)="openCreateListeningQuestionDialog(id)"> Tạo câu hỏi cho bài nghe</button>
 <mat-form-field>
-  <mat-label>Filter</mat-label>
+  <mat-label>Lọc</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. abc" #input>
 </mat-form-field>
 
@@ -31,13 +31,13 @@
 
     <!-- Question Column -->
     <ng-container matColumnDef="question">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Question </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Câu hỏi </th>
       <td mat-cell *matCellDef="let row"> {{row.question}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="correct-answer">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Correct Answer </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Câu trả lời đúng</th>
       <td mat-cell *matCellDef="let row"> {{row.correctAnswer}} </td>
     </ng-container>
 

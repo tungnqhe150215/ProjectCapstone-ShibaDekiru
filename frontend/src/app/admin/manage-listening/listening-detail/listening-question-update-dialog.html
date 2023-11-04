@@ -1,29 +1,29 @@
 <form class="form-dialog">
-<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Update question</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Cập nhật câu hỏi</h2>
 <mat-dialog-content>
 
     <mat-form-field>
-      <mat-label>Question</mat-label>
+      <mat-label>Câu hỏi</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.question" [ngModelOptions]="{standalone: true}" required>{{listeningQuestion.question}}</textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
-      <mat-label>First choice</mat-label>
+      <mat-label>Lựa chọn 1</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.firstChoice" [ngModelOptions]="{standalone: true}" required>{{listeningQuestion.firstChoice}}</textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
-      <mat-label>Second choice</mat-label>
+      <mat-label>Lựa chọn 2</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.secondChoice" [ngModelOptions]="{standalone: true}" required>{{listeningQuestion.secondChoice}}</textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
-      <mat-label>Third choice (Optional)</mat-label>
+      <mat-label>Lựa chọn 3 (Tùy chọn)</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.thirdChoice" [ngModelOptions]="{standalone: true}">{{listeningQuestion.thirdChoice}}</textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
-      <mat-label>Correct answer</mat-label>
+      <mat-label>Lựa chọn đúng</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.correctAnswer" [ngModelOptions]="{standalone: true}" required>{{listeningQuestion.correctAnswer}}</textarea>
     </mat-form-field>
 

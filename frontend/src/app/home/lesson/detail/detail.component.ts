@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { StudentLessonService } from '../student-lesson.service';
+import { Book } from 'src/app/core/models/book';
+import { Lesson } from 'src/app/core/models/lesson';
 
 @Component({
   selector: 'app-lesson-detail',
@@ -6,14 +10,62 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
-  constructor() {
+
+  id!: number;
+  lessonN: Lesson = new Lesson;
+  lesson: Lesson[] =[];
+  book: Book[]= [];
+  constructor(
+    private studentLessonService: StudentLessonService,
+    private router: Router,
+    private route:ActivatedRoute,
+  ) {}
+
+
+  ngOnInit(): void {
+    this.getLessonByBookID();
+  } 
+
+  getLessonById(){
+    this.id = this.route.snapshot.params['id'];
+    this.lessonN = new Lesson();
+    this.studentLessonService.getLessonById(this.id)
+    .subscribe(
+      data =>{
+        this.lessonN = data
+        console.log(data)
+      }
+    )
+  }
+  
+  
+  getLessonByBookID(){
+    // this.id = this.route.snapshot.params['id'];
+    const  idBook = this.studentLessonService.getBookId();
+    this.lesson = [];
+    this.studentLessonService.getLessonByBook(idBook).subscribe({
+      next:(res) =>{
+        this.lesson = res;
+        // this.dataSource = new MatTableDataSource(res);
+        // this.dataSource.paginator = this.paginator;
+        console.log(res)
+      },
+    })
+  }
+
+  LessonDetail(id:number){
+    this.router.navigate(['./lesson/'+id+'/detail']);
+  }
+
+  ListVocab(idV:number){
+    this.router.navigate(['lesson/'+idV+'/vocabulary']);
   }
 
   sections = [
-    {
-      img: 'https://www.vnjpclub.com/images/icon/tuvung.png',
-      name: 'Phần 1: Từ vựng'
-    },
+    // {
+    //   img: 'https://www.vnjpclub.com/images/icon/tuvung.png',
+    //   name: 'Phần 1: Từ vựng'
+    // },
     {
       img: 'https://www.vnjpclub.com/images/icon/nguphap.png',
       name: 'Phần 2: Ngữ pháp'
@@ -52,41 +104,41 @@ export class DetailComponent implements OnInit {
     },
   ]
 
-  lessons = [
-    {
-      img: 'https://www.vnjpclub.com/images/icon/tuvung.png',
-      name: '1'
-    },
-    {
-      img: 'https://www.vnjpclub.com/images/icon/nguphap.png',
-      name: '2'
-    },
-    {
-      img: 'https://www.vnjpclub.com/images/icon/luyendoc.png',
-      name: '3'
-    },
-    {
-      img: 'https://www.vnjpclub.com/images/icon/hoithoai.png',
-      name: '4'
-    },
-    {
-      img: 'https://www.vnjpclub.com/images/icon/luyennghe.png',
-      name: '5'
-    },
-    {
-      img: 'https://www.vnjpclub.com/images/icon/baitap.png',
-      name: '6'
-    },
-    {
-      img: 'https://www.vnjpclub.com/images/icon/luyennghe.png',
-      name: '7'
-    },
-    {
-      img: 'https://www.vnjpclub.com/images/icon/baitap.png',
-      name: '8'
-    },
-  ]
+ 
+  // lessons = [
+  //   {
+  //     img: 'https://www.vnjpclub.com/images/icon/tuvung.png',
+  //     name: '1'
+  //   },
+  //   {
+  //     img: 'https://www.vnjpclub.com/images/icon/nguphap.png',
+  //     name: '2'
+  //   },
+  //   {
+  //     img: 'https://www.vnjpclub.com/images/icon/luyendoc.png',
+  //     name: '3'
+  //   },
+  //   {
+  //     img: 'https://www.vnjpclub.com/images/icon/hoithoai.png',
+  //     name: '4'
+  //   },
+  //   {
+  //     img: 'https://www.vnjpclub.com/images/icon/luyennghe.png',
+  //     name: '5'
+  //   },
+  //   {
+  //     img: 'https://www.vnjpclub.com/images/icon/baitap.png',
+  //     name: '6'
+  //   },
+  //   {
+  //     img: 'https://www.vnjpclub.com/images/icon/luyennghe.png',
+  //     name: '7'
+  //   },
+  //   {
+  //     img: 'https://www.vnjpclub.com/images/icon/baitap.png',
+  //     name: '8'
+  //   },
+  // ]
 
-  ngOnInit(): void {
-  }
+  
 }

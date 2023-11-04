@@ -1,18 +1,18 @@
 <div class="container">
-    <h3 class="text-center"> Create Book</h3>
+    <h3 class="text-center">Thông tin về quyển sách</h3>
     <form class="form-dialog">
         <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "book.name" [ngModelOptions]="{standalone: true}" readonly>
+            <label>Tên sách</label>
+            <h6  id="name" name="name" [(ngModel)] = "book.name" [ngModelOptions]="{standalone: true}" readonly>{{book.name}}</h6>
         </div>
         <div class="form-group">
-            <label class="mr-2" >Description</label>
-            <input type="text" class="form-control" id="bookId" name="bookId" [(ngModel)] = "book.description" [ngModelOptions]="{standalone: true}" readonly>
+            <label class="mr-2" >Mô tả: </label>
+            <h6  id="bookId" name="bookId" [(ngModel)] = "book.description" [ngModelOptions]="{standalone: true}" readonly>{{book.description}}</h6>
             
             </div>
               <div class="form-group mt-3" >
-            <label >Image</label>
-            <img src="{{book.image}}" > 
+            <label class="mr-3" >Ảnh</label>
+            <img style="margin-left: 3%;" src="{{book.image}}" > 
             
         </div>
         <!-- <button class="btn btn-success mt-2" type="submit" >Submit</button> -->

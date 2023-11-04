@@ -1,17 +1,17 @@
 <div class="container">
-    <h3 class="text-center"> Create Book</h3>
+    <h3 class="text-center"> Cập nhật sách</h3>
     <form class="form-dialog">
         <div class="form-group">
-            <label>Name</label>
+            <label>Tên sách</label>
             <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "book.name" [value]="book.name" [ngModelOptions]="{standalone: true}" >
         </div>
         <div class="form-group">
-            <label class="mr-2" >Description</label>
+            <label class="mr-2" >Mô tả</label>
             <input type="text" class="form-control" id="description" name="description" [(ngModel)] = "book.description" [value]="book.description" [ngModelOptions]="{standalone: true}" >
             
             </div>
               <div class="form-group">
-            <label >Image</label>
+            <label >Ảnh</label>
             <input type="text" class="form-control" id="image" name="image" [(ngModel)] = "book.image" [value]="book.image" [ngModelOptions]="{standalone: true}"> 
             
         </div>
