@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./home.component";
 import {HomepageComponent} from "./homepage/homepage.component";
+import { UserRegisterComponent } from './auth/user-register/user-register.component';
 import {UserLoginComponent} from './auth/user-login/user-login.component';
 import {HiraganaComponent} from './alphabet/hiragana/hiragana.component';
 import {KatakanaComponent} from './alphabet/katakana/katakana.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
   },
 
   {path: 'login', component: UserLoginComponent},
+  {path: 'register', component: UserRegisterComponent},
     
 ];
 

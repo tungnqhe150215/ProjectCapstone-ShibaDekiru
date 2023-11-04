@@ -16,5 +16,6 @@ public class StudentDto {
     private String email;
     private Boolean gender;
     private String avatar;
+    private String memberId;
     private UserAccountDto userAccount;
 }
