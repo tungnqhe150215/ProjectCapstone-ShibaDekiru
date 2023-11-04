@@ -1,7 +1,12 @@
 package com.sep490.g49.shibadekiru.impl;
 
+import com.sep490.g49.shibadekiru.entity.Student;
+import com.sep490.g49.shibadekiru.repository.StudentRepository;
 import com.sep490.g49.shibadekiru.service.IStudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StudentServiceImpl implements IStudentService {
 
     @Autowired

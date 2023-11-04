@@ -4,11 +4,10 @@ import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
 import com.sep490.g49.shibadekiru.dto.RegisterResponse;
 import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.*;
-import com.sep490.g49.shibadekiru.dto.UserAccountDto;
-import com.sep490.g49.shibadekiru.entity.Role;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.RoleRepository;
+import com.sep490.g49.shibadekiru.repository.TokenRepository;
 import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
 import com.sep490.g49.shibadekiru.service.IUserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
-            userAccount1.setUserName(userAccount.getUserName());
+            userAccount1.setUserName(userAccount.getUsername());
             userAccount1.setPassword(userAccount.getPassword());
             userAccount1.setEmail(userAccount.getEmail());
             userAccount1.setResetCode(userAccount.getResetCode());
@@ -87,7 +86,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
-            userAccount1.setUserName(userAccount.getUserName());
+            userAccount1.setUserName(userAccount.getUsername());
             userAccount1.setPassword(userAccount.getPassword());
             userAccount1.setEmail(userAccount.getEmail());
             userAccount1.setResetCode(userAccount.getResetCode());
