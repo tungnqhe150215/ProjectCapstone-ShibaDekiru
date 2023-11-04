@@ -1,21 +1,31 @@
 <div class="detail container">
   <div class="section-container">
-    <h1>Bài 1</h1>
-  <div class="list-sections">
-    <div class="section" *ngFor="let section of sections">
-      <a [routerLink]="['section']">
-        <img [src]="section.img"/>
-        <p>{{ section.name }}</p>
-      </a>
+    <h1>Bài </h1>
+    <div class="list-sections">
+      <div class="section">
+        <!-- Chưa lấy được ID Lesson -->
+        <a (click)="ListVocab(lessonN.lessonId)">
+          <img [src]="'https://www.vnjpclub.com/images/icon/tuvung.png'" />
+          <p>Phần 1: Từ vựng</p>
+        </a>
+      </div>
+    </div>
+    <div class="list-sections">
+      <div class="section" *ngFor="let section of sections">
+        <a [routerLink]="['section']">
+          <img [src]="section.img" />
+          <p>{{ section.name }}</p>
+        </a>
+      </div>
     </div>
   </div>
-  </div>
   <div class="lesson-container">
-    <h3>Tiếng nhật sơ cấp</h3>
+    <h3>Bài học có trong quyển</h3>
     <div class="list-lesson">
-      <div class="lesson" *ngFor="let lesson of lessons">
-        <a [routerLink]="['lesson']">          
-          <p>{{ lesson.name }}</p>
+      <div class="lesson" *ngFor="let lesson of lesson; let i = index">
+        <a style="cursor: pointer;" (click)="LessonDetail(lesson.lessonId)">
+          <!-- <p>{{ lesson.lessonId }}</p> -->
+          <p>{{i+1}}</p>
         </a>
       </div>
     </div>

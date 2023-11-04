@@ -1,21 +1,21 @@
-<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Update class part</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Cập nhật lớp học part</h2>
 <mat-dialog-content>
   <form class="form-dialog">
     <mat-form-field>
-      <mat-label>Title</mat-label>
+      <mat-label>Tên lớp học</mat-label>
       <input matInput [(ngModel)]="class.className" [value]="class.className" [ngModelOptions]="{standalone: true}" type="text" required>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Lecture Id</mat-label>
+      <mat-label>Mã giảng viên</mat-label>
       <input matInput [(ngModel)]="lecture.lectureId" [ngModelOptions]="{standalone: true}" type="text" disabled="">
     </mat-form-field>
-    <mat-slide-toggle [(ngModel)]="class.isLocked" [ngModelOptions]="{standalone: true}" > Lock this class</mat-slide-toggle>
+    <mat-slide-toggle [(ngModel)]="class.isLocked" [ngModelOptions]="{standalone: true}" >Khóa lớp học</mat-slide-toggle>
   </form>
 
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="updateClass()">Update</button>
+  <button mat-button [mat-dialog-close]="true" (click)="updateClass()">Cập nhật</button>
 </mat-dialog-actions>
 

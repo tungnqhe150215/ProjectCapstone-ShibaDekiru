@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,6 +49,15 @@ public class StudentLessonController {
     @GetMapping("/book")
     public List<BookDto> getAllBook(){
         return bookService.getAllBooks().stream().map(book -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
+    }
+    @GetMapping("/lesson/{lessonId}")
+    public ResponseEntity<LessonDto> getLessonById(@PathVariable (name = "lessonId") Long lessonId) {
+        Lesson lesson = lessonService.getLessonById(lessonId);
+
+        // convert entity to DTO
+        LessonDto lessonResponse = modelMapper.map(lesson, LessonDto.class);
+
+        return ResponseEntity.ok().body(lessonResponse);
     }
     @GetMapping("/book/{id}/lesson")
     public List<LessonDto> getAllLessonByBook(@PathVariable (name = "id") Long bookId) {

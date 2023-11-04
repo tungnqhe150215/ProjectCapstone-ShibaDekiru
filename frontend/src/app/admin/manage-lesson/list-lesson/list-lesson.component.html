@@ -1,7 +1,7 @@
 <div class="mb-2">
     <!-- <button mat-raised-button (click)="addData()">Add data</button> -->
     <!-- <a class="btn btn-info" routerLinkActive="active" routerLink="create-lesson">Add Lesson</a> -->
-    <button mat-raised-button (click)="openCreateLessonialog(id)"> Add Lesson</button>
+    <button mat-raised-button (click)="openCreateLessonialog(id)">Tạo bài học</button>
   </div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
@@ -13,31 +13,31 @@
   </ng-container>
   <ng-container matColumnDef="book">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by book">
-      Book
+      ID Sách
     </th>
     <td mat-cell *matCellDef="let lesson"> {{book.bookId}} </td>
   </ng-container>
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
-      Name
+      Tên bài học
     </th>
     <td mat-cell *matCellDef="let lesson"> {{lesson.name}} </td>
   </ng-container>
   <ng-container matColumnDef="content">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by content">
-      Content
+      Nội dung
     </th>
     <td mat-cell *matCellDef="let lesson"> {{lesson.content}} </td>
   </ng-container>
   <ng-container matColumnDef="created_at">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by created_at">
-      Created
+      Thời gian tạo
     </th>
     <td mat-cell *matCellDef="let lesson"> {{lesson.createdAt}} </td>
   </ng-container>
   <ng-container matColumnDef="status">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
-      Status
+      Trạng thái
     </th>
     <td mat-cell *matCellDef="let lesson">
       <h6> <span *ngIf="lesson.status === true" class="badge rounded-pill text-bg-success">Mở</span></h6>
@@ -47,7 +47,7 @@
   </ng-container>
   <ng-container matColumnDef="image">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by image">
-      Image
+      Ảnh
     </th>
    
     <td mat-cell *matCellDef="let lesson" > <img src="{{lesson.image}}"> </td>

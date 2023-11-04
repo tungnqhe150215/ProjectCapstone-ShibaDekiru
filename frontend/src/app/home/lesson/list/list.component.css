@@ -26,3 +26,63 @@ a {
 .even-row {
   background-color: #eaeaea;
 }
+.courses_area {
+  overflow: hidden;
+}
+.p_120 {
+  /* padding-top: 120px; */
+  /* Nếu list nhiều thì sẽ bỏ về 120px */
+  padding-bottom: 30%;
+}
+
+/*============== footer-area css ===============*/
+.footer-area {
+  background: #04091e; }
+
+.footer_title {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: bold;
+  font-family: "Playfair Display", serif;
+  color: #fff;
+  margin-bottom: 28px; }
+
+.border_line {
+  width: 100%;
+  height: 1px;
+  background: #333333;
+  margin-top: 30px; }
+
+.footer-bottom {
+  padding-top: 84px; }
+.footer-bottom .footer-text {
+  color: #fff;
+  opacity: .6; }
+.footer-bottom .footer-text i {
+  color: #11a683;
+  opacity: 1; }
+.footer-bottom .footer-text a {
+  color: #11a683;
+  opacity: 1; }
+.footer-bottom .footer-social {
+  text-align: right; }
+.footer-bottom .footer-social a {
+  font-size: 14px;
+  line-height: 30px;
+  color: #fff;
+  margin-left: 6px;
+  transition: all 0.3s linear;
+  background: #1e2235;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  display: inline-block;
+  transition: all 300ms linear 0s; }
+.footer-bottom .footer-social a:hover {
+  color: #fff;
+  background: #11a683; }
+
+
+
+
+

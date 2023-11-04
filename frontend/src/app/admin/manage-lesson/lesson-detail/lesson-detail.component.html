@@ -1,13 +1,14 @@
-<h2>Lesson Detail</h2>
+<h2>Thông tin bài học</h2>
 <!-- <button mat-button (click)="backtoList()">Back</button> -->
 <form class="form-dialog">
 <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>LessonID: {{lesson.lessonId}}</mat-card-title>
-      <mat-card-title>Name: {{lesson.name}}</mat-card-title>
-      <mat-card-subtitle>Date: {{lesson.createdAt}}</mat-card-subtitle>
-      <mat-card-subtitle>Status:  {{lesson.status}}</mat-card-subtitle>
+      <mat-card-title>ID bài học: {{lesson.lessonId}}</mat-card-title>
+      <mat-card-title>Tên bài học: {{lesson.name}}</mat-card-title>
+      <mat-card-subtitle>Ngày tạo: {{lesson.createdAt}}</mat-card-subtitle>
+      <mat-card-subtitle>Trạng thái:   <h6> <span *ngIf="lesson.status === true" class="badge rounded-pill text-bg-success">Mở</span></h6>
+        <h6> <span *ngIf="lesson.status === false" class="badge rounded-pill text-bg-danger">Đóng</span></h6></mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content class="text-center mt-2">
@@ -17,11 +18,11 @@
       <img mat-card-image src="{{lesson.image}}" alt="Photo of a Shiba Inu">
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="gotoKanji()">List Kanji</button>
-      <button mat-button (click)="gotoWriting()">List Writing</button>
-      <button mat-button (click)="gotoListening()">List Listening</button>
-      <button mat-button (click)="gotoReading()">List Reading</button>
-      <button mat-button (click)="gotoKaiwa()">List Kaiwa</button>
+      <button mat-button (click)="gotoKanji()">Danh sách Kanji</button>
+      <button mat-button (click)="gotoWriting()">Danh sách bài viết</button>
+      <button mat-button (click)="gotoListening()">Danh sách bài nghe</button>
+      <button mat-button (click)="gotoReading()">Danh sách bài đọc</button>
+      <button mat-button (click)="gotoKaiwa()">Danh sách Kaiwa</button>
     </mat-card-actions>
   </mat-card>
 </form>

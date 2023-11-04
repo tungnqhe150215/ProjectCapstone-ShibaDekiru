@@ -1,15 +1,15 @@
-<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Update writing part</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Cập nhật học phần viết</h2>
 <mat-dialog-content>
   <form class="form-dialog">
     <mat-form-field>
-      <mat-label>Topic</mat-label>
+      <mat-label>Chủ đề</mat-label>
       <input matInput [(ngModel)]="writing.topic" [value]="writing.topic" [ngModelOptions]="{standalone: true}" type="text" required>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="updateWriting()">Update</button>
+  <button mat-button [mat-dialog-close]="true" (click)="updateWriting()">Cập nhật</button>
 </mat-dialog-actions>
 
