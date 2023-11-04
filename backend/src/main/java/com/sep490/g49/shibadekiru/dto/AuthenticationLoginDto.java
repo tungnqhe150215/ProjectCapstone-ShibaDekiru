@@ -6,17 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class RegisterResponse {
-    private String nickName;
-    private String firstName;
-    private String lastName;
-    private String memberId;
-    private String userName;
+public class AuthenticationLoginDto {
     private String email;
     private String password;
-    private Long roleId;
-
 }

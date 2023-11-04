@@ -61,7 +61,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(DELETE, "/api/lecture/**").hasAnyRole("ADMIN", "LECTURE")
                                 .anyRequest()
                                 .authenticated()
-                        )
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
