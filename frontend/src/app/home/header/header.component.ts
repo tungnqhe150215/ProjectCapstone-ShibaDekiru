@@ -1,9 +1,11 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { UseServiceService } from '../auth/use-service.service';
 import { StorageService } from '../auth/user-login/storage.service';
-import { Router } from '@angular/router';
 import { EventBusService } from '../auth/event-bus.service';
 import { Subscription } from 'rxjs';
+import { StudentLessonService } from '../lesson/student-lesson.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Book } from 'src/app/core/models/book';
 
 @Component({
   selector: 'home-header',
@@ -20,11 +22,14 @@ export class HeaderComponent implements AfterViewInit,OnInit{
   roleId!: number;
   userName?:string;
   eventBusSub?: Subscription;
+  book: Book[]= [];
   constructor(
     private userService: UseServiceService,
     private storageService: StorageService,
     private router: Router,
-    private eventBusService: EventBusService
+    private eventBusService: EventBusService,
+    private studentLessonService: StudentLessonService,
+    private route:ActivatedRoute,
   ) {}
 
   ngAfterViewInit(): void {
@@ -37,6 +42,7 @@ export class HeaderComponent implements AfterViewInit,OnInit{
 
 
   ngOnInit(): void {
+    this.getAllBook();
     this.currentUser = this.storageService.getUser();
     this.isLoggedIn = this.storageService.isLoggedIn();
 
@@ -85,5 +91,17 @@ export class HeaderComponent implements AfterViewInit,OnInit{
     }
   }
 
+  getAllBook(){
+   this.studentLessonService.getAllBook()
+   .subscribe( data =>{
+    this.book = data;
+    console.log(data);
 
+   })  
+  }
+
+  LessonByBook(id:number){
+    this.studentLessonService.setBookId(id);
+    this.router.navigate(['book/'+id+'/lesson']);
+  }
 }

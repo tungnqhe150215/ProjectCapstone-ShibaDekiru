@@ -6,14 +6,14 @@ import { DetailComponent } from './detail/detail.component';
 import { SectionComponent } from './section/section.component';
 
 const routes: Routes = [
-  {
-    path: '', component: LessonComponent,
-    children: [
-      {path: '', component: ListComponent},
-      {path: 'detail/:id', component: DetailComponent},
-      {path: 'detail/:id/section', component: SectionComponent}
-    ]
-  },
+  // {
+  //   path: '', component: LessonComponent,
+  //   children: [
+  //     {path: '', component: ListComponent},
+  //     {path: 'detail/:id', component: DetailComponent},
+  //     {path: 'detail/:id/section', component: SectionComponent}
+  //   ]
+  // },
 ];
 
 @NgModule({

@@ -1,12 +1,12 @@
 <div class="col-md-6 offset-md-3">
     <button mat-raised-button>
         <a routerLink="../list-hiragana" routerLinkActive="active" class="nav-link">
-            List Hiragana
+            Danh sách Hiragana
         </a>
     </button>
     <h3 class="center" style="display: flex;
     justify-content: center;
-    align-items: center;">Update Hiragana </h3>
+    align-items: center;">Sửa Hiragana </h3>
     <form (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="hiraganaId">Hiragana ID</label>
@@ -14,7 +14,7 @@
                 name="hiraganaId" />
         </div>
         <div class="form-group">
-            <label for="hiraganaCharacter">Hiragana Character</label>
+            <label for="hiraganaCharacter">Chữ Hiragana</label>
             <input type="text" class="form-control" id="hiraganaCharacter" [(ngModel)]="hiragana.hiraganaCharacter"
                 name="hiraganaCharacter" />
         </div>

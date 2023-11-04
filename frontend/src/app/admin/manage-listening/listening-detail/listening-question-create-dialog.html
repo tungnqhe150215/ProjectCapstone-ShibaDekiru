@@ -1,35 +1,35 @@
-<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Add new question</h2>
+<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Tạo câu hỏi mới</h2>
 <mat-dialog-content>
   <form class="form-dialog">
     <mat-form-field>
-      <mat-label>Question</mat-label>
+      <mat-label>Câu hỏi</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.question" [ngModelOptions]="{standalone: true}" required></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
-      <mat-label>First choice</mat-label>
+      <mat-label>Lựa chọn 1</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.firstChoice" [ngModelOptions]="{standalone: true}" required></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
-      <mat-label>Second choice</mat-label>
+      <mat-label>Lựa chọn 2</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.secondChoice" [ngModelOptions]="{standalone: true}" required></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
-      <mat-label>Third choice (Optional)</mat-label>
+      <mat-label>Lựa chọn 3 (Tùy chọn)</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.thirdChoice" [ngModelOptions]="{standalone: true}"></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
-      <mat-label>Correct answer</mat-label>
+      <mat-label>Câu trả lời đúng</mat-label>
       <textarea matInput [(ngModel)]="listeningQuestion.correctAnswer" [ngModelOptions]="{standalone: true}" required></textarea>
     </mat-form-field>
   </form>
 
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="createListeningQuestion()">Create</button>
+  <button mat-button [mat-dialog-close]="true" (click)="createListeningQuestion()">Tạo</button>
 </mat-dialog-actions>

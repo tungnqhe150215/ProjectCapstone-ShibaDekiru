@@ -1,19 +1,19 @@
-<h3 class="text-center"> Update User</h3>
-<button mat-button (click)="goToUserList()">Back</button>
+<h3 class="text-center">Cập nhật thông tin người dùng</h3>
+<button mat-button (click)="goToUserList()">Quay về danh sách</button>
 <div class="container">
 <form (ngSubmit)="onSubmit()">
     <div class="form-group" >
-        <label>UserName</label>
+        <label>User Name</label>
         <input type="text" class="form-control" id="username" name="username" [(ngModel)]="userAccount.userName" 
             [ngModelOptions]="{standalone: true}"> 
-        <label class="m-2">Status</label>
+        <label class="m-2">Trạng thái</label>
         <input type="radio" [(ngModel)]="userAccount.isBanned" value="true" name="banned"
-            [ngModelOptions]="{standalone: true}"> Active
+            [ngModelOptions]="{standalone: true}"> Mở
         <input type="radio" [(ngModel)]="userAccount.isBanned" value="false" name="banned"
-            [ngModelOptions]="{standalone: true}"> Disable
+            [ngModelOptions]="{standalone: true}"> Đóng
     </div>
     <div class="form-group">
-        <label class="mr-2">MemberID</label>
+        <label class="mr-2">Mã số thành viên</label>
         <input type="text" class="form-control" id="memberID" name="memberID" [(ngModel)]="userAccount.memberId"
             [ngModelOptions]="{standalone: true}" readonly>
 
@@ -45,8 +45,8 @@
                 [ngModelOptions]="{standalone: true}">Admin</option>
         </select> -->
 
-        <input type="radio" [(ngModel)]="userAccount.roleId" value="1"  id="role" name="role" [ngModelOptions]="{standalone: true}" > Student
-        <input type="radio" [(ngModel)]="userAccount.roleId" value="2"  id="role" name="role"  [ngModelOptions]="{standalone: true}" > Lecturers
+        <input type="radio" [(ngModel)]="userAccount.roleId" value="1"  id="role" name="role" [ngModelOptions]="{standalone: true}" > Học sinh
+        <input type="radio" [(ngModel)]="userAccount.roleId" value="2"  id="role" name="role"  [ngModelOptions]="{standalone: true}" > Giảng viên
         <input type="radio" [(ngModel)]="userAccount.roleId" value="3" id="role" name="role" [ngModelOptions]="{standalone: true}" > Admin
     </div>
 

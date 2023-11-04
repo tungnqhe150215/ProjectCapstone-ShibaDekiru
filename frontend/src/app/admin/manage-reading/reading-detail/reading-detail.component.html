@@ -1,5 +1,5 @@
 
-<h3 class="text-center m-auto mb-28">Reading details </h3>
+<h3 class="text-center m-auto mb-28">Thông tin bài đọc</h3>
 <hr>
 <mat-card class="detail-card">
   <mat-card-header>
@@ -13,9 +13,9 @@
   </mat-card-content>
 </mat-card>
 <hr>
-<button mat-raised-button (click)="openCreateReadingQuestionDialog(id)"> Create reading question </button>
+<button mat-raised-button (click)="openCreateReadingQuestionDialog(id)"> Tạo câu hỏi cho bài đọc</button>
 <mat-form-field>
-  <mat-label>Filter</mat-label>
+  <mat-label>Lọc</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. abc" #input>
 </mat-form-field>
 
@@ -30,13 +30,13 @@
 
     <!-- Question Column -->
     <ng-container matColumnDef="question">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Question </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Câu hỏi </th>
       <td mat-cell *matCellDef="let row"> {{row.question}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="sample-answer">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Sample Answer </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Câu trả lời mẫu </th>
       <td mat-cell *matCellDef="let row"> {{row.sampleAnswer}} </td>
     </ng-container>
 
