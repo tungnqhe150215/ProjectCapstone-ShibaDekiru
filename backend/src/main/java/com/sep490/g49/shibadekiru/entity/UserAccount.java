@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -34,11 +35,12 @@ public class UserAccount implements UserDetails {
     @Column(name = "username", nullable = false, length = 45)
     private String userName;
 
-    @Column(name = "password", nullable = false, length = 45)
-    private String password;
-
     @Column(name = "email", nullable = false, unique = true ,length = 45)
     private String email;
+
+    @Column(name = "password", nullable = false, length = 255)
+    private String password;
+
 
     @Column(name = "reset_code", nullable = true)
     private String resetCode;
@@ -51,9 +53,8 @@ public class UserAccount implements UserDetails {
     @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    private List<Comment> comment;
+    @OneToMany(mappedBy = "userAccount")
+    private List<Token> tokens;
 
     @Override
     public String getUsername() {
