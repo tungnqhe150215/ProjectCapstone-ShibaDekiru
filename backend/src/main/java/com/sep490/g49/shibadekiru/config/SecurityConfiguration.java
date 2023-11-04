@@ -13,6 +13,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -24,7 +28,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfiguration {
     private static final String[] WHITE_LIST_URL = {
             "/api/auth/**",
-            "/api/alphabet/**"
+            "/api/alphabet/**",
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -33,7 +37,19 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        System.out.println("scheck security");
         httpSecurity
+                .cors(httpSecurityCorsConfigurer -> {
+                    httpSecurityCorsConfigurer
+                            .configurationSource(request -> {
+                                CorsConfiguration config = new CorsConfiguration();
+                                config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                                config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                                config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+                                config.setAllowCredentials(true);
+                                return config;
+                            });
+                })
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)

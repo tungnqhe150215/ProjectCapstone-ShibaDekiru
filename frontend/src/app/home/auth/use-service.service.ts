@@ -6,7 +6,7 @@ const USER_KEY = 'auth-user';
 const AUTH_API = 'http://localhost:8080/api/auth/';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json',   'Authorization': `Bearer ${USER_KEY}`  })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'  })
 };
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class UseServiceService {
         password,
       },
       httpOptions
-    ) 
+    )
     // .pipe(
     //   map((res:any) =>{
     //     console.log('result', res);
@@ -48,6 +48,6 @@ export class UseServiceService {
     return this.httpClient.post(AUTH_API + 'logout', {}, httpOptions);
   }
 
-  
- 
+
+
 }

@@ -33,7 +33,6 @@ export class TokenInterceptor implements HttpInterceptor {
               Authorization: `Bearer ${token}`,
             }
           });
-
           // Chuyển yêu cầu đã được thay đổi
           return next.handle(modifiedReq);
         } else {

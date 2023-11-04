@@ -113,12 +113,12 @@ public class AuthenticationServiceImpl {
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
-        revokeAllUserRefreshTokens(user);
+//        revokeAllUserRefreshTokens(user);
         saveUserToken(user, jwtToken);
-        saveUserRefreshToken(user, refreshToken);
+//        saveUserRefreshToken(user, refreshToken);
         return AuthenticationDto.builder()
                 .accessToken(jwtToken)
-                .refreshToken(refreshToken)
+//                .refreshToken(refreshToken)
                 .build();
     }
 
