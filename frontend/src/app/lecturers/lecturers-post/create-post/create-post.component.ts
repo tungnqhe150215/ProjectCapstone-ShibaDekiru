@@ -6,6 +6,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { LecPostService } from '../lec-post.service';
+import { StorageService } from 'src/app/home/auth/user-login/storage.service';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -14,7 +15,8 @@ import { LecPostService } from '../lec-post.service';
 export class CreatePostComponent implements OnInit{
 
   post: Post = new Post();
-  myID: number = 3;
+  myID: number = 1;
+  currentUser: any;
   constructor(
     public dialogRef: MatDialogRef<CreatePostComponent>,
     private postService: PostService,
@@ -22,16 +24,23 @@ export class CreatePostComponent implements OnInit{
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: number,
     private nofiService: NotificationService,
+    private storageService: StorageService,
   ){}
   ngOnInit(): void {
     
   }
+
+
+
   addPost(){
-    this.lecpostServive.addPost(this.myID, this.post).subscribe(data =>{
+    this.currentUser = this.storageService.getUser();
+    this.lecpostServive.addPost(this.currentUser.lectureId, this.post).subscribe(data =>{
       console.log(data);
       this.dialogRef.close();
     })
   }
+
+
   createPost(){
     this.postService.createPost(this.post).subscribe( data =>{
       console.log(data);

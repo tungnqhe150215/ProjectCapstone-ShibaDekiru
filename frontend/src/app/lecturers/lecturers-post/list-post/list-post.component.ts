@@ -11,6 +11,7 @@ import { CreatePostComponent } from '../create-post/create-post.component';
 import { LecPostService } from '../lec-post.service';
 import { UserService } from 'src/app/admin/manage-user/user.service';
 import { UserAccount } from 'src/app/core/models/user-account';
+import { StorageService } from 'src/app/home/auth/user-login/storage.service';
 
 @Component({
   selector: 'app-list-post',
@@ -28,7 +29,7 @@ export class ListPostComponent implements OnInit {
 
   post: Post[] = [];
   user: UserAccount = new UserAccount;
-  idU:number = 3;
+  idU:number = 1;
   constructor(
     private postService: PostService,
     private lecpostService: LecPostService,
@@ -37,15 +38,18 @@ export class ListPostComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private nofiService: NotificationService,
+    private storageService: StorageService,
   ) {
 
   }
 
 
 
+   currentUser: any;
 
   ngOnInit(): void {
     // this.GetPost();
+    
     this.getPostbyUser();
 
   }
@@ -59,10 +63,10 @@ export class ListPostComponent implements OnInit {
     }
   }
 
-
+ 
   getPostbyUser() {
-
-    this.lecpostService.getlistByUser(this.idU).subscribe({
+    this.currentUser = this.storageService.getUser();
+    this.lecpostService.getlistByUser(this.currentUser.lectureId).subscribe({
       next:(res) =>{
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
