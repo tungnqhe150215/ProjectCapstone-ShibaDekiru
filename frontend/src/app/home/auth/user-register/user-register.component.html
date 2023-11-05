@@ -91,9 +91,10 @@
             
             
             <div class="form-group">
-                <button class="btn btn-primary btn-block">Sign Up</button>
+                <button class="btn btn-primary btn-block" style="margin-right: 1%; margin-top: 2%;">Sign Up</button>
+                <button class="btn btn-primary btn-block" style=" margin-top: 2%;" (click)="gotoLogin()">Login</button>
             </div>
-
+            
             <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
                 Signup failed!<br />{{ errorMessage }}
             </div>

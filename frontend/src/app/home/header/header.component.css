@@ -1,8 +1,11 @@
-*{
-    /* font-family: "poppins", sans-serif; */
+
+
+
+/* *{
+    font-family: "poppins", sans-serif;
     margin: 0;
     padding: 0;
-}
+} */
 .icons-size{
     color: #333;
     font-size: 9px;
@@ -100,3 +103,5 @@
 .action .menu ul li:hover a{
     color:#ff00ff;
 }
+
+

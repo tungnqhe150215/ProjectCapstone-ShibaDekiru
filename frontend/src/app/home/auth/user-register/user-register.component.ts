@@ -36,7 +36,8 @@ export class UserRegisterComponent {
       memberId,
       userName,
       email,
-      password } = this.form;
+      password 
+    } = this.form;
     
     this.userService.register(nickName,
       firstName,
@@ -44,7 +45,8 @@ export class UserRegisterComponent {
       memberId,
       userName,
       email,
-      password).subscribe({
+      password)
+      .subscribe({
       next: data =>{
         console.log(data);
         this.isSuccessful = true;
@@ -56,5 +58,9 @@ export class UserRegisterComponent {
         this.isSignUpFailed = true;
       }
     })
+  }
+
+  gotoLogin(){
+    this.router.navigate(['login']);
   }
 }
