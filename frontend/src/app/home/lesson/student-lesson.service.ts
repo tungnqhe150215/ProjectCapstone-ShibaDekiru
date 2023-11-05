@@ -78,7 +78,7 @@ export class StudentLessonService {
   }
 
   getWritingByLesson(id:number): Observable<Writing[]>{
-    return this.httpClient.get<Writing[]>(`${this.baseURL}/lesson/${id}/reading`);
+    return this.httpClient.get<Writing[]>(`${this.baseURL}/lesson/${id}/writing`);
   }
 
   getListeningByLesson(id: number): Observable<Listening[]>{

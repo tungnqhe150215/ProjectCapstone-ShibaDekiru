@@ -18,6 +18,12 @@ import { ListLessonComponent } from '../admin/manage-lesson/list-lesson/list-les
 import { ListComponent } from './lesson/list/list.component';
 import { DetailComponent } from './lesson/detail/detail.component';
 import { ListVocablessComponent } from './lesson/list-vocabless/list-vocabless.component';
+import { ListKaiwaComponent } from './lesson/list-kaiwa/list-kaiwa.component';
+import { ListGrammarlessComponent } from './lesson/list-grammarless/list-grammarless.component';
+import { ListReadingComponent } from './lesson/list-reading/list-reading.component';
+import { ListWritingComponent } from './lesson/list-writing/list-writing.component';
+import { ListListeningComponent } from './lesson/list-listening/list-listening.component';
+import { ListKanjilessComponent } from './lesson/list-kanjiless/list-kanjiless.component';
 
 
 const routes: Routes = [
@@ -35,6 +41,12 @@ const routes: Routes = [
       {path: 'book/:id/lesson',component: ListComponent},
       {path: 'lesson/:id/detail', component:DetailComponent},
       {path: 'lesson/:id/vocabulary', component:ListVocablessComponent},
+      {path: 'lesson/:id/kanji', component:ListKanjilessComponent},
+      {path: 'lesson/:id/kaiwa', component:ListKaiwaComponent},
+      {path: 'lesson/:id/grammar', component:ListGrammarlessComponent},
+      {path: 'lesson/:id/reading', component: ListReadingComponent},
+      {path: 'lesson/:id/writing', component:ListWritingComponent},
+      {path: 'lesson/:id/listening', component:ListListeningComponent},
       // {path: 'book/:id/lesson/detail/:id', component: DetailComponent},
       // {
       //   path: 'book',

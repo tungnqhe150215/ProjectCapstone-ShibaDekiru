@@ -2,28 +2,95 @@
   <div class="section-container">
     <h1>Bài {{lessonN.lessonId}}: {{lessonN.content}}</h1>
     <div class="list-sections">
-      <div class="section">
-        <!-- Chưa lấy được ID Lesson -->
+      
+      <div style="cursor: pointer;" class="section">
         <a (click)="ListVocab(lessonN.lessonId)">
           <img [src]="'https://www.vnjpclub.com/images/icon/tuvung.png'" />
           <p>Phần 1: Từ vựng</p>
         </a>
       </div>
+
+      <div style="cursor: pointer;" class="section">
+        <a (click)="ListGrammar(lessonN.lessonId)">
+          <img [src]="'https://www.vnjpclub.com/images/icon/nguphap.png'" />
+          <p>Phần 2: Ngữ pháp</p>
+        </a>
+      </div>
+
+      <div style="cursor: pointer;" class="section">
+        <a (click)="ListKanji(lessonN.lessonId)">
+          <img [src]="'https://www.vnjpclub.com/images/icon/hantu.png'" />
+          <p>Phần 3: Hán tự</p>
+        </a>
+      </div>
+      
+
+      <div style="cursor: pointer;" class="section">
+        <a (click)="ListKaiwa(lessonN.lessonId)">
+          <img [src]="'https://www.vnjpclub.com/images/icon/hoithoai.png'" />
+          <p>Phần 4: Hội thoại</p>
+        </a>
+      </div>
+
+      <div style="cursor: pointer;" class="section">
+        <a (click)="ListListening(lessonN.lessonId)">
+          <img [src]="'https://www.vnjpclub.com/images/icon/luyennghe.png'" />
+          <p>Phần 5: Luyện nghe</p>
+        </a>
+      </div>
+
+      <div style="cursor: pointer;" class="section">
+        <a >
+          <img [src]="'https://www.vnjpclub.com/images/icon/baitap.png'" />
+          <p>Phần 6: Bài tập</p>
+        </a>
+      </div>
+
+      <div style="cursor: pointer;" class="section">
+        <a (click)="ListWriting(lessonN.lessonId)">
+          <img [src]="'https://www.vnjpclub.com/images/icon/luyendoc.png'" />
+          <p>Phần 7: Luyện viết</p>
+        </a>
+      </div>
+
+      <div style="cursor: pointer;" class="section">
+        <a (click)="ListReading(lessonN.lessonId)">
+          <img [src]="'https://www.vnjpclub.com/images/icon/dochieu.png'" />
+          <p>Phần 8: Đọc hiểu</p>
+        </a>
+      </div>
+
+      <div style="cursor: pointer;" class="section">
+        <a >
+          <img [src]="'https://www.vnjpclub.com/images/icon/thamkhao.png'" />
+          <p>Phần 9: Tham khảo</p>
+        </a>
+      </div>
+
+      <div style="cursor: pointer;" class="section">
+        <a >
+          <img [src]="'https://www.vnjpclub.com/images/icon/kiemtra.png'" />
+          <p>Phần 10: Kiểm tra</p>
+        </a>
+      </div>
+
     </div>
-    <div class="list-sections">
+
+    
+    <!-- <div class="list-sections">
       <div class="section" *ngFor="let section of sections">
         <a [routerLink]="['section']">
           <img [src]="section.img" />
           <p>{{ section.name }}</p>
         </a>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="lesson-container">
     <h3>Danh sách bài đọc</h3>
     <div class="list-lesson">
       <div class="lesson" *ngFor="let lesson of lesson; let i = index">
-        <a style="cursor: pointer;" (click)="LessonDetail(lesson.lessonId)">
+        <a style="cursor: pointer; width: 10%;" (click)="LessonDetail(lesson.lessonId)">
           <!-- <p>{{ lesson.lessonId }}</p> -->
           <p>{{i+1}}</p>
         </a>

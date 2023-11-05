@@ -1,7 +1,7 @@
 import {Lesson} from "./lesson";
 
 export class Listening {
-    id!:number
+    listeningId!:number
     lesson?:Lesson
     title!:String
     link!:String

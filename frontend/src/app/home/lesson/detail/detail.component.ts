@@ -62,9 +62,36 @@ export class DetailComponent implements OnInit {
     this.getLessonById();
   }
 
-  ListVocab(idV:number){
-    this.router.navigate(['lesson/'+idV+'/vocabulary']);
+  ListVocab(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/vocabulary']);
   }
+  ListKanji(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/kanji']);
+  }
+
+  ListGrammar(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/grammar']);
+  }
+  ListKaiwa(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/kaiwa']);
+  }
+  ListListening(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/listening']);
+  }
+  ListReading(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/reading']);
+  }
+  ListWriting(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/writing']);
+  }
+
 
   sections = [
     // {

@@ -31,7 +31,8 @@ public class SecurityConfiguration {
             "/api/alphabet/**",
             "/api/post/**",
             "/api/book/**",
-            "/api/lesson/**"
+            "/api/lesson/**",
+            "api/knowledge/**",
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
