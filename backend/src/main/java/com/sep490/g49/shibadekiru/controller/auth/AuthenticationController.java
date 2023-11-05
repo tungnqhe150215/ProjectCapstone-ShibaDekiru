@@ -58,6 +58,11 @@ public class AuthenticationController {
                     authResult.setLectureId(Long.valueOf(String.valueOf(lectureId)));
                 }
 
+                else if (userAccountDto.getRole().getRoleType() == RoleType.STUDENT) {
+                    Long studentId = authenticationService.getStudentIdByMemberId(userAccountDto.getMemberId());
+                    authResult.setStudentId(Long.valueOf(String.valueOf(studentId)));
+                }
+
                 System.out.println("Token: " + accessToken);
                 System.out.println("Nick name: " + userAccountDto.getNickName());
                 System.out.println("Member id: " + userAccountDto.getMemberId());

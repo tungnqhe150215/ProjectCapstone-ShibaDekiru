@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
-import com.sep490.g49.shibadekiru.repository.LecturersRepository;
-import com.sep490.g49.shibadekiru.repository.RoleRepository;
-import com.sep490.g49.shibadekiru.repository.TokenRepository;
-import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
+import com.sep490.g49.shibadekiru.repository.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +25,9 @@ public class AuthenticationServiceImpl {
 
     @Autowired
     private LecturersRepository lecturersRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Autowired
     private TokenRepository tokenRepository;
@@ -56,7 +56,16 @@ public class AuthenticationServiceImpl {
         if (lectures != null) {
             return lectures.getLectureId();
         }
-        return null; // Hoặc giá trị mặc định tùy thuộc vào logic của bạn
+        return null;
+    }
+
+    public Long getStudentIdByMemberId(String memberId) {
+        Student student = studentRepository.findByUserAccountId(memberId);
+
+        if (student != null) {
+            return student.getStudentId();
+        }
+        return null;
     }
 
     public void register(RegisterResponse request) {
