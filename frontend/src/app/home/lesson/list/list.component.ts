@@ -54,14 +54,7 @@ export class ListComponent implements OnInit {
     })
 
   }
-  // getAllBook(){
-  //   this.studentLessonService.getAllBook()
-  //   .subscribe( data =>{
-  //    this.book = data;
-  //    console.log(data);
- 
-  //   })  
-  //  }
+  
 
   // applyFilter(event: Event) {
   //   const filterValue = (event.target as HTMLInputElement).value;
@@ -73,6 +66,7 @@ export class ListComponent implements OnInit {
   // }
   
   LessonDetail(id:number){
+    this.studentLessonService.setLessonID(id);
     this.router.navigate(['./lesson/'+id+'/detail']);
   
   }
