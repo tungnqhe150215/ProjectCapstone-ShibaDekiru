@@ -22,7 +22,6 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
     private userService: UseServiceService,
     private storageService: StorageService,
     private router: Router,
-
   ){}
 
 
@@ -72,7 +71,9 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
       });
     }
   }
-
+  gotoRegister(){
+    this.router.navigate(['register']);
+  }
 
 
 

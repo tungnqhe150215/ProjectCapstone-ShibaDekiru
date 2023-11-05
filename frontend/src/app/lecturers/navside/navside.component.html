@@ -6,7 +6,7 @@
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
     <mat-nav-list>
-      <a mat-list-item routerLink="222222/post"
+      <a mat-list-item routerLink="{{currentUser.lectureId}}/post"
          routerLinkActive="selected-menu-item"
          #rla="routerLinkActive"
          [activated]="rla.isActive"
