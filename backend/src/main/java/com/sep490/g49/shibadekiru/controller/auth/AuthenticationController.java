@@ -1,9 +1,8 @@
 package com.sep490.g49.shibadekiru.controller.auth;
 
 import com.sep490.g49.shibadekiru.dto.*;
-import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
-import com.sep490.g49.shibadekiru.impl.JWTServiceImpl;
-import com.sep490.g49.shibadekiru.impl.RoleServiceImpl;
+import com.sep490.g49.shibadekiru.entity.RoleType;
+import com.sep490.g49.shibadekiru.impl.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +22,9 @@ public class AuthenticationController {
 
     private final AuthenticationServiceImpl authenticationService;
 
+    private final LecturesServiceImpl lecturesService;
+
+
     @PostMapping("/register")
     public ResponseEntity<?> register(
             @RequestBody RegisterResponse request
@@ -37,7 +39,6 @@ public class AuthenticationController {
 
     }
 
-
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationDto> authenticate(
             @RequestBody AuthenticationLoginDto request
@@ -49,20 +50,28 @@ public class AuthenticationController {
         if (authResult != null) {
             String accessToken = authResult.getAccessToken();
             UserAccountDto userAccountDto = authenticationService.getUserInfoByToken(accessToken);
-            System.out.println("Token: " + accessToken);
-            System.out.println("Nick name: " +  userAccountDto.getNickName());
-            System.out.println("Member id: " +  userAccountDto.getMemberId());
-            System.out.println("Pass word:" + userAccountDto.getPassword());
-            System.out.println("Role id: " +  userAccountDto.getRole());
-            System.out.println("US id: " +  userAccountDto.getUserName());
-            authResult.setRole(userAccountDto.getRole());
-            authResult.setEmail(userAccountDto.getEmail());
-            authResult.setUserAccountId(userAccountDto.getUserAccountId());
-            authResult.setUserName(userAccountDto.getUserName());
-            return ResponseEntity.ok(authResult);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+
+            if (userAccountDto != null) {
+
+                if (userAccountDto.getRole().getRoleType() == RoleType.LECTURE) {
+                    Long lectureId = authenticationService.getLectureIdByMemberId(userAccountDto.getMemberId());
+                    authResult.setLectureId(Long.valueOf(String.valueOf(lectureId)));
+                }
+
+                System.out.println("Token: " + accessToken);
+                System.out.println("Nick name: " + userAccountDto.getNickName());
+                System.out.println("Member id: " + userAccountDto.getMemberId());
+                System.out.println("Pass word:" + userAccountDto.getPassword());
+                System.out.println("Role id: " + userAccountDto.getRole());
+                System.out.println("US id: " + userAccountDto.getUserName());
+                authResult.setRole(userAccountDto.getRole());
+                authResult.setEmail(userAccountDto.getEmail());
+                authResult.setUserAccountId(userAccountDto.getUserAccountId());
+                authResult.setUserName(userAccountDto.getUserName());
+                return ResponseEntity.ok(authResult);
+            }
         }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
     @PostMapping("/refresh-token")
