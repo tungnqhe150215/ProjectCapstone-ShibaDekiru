@@ -1,6 +1,6 @@
 <div class="detail container">
   <div class="section-container">
-    <h1>Bài </h1>
+    <h1>Bài {{lessonN.lessonId}}: {{lessonN.content}}</h1>
     <div class="list-sections">
       <div class="section">
         <!-- Chưa lấy được ID Lesson -->
@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="lesson-container">
-    <h3>Bài học có trong quyển</h3>
+    <h3>Danh sách bài đọc</h3>
     <div class="list-lesson">
       <div class="lesson" *ngFor="let lesson of lesson; let i = index">
         <a style="cursor: pointer;" (click)="LessonDetail(lesson.lessonId)">

@@ -24,12 +24,14 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLessonByBookID();
+    this.getLessonById();
   } 
 
   getLessonById(){
-    this.id = this.route.snapshot.params['id'];
+    // this.id = this.route.snapshot.params['id'];
+    const idLesson = this.studentLessonService.getLessonID();
     this.lessonN = new Lesson();
-    this.studentLessonService.getLessonById(this.id)
+    this.studentLessonService.getLessonById(idLesson)
     .subscribe(
       data =>{
         this.lessonN = data
@@ -54,7 +56,10 @@ export class DetailComponent implements OnInit {
   }
 
   LessonDetail(id:number){
+    // const idLesson = this.studentLessonService.getLessonID();
+    this.studentLessonService.setLessonID(id);
     this.router.navigate(['./lesson/'+id+'/detail']);
+    this.getLessonById();
   }
 
   ListVocab(idV:number){
