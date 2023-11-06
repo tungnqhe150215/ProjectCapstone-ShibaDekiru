@@ -1,15 +1,23 @@
 package com.sep490.g49.shibadekiru.controller.auth;
 
 import com.sep490.g49.shibadekiru.dto.*;
+import com.sep490.g49.shibadekiru.entity.Lectures;
+import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
 import com.sep490.g49.shibadekiru.impl.JWTServiceImpl;
+import com.sep490.g49.shibadekiru.impl.LecturesServiceImpl;
 import com.sep490.g49.shibadekiru.impl.RoleServiceImpl;
+import com.sep490.g49.shibadekiru.service.ILecturesService;
+import com.sep490.g49.shibadekiru.service.IStudentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -22,6 +30,15 @@ import java.security.Principal;
 public class AuthenticationController {
 
     private final AuthenticationServiceImpl authenticationService;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private ILecturesService iLecturesService;
+
+    @Autowired
+    private IStudentService iStudentService;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
@@ -55,9 +72,16 @@ public class AuthenticationController {
             System.out.println("Pass word:" + userAccountDto.getPassword());
             System.out.println("Role id: " +  userAccountDto.getRole());
             System.out.println("US id: " +  userAccountDto.getUserName());
+
+            UserAccount userAccount = modelMapper.map(userAccountDto,UserAccount.class);
+            if ( userAccount.getRole().getRoleId() == 2L){
+                authResult.setUserAccountId(iLecturesService.getByUserAccount(userAccount).getLectureId());
+            }
+            if (userAccount.getRole().getRoleId() == 3L){
+                authResult.setUserAccountId(iStudentService.getByUserAccount(userAccount).getStudentId());
+            }
             authResult.setRole(userAccountDto.getRole());
             authResult.setEmail(userAccountDto.getEmail());
-            authResult.setUserAccountId(userAccountDto.getUserAccountId());
             authResult.setUserName(userAccountDto.getUserName());
             return ResponseEntity.ok(authResult);
         } else {
