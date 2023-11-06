@@ -4,11 +4,22 @@
 <mat-toolbar class="bg-success text-bg-secondary">
   <button mat-icon-button class="example-icon" (click)="collapsed.set(!collapsed())"
     aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon> Shiba Dekiru Admin
+    <mat-icon matListItemIcon >menu</mat-icon> Shiba Dekiru Admin
   </button>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home" routerLinkActive="selected-menu-item"
+        #rlahome="routerLinkActive" 
+        [activated]="rlahome.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">
+          home
+          </span></mat-icon>
+        <span>Trang chủ</span>
+      </a>
+    </mat-nav-list>
 
     <mat-nav-list>
       <a mat-list-item routerLink="/admin/book" routerLinkActive="selected-menu-item"
@@ -150,6 +161,17 @@
           hdr_auto
           </span></mat-icon>
         <span>Bảng chữ Katakana</span>
+      </a>
+    </mat-nav-list>
+    
+    <mat-nav-list>
+      <a mat-list-item routerLinkActive="selected-menu-item"
+        #rlalogout="routerLinkActive" 
+        [activated]="rlalogout.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">
+          logout
+          </span></mat-icon>
+        <span  (click)="logout()">Đăng xuất</span>
       </a>
     </mat-nav-list>
 
