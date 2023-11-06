@@ -24,4 +24,8 @@ public class AuthenticationDto {
     private String email;
 
     private Role role;
+
+    private Long lectureId;
+
+    private Long studentId;
 }

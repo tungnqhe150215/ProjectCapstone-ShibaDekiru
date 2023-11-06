@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
-import com.sep490.g49.shibadekiru.repository.RoleRepository;
-import com.sep490.g49.shibadekiru.repository.TokenRepository;
-import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
+import com.sep490.g49.shibadekiru.repository.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +22,12 @@ public class AuthenticationServiceImpl {
 
     @Autowired
     private UserAccountRepository userAccountRepository;
+
+    @Autowired
+    private LecturersRepository lecturersRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Autowired
     private TokenRepository tokenRepository;
@@ -47,6 +49,24 @@ public class AuthenticationServiceImpl {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    public Long getLectureIdByMemberId(String memberId) {
+        Lectures lectures = lecturersRepository.findByUserAccountId(memberId);
+
+        if (lectures != null) {
+            return lectures.getLectureId();
+        }
+        return null;
+    }
+
+    public Long getStudentIdByMemberId(String memberId) {
+        Student student = studentRepository.findByUserAccountId(memberId);
+
+        if (student != null) {
+            return student.getStudentId();
+        }
+        return null;
+    }
 
     public void register(RegisterResponse request) {
         Role role = roleRepository.findById(request.getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role "));
@@ -99,6 +119,8 @@ public class AuthenticationServiceImpl {
 
 
     }
+
+
 
 
     public AuthenticationDto authenticate(AuthenticationLoginDto request) {

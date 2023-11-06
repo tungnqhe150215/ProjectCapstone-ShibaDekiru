@@ -1,7 +1,8 @@
 import {Lesson} from "./lesson";
 
 export class Kaiwa {
-  id!:number
+  kaiwaId!:number
+  lessonId!:number
   lesson?:Lesson
   title!:String
   link!:String

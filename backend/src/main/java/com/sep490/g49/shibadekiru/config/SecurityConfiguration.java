@@ -29,6 +29,10 @@ public class SecurityConfiguration {
     private static final String[] WHITE_LIST_URL = {
             "/api/auth/**",
             "/api/alphabet/**",
+            "/api/post/**",
+            "/api/book/**",
+            "/api/lesson/**",
+            "api/knowledge/**",
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -37,7 +41,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        System.out.println("scheck security");
+        System.out.println("check security");
         httpSecurity
                 .cors(httpSecurityCorsConfigurer -> {
                     httpSecurityCorsConfigurer

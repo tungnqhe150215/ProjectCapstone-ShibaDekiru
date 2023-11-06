@@ -34,7 +34,7 @@ public class LecturesServiceImpl implements ILecturesService {
     public Lectures getLectureById(Long lectureId) {
         Lectures lectures = lecturersRepository.findById(lectureId).orElse(null);
         if (lectures == null) {
-            throw new ResourceNotFoundException("Lesson not found with id: " +  lectureId);
+            throw new ResourceNotFoundException("Lecture not found with id: " +  lectureId);
         }
         return lectures;
     }

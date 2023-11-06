@@ -19,6 +19,18 @@ import { WritingQuestion } from 'src/app/core/models/writing-question';
 })
 export class StudentLessonService {
 
+   //set storage ID Lesson 
+  private idLesson !:number;
+
+  setLessonID(id: number){
+    this.idLesson = id;
+  }
+
+  getLessonID(){
+    return this.idLesson;
+  }
+  //set storage ID Lesson 
+  
   //set storage ID book 
   private bookId!: number;
 
@@ -66,7 +78,7 @@ export class StudentLessonService {
   }
 
   getWritingByLesson(id:number): Observable<Writing[]>{
-    return this.httpClient.get<Writing[]>(`${this.baseURL}/lesson/${id}/reading`);
+    return this.httpClient.get<Writing[]>(`${this.baseURL}/lesson/${id}/writing`);
   }
 
   getListeningByLesson(id: number): Observable<Listening[]>{

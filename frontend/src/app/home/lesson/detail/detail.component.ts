@@ -24,12 +24,14 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLessonByBookID();
+    this.getLessonById();
   } 
 
   getLessonById(){
-    this.id = this.route.snapshot.params['id'];
+    // this.id = this.route.snapshot.params['id'];
+    const idLesson = this.studentLessonService.getLessonID();
     this.lessonN = new Lesson();
-    this.studentLessonService.getLessonById(this.id)
+    this.studentLessonService.getLessonById(idLesson)
     .subscribe(
       data =>{
         this.lessonN = data
@@ -54,12 +56,42 @@ export class DetailComponent implements OnInit {
   }
 
   LessonDetail(id:number){
+    // const idLesson = this.studentLessonService.getLessonID();
+    this.studentLessonService.setLessonID(id);
     this.router.navigate(['./lesson/'+id+'/detail']);
+    this.getLessonById();
   }
 
-  ListVocab(idV:number){
-    this.router.navigate(['lesson/'+idV+'/vocabulary']);
+  ListVocab(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/vocabulary']);
   }
+  ListKanji(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/kanji']);
+  }
+
+  ListGrammar(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/grammar']);
+  }
+  ListKaiwa(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/kaiwa']);
+  }
+  ListListening(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/listening']);
+  }
+  ListReading(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/reading']);
+  }
+  ListWriting(id:number){
+    const idLesson = this.studentLessonService.getLessonID();
+    this.router.navigate(['./lesson/'+idLesson+'/writing']);
+  }
+
 
   sections = [
     // {
