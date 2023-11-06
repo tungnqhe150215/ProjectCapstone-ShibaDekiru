@@ -2,11 +2,12 @@ package com.sep490.g49.shibadekiru.service;
 
 import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.entity.TestResult;
+import com.sep490.g49.shibadekiru.entity.TestSection;
 
 import java.util.List;
 
 public interface ITestResultService {
-    List<TestResult> getTestResultByTest(Test test);
+    List<TestResult> getTestResultByTest(TestSection test);
 
     TestResult getTestResultById(Long id);
 
