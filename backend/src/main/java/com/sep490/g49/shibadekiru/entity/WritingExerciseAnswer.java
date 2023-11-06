@@ -19,16 +19,17 @@ public class WritingExerciseAnswer implements Serializable {
     @Column(name = "writing_exercise_answer_id")
     private Long writingExerciseAnswerId;
 
+    @Column(length = 255)
     private String answer;
 
-    private String mark;
+    private double mark;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "writing_quiz_id", referencedColumnName = "writing_quiz_id")
     private WritingExercise writingExercise;

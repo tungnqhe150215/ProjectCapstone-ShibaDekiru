@@ -23,12 +23,12 @@ public class ClassStudent implements Serializable {
     @Column(nullable = true)
     private LocalDateTime joinedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "class_id", referencedColumnName = "class_id")
     private Class belongClass;

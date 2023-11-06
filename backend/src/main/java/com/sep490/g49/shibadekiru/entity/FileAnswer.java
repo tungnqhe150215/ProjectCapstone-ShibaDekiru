@@ -10,25 +10,26 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "choice_exercise_answer")
-public class ChoiceExerciseAnswer implements Serializable {
+@Table(name = "file_answer")
+public class FileAnswer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "choice_exercise_answer_id")
-    private Long choiceExerciseAnswerId;
+    @Column(name = "id")
+    private Long fileAnswerId;
 
-    private String answer;
+    @Lob
+    private String fileAnswer;
 
-    private String mark;
+    private Double mark;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name = "multiple_choice_answer_id", referencedColumnName = "multiple_choice_answer_id")
-    private MultipleChoiceAnswer multipleChoiceAnswer;
+    @JoinColumn(name = "submit_file_exercise_id", referencedColumnName = "id")
+    private SubmitFileExercise submitFileExercise;
 }

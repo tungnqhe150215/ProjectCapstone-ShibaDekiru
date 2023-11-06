@@ -59,6 +59,6 @@ public class Student implements Serializable {
 
     @OneToMany(mappedBy = "student")
     @JsonBackReference
-    private List<ChoiceExerciseAnswer> choiceExerciseAnswer;
+    private List<FileAnswer> fileAnswers;
 
 }

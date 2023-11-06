@@ -11,19 +11,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "writing_exercise")
-public class WritingExercise implements Serializable {
+@Table(name = "file_exercise")
+public class SubmitFileExercise implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "writing_quiz_id")
-    private Long writingQuizId;
+    @Column(name = "id")
+    private Long id;
 
-    private String question;
+    @Lob
+    @Column(name = "file_url")
+    private String fileUrl;
 
-    @OneToMany(mappedBy = "writingExercise")
+    @OneToMany(mappedBy = "submitFileExercise")
     @JsonBackReference
-    private List<WritingExerciseAnswer> writingExerciseAnswer;
+    private List<FileAnswer> fileAnswers;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

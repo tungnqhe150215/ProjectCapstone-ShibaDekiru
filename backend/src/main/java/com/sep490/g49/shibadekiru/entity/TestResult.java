@@ -25,13 +25,13 @@ public class TestResult implements Serializable {
     @Column(nullable = true)
     private LocalDateTime doneTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name = "test_id", referencedColumnName = "test_id")
-    private Test test;
+    @JoinColumn(name = "section_id", referencedColumnName = "section_id")
+    private TestSection testSection;
 }

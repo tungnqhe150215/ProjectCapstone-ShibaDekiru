@@ -27,9 +27,9 @@ public class Exercise implements Serializable{
 
     @OneToMany(mappedBy = "exercise")
     @JsonBackReference
-    private List<MultipleChoiceAnswer> multipleChoiceAnswer;
+    private List<SubmitFileExercise> submitFileExercises;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "class_work_id", referencedColumnName = "class_work_id")
     private ClassWork classWork;
