@@ -1,0 +1,21 @@
+<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm bài kiểm tra</h2>
+<mat-dialog-content>
+<form class="form-dialog">
+  <mat-form-field>
+    <mat-label> Tên </mat-label>
+    <input matInput [(ngModel)]="test.title" [ngModelOptions]="{standalone: true}" required type="text">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label> Thời lượng làm bài(phút)</mat-label>
+    <input matInput [(ngModel)]="test.duration" [ngModelOptions]="{standalone: true}" required type="text">
+  </mat-form-field>
+  <br>
+  <mat-slide-toggle [(ngModel)]="test.isLocked" [ngModelOptions]="{standalone: true}" > Khóa bài kiểm tra này</mat-slide-toggle>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true" (click)="createTest()">Create</button>
+</mat-dialog-actions>

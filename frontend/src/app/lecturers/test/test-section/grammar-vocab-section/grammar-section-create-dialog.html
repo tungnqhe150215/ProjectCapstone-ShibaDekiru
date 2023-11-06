@@ -1,0 +1,16 @@
+<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm bài kiểm tra</h2>
+<mat-dialog-content>
+<form class="form-dialog">
+  <br>
+  <mat-form-field>
+    <mat-label> Bài đọc</mat-label>
+    <textarea matInput [(ngModel)]="section.sectionAttach" [ngModelOptions]="{standalone: true}" required type="text" rows="5"></textarea>
+  </mat-form-field>
+  <br>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true" (click)="createGrammarSection()">Create</button>
+</mat-dialog-actions>

@@ -1,0 +1,50 @@
+.star-button {
+  /* margin-top: 0.93%; */
+  /* position: absolute; */
+  background-color: transparent;
+  border: none;
+  /* font-size: 24px; */
+  cursor: pointer;
+  color: rgb(8, 117, 26);
+}
+
+.star-button.star-marked {
+  /* position: absolute; */
+  background-color: transparent;
+  border: none;
+  /* font-size: 24px; */
+  cursor: pointer;
+  color: #ec1212;
+
+}
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  margin-top: 20px;
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.mat-column-id{
+  width: 10%;
+}
+
+.mat-column-title{
+  width: 60%;
+}
+
+.mat-column-action{}
+
+.mat-dialog-content{
+  width: 500px;
+}
+
+.form-dialog{
+  width: 500px;
+}
