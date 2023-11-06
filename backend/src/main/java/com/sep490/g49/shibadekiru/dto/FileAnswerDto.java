@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChoiceExerciseAnswerDto {
+public class FileAnswerDto {
 
-    private Long choiceExerciseAnswerId;
-    private String answer;
+    private Long fileAnswerId;
+    private String fileAnswer;
     private String mark;
-    private StudentDto studentDto;
-    private MultipleChoiceAnswerDto multipleChoiceAnswerDto;
+    private StudentDto student;
+    private SubmitFileExerciseDto submitFileExercise;
 }

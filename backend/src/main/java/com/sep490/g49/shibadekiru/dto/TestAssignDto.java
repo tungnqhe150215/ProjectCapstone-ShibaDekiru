@@ -9,10 +9,9 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TestResultDto {
-    private Long testResultId;
-    private Double result;
-    private StudentDto student;
-    private TestSectionDto testSection;
-
+public class TestAssignDto {
+    private Long id;
+    private LocalDateTime accessExpirationDate;
+    private ClassDto assignedClass;
+    private TestDto test;
 }
