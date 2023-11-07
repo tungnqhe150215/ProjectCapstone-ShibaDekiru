@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,12 +27,17 @@ public class Comment implements Serializable {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "user_id", referencedColumnName = "user_account_id")
+    @JoinColumn(name = "user_account_id", referencedColumnName = "user_account_id", foreignKey = @ForeignKey(name = "fk_comment_user_account_id"))
     private UserAccount userAccount;
 
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "post_id", referencedColumnName = "post_id")
     private Post post;
+
+    @JsonProperty("userAccountId")
+    public Long getUserAccountId() {
+        return this.userAccount.getUserAccountId();
+    }
 
 }

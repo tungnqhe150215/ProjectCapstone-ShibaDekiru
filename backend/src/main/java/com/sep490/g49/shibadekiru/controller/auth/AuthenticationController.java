@@ -49,7 +49,7 @@ public class AuthenticationController {
             authenticationService.register(request);
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage()); // Trả về thông báo lỗi nếu có lỗi xảy ra
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }

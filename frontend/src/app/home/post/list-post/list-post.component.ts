@@ -31,6 +31,7 @@ export class ListPostComponent implements OnInit{
   }
 
   PostDetail(id:number){
+    this.userPostService.setPostID(id);
     this.router.navigate(['./post/post-detail',id]);
   }
 
