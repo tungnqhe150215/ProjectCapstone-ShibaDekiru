@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.repository;
 
+import com.sep490.g49.shibadekiru.dto.CommentDto;
 import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.Comment;
 import com.sep490.g49.shibadekiru.entity.Post;
