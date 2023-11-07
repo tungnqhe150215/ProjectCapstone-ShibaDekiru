@@ -49,6 +49,7 @@ const routes: Routes = [
       {path: 'class', component:LClassListComponent},
       {path: 'test',component:LectureListTestComponent},
       {path: 'test/:id',component:TestSectionComponent},
+      {path: 'test/section/:id',component:LectureTestDetailComponent},
       // {path: 'class/:id/create-work', component:AddClassworkComponent},
     ]
   },

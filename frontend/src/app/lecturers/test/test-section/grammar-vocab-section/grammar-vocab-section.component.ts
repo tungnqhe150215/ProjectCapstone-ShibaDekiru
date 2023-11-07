@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {NgFor, NgIf} from "@angular/common";
 import {animate, state, style, transition, trigger} from "@angular/animations";
@@ -14,6 +14,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatSortModule} from "@angular/material/sort";
+
 
 @Component({
   selector: 'app-grammar-vocab-section',
@@ -27,7 +29,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     ]),
   ],
   standalone: true,
-  imports: [MatTableModule, NgFor, MatButtonModule, NgIf, MatIconModule],
+  imports: [MatTableModule, NgFor, MatButtonModule, NgIf, MatIconModule, MatSortModule],
 })
 export class GrammarVocabSectionComponent implements OnInit {
 
@@ -41,9 +43,7 @@ export class GrammarVocabSectionComponent implements OnInit {
   }
 
   dataSource:TestSection[] = [];
-  columnsToDisplay = ['id', 'sectionAttach', 'action'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedElement!:  TestSection | null
+  columnsToDisplay = ['id', 'name','action'];
   test: Test = new Test()
   id!:number
 
@@ -86,7 +86,7 @@ export class GrammarVocabSectionComponent implements OnInit {
   }
 
   getGrammarSectionDetail(id:number){
-    this.router.navigate(['admin/lesson/grammar',id]);
+    this.router.navigate(['lecturer/test/section',id]);
   }
 }
 

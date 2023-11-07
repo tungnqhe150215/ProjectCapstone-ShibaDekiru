@@ -1,24 +1,41 @@
-.star-button {
-  /* margin-top: 0.93%; */
-  /* position: absolute; */
-  background-color: transparent;
-  border: none;
-  /* font-size: 24px; */
-  cursor: pointer;
-  color: rgb(8, 117, 26);
-}
 
-.star-button.star-marked {
-  /* position: absolute; */
-  background-color: transparent;
-  border: none;
-  /* font-size: 24px; */
-  cursor: pointer;
-  color: #ec1212;
-
-}
 table {
   width: 100%;
+}
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-description {
+  margin-top: 10px;
+  margin: auto;
+  max-width: 750px;
+  min-width: 500px;
+  word-wrap: break-word; /* Cho phép nội dung tự động xuống dòng khi cần */
+  white-space: normal;   /* Đảm bảo không bị trim nội dung */
+  overflow-wrap: break-word;
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
 }
 
 .mat-mdc-form-field {
@@ -35,11 +52,13 @@ td, th {
   width: 10%;
 }
 
-.mat-column-title{
+.mat-column-name{
   width: 60%;
 }
 
-.mat-column-action{}
+.mat-column-action{
+  width: 20%;
+}
 
 .mat-dialog-content{
   width: 500px;

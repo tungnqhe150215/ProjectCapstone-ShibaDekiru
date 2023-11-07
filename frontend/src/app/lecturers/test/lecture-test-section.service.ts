@@ -27,7 +27,7 @@ export class LectureTestSectionService {
   }
 
   getTestSectionById(id: number): Observable<TestSection> {
-    return this.httpClient.get<TestSection>(`${this.baseUrl}/testSection/${id}`);
+    return this.httpClient.get<TestSection>(`${this.baseUrl}/section/${id}`);
   }
 
   updateTestSection(id: number, testSection: TestSection): Observable<Object> {
@@ -35,6 +35,6 @@ export class LectureTestSectionService {
   }
 
   deleteTestSection(id: number): Observable<Object> {
-    return this.httpClient.delete(`${this.baseUrl}/testSection/${id}`);
+    return this.httpClient.delete(`${this.baseUrl}/section/${id}`);
   }
 }

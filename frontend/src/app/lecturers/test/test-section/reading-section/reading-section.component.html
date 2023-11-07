@@ -1,1 +1,64 @@
-<p>reading-section works!</p>
+<div class="mb-4 mt-3">
+  <button mat-raised-button (click)="openCreateReadingSectionDialog(test.testId)">Thêm phần đọc hiểu</button>
+</div>
+<table mat-table
+       [dataSource]="dataSource" multiTemplateDataRows
+       class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef > # </th>
+    <td mat-cell *matCellDef="let element"> {{element.sectionId}} </td>
+  </ng-container>
+
+  <!-- Progress Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef > Tên chủ đề </th>
+    <td mat-cell *matCellDef="let element" class=""> {{element.sectionName}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef > Hành động </th>
+    <td mat-cell *matCellDef="let element">
+      <button (click)="openUpdateReadingSectionDialog(element.sectionId)" title="cập nhật" mat-icon-button>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="getReadingSectionDetail(element.sectionId)" title="chi tiết" mat-icon-button>
+        <mat-icon>remove_red_eye</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="openDeleteReadingSectionDialog(element.sectionId)" title="xóa">
+        <mat-icon>remove_circle</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="expand">
+    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+        <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <div class="example-element-description" >
+          <h2 class="mt-2 mb-3">{{element.sectionName}}</h2>
+          {{element.sectionAttach}}
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+

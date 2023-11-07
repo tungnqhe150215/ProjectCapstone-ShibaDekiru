@@ -8,13 +8,13 @@ import {Observable} from "rxjs";
 })
 export class LectureManageQuestionBankService {
 
-  private baseUrl="http://localhost:8080/api/lecture/test";
+  private baseUrl="http://localhost:8080/api/lecture/test/section";
 
   questionBanks: QuestionBank[] = [];
 
   constructor(private httpClient: HttpClient) { }
 
-  getquestionBankByTest(id:number): Observable<QuestionBank[]>{
+  getquestionBankByTestSection(id:number): Observable<QuestionBank[]>{
     return this.httpClient.get<QuestionBank[]>(`${this.baseUrl}/${id}/question`);
   }
 

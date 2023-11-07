@@ -34,7 +34,7 @@ public class Lectures implements Serializable {
     @Column(name = "avatar", length = 250)
     private String avatar;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private UserAccount userAccount;
 

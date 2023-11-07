@@ -10,6 +10,7 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item">Lecturer</li>
             <li class="breadcrumb-item" >Test</li>
+            <li class="breadcrumb-item" >Section</li>
             <li class="breadcrumb-item active" aria-current="page">Question bank</li>
           </ol>
         </nav>
@@ -24,9 +25,12 @@
       <div class="card-body">
         <div class="row">
           <div class="col-10  order-md-1 order-first">
-            <h4> Chủ đề kiểm tra</h4>
-            <p class="text-subtitle text-muted">{{test.title}}</p>
+            <h5> Chủ đề phần kiểm tra</h5>
+            <p class="text-subtitle text-muted">{{testSection.sectionName}}</p>
+            <br>
+            <h6>Phần kiểm tra : {{testSection.sectionType}}</h6>
           </div>
+
           <div class="col-2 order-last">
             <button appBackButton class="btn btn-outline-info">Back</button>
           </div>
@@ -36,7 +40,7 @@
           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
         </mat-form-field>
         <div class="mb-2">
-          <button mat-raised-button (click)="openCreateQuestionBankDialog(test.testId)">Thêm bài tập</button>
+          <button mat-raised-button (click)="openCreateQuestionBankDialog(testSection.sectionId)">Thêm câu hỏi</button>
         </div>
         <div class="mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" matSort>

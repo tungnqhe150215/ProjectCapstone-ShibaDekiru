@@ -45,7 +45,7 @@ public class LectureManageQuestionBankController {
         return questionBankService.getAllQuestionByTestSection(testSection).stream().map(question -> modelMapper.map(question, QuestionBankDto.class)).collect(Collectors.toList());
     }
 
-    @GetMapping("/question/{questionId}")
+    @GetMapping("/section/question/{questionId}")
     public ResponseEntity<QuestionBankDto> getQuestionById(@PathVariable(name = "questionId") long questionId) {
 
         QuestionBank questionBank = questionBankService.getQuestionById(questionId);
@@ -70,7 +70,7 @@ public class LectureManageQuestionBankController {
         return new ResponseEntity<QuestionBankDto>(questionBankResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/question/{questionId}")
+    @PutMapping("/section/question/{questionId}")
     public ResponseEntity<QuestionBankDto> updateQuestion(@PathVariable Long questionId, @RequestBody QuestionBankDto questionBankDto) {
 
         QuestionBank questionBankRequest = modelMapper.map(questionBankDto, QuestionBank.class);
@@ -82,7 +82,7 @@ public class LectureManageQuestionBankController {
         return ResponseEntity.ok().body(questionBankResponse);
     }
 
-    @DeleteMapping("/question/{questionId}")
+    @DeleteMapping("/section/question/{questionId}")
     public ResponseEntity<Map<String, Boolean>> deleteQuestion(@PathVariable Long questionId) {
         questionBankService.deleteQuestion(questionId);
 
@@ -118,6 +118,8 @@ public class LectureManageQuestionBankController {
         TestSection testSectionRequest = modelMapper.map(testSectionDto, TestSection.class);
 
         testSectionRequest.setSectionType(SectionType.valueOf(testSectionDto.getSectionType()));
+
+        testSectionRequest.setTest(testService.getTestById(testId));
 
         TestSection testSection = iTestSectionService.createTestSection(testSectionRequest);
 

@@ -18,5 +18,7 @@ public class TestSectionDto {
 
     private String sectionType;
 
+    private String sectionName;
+
     private TestDto test;
 }

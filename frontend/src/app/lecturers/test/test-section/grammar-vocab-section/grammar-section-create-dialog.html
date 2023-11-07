@@ -1,10 +1,10 @@
-<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm bài kiểm tra</h2>
+<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm phần ngữ pháp, từ vựng cho kiểm tra</h2>
 <mat-dialog-content>
 <form class="form-dialog">
   <br>
   <mat-form-field>
-    <mat-label> Bài đọc</mat-label>
-    <textarea matInput [(ngModel)]="section.sectionAttach" [ngModelOptions]="{standalone: true}" required type="text" rows="5"></textarea>
+    <mat-label> Tên chủ đề</mat-label>
+    <input matInput [(ngModel)]="section.sectionName" [ngModelOptions]="{standalone: true}" required type="text" >
   </mat-form-field>
   <br>
 </form>

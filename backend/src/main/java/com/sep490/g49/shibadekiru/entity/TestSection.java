@@ -20,6 +20,9 @@ public class TestSection {
     @Column(name = "section_id")
     private Long sectionId;
 
+    @Column(length = 255)
+    private String sectionName;
+
     @Enumerated(EnumType.STRING)
     private SectionType sectionType;
 

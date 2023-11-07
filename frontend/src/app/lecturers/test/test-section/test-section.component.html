@@ -27,16 +27,26 @@
             <p class="text-subtitle text-muted">{{user.userAccountId}}</p>
           </div>
           <div class="col-2 order-last">
-            <button appBackButton class="btn btn-outline-info">Back</button>
+            <button appBackButton class="btn btn-outline-success">Trở lại</button>
           </div>
         </div>
 
-        <mat-tab-group class="mt-2">
-          <mat-tab label="Nghe"></mat-tab>
-          <mat-tab label="Ngữ pháp và từ vựng">
-            <app-grammar-vocab-section></app-grammar-vocab-section>
+        <mat-tab-group class="mt-2" [(selectedIndex)]="selectedTabIndex">
+          <mat-tab label="Nghe" (click)="switchTab(0)">
+            <div>
+              <app-listening-section></app-listening-section>
+            </div>
           </mat-tab>
-          <mat-tab label="Đọc hiểu"></mat-tab>
+          <mat-tab label="Ngữ pháp và từ vựng" (click)="switchTab(1)">
+            <div>
+              <app-grammar-vocab-section ></app-grammar-vocab-section>
+            </div>
+          </mat-tab>
+          <mat-tab label="Đọc hiểu" (click)="switchTab(2)">
+            <div>
+              <app-reading-section></app-reading-section>
+            </div>
+          </mat-tab>
         </mat-tab-group>
       </div>
     </div>

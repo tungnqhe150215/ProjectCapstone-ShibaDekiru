@@ -19,7 +19,7 @@ public class TestSectionServiceImpl implements ITestSectionService {
 
     @Override
     public List<TestSection> getTestSectionByTypeAndTest(SectionType sectionType,Test test) {
-        return testSectionRepository.findTestSectionsByTest(test);
+        return testSectionRepository.findTestSectionsBySectionTypeAndAndTest(sectionType,test);
     }
 
     @Override
@@ -43,6 +43,8 @@ public class TestSectionServiceImpl implements ITestSectionService {
     public TestSection updateTestSection(Long id, TestSection testSectionRequest) {
         TestSection testSection = testSectionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        testSection.setSectionName(testSectionRequest.getSectionName());
+        testSection.setSectionAttach(testSectionRequest.getSectionAttach());
         return testSectionRepository.save(testSection);
     }
 

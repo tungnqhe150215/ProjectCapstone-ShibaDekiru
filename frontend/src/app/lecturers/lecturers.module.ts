@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-// import { LecturersRoutingModule } from './lecturers-routing.module';
 import {CreatePostComponent} from './lecturers-post/create-post/create-post.component';
 import {UpdatePostComponent} from './lecturers-post/update-post/update-post.component';
 import {ListPostComponent} from './lecturers-post/list-post/list-post.component';
@@ -55,8 +54,6 @@ import {GrammarVocabSectionComponent} from './test/test-section/grammar-vocab-se
     ClassworkDetailComponent,
     ClassMemberComponent,
     TestSectionComponent,
-    ListeningSectionComponent,
-    ReadingSectionComponent,
   ],
   exports: [
     ClassworkComponent
@@ -88,6 +85,8 @@ import {GrammarVocabSectionComponent} from './test/test-section/grammar-vocab-se
     LectureListTestComponent,
     LectureTestDetailComponent,
     GrammarVocabSectionComponent,
+    ReadingSectionComponent,
+    ListeningSectionComponent,
   ]
 })
 export class LecturersModule {

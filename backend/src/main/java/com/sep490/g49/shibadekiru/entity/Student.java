@@ -35,7 +35,7 @@ public class Student implements Serializable {
     private String avatar;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "member_id", referencedColumnName = "member_id" )
     private UserAccount userAccount;
