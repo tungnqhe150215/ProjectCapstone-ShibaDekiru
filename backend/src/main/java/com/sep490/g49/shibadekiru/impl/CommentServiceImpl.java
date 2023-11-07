@@ -52,26 +52,12 @@ public class CommentServiceImpl implements ICommentService {
     @Override
     public CommentDto createComment(CommentDto commentDto) {
 
-       Comment comment = modelMapper.map(commentDto, Comment.class);
-
-       Post post = postRepository.findById(commentDto.getPostId()).
-               orElseThrow(() -> new ResourceNotFoundException("Post not found"));
-
-       UserAccount userAccount = userAccountRepository.findById(commentDto.getUserId()).
-               orElseThrow(() -> new ResourceNotFoundException("User Account not found"));
-
-
-
+            Comment comment = modelMapper.map(commentDto, Comment.class);
             comment.setContent(comment.getContent());
             comment.setCreatedAt(LocalDateTime.now());
-            comment.setPost(post);
-            comment.setUserAccount(userAccount);
-
             Comment savedComment = commentRepository.save(comment);
 
-            CommentDto saveCommentDto = modelMapper.map(savedComment, CommentDto.class);
-
-            return saveCommentDto;
+            return modelMapper.map(savedComment, CommentDto.class);
 
     }
 

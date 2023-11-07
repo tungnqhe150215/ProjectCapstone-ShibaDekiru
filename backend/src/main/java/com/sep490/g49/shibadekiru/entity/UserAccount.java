@@ -20,6 +20,7 @@ import java.util.List;
 @Table(name = "user_account")
 public class UserAccount implements UserDetails {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_account_id")
@@ -53,8 +54,13 @@ public class UserAccount implements UserDetails {
     @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "userAccount")
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Token> tokens;
+
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Comment> comment;
 
     @Override
     public String getUsername() {

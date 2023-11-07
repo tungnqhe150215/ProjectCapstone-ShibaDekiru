@@ -2,6 +2,7 @@ package com.sep490.g49.shibadekiru.controller.student;
 
 import com.sep490.g49.shibadekiru.dto.CommentDto;
 import com.sep490.g49.shibadekiru.dto.PostDto;
+import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.Comment;
 import com.sep490.g49.shibadekiru.entity.Post;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
@@ -60,12 +61,13 @@ public class StudentPostController {
     @GetMapping("/{id}/comment")
     public List<CommentDto> getAllCommentByPost(@PathVariable(name = "id") Long postId) {
         Post post = iPostService.getPostById(postId);
+        System.out.println("Comment từ post nè : " +  postId);
         return iCommentService.getCommentPartByPost(post).stream().map(comment -> modelMapper.map(comment, CommentDto.class)).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}/comment/{userId}")
     public List<CommentDto> getAllCommentByUserAccount(@PathVariable(name = "id") Long postId, @PathVariable(name = "userId") Long userId) {
-        System.out.println("Member Id:  " + userId);
+        System.out.println("Member Id of getAllCommentByUserAccount :  " + userId);
         UserAccount userAccount = iUserAccountService.getUserAccountById(userId);
         //System.out.println("User account :" + userAccount);
         return iCommentService.getCommentByUserAccount(userAccount).stream().map(comment -> modelMapper.map(comment, CommentDto.class)).collect(Collectors.toList());
@@ -76,8 +78,9 @@ public class StudentPostController {
     public ResponseEntity<CommentDto> createComment(@PathVariable(name = "id") Long postId, @PathVariable(name = "userId") Long userId, @RequestBody CommentDto commentDto) {
 
         commentDto.setPostId(postId);
-        commentDto.setUserId(userId);
-        System.out.println("Member Id in add: " + commentDto.getUserId());
+        commentDto.setUserAccountId(userId);
+
+        System.out.println("Member Id in add: " + commentDto.getUserAccountId());
 
         CommentDto commentResponse = iCommentService.createComment(commentDto);
 

@@ -13,7 +13,7 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
 
     Optional<UserAccount> findByEmailOrMemberId(String email, String memberId);
 
-    Optional<UserAccount> findByMemberId(String memberId);
+    UserAccount findByMemberId(String memberId);
 
     UserAccount findByUserName(String userName);
 

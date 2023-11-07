@@ -100,6 +100,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
     }
 
+
     @Override
     public void updateIsBanned(Long userAccountId) {
         Optional<UserAccount> existingUserAccount = userAccountRepository.findById(userAccountId);
@@ -125,7 +126,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
         UserAccount userAccount = userAccountRepository.findById(userAccountId).orElse(null);
 
         if (userAccount == null) {
-            throw new ResourceNotFoundException("Lesson not found with id: " + userAccountId);
+            throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
         }
         return userAccount;
     }
