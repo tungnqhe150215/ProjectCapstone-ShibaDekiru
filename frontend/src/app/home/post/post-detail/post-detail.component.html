@@ -105,18 +105,39 @@
                         </div>
                     </div>
                     <div class="comments-area">
-                        <h4> Comments</h4>
+                        <h4> Bình luận </h4>
 
-                         <app-list-comment></app-list-comment>
+                        <div class="comment-list" *ngFor="let comment of comment">
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <img height="60px" width="60px" src="https://dogily.vn/wp-content/uploads/2022/12/Anh-avatar-cho-Shiba-4.jpg" alt="">
+                                    </div>
+                                    <div class="desc">
+                                        <h5>
+                                            <a href="#" style="text-decoration: none;">Người dùng {{comment.userAccountId}}</a>
+                                        </h5>
+                                        <p class="date">{{comment.createdAt}} </p>
+                                        <p class="comment">
+                                            {{comment.content}}
+                                        </p>
+                                        <!-- <p>{{userAccountId}} {{nickName}}</p> -->
+                                    </div>
+                                </div>
+                                <div class="reply-btn">
+                                    <a *ngIf="userId === comment.userAccountId"  style="cursor: pointer; border-radius: 15px;" (click)="deleteComment(comment.commentId)" class="btn-reply text-uppercase">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- <app-list-comment></app-list-comment> -->
 
                         <div class="comment-form">
-                            <form>
+                            <form (click)="AddComment()">
                                 <div class="form-group">
-                                    <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'"
+                                    <textarea class="form-control mb-10" rows="5" id="content" name="content" [(ngModel)] = "uComment.content" placeholder="Viết bình luận tại đây"
                                         required=""></textarea>
                                 </div>
-                                <a href="#" class="btn btn-primary submit_btn">Post Comment</a>
+                                <button class="mt-2 btn btn-success submit_btn text-light">Gửi bình luận</button>
                             </form>
                         </div>
                     </div>
