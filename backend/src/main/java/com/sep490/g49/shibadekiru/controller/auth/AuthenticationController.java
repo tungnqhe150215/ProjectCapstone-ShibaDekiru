@@ -81,7 +81,7 @@ public class AuthenticationController {
             }
             authResult.setRole(userAccountDto.getRole());
             authResult.setEmail(userAccountDto.getEmail());
-            authResult.setUserName(userAccountDto.getUserName());
+            authResult.setNickName(userAccountDto.getNickName());
             return ResponseEntity.ok(authResult);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);

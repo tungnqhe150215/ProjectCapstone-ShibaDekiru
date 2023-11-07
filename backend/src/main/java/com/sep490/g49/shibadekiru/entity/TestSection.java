@@ -26,7 +26,7 @@ public class TestSection {
     @Enumerated(EnumType.STRING)
     private SectionType sectionType;
 
-    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String sectionAttach; // URL cho tệp đính kèm
 
     // Mô hình quan hệ với bảng Test (Một phần thuộc về một bài test)
