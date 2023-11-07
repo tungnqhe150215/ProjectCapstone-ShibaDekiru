@@ -19,7 +19,7 @@ public class AuthenticationDto {
 
     private Long userAccountId;
 
-    private String userName;
+    private String nickName;
 
     private String email;
 

@@ -22,8 +22,6 @@ public class AuthenticationController {
 
     private final AuthenticationServiceImpl authenticationService;
 
-    private final LecturesServiceImpl lecturesService;
-
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
@@ -34,7 +32,7 @@ public class AuthenticationController {
             authenticationService.register(request);
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage()); // Trả về thông báo lỗi nếu có lỗi xảy ra
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }
@@ -51,6 +49,7 @@ public class AuthenticationController {
             String accessToken = authResult.getAccessToken();
             UserAccountDto userAccountDto = authenticationService.getUserInfoByToken(accessToken);
 
+
             if (userAccountDto != null) {
 
                 if (userAccountDto.getRole().getRoleType() == RoleType.LECTURE) {
@@ -63,16 +62,10 @@ public class AuthenticationController {
                     authResult.setStudentId(Long.valueOf(String.valueOf(studentId)));
                 }
 
-                System.out.println("Token: " + accessToken);
-                System.out.println("Nick name: " + userAccountDto.getNickName());
-                System.out.println("Member id: " + userAccountDto.getMemberId());
-                System.out.println("Pass word:" + userAccountDto.getPassword());
-                System.out.println("Role id: " + userAccountDto.getRole());
-                System.out.println("US id: " + userAccountDto.getUserName());
                 authResult.setRole(userAccountDto.getRole());
                 authResult.setEmail(userAccountDto.getEmail());
                 authResult.setUserAccountId(userAccountDto.getUserAccountId());
-                authResult.setUserName(userAccountDto.getUserName());
+                authResult.setNickName(userAccountDto.getNickName());
                 return ResponseEntity.ok(authResult);
             }
         }
