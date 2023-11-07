@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.entity.Lectures;
+import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.LecturersRepository;
 import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
@@ -36,5 +37,10 @@ public class LecturesServiceImpl implements ILecturesService {
             throw new ResourceNotFoundException("Lecture not found with id: " +  lectureId);
         }
         return lectures;
+    }
+
+    @Override
+    public Lectures getByUserAccount(UserAccount userAccount){
+        return lecturersRepository.findByUserAccount(userAccount);
     }
 }

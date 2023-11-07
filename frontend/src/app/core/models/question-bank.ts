@@ -1,8 +1,8 @@
-import {Test} from "./test";
+import {TestSection} from "./test-section";
 
 export class QuestionBank {
     questionBankId!:number
-    test!:Test
+    testSection!:TestSection
     question!:String
     firstChoice!:String
     secondChoice!:String

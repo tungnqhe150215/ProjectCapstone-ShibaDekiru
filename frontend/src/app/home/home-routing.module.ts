@@ -11,6 +11,7 @@ import { VocabComponent } from './list-knowledge/vocab/vocab.component';
 import { GrammarComponent } from './list-knowledge/grammar/grammar.component';
 import { KanjiComponent } from './list-knowledge/kanji/kanji.component';
 import { LessonModule } from './lesson/lesson.module';
+import {ClassLandingComponent} from "./class/class-landing/class-landing.component";
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { ListPostComponent } from './post/list-post/list-post.component';
 import { LessonComponent } from './lesson/lesson.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
       {path: 'hiragana', component: HiraganaComponent},
       {path: 'katakana', component: KatakanaComponent},
       {path: 'class', component: ClassListComponent},
+      {path: 'class/:id', component: ClassLandingComponent},
       {path: 'vocabulary', component: VocabComponent},
       {path: 'grammar', component: GrammarComponent},
       {path: 'kanji', component: KanjiComponent},

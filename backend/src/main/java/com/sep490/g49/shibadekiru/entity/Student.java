@@ -35,7 +35,7 @@ public class Student implements Serializable {
     private String avatar;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "member_id", referencedColumnName = "member_id" )
     private UserAccount userAccount;
@@ -59,6 +59,6 @@ public class Student implements Serializable {
 
     @OneToMany(mappedBy = "student")
     @JsonBackReference
-    private List<ChoiceExerciseAnswer> choiceExerciseAnswer;
+    private List<FileAnswer> fileAnswers;
 
 }

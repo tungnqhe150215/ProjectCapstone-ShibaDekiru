@@ -1,9 +1,9 @@
 package com.sep490.g49.shibadekiru.repository;
 
-import com.sep490.g49.shibadekiru.entity.ChoiceExerciseAnswer;
+import com.sep490.g49.shibadekiru.entity.FileAnswer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ChoiceExerciseAnswerRepository extends JpaRepository<ChoiceExerciseAnswer, Long> {
+public interface FileAnswerRepository extends JpaRepository<FileAnswer, Long> {
 }

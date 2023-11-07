@@ -2,6 +2,7 @@ package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.entity.TestResult;
+import com.sep490.g49.shibadekiru.entity.TestSection;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.TestResultRepository;
 import com.sep490.g49.shibadekiru.service.ITestResultService;
@@ -18,8 +19,8 @@ public class TestResultServiceImpl implements ITestResultService {
     private TestResultRepository testResultRepository;
 
     @Override
-    public List<TestResult> getTestResultByTest(Test test) {
-        return testResultRepository.findTestResultsByTest(test);
+    public List<TestResult> getTestResultByTest(TestSection testSection) {
+        return testResultRepository.findTestResultsByTestSection(testSection);
     }
 
     @Override

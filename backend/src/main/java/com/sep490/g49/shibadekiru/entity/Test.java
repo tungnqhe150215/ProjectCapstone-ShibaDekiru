@@ -31,15 +31,12 @@ public class Test implements Serializable {
     @Column(name = "is_locked", nullable = false)
     private Boolean isLocked;
 
-    @OneToMany(mappedBy = "test")
-    @JsonBackReference
-    private List<TestResult> testResult;
 
     @OneToMany(mappedBy = "test")
     @JsonBackReference
-    private List<QuestionBank> questionBank;
+    private List<TestSection> testSections;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "lecture_id", referencedColumnName = "lecture_id")
     private Lectures lecture;

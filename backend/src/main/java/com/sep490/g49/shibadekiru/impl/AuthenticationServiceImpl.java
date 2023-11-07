@@ -50,24 +50,6 @@ public class AuthenticationServiceImpl {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public Long getLectureIdByMemberId(String memberId) {
-        Lectures lectures = lecturersRepository.findByUserAccountId(memberId);
-
-        if (lectures != null) {
-            return lectures.getLectureId();
-        }
-        return null;
-    }
-
-    public Long getStudentIdByMemberId(String memberId) {
-        Student student = studentRepository.findByUserAccountId(memberId);
-
-        if (student != null) {
-            return student.getStudentId();
-        }
-        return null;
-    }
-
     public void register(RegisterResponse request) {
         Role role = roleRepository.findById(request.getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role "));
         var user = UserAccount.builder()
