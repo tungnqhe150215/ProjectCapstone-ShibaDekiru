@@ -68,10 +68,13 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email
-                    #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.errors }" />
+                    #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.errors }"  />
                 <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
                     <div *ngIf="email.errors['required']">Email is required</div>
                     <div *ngIf="email.errors['email']">
+                        Email must be a valid email address
+                    </div>
+                    <div *ngIf="email.errors['invalidEmail']">
                         Email must be a valid email address
                     </div>
                 </div>
