@@ -29,9 +29,8 @@ export class ListPostComponent implements OnInit {
 
   post: Post[] = [];
   user: UserAccount = new UserAccount;
-  idU:number = 1;
+  // idU:number = 1;
   constructor(
-    private postService: PostService,
     private lecpostService: LecPostService,
     private userService: UserService,
     private route: ActivatedRoute,
@@ -46,7 +45,9 @@ export class ListPostComponent implements OnInit {
 
 
    currentUser: any;
-
+   firstName!:string;
+   lastName!:string;
+   nickName!:string;
   ngOnInit(): void {
     // this.GetPost();
     
@@ -66,7 +67,8 @@ export class ListPostComponent implements OnInit {
  
   getPostbyUser() {
     this.currentUser = this.storageService.getUser();
-    this.lecpostService.getlistByUser(this.currentUser.lectureId).subscribe({
+    this.nickName = this.currentUser.nickName;
+    this.lecpostService.getlistByUser(this.currentUser.userAccountId).subscribe({
       next:(res) =>{
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
@@ -93,20 +95,20 @@ export class ListPostComponent implements OnInit {
 
   }
 
-  private GetPost() {
-    this.postService.getPostlist()
-      .subscribe(data => {
-        this.post = data;
-        this.dataSource = new MatTableDataSource(this.post);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(data)
-      }
-      )
-    console.log(this.post)
+  // private GetPost() {
+  //   this.postService.getPostlist()
+  //     .subscribe(data => {
+  //       this.post = data;
+  //       this.dataSource = new MatTableDataSource(this.post);
+  //       this.dataSource.paginator = this.paginator;
+  //       this.dataSource.sort = this.sort;
+  //       console.log(data)
+  //     }
+  //     )
+  //   console.log(this.post)
 
 
-  }
+  // }
 
 
   addData() {
@@ -123,10 +125,10 @@ export class ListPostComponent implements OnInit {
     this.router.navigate(['/lecturer/post/update-post', id]);
   }
   deletePost(id: number) {
-    this.postService.deletePost(id).subscribe({
+    this.lecpostService.deletePost(id).subscribe({
       next: () => {
         this.nofiService.openSnackBar('Post deleted !', 'Cancel');
-        this.GetPost();
+        this.getPostbyUser();
       },
       error: console.log,
     })

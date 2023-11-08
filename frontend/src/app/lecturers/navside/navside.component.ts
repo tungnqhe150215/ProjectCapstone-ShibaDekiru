@@ -7,7 +7,6 @@ import { StorageService } from 'src/app/home/auth/user-login/storage.service';
   styleUrls: ['./navside.component.css']
 })
 export class NavsideComponent implements OnInit{
-  
   collapsed = signal(false);
   sidenavWidth = computed( () => this.collapsed() ? '65px' : '250px' );
   currentUser: any;

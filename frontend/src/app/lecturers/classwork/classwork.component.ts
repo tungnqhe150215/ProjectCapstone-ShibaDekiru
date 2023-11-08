@@ -16,6 +16,7 @@ import { ClassworkDetailComponent } from './classwork-detail/classwork-detail.co
 import {Class} from "../../core/models/class";
 import {LectureClassService} from "../class/lecture-class.service";
 import {data} from "autoprefixer";
+import { StorageService } from 'src/app/home/auth/user-login/storage.service';
 
 
 
@@ -31,9 +32,8 @@ export class ClassworkComponent implements OnInit{
   aClass: Class = new Class();
 
   idU!:number;
-  ngOnInit(): void {
-    this.getClassWorkList();
-  }
+  currentUser: any;
+  
 
   displayedColumns: string[] = ['id', 'Name', 'CreateAt', 'Deadline','Status','ClassID','Action'];
   dataSource!: MatTableDataSource<any>;
@@ -46,10 +46,16 @@ export class ClassworkComponent implements OnInit{
     private letcureClassService: LectureClassService,
     private router: Router,
     private route:ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private storageService: StorageService,
   ){}
 
 
+  ngOnInit(): void {
+    this.getClassWorkList();
+  }
+
+  
   getClassWorkList(){
     this.idU = this.route.snapshot.params['id'];
     this.letcureClassService.getClassById(this.idU).subscribe(data => {
@@ -75,9 +81,9 @@ export class ClassworkComponent implements OnInit{
     }
   }
 
-  openCreateClassWorkDialog(){
+  openCreateClassWorkDialog(idU:number){
     this.dialog.open(AddClassworkComponent, {
-
+      data:idU
     }).afterClosed().subscribe(() => this.getClassWorkList())
   }
 

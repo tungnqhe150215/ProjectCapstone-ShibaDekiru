@@ -1,27 +1,27 @@
 
 <div class="container">
-    <h3 class="text-center">Update Class Work</h3>
-    <form >
+    <h3 class="text-center">Cập nhật bài học</h3>
+    <form class="form-dialog">
         <div class="form-group">
-            <label>Name</label>
+            <label>Tên bài học</label>
             <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "classWork.name" [value]="classWork.name" [ngModelOptions]="{standalone: true}" >
-            <label class="m-2">Status</label>
-            <input type="radio" [(ngModel)] = "classWork.isLocked" value="true" name="isLocked" [ngModelOptions]="{standalone: true}" > Unlock
-            <input type="radio" [(ngModel)] = "classWork.isLocked" value="false" name="isLocked"  [ngModelOptions]="{standalone: true}" > Lock
+            <label class="m-2">Trạng thái</label>
+            <input type="radio" [(ngModel)] = "classWork.isLocked" value="true" name="isLocked" [ngModelOptions]="{standalone: true}" > Mở 
+            <input type="radio" [(ngModel)] = "classWork.isLocked" value="false" name="isLocked"  [ngModelOptions]="{standalone: true}" > Đóng
         </div>
         <div class="form-group">
             <!-- <label class="mr-2" >Deadline</label>
             <input type="date" class="form-control" id="deadline" name="deadline" [(ngModel)] = "classWork.deadline" [ngModelOptions]="{standalone: true}" >
              -->
              <mat-form-field>
-                <mat-label>Choose a date</mat-label>
+                <mat-label>Chọn thời hạn</mat-label>
                 <input matInput [matDatepicker]="picker"  [value]="classWork.deadline" [(ngModel)] = "classWork.deadline" name="deadline" [ngModelOptions]="{standalone: true}">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             </div>
             
-        <button class="btn btn-success" type="submit"  (click)="updateClassWork()">Submit</button>
+        <button class="btn btn-success" type="submit"  (click)="updateClassWork()">Cập nhật</button>
     </form>
 </div>
 
