@@ -18,6 +18,7 @@ export class HeaderComponent implements AfterViewInit,OnInit{
 
   contentHeight !: number;
   scrollNumber !:number;
+  userAccountId!:number;
   isLoggedIn = false;
   roleId!: number;
   userName?:string;
@@ -48,6 +49,7 @@ export class HeaderComponent implements AfterViewInit,OnInit{
 
     if(this.isLoggedIn){
       const user = this.storageService.getUser();
+      this.userAccountId = user.userAccountId;
       this.roleId = user.roleId;
       this.userName = user.userName;
 

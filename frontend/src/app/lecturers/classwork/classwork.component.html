@@ -2,14 +2,14 @@
   <div class="page-title">
     <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
-        <h3>Class Work</h3>
-        <p class="text-subtitle text-muted">All work you create and manage it</p>
+        <h3>Bài học trên lớp</h3>
+        <p class="text-subtitle text-muted">Tạo và quản lý các bài học trong lớp</p>
       </div>
       <div class="col-12 col-md-6 order-md-2 order-first">
         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item">Lecturer</li>
-            <li class="breadcrumb-item active" aria-current="page">Class Work</li>
+            <li class="breadcrumb-item">Giảng viên</li>
+            <li class="breadcrumb-item active" aria-current="page">Bài học trên lớp</li>
           </ol>
         </nav>
       </div>
@@ -36,42 +36,42 @@
                 <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
               </mat-form-field>
               <div class="mb-2">
-                <button mat-raised-button (click)="openCreateClassWorkDialog()">Add ClassWork</button>
+                <button mat-raised-button (click)="openCreateClassWorkDialog(idU)">Thêm bài học trên lớp</button>
               </div>
               <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource" matSort>
 
                   <!-- ID Column -->
                   <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã bài học </th>
                     <td mat-cell *matCellDef="let row"> {{row.classWorkId}} </td>
                   </ng-container>
 
                   <!-- Progress Column -->
                   <ng-container matColumnDef="Name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên bài học </th>
                     <td mat-cell *matCellDef="let row"> {{row.name}} </td>
                   </ng-container>
 
                   <!-- Name Column -->
                   <ng-container matColumnDef="CreateAt">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> createdAt </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Thời gian tạo </th>
                     <td mat-cell *matCellDef="let row"> {{row.createdAt}} </td>
                   </ng-container>
 
                   <!-- Fruit Column -->
                   <ng-container matColumnDef="Deadline">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Deadline </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hạn nộp </th>
                     <td mat-cell *matCellDef="let row"> {{row.deadline}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="ClassID">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ClassID </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã lớp </th>
                     <td mat-cell *matCellDef="let row"> {{row.myCId}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="Status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái </th>
                     <td mat-cell *matCellDef="let row">
                       <h6> <span *ngIf="row.isLocked === true" class="badge rounded-pill text-bg-success">Mở</span>
                       </h6>
@@ -81,7 +81,7 @@
                   </ng-container>
 
                   <ng-container matColumnDef="Action">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động </th>
                     <td mat-cell *matCellDef="let row">
                       <button (click)="openUpdateClassWorkDialog(row.classWorkId)" mat-icon-button>
                         <mat-icon>edit</mat-icon> </button>

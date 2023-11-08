@@ -16,6 +16,7 @@ import { ListWritingComponent } from './list-writing/list-writing.component';
 import { ListListeningComponent } from './list-listening/list-listening.component';
 import { ListKaiwaComponent } from './list-kaiwa/list-kaiwa.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatPaginatorModule,
     MatTableModule,
     MatExpansionModule,
+    MatTabsModule,
   ]
 })
 export class LessonModule { }

@@ -1,12 +1,12 @@
 <mat-toolbar class="mat-elevation-z3">
   <button mat-icon-button (click)="collapsed.set(!collapsed())">
-    <mat-icon>menu</mat-icon>
+    <mat-icon>menu</mat-icon> Quản lý của giảng viên
   </button>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
     <mat-nav-list>
-      <a mat-list-item routerLink="{{currentUser.lectureId}}/post"
+      <a mat-list-item routerLink="{{currentUser.userAccountId}}/post"
          routerLinkActive="selected-menu-item"
          #rla="routerLinkActive"
          [activated]="rla.isActive"
@@ -24,7 +24,7 @@
         <span>Danh sách lớp</span>
       </a>
     </mat-nav-list>
-    <mat-nav-list>
+    <!-- <mat-nav-list>
       <a mat-list-item routerLink="class/1/class-work"
          routerLinkActive="selected-menu-item"
          #rla1="routerLinkActive"
@@ -32,7 +32,7 @@
         <mat-icon matListItemIcon>Quản lí lớp</mat-icon>
         <span>Quản lí lớp</span>
       </a>
-    </mat-nav-list>
+    </mat-nav-list> -->
     <mat-nav-list>
       <a mat-list-item routerLink="test"
          routerLinkActive="selected-menu-item"

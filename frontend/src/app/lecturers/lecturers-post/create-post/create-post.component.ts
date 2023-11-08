@@ -34,7 +34,7 @@ export class CreatePostComponent implements OnInit{
 
   addPost(){
     this.currentUser = this.storageService.getUser();
-    this.lecpostServive.addPost(this.currentUser.lectureId, this.post).subscribe(data =>{
+    this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data =>{
       console.log(data);
       this.dialogRef.close();
     })
