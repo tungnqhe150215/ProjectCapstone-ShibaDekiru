@@ -12,8 +12,19 @@
                 <!-- Progress Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên bài nghe </th>
-                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.title}}  <p style="color: red">{{row.description}}</p> </td>
-                  
+                    <!-- <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.title}}  <p style="color: red">{{row.description}}</p> </td> -->
+                    <mat-expansion-panel *matCellDef="let row" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <!-- This is the expansion title -->
+                                {{row.title}}
+                            </mat-panel-title>
+                            <!-- <mat-panel-description>
+                                {{row.title}}
+                            </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                        <p>Scrpit: {{row.script}}</p>
+                    </mat-expansion-panel>
                 </ng-container>
 
                 <!-- <ng-container matColumnDef="script">

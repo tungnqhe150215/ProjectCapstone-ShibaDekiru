@@ -7,4 +7,5 @@ export class Comment {
     content?:String
     userAccountId!:number
     postId?:number
+    nickName!:String
 }

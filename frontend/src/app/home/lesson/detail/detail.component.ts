@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StudentLessonService } from '../student-lesson.service';
 import { Book } from 'src/app/core/models/book';
 import { Lesson } from 'src/app/core/models/lesson';
+import { StorageService } from '../../auth/user-login/storage.service';
 
 @Component({
   selector: 'app-lesson-detail',
@@ -15,14 +16,20 @@ export class DetailComponent implements OnInit {
   lessonN: Lesson = new Lesson;
   lesson: Lesson[] =[];
   book: Book[]= [];
+  isLoggedIn = false;
+
   constructor(
     private studentLessonService: StudentLessonService,
     private router: Router,
     private route:ActivatedRoute,
+    private storageService: StorageService,
   ) {}
 
+  currentUser: any;
 
   ngOnInit(): void {
+    this.currentUser = this.storageService.getUser();
+    this.isLoggedIn = this.storageService.isLoggedIn();
     this.getLessonByBookID();
     this.getLessonById();
   } 
