@@ -63,4 +63,8 @@ export class UserRegisterComponent {
   gotoLogin(){
     this.router.navigate(['login']);
   }
+
+
+
 }
+
