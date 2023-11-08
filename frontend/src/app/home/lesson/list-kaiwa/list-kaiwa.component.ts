@@ -4,7 +4,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { StudentLessonService } from '../student-lesson.service';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { Kaiwa } from 'src/app/core/models/kaiwa';
 
@@ -15,6 +15,8 @@ import { Kaiwa } from 'src/app/core/models/kaiwa';
 })
 export class ListKaiwaComponent implements OnInit{
 
+  panelOpenState = false;
+  
   public dataSource !: MatTableDataSource<Kaiwa>;
 
   displayedColumns: string[] = ['id', 'name', 'lesson' ];
