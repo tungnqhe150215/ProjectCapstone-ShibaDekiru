@@ -38,8 +38,8 @@ public class QuestionBank implements Serializable {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "test_id", referencedColumnName = "test_id")
-    private Test test;
+    @JoinColumn(name = "section_id", referencedColumnName = "section_id")
+    private TestSection section;
 
 
 }

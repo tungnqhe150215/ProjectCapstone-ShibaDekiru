@@ -13,6 +13,6 @@ public class TestResultDto {
     private Long testResultId;
     private Double result;
     private StudentDto student;
-    private TestDto test;
+    private TestSectionDto testSection;
 
 }

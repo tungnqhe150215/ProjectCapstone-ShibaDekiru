@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LecturersRepository extends JpaRepository<Lectures, Long> {
-    @Query("SELECT l FROM Lectures l WHERE l.userAccount.memberId = :memberId")
-    Lectures findByUserAccountId(@Param("memberId") String memberId);
+
+    Lectures findByUserAccount(UserAccount userAccount);
 }

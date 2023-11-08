@@ -1,10 +1,10 @@
 package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.entity.QuestionBank;
-import com.sep490.g49.shibadekiru.entity.Test;
+import com.sep490.g49.shibadekiru.entity.TestSection;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.QuestionBankRepository;
-import com.sep490.g49.shibadekiru.repository.TestRepository;
+import com.sep490.g49.shibadekiru.repository.TestSectionRepository;
 import com.sep490.g49.shibadekiru.service.IQuestionBankService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +21,11 @@ public class QuestionBankServiceImpl implements IQuestionBankService {
 
     QuestionBankRepository questionBankRepository;
 
-    TestRepository testRepository;
+    TestSectionRepository testSectionRepository;
 
     @Override
-    public List<QuestionBank> getAllQuestionByTest(Test test) {
-        return questionBankRepository.findByTest(test);
+    public List<QuestionBank> getAllQuestionByTestSection(TestSection test) {
+        return questionBankRepository.findBySection(test);
     }
 
     @Override
@@ -49,13 +49,13 @@ public class QuestionBankServiceImpl implements IQuestionBankService {
         String thirdChoice = questionBank.getThirdChoice();
         String fourthChoice = questionBank.getFourthChoice();
         String correctAnswer = questionBank.getCorrectAnswer();
-        Long testId = questionBank.getTest().getTestId();
+        Long sectionId = questionBank.getSection().getSectionId();
 
-        Optional<Test> testOptional = testRepository.findById(testId);
+        Optional<TestSection> testOptional = testSectionRepository.findById(sectionId);
 
         if(testOptional.isPresent()) {
 
-            Test test = testOptional.get();
+            TestSection test = testOptional.get();
 
             QuestionBank questionBank1 = new QuestionBank();
             questionBank1.setQuestion(question);
@@ -64,7 +64,7 @@ public class QuestionBankServiceImpl implements IQuestionBankService {
             questionBank1.setThirdChoice(thirdChoice);
             questionBank1.setFourthChoice(fourthChoice);
             questionBank1.setCorrectAnswer(correctAnswer);
-            questionBank1.setTest(test);
+            questionBank1.setSection(test);
 
             return questionBankRepository.save(questionBank1);
 
@@ -80,14 +80,12 @@ public class QuestionBankServiceImpl implements IQuestionBankService {
 
         if(questionBankOptional.isPresent()) {
             QuestionBank questionBank = questionBankOptional.get();
-
             questionBank.setQuestion(questionBankUpdate.getQuestion());
             questionBank.setFirstChoice(questionBankUpdate.getFirstChoice());
             questionBank.setSecondChoice(questionBankUpdate.getSecondChoice());
             questionBank.setThirdChoice(questionBankUpdate.getThirdChoice());
             questionBank.setFourthChoice(questionBankUpdate.getFourthChoice());
             questionBank.setCorrectAnswer(questionBankUpdate.getCorrectAnswer());
-            questionBank.setTest(questionBankUpdate.getTest());
 
             return questionBankRepository.save(questionBank);
         } else {

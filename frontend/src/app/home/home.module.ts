@@ -32,6 +32,10 @@ import {MatInputModule} from "@angular/material/input";
 import { ListPostComponent } from './post/list-post/list-post.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { ListCommentComponent } from './post/post-detail/list-comment/list-comment.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import {ClassworkComponent} from "./class/class-landing/classwork/classwork.component";
+import {ClassLandingComponent} from "./class/class-landing/class-landing.component";
+import {ClassBoardComponent} from "./class/class-landing/class-board/class-board.component";
 
 @NgModule({
   declarations: [
@@ -56,12 +60,13 @@ import { ListCommentComponent } from './post/post-detail/list-comment/list-comme
     ListPostComponent,
     PostDetailComponent,
     ListCommentComponent,
+    ClassworkComponent,
+    ClassLandingComponent,
+    ClassBoardComponent
   ],
   exports: [
     FooterComponent,
     HeaderComponent,
-   
-    
   ],
   imports: [
     CommonModule,
@@ -77,6 +82,7 @@ import { ListCommentComponent } from './post/post-detail/list-comment/list-comme
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
+    MatTabsModule,
   ]
 })
 export class HomeModule { }

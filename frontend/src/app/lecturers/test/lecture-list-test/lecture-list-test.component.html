@@ -49,7 +49,7 @@
             <!-- Progress Column -->
             <ng-container matColumnDef="title">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Đề bài</th>
-              <td mat-cell *matCellDef="let row"> {{row.title}} </td>
+              <td mat-cell *matCellDef="let row" class="text-truncate"> {{row.title}} </td>
             </ng-container>
             <ng-container matColumnDef="duration">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Thời lượng</th>

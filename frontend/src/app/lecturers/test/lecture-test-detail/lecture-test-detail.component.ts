@@ -16,6 +16,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {LectureManageQuestionBankService} from "../lecture-manage-question-bank.service";
 import {LectureManageTestService} from "../lecture-manage-test.service";
 import {SharedModule} from "../../../shared/shared.module";
+import {TestSection} from "../../../core/models/test-section";
+import {LectureTestSectionService} from "../lecture-test-section.service";
 
 @Component({
   selector: 'app-lecture-test-detail',
@@ -32,11 +34,11 @@ export class LectureTestDetailComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
 
   questionBanks :QuestionBank[] = [];
-  test:Test = new Test();
+  testSection:TestSection = new TestSection();
   id!: number;
 
   constructor(
-    private manageTestService:LectureManageTestService,
+    private manageTestSectionService:LectureTestSectionService,
     private manageQuestionBankService: LectureManageQuestionBankService,
     private router:Router,
     private route:ActivatedRoute,
@@ -58,13 +60,12 @@ export class LectureTestDetailComponent implements OnInit{
   }
   private getQuestionBank(){
     this.id = this.route.snapshot.params['id'];
-    this.test = new Test();
-    this.manageTestService.getTestById(this.id).subscribe(data => {
-      this.test = data
-      console.log(this.test)
+    this.testSection = new TestSection();
+    this.manageTestSectionService.getTestSectionById(this.id).subscribe(data => {
+      this.testSection = data
     });
     this.questionBanks = []
-    this.manageQuestionBankService.getquestionBankByTest(this.id).subscribe(data => {
+    this.manageQuestionBankService.getquestionBankByTestSection(this.id).subscribe(data => {
       this.questionBanks = data;
       this.dataSource = new MatTableDataSource(this.questionBanks);
       this.dataSource.paginator = this.paginator;
@@ -186,6 +187,7 @@ export class QuestionBankUpdateDialog implements OnInit {
   ngOnInit(): void {
     this.questionBank = new QuestionBank();
     this.manageQuestionBankService.getQuestionBankById(this.data).subscribe(e => {
+      console.log(e)
       this.questionBank = e
     })
   }

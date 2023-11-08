@@ -25,7 +25,7 @@ public class WritingExercise implements Serializable {
     @JsonBackReference
     private List<WritingExerciseAnswer> writingExerciseAnswer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id")
     private Exercise exercise;

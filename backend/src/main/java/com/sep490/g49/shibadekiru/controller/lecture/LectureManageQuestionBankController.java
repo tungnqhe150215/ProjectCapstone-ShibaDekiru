@@ -1,9 +1,13 @@
 package com.sep490.g49.shibadekiru.controller.lecture;
 
 import com.sep490.g49.shibadekiru.dto.QuestionBankDto;
+import com.sep490.g49.shibadekiru.dto.TestSectionDto;
 import com.sep490.g49.shibadekiru.entity.QuestionBank;
+import com.sep490.g49.shibadekiru.entity.SectionType;
 import com.sep490.g49.shibadekiru.entity.Test;
+import com.sep490.g49.shibadekiru.entity.TestSection;
 import com.sep490.g49.shibadekiru.service.IQuestionBankService;
+import com.sep490.g49.shibadekiru.service.ITestSectionService;
 import com.sep490.g49.shibadekiru.service.ITestService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -31,15 +35,17 @@ public class LectureManageQuestionBankController {
 
     ITestService testService;
 
-    @GetMapping("/{testId}/question")
-    public List<QuestionBankDto> getAllQuestionByTest(@PathVariable (name = "testId") Long testId) {
+    ITestSectionService iTestSectionService;
 
-        Test test = testService.getTestById(testId);
+    @GetMapping("/section/{sectionId}/question")
+    public List<QuestionBankDto> getAllQuestionByTestSection(@PathVariable (name = "sectionId") Long sectionId) {
 
-        return questionBankService.getAllQuestionByTest(test).stream().map(question -> modelMapper.map(question, QuestionBankDto.class)).collect(Collectors.toList());
+        TestSection testSection = iTestSectionService.getTestSectionById(sectionId);
+
+        return questionBankService.getAllQuestionByTestSection(testSection).stream().map(question -> modelMapper.map(question, QuestionBankDto.class)).collect(Collectors.toList());
     }
 
-    @GetMapping("/question/{questionId}")
+    @GetMapping("/section/question/{questionId}")
     public ResponseEntity<QuestionBankDto> getQuestionById(@PathVariable(name = "questionId") long questionId) {
 
         QuestionBank questionBank = questionBankService.getQuestionById(questionId);
@@ -50,11 +56,12 @@ public class LectureManageQuestionBankController {
         return ResponseEntity.ok().body(questionBankDto);
     }
 
-    @PostMapping("/{testId}/question")
-    public ResponseEntity<QuestionBankDto> createQuestion(@PathVariable (name = "testId") Long testId,@RequestBody QuestionBankDto questionBankDto) {
-        questionBankDto.setTestId(testId);
+    @PostMapping("/section/{sectionId}/question")
+    public ResponseEntity<QuestionBankDto> createQuestion(@PathVariable (name = "sectionId") Long sectionId,@RequestBody QuestionBankDto questionBankDto) {
 
         QuestionBank questionBankRequest = modelMapper.map(questionBankDto, QuestionBank.class);
+
+        questionBankRequest.setSection(iTestSectionService.getTestSectionById(sectionId));
 
         QuestionBank questionBank = questionBankService.createQuestion(questionBankRequest);
 
@@ -63,7 +70,7 @@ public class LectureManageQuestionBankController {
         return new ResponseEntity<QuestionBankDto>(questionBankResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/question/{questionId}")
+    @PutMapping("/section/question/{questionId}")
     public ResponseEntity<QuestionBankDto> updateQuestion(@PathVariable Long questionId, @RequestBody QuestionBankDto questionBankDto) {
 
         QuestionBank questionBankRequest = modelMapper.map(questionBankDto, QuestionBank.class);
@@ -75,10 +82,67 @@ public class LectureManageQuestionBankController {
         return ResponseEntity.ok().body(questionBankResponse);
     }
 
-    @DeleteMapping("/question/{questionId}")
+    @DeleteMapping("/section/question/{questionId}")
     public ResponseEntity<Map<String, Boolean>> deleteQuestion(@PathVariable Long questionId) {
         questionBankService.deleteQuestion(questionId);
 
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted",Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{testId}/section")
+    public List<TestSectionDto> getAllSectionByTestAndType(@PathVariable (name = "testId") Long testId, @RequestParam("type") String sectionType) {
+
+        Test test = testService.getTestById(testId);
+
+        SectionType type = SectionType.valueOf(sectionType);
+
+        return iTestSectionService.getTestSectionByTypeAndTest(type,test).stream().map(section -> modelMapper.map(section, TestSectionDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/section/{questionId}")
+    public ResponseEntity<TestSectionDto> getSectionById(@PathVariable(name = "questionId") long questionId) {
+
+        TestSection testSection = iTestSectionService.getTestSectionById(questionId);
+
+        //convert Entity to DTO
+        TestSectionDto testSectionDto = modelMapper.map(testSection, TestSectionDto.class);
+
+        return ResponseEntity.ok().body(testSectionDto);
+    }
+
+    @PostMapping("/{testId}/section")
+    public ResponseEntity<TestSectionDto> createTestSection(@PathVariable (name = "testId") Long testId,@RequestBody TestSectionDto testSectionDto) {
+
+        TestSection testSectionRequest = modelMapper.map(testSectionDto, TestSection.class);
+
+        testSectionRequest.setSectionType(SectionType.valueOf(testSectionDto.getSectionType()));
+
+        testSectionRequest.setTest(testService.getTestById(testId));
+
+        TestSection testSection = iTestSectionService.createTestSection(testSectionRequest);
+
+        TestSectionDto testSectionResponse = modelMapper.map(testSection, TestSectionDto.class);
+
+        return new ResponseEntity<TestSectionDto>(testSectionResponse, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/section/{sectionId}")
+    public ResponseEntity<TestSectionDto> updateSection(@PathVariable Long sectionId, @RequestBody TestSectionDto testSectionDto) {
+
+        TestSection testSectionRequest = modelMapper.map(testSectionDto, TestSection.class);
+
+        TestSection testSection = iTestSectionService.updateTestSection(sectionId, testSectionRequest);
+
+        TestSectionDto testSectionResponse = modelMapper.map(testSection, TestSectionDto.class);
+
+        return ResponseEntity.ok().body(testSectionResponse);
+    }
+
+    @DeleteMapping("/section/{sectionId}")
+    public ResponseEntity<Map<String, Boolean>> deleteSection(@PathVariable Long sectionId) {
+        iTestSectionService.deleteTestSection(sectionId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted",Boolean.TRUE);
         return ResponseEntity.ok(response);
