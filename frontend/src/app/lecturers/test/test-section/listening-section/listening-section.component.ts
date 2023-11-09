@@ -15,6 +15,9 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatSortModule} from "@angular/material/sort";
+import {FileService} from "../../../../shared/services/file.service";
+import {data} from "autoprefixer";
+import {Drive} from "../../../../core/models/drive";
 
 
 @Component({
@@ -127,26 +130,35 @@ export class ListeningSectionDeleteDialog {
   templateUrl: 'listening-section-create-dialog.html',
   styleUrls: ['./listening-section.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
 })
 export class ListeningSectionCreateDialog {
 
   section:TestSection =  new TestSection();
+  file!: File ;
+  drive: Drive = new Drive();
 
   constructor(
     public dialogRef: MatDialogRef<ListeningSectionCreateDialog>,
     private testSectionService:LectureTestSectionService,
+    private fileService:FileService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
   createListeningSection(){
-    this.section.sectionType = "LISTENING"
-    console.log(this.section)
-    this.testSectionService.createTestSection(this.data,this.section).subscribe(data => {
+    this.fileService.uploadFile(this.file).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.drive = data as Drive
+      this.section.sectionType = "LISTENING"
+      this.section.sectionAttach = this.drive.fileId;
+      console.log(this.section)
+      this.testSectionService.createTestSection(this.data,this.section).subscribe(data => {
+        console.log(data)
+        this.dialogRef.close();
+      })
     })
+
     this._snackBar.open('New listening part added!!', 'Close', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
@@ -155,6 +167,14 @@ export class ListeningSectionCreateDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if(element != null) {
+      element.value = this.file.name;
+    }
   }
 }
 @Component({

@@ -94,6 +94,10 @@ export class LectureListTestComponent implements OnInit{
   getTestDetail(id:number){
     this.router.navigate(['lecturer/test',id]);
   }
+
+  getTestAssign(testId: number) {
+    this.router.navigate(['lecturer/test/'+testId+'/assign']);
+  }
 }
 
 @Component({

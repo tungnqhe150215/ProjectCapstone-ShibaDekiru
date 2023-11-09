@@ -17,6 +17,8 @@ import {LClassListComponent} from "./lecturers/class/l-class-list/l-class-list.c
 import {LectureListTestComponent} from "./lecturers/test/lecture-list-test/lecture-list-test.component";
 import {LectureTestDetailComponent} from "./lecturers/test/lecture-test-detail/lecture-test-detail.component";
 import {TestSectionComponent} from "./lecturers/test/test-section/test-section.component";
+import {TestAssignComponent} from "./lecturers/test/test-assign/test-assign.component";
+import {TestResultComponent} from "./lecturers/test/test-result/test-result.component";
 
 
 const routes: Routes = [
@@ -50,6 +52,8 @@ const routes: Routes = [
       {path: 'test',component:LectureListTestComponent},
       {path: 'test/:id',component:TestSectionComponent},
       {path: 'test/section/:id',component:LectureTestDetailComponent},
+      {path: 'test/:id/assign',component:TestAssignComponent},
+      {path: 'test/:id/result',component:TestResultComponent},
       // {path: 'class/:id/create-work', component:AddClassworkComponent},
     ]
   },

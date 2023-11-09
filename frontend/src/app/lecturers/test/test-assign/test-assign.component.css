@@ -35,16 +35,13 @@ td, th {
   width: 10%;
 }
 
-.mat-column-title{
+.mat-column-className{
   width: 40%;
 }
-.mat-column-duration{
-  width: 15%;
+
+.mat-column-expiredDate{
+  width: 30%;
 }
-.mat-column-status{
-  width: 15%;
-}
-.mat-column-action{}
 
 .mat-dialog-content{
   width: 500px;
