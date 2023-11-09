@@ -5,12 +5,14 @@ import com.sep490.g49.shibadekiru.entity.TestResult;
 import com.sep490.g49.shibadekiru.entity.TestSection;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.TestResultRepository;
+import com.sep490.g49.shibadekiru.repository.TestSectionRepository;
 import com.sep490.g49.shibadekiru.service.ITestResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,9 +20,22 @@ public class TestResultServiceImpl implements ITestResultService {
     @Autowired
     private TestResultRepository testResultRepository;
 
+    @Autowired
+    private TestSectionRepository testSectionRepository;
+
     @Override
-    public List<TestResult> getTestResultByTest(TestSection testSection) {
-        return testResultRepository.findTestResultsByTestSection(testSection);
+    public List<TestResult> getTestResultByTest(Test test) {
+        List<TestResult> testResults = new ArrayList<>();
+        List<TestSection> testSection = testSectionRepository.findTestSectionsByTest(test);
+        for (TestSection section: testSection){
+            List<TestResult> results = testResultRepository.findTestResultsByTestSection(section);
+            for (TestResult result : results){
+                if (!testResults.contains(result)){
+                    testResults.add(result);
+                }
+            }
+        }
+        return testResults;
     }
 
     @Override

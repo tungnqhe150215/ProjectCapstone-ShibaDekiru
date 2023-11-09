@@ -7,7 +7,8 @@ import com.sep490.g49.shibadekiru.entity.TestSection;
 import java.util.List;
 
 public interface ITestResultService {
-    List<TestResult> getTestResultByTest(TestSection test);
+
+    List<TestResult> getTestResultByTest(Test test);
 
     TestResult getTestResultById(Long id);
 
