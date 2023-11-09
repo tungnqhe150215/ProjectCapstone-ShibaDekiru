@@ -33,6 +33,7 @@ public class SecurityConfiguration {
             "/api/book/**",
             "/api/lesson/**",
             "api/knowledge/**",
+            "/api/drive/**"
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -49,7 +50,7 @@ public class SecurityConfiguration {
                                 CorsConfiguration config = new CorsConfiguration();
                                 config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
                                 config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-                                config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+                                config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type","enctype"));
                                 config.setAllowCredentials(true);
                                 return config;
                             });

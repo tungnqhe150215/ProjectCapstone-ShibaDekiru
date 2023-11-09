@@ -6,6 +6,7 @@ import com.sep490.g49.shibadekiru.entity.QuestionBank;
 import com.sep490.g49.shibadekiru.entity.SectionType;
 import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.entity.TestSection;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IQuestionBankService;
 import com.sep490.g49.shibadekiru.service.ITestSectionService;
 import com.sep490.g49.shibadekiru.service.ITestService;
@@ -16,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +38,8 @@ public class LectureManageQuestionBankController {
     ITestService testService;
 
     ITestSectionService iTestSectionService;
+
+    GoogleDriveService googleDriveService;
 
     @GetMapping("/section/{sectionId}/question")
     public List<QuestionBankDto> getAllQuestionByTestSection(@PathVariable (name = "sectionId") Long sectionId) {
@@ -98,7 +102,11 @@ public class LectureManageQuestionBankController {
 
         SectionType type = SectionType.valueOf(sectionType);
 
-        return iTestSectionService.getTestSectionByTypeAndTest(type,test).stream().map(section -> modelMapper.map(section, TestSectionDto.class)).collect(Collectors.toList());
+        List<TestSectionDto> testSectionDtos = iTestSectionService.getTestSectionByTypeAndTest(type,test).stream().map(section -> modelMapper.map(section, TestSectionDto.class)).collect(Collectors.toList());
+        if (sectionType.equalsIgnoreCase("LISTENING")) {
+            System.out.println(googleDriveService.getFileUrl("12JPXT72xh1xyAXjBViXGMZ_hAL6IOnle"));
+        }
+        return testSectionDtos;
     }
 
     @GetMapping("/section/{questionId}")
