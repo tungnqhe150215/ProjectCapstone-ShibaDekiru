@@ -94,12 +94,12 @@ public class LectureManageTestController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/test/section/{sectionId}/test-result")
-    public List<TestResultDto> getAllTestResultByTestSection(@PathVariable(name = "sectionId") Long testId) {
-
+    @GetMapping("/test/{id}/test-result")
+    public List<TestResultDto> getAllTestResultByTest(@PathVariable(name = "id") Long testId) {
+        Test test = iTestService.getTestById(testId);
         TestSection testSection = iTestSectionService.getTestSectionById(testId);
 
-        return iTestResultService.getTestResultByTest(testSection).stream().map(testResult -> modelMapper.map(testResult, TestResultDto.class)).collect(Collectors.toList());
+        return iTestResultService.getTestResultByTest(test).stream().map(testResult -> modelMapper.map(testResult, TestResultDto.class)).collect(Collectors.toList());
     }
 
     @PostMapping("/test/section/{sectionId}/test-result")
@@ -115,22 +115,32 @@ public class LectureManageTestController {
     }
 
     @GetMapping("/test/{testId}/assign")
-    public List<TestAssignDto> getClassTestByTest( @PathVariable(name = "testId") Long testId, @RequestBody TestAssignDto testAssignDto) {
+    public List<TestAssignDto> getClassTestByTest( @PathVariable(name = "testId") Long testId) {
 
         Test test = iTestService.getTestById(testId);
 
         return iClassTestAssignService.getAllClassTestByTest(test).stream().map(classTestAssign -> modelMapper.map(classTestAssign, TestAssignDto.class)).collect(Collectors.toList());
     }
 
+    @GetMapping("/test/assign/{id}")
+    public ResponseEntity<TestAssignDto> getTestAssignById(@PathVariable(name = "id") long id) {
+
+        ClassTestAssign classTestAssign = iClassTestAssignService.getClassTestById(id);
+
+        //convert Entity to DTO
+        TestAssignDto testAssignDto = modelMapper.map(classTestAssign, TestAssignDto.class);
+
+        return ResponseEntity.ok().body(testAssignDto);
+    }
 
     @PostMapping("/test/assign")
-    public ResponseEntity<TestAssignDto> createClassTest( @RequestBody TestAssignDto testAssignDto) {
+    public ResponseEntity<TestAssignDto> createClassTest( @RequestBody TestAssignDto testAssignDto,@RequestParam("extendTime") int extendTime) {
 
         ClassTestAssign classTestAssignRequest = modelMapper.map(testAssignDto,ClassTestAssign.class);
 
-        ClassTestAssign respone =  iClassTestAssignService.saveClassTestAssign(classTestAssignRequest);
+        ClassTestAssign response =  iClassTestAssignService.saveClassTestAssign(classTestAssignRequest,extendTime);
 
-        TestAssignDto assignDto = modelMapper.map(respone,TestAssignDto.class);
+        TestAssignDto assignDto = modelMapper.map(response,TestAssignDto.class);
 
         return new ResponseEntity<TestAssignDto>(assignDto, HttpStatus.CREATED);
     }

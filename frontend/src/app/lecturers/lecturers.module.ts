@@ -38,6 +38,8 @@ import {TestSectionComponent} from './test/test-section/test-section.component';
 import {ListeningSectionComponent} from './test/test-section/listening-section/listening-section.component';
 import {ReadingSectionComponent} from './test/test-section/reading-section/reading-section.component';
 import {GrammarVocabSectionComponent} from './test/test-section/grammar-vocab-section/grammar-vocab-section.component';
+import { TestAssignComponent } from './test/test-assign/test-assign.component';
+import { TestResultComponent } from './test/test-result/test-result.component';
 
 
 @NgModule({
@@ -54,6 +56,7 @@ import {GrammarVocabSectionComponent} from './test/test-section/grammar-vocab-se
     ClassworkDetailComponent,
     ClassMemberComponent,
     TestSectionComponent,
+    TestResultComponent,
   ],
   exports: [
     ClassworkComponent
@@ -87,6 +90,7 @@ import {GrammarVocabSectionComponent} from './test/test-section/grammar-vocab-se
     GrammarVocabSectionComponent,
     ReadingSectionComponent,
     ListeningSectionComponent,
+    TestAssignComponent,
   ]
 })
 export class LecturersModule {

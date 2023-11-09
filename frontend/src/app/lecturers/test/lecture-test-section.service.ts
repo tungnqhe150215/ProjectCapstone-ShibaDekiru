@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {TestSection} from "../../core/models/test-section";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -11,6 +11,8 @@ export class LectureTestSectionService {
   private baseUrl = "http://localhost:8080/api/lecture/test";
 
   testSections: TestSection[] = [];
+
+
 
   constructor(private httpClient: HttpClient) {
   }

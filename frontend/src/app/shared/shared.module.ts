@@ -10,9 +10,10 @@ import { FormatLocalDateTimePipe } from './pipes/format-local-date-time.pipe';
     BackButtonDirective,
     FormatLocalDateTimePipe
   ],
-  exports: [
-    BackButtonDirective
-  ],
+    exports: [
+        BackButtonDirective,
+        FormatLocalDateTimePipe
+    ],
   imports: [
     CommonModule
   ]

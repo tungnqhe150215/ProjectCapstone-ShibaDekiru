@@ -19,13 +19,21 @@ public class ClassTestAssignServiceImpl implements IClassTestAssignService {
     private ClassTestAssignRepository classTestAssignRepository;
 
     @Override
-    public ClassTestAssign saveClassTestAssign(ClassTestAssign classTestRelationship) {
-        return classTestAssignRepository.save(classTestRelationship);
+    public ClassTestAssign saveClassTestAssign(ClassTestAssign classTestAssign,int expirationMinutes) {
+        classTestAssign.setAccessExpirationDate(LocalDateTime.now().plusMinutes(expirationMinutes));
+        return classTestAssignRepository.save(classTestAssign);
     }
 
     @Override
     public List<ClassTestAssign> getAllClassTestRelationships() {
         return classTestAssignRepository.findAll();
+    }
+
+    @Override
+    public ClassTestAssign getClassTestById(Long id) {
+        ClassTestAssign classTestAssign = classTestAssignRepository.findById(id).
+                orElseThrow(null);
+        return classTestAssign;
     }
 
     @Override
