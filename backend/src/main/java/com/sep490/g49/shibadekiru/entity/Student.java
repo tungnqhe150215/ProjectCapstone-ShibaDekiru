@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -61,4 +62,13 @@ public class Student implements Serializable {
     @JsonBackReference
     private List<FileAnswer> fileAnswers;
 
+    @JsonProperty("email")
+    public String getEmail() {
+        return this.userAccount.getEmail();
+    }
+
+    @JsonProperty("memberId")
+    public String getMemberId() {
+        return this.userAccount.getMemberId();
+    }
 }
