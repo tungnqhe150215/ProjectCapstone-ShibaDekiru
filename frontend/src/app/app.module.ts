@@ -17,6 +17,8 @@ import { FormsModule }   from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import {TokenInterceptor} from "./shared/interceptor/token.interceptor";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
         // LecturersRoutingModule,
         FormsModule,
         HttpClientModule,
+        MatTabsModule,
     ],
   providers: [
     {

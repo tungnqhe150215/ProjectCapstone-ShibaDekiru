@@ -12,8 +12,23 @@
                 <!-- Progress Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên đối thoại</th>
-                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.title}}  <p style="color: red">{{row.description}}</p> </td>
-                  
+                    <!-- <td style="cursor: pointer;" mat-cell *matCellDef="let row"> <br> {{row.title}} <p
+                            style="color: red">{{row.description}}</p>
+                        
+                    </td> -->
+                    <mat-expansion-panel *matCellDef="let row" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <!-- This is the expansion title -->
+                                {{row.title}}
+                            </mat-panel-title>
+                            <!-- <mat-panel-description>
+                                {{row.title}}
+                            </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                        <p>Script: {{row.script}}</p>
+                    </mat-expansion-panel>
+
                 </ng-container>
 
                 <!-- <ng-container matColumnDef="script">
@@ -25,7 +40,7 @@
 
                 <ng-container matColumnDef="lesson">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Bài học</th>
-                    <td  style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.lessonId}} </td>
+                    <td style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.lessonId}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -37,8 +52,7 @@
                 </tr> -->
             </table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[ 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
         </div>
     </div>
 </div>
-

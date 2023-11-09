@@ -22,8 +22,8 @@ export class LecPostService {
     return this.httpClient.get<Post[]>(`${this.baseURL}`);
   }
 
-  getPostByID(id:number): Observable<Object>{
-    return this.httpClient.get(`${this.baseURL}/${id}`);
+  getPostByID(id:number): Observable<Post>{
+    return this.httpClient.get<Post>(`${this.baseLecURL}/post/${id}`);
   }
 
   addPost(id: number, post: Post): Observable<Object>{

@@ -40,4 +40,9 @@ public class Comment implements Serializable {
         return this.userAccount.getUserAccountId();
     }
 
+    @JsonProperty("nickName")
+    public String getNickName() {
+        return this.userAccount.getNickName();
+    }
+
 }

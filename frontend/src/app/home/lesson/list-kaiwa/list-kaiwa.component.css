@@ -2291,3 +2291,20 @@ h6 {
     margin-right: 15px;
   }
 }
+
+
+/* Để tạo expansion panel trong suốt */
+.mat-expansion-panel {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Để làm cho header và nút mở rộng trong suốt */
+.mat-expansion-panel-header {
+  background: transparent;
+}
+
+/* Để làm cho tiêu đề trong suốt */
+.mat-expansion-panel-header .mat-expansion-panel-header-title {
+  background: transparent;
+}

@@ -1,3 +1,10 @@
+<mat-tab-group>
+    <mat-tab label="First"> Content 1 </mat-tab>
+    <mat-tab label="Second"> Content 2 </mat-tab>
+    <mat-tab label="Third"> Content 3 </mat-tab>
+</mat-tab-group>
+
+
 <div class="courses_area p_120">
     <div class="table-content">
         <div class="mat-elevation-z8">
@@ -12,8 +19,19 @@
                 <!-- Progress Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên bài nghe </th>
-                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.title}}  <p style="color: red">{{row.description}}</p> </td>
-                  
+                    <!-- <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.title}}  <p style="color: red">{{row.description}}</p> </td> -->
+                    <mat-expansion-panel *matCellDef="let row" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <!-- This is the expansion title -->
+                                {{row.title}}
+                            </mat-panel-title>
+                            <!-- <mat-panel-description>
+                                {{row.title}}
+                            </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                        <p>Scrpit: {{row.script}}</p>
+                    </mat-expansion-panel>
                 </ng-container>
 
                 <!-- <ng-container matColumnDef="script">
@@ -37,7 +55,7 @@
                 </tr> -->
             </table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[ 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
         </div>
     </div>
 </div>
