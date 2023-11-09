@@ -7,5 +7,5 @@ export class TestResult {
     test?:Test
     student?:Student
     result?:number
-    done_time?:Time
+    doneTime?:Date
 }

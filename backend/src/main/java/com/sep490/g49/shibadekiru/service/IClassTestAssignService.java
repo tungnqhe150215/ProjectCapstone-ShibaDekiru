@@ -7,9 +7,12 @@ import com.sep490.g49.shibadekiru.entity.Test;
 import java.util.List;
 
 public interface IClassTestAssignService {
-    ClassTestAssign saveClassTestAssign(ClassTestAssign classTestRelationship);
+
+    ClassTestAssign saveClassTestAssign(ClassTestAssign classTestAssign, int expirationMinutes);
 
     List<ClassTestAssign> getAllClassTestRelationships();
+
+    ClassTestAssign getClassTestById(Long id);
 
     List<ClassTestAssign> getAllClassTestByClass(Class assignedClass);
 

@@ -1,0 +1,22 @@
+<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm bài kiểm tra</h2>
+<mat-dialog-content>
+<form class="form-dialog">
+  <mat-form-field>
+    <mat-label> Thời gian hết hạn </mat-label>
+    <input matInput [(ngModel)]="extendTime" [ngModelOptions]="{standalone: true}" required type="text">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Lớp học</mat-label>
+    <mat-select [ngModel]="chooseClass" [ngModelOptions]="{standalone: true}">
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let class of classes" [value]="class" >{{class.className}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true" (click)="createTestAssign()">Create</button>
+</mat-dialog-actions>

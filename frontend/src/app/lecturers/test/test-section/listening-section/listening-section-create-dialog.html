@@ -4,12 +4,15 @@
     <br>
     <mat-form-field>
       <mat-label> Tên chủ đề</mat-label>
-      <input matInput [(ngModel)]="section.sectionName" [ngModelOptions]="{standalone: true}" required type="text" >
+      <input matInput [(ngModel)]="section.sectionName" [ngModelOptions]="{standalone: true}" required type="text">
     </mat-form-field>
     <br>
     <mat-form-field>
-      <mat-label> Nội dung</mat-label>
-      <textarea matInput [(ngModel)]="section.sectionAttach" [ngModelOptions]="{standalone: true}" required type="text" rows="5" ></textarea>
+      <mat-label>Chọn tệp mp3</mat-label>
+      <input matInput readonly type="text" id="fakeFileInput" (click)="hiddenInput.click()">
+      <input hidden type="file" accept=".mp3" #hiddenInput (change)="onFileSelected($event)">
+      <mat-icon matSuffix>folder_open</mat-icon>
+      <mat-hint>Nhấn vào dòng dưới để chọn file </mat-hint>
     </mat-form-field>
   </form>
 </mat-dialog-content>
