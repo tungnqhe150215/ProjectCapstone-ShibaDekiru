@@ -1,6 +1,8 @@
 package com.sep490.g49.shibadekiru.controller.student;
 
 import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
+import com.sep490.g49.shibadekiru.dto.LecturesDto;
+import com.sep490.g49.shibadekiru.dto.StudentDto;
 import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
 import com.sep490.g49.shibadekiru.impl.UserAccountServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +30,27 @@ public class UserAccountController {
             userAccountService.changePassword(request, connectedUser);
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage()); // Trả về thông báo lỗi nếu có lỗi xảy ra
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/student/my-profile")
+    public ResponseEntity<?> updateProfileStudent(@RequestBody StudentDto request, Principal connectedUser) {
+        try {
+            userAccountService.updateProfileStudent(request, connectedUser);
+            return ResponseEntity.ok().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/lecture/my-profile")
+    public ResponseEntity<?> updateProfileLecture(@RequestBody LecturesDto request, Principal connectedUser) {
+        try {
+            userAccountService.updateProfileLecture(request, connectedUser);
+            return ResponseEntity.ok().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

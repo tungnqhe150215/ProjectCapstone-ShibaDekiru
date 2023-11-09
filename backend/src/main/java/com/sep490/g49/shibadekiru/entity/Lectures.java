@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,5 +38,15 @@ public class Lectures implements Serializable {
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private UserAccount userAccount;
+
+    @JsonProperty("email")
+    public String getEmail() {
+        return this.userAccount.getEmail();
+    }
+
+    @JsonProperty("memberId")
+    public String getMemberId() {
+        return this.userAccount.getMemberId();
+    }
 
 }
