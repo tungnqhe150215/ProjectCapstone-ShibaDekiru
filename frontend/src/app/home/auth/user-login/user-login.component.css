@@ -1,4 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Poppins");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins"); */
 
 * {
   box-sizing: border-box;
@@ -95,6 +95,7 @@ button {
   letter-spacing: 1px;
   text-transform: capitalize;
   transition: 0.3s ease-in-out;
+  
 }
 
 button:hover {
@@ -140,6 +141,7 @@ button.ghost:hover i.login{
 }
 
 form {
+  margin-top: 5%;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -168,6 +170,7 @@ input {
   width: 768px;
   max-width: 100%;
   min-height: 500px;
+  height: 80%;
 }
 
 .form-container {
@@ -316,9 +319,9 @@ input {
 
 .fab{
   margin-right: 5px;
-} */
+}
 
-label {
+/* label {
   display: block;
   margin-top: 10px;
 }
@@ -349,4 +352,4 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
-}
+} */
