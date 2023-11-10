@@ -27,6 +27,7 @@ import { ListListeningComponent } from './lesson/list-listening/list-listening.c
 import { ListKanjilessComponent } from './lesson/list-kanjiless/list-kanjiless.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { UserProfileComponent } from './auth/user-profile/user-profile.component';
+import { UserChangePasswordComponent } from './auth/user-change-password/user-change-password.component';
 
 
 const routes: Routes = [
@@ -64,6 +65,7 @@ const routes: Routes = [
   {path: 'login', component: UserLoginComponent},
   {path: 'register', component: UserRegisterComponent},
   {path: 'reset-password', component:ForgotPasswordComponent},
+  {path: 'change-password', component:UserChangePasswordComponent},
     
 ];
 

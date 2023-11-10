@@ -37,7 +37,7 @@ import {ClassworkComponent} from "./class/class-landing/classwork/classwork.comp
 import {ClassLandingComponent} from "./class/class-landing/class-landing.component";
 import {ClassBoardComponent} from "./class/class-landing/class-board/class-board.component";
 import { UserProfileComponent } from './auth/user-profile/user-profile.component';
-
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     FooterComponent,
@@ -85,6 +85,7 @@ import { UserProfileComponent } from './auth/user-profile/user-profile.component
     MatPaginatorModule,
     MatInputModule,
     MatTabsModule,
+    MatIconModule,
   ]
 })
 export class HomeModule { }
