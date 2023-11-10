@@ -2,6 +2,7 @@ import { Component, OnInit , AfterViewInit} from '@angular/core';
 import { UseServiceService } from '../use-service.service';
 import { StorageService } from './storage.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-user-login',
@@ -10,7 +11,10 @@ import { Router } from '@angular/router';
 })
 export class UserLoginComponent implements OnInit, AfterViewInit{
 
-  form: any = {
+
+  
+  //Login
+  formlogin: any = {
     email: null,
     password: null
   };
@@ -19,6 +23,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
   errorMessage = '';
   roleId!: number;
   constructor(
+    private notifiService: NotificationService,
     private userService: UseServiceService,
     private storageService: StorageService,
     private router: Router,
@@ -34,14 +39,15 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
 
 
 
-  onSubmit(): void{
-    const { email, password } = this.form;
+  onSubmitLogin(): void{
+    const { email, password } = this.formlogin;
     this.userService.login(email, password).subscribe({
       next: data =>{
         this.storageService.saveUser(data);
         this.isLoginFailed=false;
         this.isLoggedIn = true;
         this.roleId = this.storageService.getUser().roleId;
+        this.notifiService.openSnackBar('Đăng nhập thành công');
         this.router.navigateByUrl('/home');
         // this.reloadPage();
 
@@ -52,6 +58,57 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
       }
     })
   }
+
+
+  //Register
+  form: any = {
+    nickName :null,
+    firstName :null,
+    lastName :null,
+    memberId :null,
+    userName :null,
+    email :null,
+    password :null
+  };
+  isSuccessful = false;
+  isSignUpFailed = false;
+  // errorMessage = '';
+
+  onSubmit(): void {
+    const {nickName,
+      firstName,
+      lastName,
+      memberId,
+      userName,
+      email,
+      password 
+    } = this.form;
+    
+    this.userService.register(nickName,
+      firstName,
+      lastName,
+      memberId,
+      userName,
+      email,
+      password)
+      .subscribe({
+      next: data =>{
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+        this.reloadPage();
+        this.notifiService.openSnackBar('Đăng ký thành công');
+        // this.router.navigateByUrl('/login');
+      },
+      error: err =>{
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+      }
+    })
+  }
+
+
+
   reloadPage(): void {
     window.location.reload();
   }

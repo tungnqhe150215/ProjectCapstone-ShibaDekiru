@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<!-- <div class="col-md-12">
     <div class="card card-container">
       <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
       <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -16,14 +16,6 @@
               </div>
           </div>
       </div>
-        <!-- <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text" class="form-control" name="email" [(ngModel)]="form.email" required #email="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && email.errors }"  />
-          <div *ngIf="email.errors && f.submitted " class="invalid-feedback">
-            Email is required
-          </div>
-        </div> -->
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="4"
@@ -54,76 +46,202 @@
         Logged in as --{{ roleId }}.
       </div>
     </div>
-  </div>
+  </div> -->
 
 
 
 
-<!-- <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" /> -->
+<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
 
-<!-- <div class="body">
-    <div class="container" id="container">
+<div class="body">
+  <div class="container" id="container">
 
-        <div class="form-container register-container">
-            <form action="#">
-                <h1>Đăng Ký</h1>
-                <input type="text" placeholder="Nick Name">
-                <input type="text" placeholder="Mã số SV">
-                <input type="text" placeholder="username">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Mật Khẩu">
-                <button>Đăng Ký</button>
-                <span>hoặc sử dụng tải khoản của bạn</span>
+    <div class="form-container register-container">
+      <form action="#">
+        <h1>Đăng Ký</h1>
+        <!-- <input type="text" placeholder="Nick Name">
+        <input type="text" placeholder="Mã số SV">
+        <input type="text" placeholder="Username">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Mật Khẩu"> -->
+        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+          <div class="form-group">
+              <input type="text" placeholder="Nick Name" class="form-control" name="nickName" [(ngModel)]="form.nickName" required
+                  minlength="5" maxlength="10" #nickName="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && nickName.errors }" />
+              <div class="invalid-feedback" *ngIf="nickName.errors && f.submitted">
+                  <div *ngIf="nickName.errors['required']"> Nick Name is required</div>
+                  <div *ngIf="nickName.errors['minlength']">
+                      Nick Name must be at least 5 characters
+                  </div>
+                  <div *ngIf="nickName.errors['maxlength']">
+                      Nick Name must be at most 10 characters
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <input type="text" placeholder="First Name" class="form-control" name="firstName" [(ngModel)]="form.firstName" required
+                   #firstName="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && firstName.errors }" />
+              <div class="invalid-feedback" *ngIf="firstName.errors && f.submitted">
+                  <div *ngIf="firstName.errors['required']"> First Name is required</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <input type="text" placeholder="Last Name" class="form-control" name="lastName" [(ngModel)]="form.lastName" required
+                   #lastName="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && lastName.errors }" />
+              <div class="invalid-feedback" *ngIf="lastName.errors && f.submitted">
+                  <div *ngIf="lastName.errors['required']"> Last Name is required</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <input type="text" placeholder="Mã SV" class="form-control" name="memberId" [(ngModel)]="form.memberId" required
+                  minlength="5" maxlength="8" #memberId="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && memberId.errors }" />
+              <div class="invalid-feedback" *ngIf="memberId.errors && f.submitted">
+                  <div *ngIf="memberId.errors['required']"> Member ID is required</div>
+                  <div *ngIf="memberId.errors['minlength']">
+                      Member ID must be at least 5 characters
+                  </div>
+                  <div *ngIf="memberId.errors['maxlength']">
+                      Member ID must be at most 8 characters
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <input type="text" placeholder="User Name" class="form-control" name="userName" [(ngModel)]="form.userName" required
+                  minlength="3" maxlength="20" #userName="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && userName.errors }" />
+              <div class="invalid-feedback" *ngIf="userName.errors && f.submitted">
+                  <div *ngIf="userName.errors['required']">Username is required</div>
+                  <div *ngIf="userName.errors['minlength']">
+                      Username must be at least 3 characters
+                  </div>
+                  <div *ngIf="userName.errors['maxlength']">
+                      Username must be at most 20 characters
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <input type="email" placeholder="Email" class="form-control" name="email" [(ngModel)]="form.email" required email
+                  #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.errors }"  />
+              <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
+                  <div *ngIf="email.errors['required']">Email is required</div>
+                  <div *ngIf="email.errors['email']">
+                      Email must be a valid email address
+                  </div>
+                  <div *ngIf="email.errors['invalidEmail']">
+                      Email must be a valid email address
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="form.password" required
+                  minlength="6" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
+              <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
+                  <div *ngIf="password.errors['required']">Password is required</div>
+                  <div *ngIf="password.errors['minlength']">
+                      Password must be at least 6 characters
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <!-- <button class="btn btn-primary btn-block" style="margin-right: 1%; margin-top: 2%;">Sign Up</button> -->
+              <!-- <button class="btn btn-primary btn-block" style=" margin-top: 2%;" (click)="gotoLogin()">Login</button> -->
+              <!-- <button>Đăng Ký</button> -->
+              <button class="btn btn-primary btn-block">Register</button>
+          </div>
+          
+          <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+              Signup failed!<br />{{ errorMessage }}
+          </div>
+          
+      </form>
+        <!-- <button>Đăng Ký</button> -->
+        <!-- <span>hoặc sử dụng tải khoản của bạn</span>
                 <div class="social-container">
                     <a href="#" class="social"><i class="lni lni-google fab"></i> Login with Google</a>
-                </div>
-            </form>
-        </div>
-
-        <div class="form-container login-container">
-            <form action="#">
-                <h1>Đăng nhập</h1>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Mật Khẩu">
-                <div class="content">
-                    <div class="checkbox">
-                        <input type="checkbox" name="checkbox" id="checkbox">
-                        <label>Nhớ mật khẩu</label>
-                    </div>
-                    <div class="pass-link">
-                        <a href="#">Quên mật khẩu?</a>
-                    </div>
-                </div>
-                <button>Login</button>
-                <span>hoặc sử dụng tải khoản của bạn</span>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="lni lni-google fab"></i> Login with Google</a>
-                </div>
-            </form>
-        </div>
-
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1 class="title">Xin chào<br> bạn</h1>
-                    <p>if You have an account, login here and have fun</p>
-                    <button class="ghost" id="login">Đăng nhập
-                        <i class="lni lni-arrow-left login"></i>
-                    </button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1 class="title">Start yout <br> journy now</h1>
-                    <p>if you don't have an account yet, join us and start your journey.</p>
-                    <button class="ghost" id="register">Đăng Ký
-                        <i class="lni lni-arrow-right register"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
+                </div> -->
+      </form>
     </div>
 
-</div> -->
+    <div class="form-container login-container">
+      <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmitLogin()" #f="ngForm" novalidate>
+        <h1>Đăng nhập</h1>
+        <!-- <input type="email" placeholder="Email"> -->
+        <div class="form-group">
+          <input type="email" placeholder="Email" class="form-control" name="email" [(ngModel)]="formlogin.email" required
+            email #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.errors }" />
+          <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
+            <div *ngIf="email.errors['required']">Email is required</div>
+            <div *ngIf="email.errors['email']">
+              Email must be a valid email address
+            </div>
+            <div *ngIf="email.errors['invalidEmail']">
+              Email must be a valid email address
+            </div>
+          </div>
+        </div>
+        <!-- <input type="password" placeholder="Mật Khẩu"> -->
+        <div class="form-group">
+          <input type="password" placeholder="Mật Khẩu"  class="form-control" name="password" [(ngModel)]="formlogin.password" required minlength="4"
+            #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
+          <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+            <div *ngIf="password.errors['required']">Password is required</div>
+            <div *ngIf="password.errors['minlength']">
+              Password must be at least 4 characters
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <!-- <div class="checkbox">
+                        <input type="checkbox" name="checkbox" id="checkbox">
+                        <label>Nhớ mật khẩu</label>
+                    </div> -->
+          <div class="pass-link">
+            <a href="#">Quên mật khẩu?</a>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block">
+            Login
+          </button>
+          <!-- <a class="btn btn-primary btn-block " style="margin-top: 2%;" (click)="gotoRegister()">
+            Register
+          </a> -->
+        </div>
+        <!-- <button>Login</button> -->
+        <!-- <span>hoặc sử dụng tải khoản của bạn</span>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="lni lni-google fab"></i> Login with Google</a>
+                </div> -->
+      </form>
+    </div>
+
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1 class="title">Xin chào<br> bạn</h1>
+          <p>if You have an account, login here and have fun</p>
+          <button class="ghost" id="login">Đăng nhập
+            <i class="lni lni-arrow-left login mt-1"></i>
+          </button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1 class="title">Start yout <br> journy now</h1>
+          <p>if you don't have an account yet, join us and start your journey.</p>
+          <button class="ghost" id="register">Đăng Ký
+            <i class="lni lni-arrow-right register mt-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
 
 <!-- <script>
     const registerButton = document.getElementById("register");
