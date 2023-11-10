@@ -76,7 +76,7 @@ public class StudentPostController {
 
     @PostMapping("/{id}/comment/{userId}")
     public ResponseEntity<CommentDto> createComment(@PathVariable(name = "id") Long postId, @PathVariable(name = "userId") Long userId, @RequestBody CommentDto commentDto) {
-
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         commentDto.setPostId(postId);
         commentDto.setUserAccountId(userId);
 
