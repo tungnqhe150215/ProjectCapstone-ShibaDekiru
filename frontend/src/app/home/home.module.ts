@@ -36,6 +36,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {ClassworkComponent} from "./class/class-landing/classwork/classwork.component";
 import {ClassLandingComponent} from "./class/class-landing/class-landing.component";
 import {ClassBoardComponent} from "./class/class-landing/class-board/class-board.component";
+import { UserProfileComponent } from './auth/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {ClassBoardComponent} from "./class/class-landing/class-board/class-board
     ListCommentComponent,
     ClassworkComponent,
     ClassLandingComponent,
-    ClassBoardComponent
+    ClassBoardComponent,
+    UserProfileComponent
   ],
   exports: [
     FooterComponent,
