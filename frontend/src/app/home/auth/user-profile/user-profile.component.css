@@ -26,23 +26,14 @@ label.btn {
 
 .btn {
     cursor: pointer;
+    margin-right: 1%;
 }
 
 .text-light {
     color: #babbbc !important;
 }
 
-.btn-facebook {
-    border-color: rgba(0, 0, 0, 0);
-    background  : #3B5998;
-    color       : #fff;
-}
 
-.btn-instagram {
-    border-color: rgba(0, 0, 0, 0);
-    background  : #000;
-    color       : #fff;
-}
 
 .card {
     background-clip: padding-box;
