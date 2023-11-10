@@ -21,10 +21,10 @@ public class Post implements Serializable {
     @Column(name = "post_id")
     private Long postId;
 
-    @Column(name = "post_content", nullable = false)
+    @Column(name = "post_content", nullable = false, columnDefinition = "TEXT")
     private String postContent;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = true)
