@@ -1,18 +1,18 @@
 <body>
     <div class="container light-style flex-grow-1 container-p-y">
         <h4 class="font-weight-bold py-3 mb-4">
-            Account settings
+            Thông tin cá nhân
         </h4>
         <div class="card overflow-hidden">
             <div class="row no-gutters row-bordered row-border-light">
                 <div class="col-md-3 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
                         <a class="list-group-item list-group-item active" data-bs-toggle="list"
-                            href="#account-general">General</a>
+                            href="#account-general">Thông tin chung</a>
                         <a class="list-group-item list-group-item-action" data-bs-toggle="list"
                             href="#account-change-password">Change password</a>
                         <a class="list-group-item list-group-item-action" data-bs-toggle="list"
-                            href="#account-info">Info</a>
+                            href="#account-info">Thay đổi thông tin</a>
                         <a class="list-group-item list-group-item-action" data-bs-toggle="list"
                             href="#account-notifications">Notifications</a>
                     </div>
@@ -23,9 +23,10 @@
                         <div class="tab-content">
                             <div class="tab-pane fade active show" id="account-general">
                                 <div class="card-body media align-items-center">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt
-                                        class="d-block ui-w-80">
-                                    <div class="media-body ml-4　mt-2">
+                                    <label class="form-label">Avatar</label>
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                        alt="{{student.avatar}}" class="d-block ui-w-80" readonly>
+                                    <!-- <div class="media-body ml-4　mt-2">
                                         <label class="btn btn-outline-primary">
                                             Upload new photo
                                             <input type="file" class="account-settings-fileinput">
@@ -33,29 +34,41 @@
                                         <button type="button" class="btn btn-default md-btn-flat">Reset</button>
                                         <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <hr class="border-light m-0">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label class="form-label">Username</label>
-                                        <input type="text" class="form-control mb-1" value="nmaxwell">
+                                        <input type="text" class="form-control mb-1" value="{{currentUser.nickName}}"
+                                            readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Name</label>
-                                        <input type="text" class="form-control" value="Nelle Maxwell">
+                                        <label class="form-label">Mã số sinh viên</label>
+                                        <input type="text" class="form-control mb-1" value="{{student.memberId}}"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label class="form-label">Tên</label>
+                                            <input type="text" class="form-control" value="{{ student.firstName }}"
+                                                readonly>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label">Họ</label>
+                                            <input type="text" class="form-control" value="{{ student.lastName }}"
+                                                readonly>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">E-mail</label>
-                                        <input type="text" class="form-control mb-1" value="nmaxwell@mail.com">
-                                        <!-- <div class="alert alert-warning mt-3">
-                                            Your email is not confirmed. Please check your inbox.<br>
-                                            <a href="javascript:void(0)">Resend confirmation</a>
-                                        </div> -->
+                                        <input type="text" class="form-control mb-1" value="{{currentUser.email}}"
+                                            readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Company</label>
-                                        <input type="text" class="form-control" value="Company Ltd.">
+                                        <label class="form-label">Role</label>
+                                        <input type="text" class="form-control" value="{{currentUser.role.roleType}}"
+                                            readonly>
                                     </div>
                                 </div>
                             </div>
@@ -82,41 +95,68 @@
                             </div>
                             <div class="tab-pane fade" id="account-info">
                                 <form>
-                                    <div class="card-body pb-2">
-                                        <div class="form-group">
-                                            <label class="form-label">Bio</label>
-                                            <textarea class="form-control"
-                                                rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc. Donec fermentum, magna sit amet rutrum pretium, turpis dolor molestie diam, ut lacinia diam risus eleifend sapien. Curabitur ac nibh nulla. Maecenas nec augue placerat, viverra tellus non, pulvinar risus.</textarea>
+                                    <div class="tab-pane fade active show" id="account-general">
+                                        <div class="card-body media align-items-center">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                alt="{{student.avatar}}" class="d-block ui-w-80">
+                                            <div class="media-body ml-4 mt-2">
+                                                <label class="btn btn-outline-primary">
+                                                    Upload new photo
+                                                    <input type="file" name="avatar" [(ngModel)]="student.avatar"
+                                                        class="account-settings-fileinput"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                </label> &nbsp;
+                                                <button type="button" class="btn btn-default md-btn-flat">Reset</button>
+                                                <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of
+                                                    800K
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Birthday</label>
-                                            <input type="text" class="form-control" value="May 3, 1995">
-                                        </div>
-                                        <div class="form-group mt-2">
-                                            <label class="form-label">Country</label>
-                                            <select class="custom-select">
-                                                <option>USA</option>
-                                                <option selected>Canada</option>
-                                                <option>UK</option>
-                                                <option>Germany</option>
-                                                <option>France</option>
-                                            </select>
-                                        </div>
+                                        <hr class="border-light m-0">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <div class="col">
+                                                    <label class="form-label">Mã số sinh viên</label>
+                                                    <input type="text" class="form-control mb-1" name="memberId"
+                                                        id="memberId" [(ngModel)]="student.memberId"
+                                                        [ngModelOptions]="{standalone: true}" readonly>
+                                                </div>
+                                                <div class="col">
+                                                    <label class="form-label" for="gender">Giới tính</label>
+                                                    <select class="form-control" id="gender"
+                                                        [(ngModel)]="student.gender" name="gender">
+                                                        <option [(ngModel)]="student.gender" value="true"
+                                                            [ngModelOptions]="{standalone: true}">Nam</option>
+                                                        <option [(ngModel)]="student.gender" value="false"
+                                                            [ngModelOptions]="{standalone: true}">Nữ</option>
+                                                    </select>
+                                                </div>
 
-                                    </div>
-                                    <hr class="border-light m-0">
-                                    <div class="card-body pb-2">
-                                        <div class="form-group">
-                                            <label class="form-label">Phone</label>
-                                            <input type="text" class="form-control" value="+0 (123) 456 7891">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Website</label>
-                                            <input type="text" class="form-control" value>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col">
+                                                    <label class="form-label">Tên</label>
+                                                    <input type="text" class="form-control" name="firstName"
+                                                        id="firstName" [(ngModel)]="student.firstName"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                </div>
+                                                <div class="col">
+                                                    <label class="form-label">Họ</label>
+                                                    <input type="text" class="form-control" name="lastName"
+                                                        id="lastName" [(ngModel)]="student.lastName"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">E-mail</label>
+                                                <input type="text" class="form-control mb-1" name="email"
+                                                    value="{{student.email}}" readonly>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="text-end mt-3 mb-3 mr-4">
-                                        <button type="button" class="btn btn-success">Save changes</button>&nbsp;
+                                        <button type="button" class="btn btn-success" (click)="updateUserProfile()">Save
+                                            changes</button>&nbsp;
                                     </div>
                                 </form>
                             </div>

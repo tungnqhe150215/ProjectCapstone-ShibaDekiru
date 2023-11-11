@@ -57,5 +57,20 @@ export class UseServiceService {
     return this.httpClient.put(USER +'change-password', changePassword);
   }
 
+  studentProfile(infoStudent: Student): Observable<Object>{
+    return this.httpClient.put(USER + 'student/my-profile', infoStudent);
+  }
+
+  lecturerProfile(inforLecturers: Lecture): Observable<Object>{
+    return this.httpClient.put(USER +'lecture/my-profile', inforLecturers);
+  }
+
+  getStudentbyID(id:number): Observable<Student>{
+    return this.httpClient.get<Student>(USER +'student/'+id);
+  }
+
+  getLecturersbyID(id: number): Observable<Lecture>{
+    return this.httpClient.get<Lecture>(USER +'lecture/'+id);
+  }
   
 }
