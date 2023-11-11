@@ -80,7 +80,7 @@
                 <ul class="list-profile">
                   <li>
                     <span class="material-symbols-outlined">person</span>
-                    <a routerLink="./user-profile">My Profile </a>
+                    <a routerLink="./user-profile">Profile của tôi</a>
                   </li>
                   <!-- <li>
                     <span class="material-symbols-outlined">password</span>
@@ -95,12 +95,12 @@
                 <div *ngIf="currentUser.role.roleType === 'LECTURE' " >
                   <li>
                     <span class="material-icons icons-size">monetization_on</span>
-                    <a routerLink="./lecturer">Lecture Dashboard</a>
+                    <a routerLink="./lecturer">Trang Giảng viên</a>
                   </li>
                 </div>
                   <li>
                     <span class="material-icons icons-size">account_balance_wallet</span>
-                    <a href="#" (click)="logout()">Log out</a>
+                    <a href="#" (click)="logout()">Đăng xuất</a>
                   </li>
                 </ul>
               </div>
