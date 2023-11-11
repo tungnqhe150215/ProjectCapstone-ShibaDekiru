@@ -3,6 +3,7 @@ package com.sep490.g49.shibadekiru.impl;
 import com.google.api.client.http.FileContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.Permission;
 import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.SQLOutput;
 
 @Service
 public class GoogleDriveServiceImpl implements GoogleDriveService {
@@ -52,6 +52,17 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
     }
 
     @Override
+    public void configurePublicSharing(String fileId) throws IOException {
+        // Tạo đối tượng Permission để cấu hình quyền
+        Permission permission = new Permission();
+        permission.setType("anyone");  // Quyền cho mọi người
+        permission.setRole("reader");   // Quyền chỉ đọc
+
+        // Gọi API để thêm quyền chia sẻ cho mọi người
+        driveService.permissions().create(fileId, permission).execute();
+    }
+
+    @Override
     public File getFileById(String fileId) {
         try {
             // Tạo yêu cầu để lấy tệp từ Google Drive bằng ID
@@ -86,7 +97,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService {
     @Override
     public String getFileUrl(String fileId) {
         try {
-            File file = driveService.files().get(fileId).execute();
+            File file = driveService.files().get(fileId).setFields("webContentLink").execute();
             String fileUrl = file.getWebContentLink();
             System.out.println(file);
             System.out.println("link "+file.getWebContentLink());

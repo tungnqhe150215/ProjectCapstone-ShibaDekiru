@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.controller.auth;
 
+import com.google.api.services.drive.model.Permission;
 import com.sep490.g49.shibadekiru.dto.DriveDto;
 import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class GoogleDriveController {
     private GoogleDriveService googleDriveService;
 
     @PostMapping("/upload")
-    public ResponseEntity<DriveDto> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<DriveDto> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
 
         // Xử lý tệp (file) ở đây
         if (!file.isEmpty()) {
@@ -28,6 +29,7 @@ public class GoogleDriveController {
             // Lưu tệp vào thư mục lưu trữ
             String fileId = googleDriveService.uploadFileToGoogleDrive(file);
 
+            googleDriveService.configurePublicSharing(fileId);
             System.out.println(fileId);
             DriveDto driveDto = new DriveDto(fileId);
 

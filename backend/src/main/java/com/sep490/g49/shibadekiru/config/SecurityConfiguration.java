@@ -61,6 +61,7 @@ public class SecurityConfiguration {
                                 .permitAll()
                                 .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                                 .requestMatchers("/api/lecture/**").hasAuthority("ROLE_LECTURE")
+                                .requestMatchers("/api/student/**").hasAuthority("ROLE_STUDENT")
                                 .anyRequest()
                                 .authenticated()
                 )
