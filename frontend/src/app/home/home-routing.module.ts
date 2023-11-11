@@ -59,9 +59,10 @@ const routes: Routes = [
       // },
       {path: 'post', component: ListPostComponent },
       {path: 'post/post-detail/:id', component:PostDetailComponent},
+      {path: 'user-profile', component:UserProfileComponent},
     ]
   },
-  {path: 'user-profile', component:UserProfileComponent},
+  
   {path: 'login', component: UserLoginComponent},
   {path: 'register', component: UserRegisterComponent},
   {path: 'reset-password', component:ForgotPasswordComponent},
