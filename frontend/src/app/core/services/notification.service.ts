@@ -9,7 +9,7 @@ export class NotificationService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  openSnackBar(message: string, action: string = 'ok'){
+  openSnackBar(message: string, action: string = ''){
     this.snackBar.open(message, action,{
       duration: 1000,
       verticalPosition: 'top',

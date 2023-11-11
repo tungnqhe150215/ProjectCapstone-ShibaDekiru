@@ -5,6 +5,8 @@ import { UseServiceService } from '../use-service.service';
 import { StorageService } from '../user-login/storage.service';
 import { Subscription } from 'rxjs';
 import { Student } from 'src/app/core/models/student';
+import { ChangePassword } from 'src/app/core/models/change-password';
+import { Lecture } from 'src/app/core/models/lecture';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,7 +27,21 @@ export class UserProfileComponent implements OnInit{
   currentUser: any;
   isLoggedIn = false;
   eventBusSub?: Subscription;
-  student: Student = new Student;
+  student: any;
+
+
+  error: any = {
+    message: 'no'
+  }
+  success: any = {
+    message: 'yes'
+  }
+  form: any = {};
+  hide = true;
+  updatePassword!: ChangePassword;
+  status = 'Form Change password';
+  newhide: any;
+  newhide1: any;
   // userAccountId!:number;
   // firstName !: string;
   // lastName !: string;
@@ -38,9 +54,26 @@ export class UserProfileComponent implements OnInit{
     if(this.isLoggedIn){
       const user = this.storageService.getUser();
     }
-    this.getUserByID();
+    if(this.currentUser.role.roleType === 'LECTURE'){
+      this.getLecturerByID();
+    }else{
+      this.getUserByID();
+    }
+    
+    
   }
 
+  getLecturerByID(){
+    this.currentUser = this.storageService.getUser();
+    this.student = new Lecture();
+    this.userService.getLecturersbyID(this.currentUser.userAccountId)
+    .subscribe(
+      data =>{
+        console.log(data);
+        this.student = data;
+      }
+    )
+  }
   getUserByID(){
     this.currentUser = this.storageService.getUser();
     this.student = new Student();
@@ -51,6 +84,16 @@ export class UserProfileComponent implements OnInit{
     })
   }
 
+  updateLecturersProfile(){
+    this.userService.lecturerProfile(this.student).
+    subscribe(
+      data =>{
+        console.log(data);
+        this.getLecturerByID();
+        this.notifiService.openSnackBar('Cập nhật thông tin thành công !');
+      }
+    )
+  }
   updateUserProfile(){
     this.userService.studentProfile(this.student)
     .subscribe(
@@ -64,6 +107,34 @@ export class UserProfileComponent implements OnInit{
 
 
 
+  changePassword() {
+    // @ts-ignore
+    this.updatePassword = new ChangePassword(this.form.password, this.form.newpassword, this.form.confirmpassword);
+    
+    this.userService.changePassword(this.updatePassword).subscribe(data => {
+      console.log('dataPassword----->',data);
+      
+      this.notifiService.openSnackBar('Đổi mật khẩu thành công, bạn cần đăng nhập lại');
+      this.logout();
+      
+    })
+
+  }
+
+  logout(): void {
+    this.storageService.clean();
+    this.userService.logout().subscribe({
+      next: res => {
+        console.log(res);
+        this.storageService.clean();
+        this.router.navigate(['/login']);
+        // window.location.reload();
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+  }
 
 
 

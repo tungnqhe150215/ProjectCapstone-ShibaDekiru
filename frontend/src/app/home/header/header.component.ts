@@ -77,8 +77,8 @@ export class HeaderComponent implements AfterViewInit,OnInit{
       next: res => {
         console.log(res);
         this.storageService.clean();
-
-        window.location.reload();
+        this.router.navigate(['']);
+        // window.location.reload();
       },
       error: err => {
         console.log(err);

@@ -48,7 +48,7 @@ export class UserChangePasswordComponent implements OnInit {
       
       this.notifiService.openSnackBar('Đổi mật khẩu thành công, bạn cần đăng nhập lại');
       this.logout();
-      this.router.navigate(['/login']);
+      
     })
 
   }
@@ -59,8 +59,8 @@ export class UserChangePasswordComponent implements OnInit {
       next: res => {
         console.log(res);
         this.storageService.clean();
-
-        window.location.reload();
+        this.router.navigate(['/login']);
+        // window.location.reload();
       },
       error: err => {
         console.log(err);
