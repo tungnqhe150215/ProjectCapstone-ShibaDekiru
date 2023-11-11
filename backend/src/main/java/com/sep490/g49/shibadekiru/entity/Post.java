@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,10 +21,10 @@ public class Post implements Serializable {
     @Column(name = "post_id")
     private Long postId;
 
-    @Column(name = "post_content", nullable = false)
+    @Column(name = "post_content", nullable = false, columnDefinition = "TEXT")
     private String postContent;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = true)
@@ -40,4 +41,9 @@ public class Post implements Serializable {
     @JsonBackReference
     @JoinColumn(name = "lecture_id", referencedColumnName = "lecture_id")
     private Lectures lecture;
+
+    @JsonProperty
+    public Long getLectureId() {
+        return this.lecture.getLectureId();
+    }
 }

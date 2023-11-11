@@ -60,6 +60,7 @@ public class StudentPostController {
 
     @GetMapping("/{id}/comment")
     public List<CommentDto> getAllCommentByPost(@PathVariable(name = "id") Long postId) {
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         Post post = iPostService.getPostById(postId);
         System.out.println("Comment từ post nè : " +  postId);
         return iCommentService.getCommentPartByPost(post).stream().map(comment -> modelMapper.map(comment, CommentDto.class)).collect(Collectors.toList());
@@ -67,6 +68,7 @@ public class StudentPostController {
 
     @GetMapping("/{id}/comment/{userId}")
     public List<CommentDto> getAllCommentByUserAccount(@PathVariable(name = "id") Long postId, @PathVariable(name = "userId") Long userId) {
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         System.out.println("Member Id of getAllCommentByUserAccount :  " + userId);
         UserAccount userAccount = iUserAccountService.getUserAccountById(userId);
         //System.out.println("User account :" + userAccount);
@@ -76,7 +78,7 @@ public class StudentPostController {
 
     @PostMapping("/{id}/comment/{userId}")
     public ResponseEntity<CommentDto> createComment(@PathVariable(name = "id") Long postId, @PathVariable(name = "userId") Long userId, @RequestBody CommentDto commentDto) {
-
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         commentDto.setPostId(postId);
         commentDto.setUserAccountId(userId);
 

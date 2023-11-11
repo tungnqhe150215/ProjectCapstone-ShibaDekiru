@@ -33,6 +33,7 @@ public class LectureManagePostController {
     @GetMapping("/{id}/post")
     public List<PostDto> getAllPostsByLecture(@PathVariable (name = "id") Long lectureId) {
         Lectures lecturesResponse = iLecturesService.getLectureById(lectureId);
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         return iPostService.getPostPartByLecture(lecturesResponse).stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
     }
 
@@ -49,6 +50,7 @@ public class LectureManagePostController {
 
     @PostMapping("/{id}/post")
     public ResponseEntity<PostDto> createPost(@PathVariable (name = "id") Long lectureId, @RequestBody PostDto postDTO) {
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         postDTO.setLectureId(iLecturesService.getLectureById(lectureId).getLectureId());
         PostDto savedPostDTO = iPostService.createPost(postDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPostDTO);

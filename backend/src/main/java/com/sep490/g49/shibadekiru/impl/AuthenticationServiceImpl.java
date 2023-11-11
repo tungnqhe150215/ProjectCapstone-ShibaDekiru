@@ -200,6 +200,7 @@ public class AuthenticationServiceImpl {
 
 
 
+
     private void revokeAllUserRefreshTokens(UserAccount user) {
         var validUserTokens = tokenRepository.findAllValidRefreshTokenByUser(user.getUserAccountId());
         if (validUserTokens.isEmpty())

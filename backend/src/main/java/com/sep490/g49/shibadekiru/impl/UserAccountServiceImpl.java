@@ -1,14 +1,10 @@
 package com.sep490.g49.shibadekiru.impl;
 
-import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
-import com.sep490.g49.shibadekiru.dto.RegisterResponse;
-import com.sep490.g49.shibadekiru.dto.UserAccountDto;
+import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
-import com.sep490.g49.shibadekiru.repository.RoleRepository;
-import com.sep490.g49.shibadekiru.repository.TokenRepository;
-import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
+import com.sep490.g49.shibadekiru.repository.*;
 import com.sep490.g49.shibadekiru.service.IUserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +23,12 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private LecturersRepository lecturersRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -179,48 +181,104 @@ public class UserAccountServiceImpl implements IUserAccountService {
         }
     }
 
-    public RegisterResponse updateProfile(RegisterResponse request) {
-        Role role = roleRepository.findById(request.getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role "));
-        var user = UserAccount.builder()
-                .nickName(request.getNickName())
-                .memberId(request.getMemberId())
-                .userName(request.getUserName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .resetCode(null)
-                .isBanned(false)
-                .role(role)
-                .build();
+    public void updateProfileStudent(StudentDto request, Principal connectedUser) {
+        if (connectedUser instanceof UsernamePasswordAuthenticationToken) {
+            UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) connectedUser;
+            if (authenticationToken.getPrincipal() instanceof UserAccount) {
+                UserAccount user = (UserAccount) authenticationToken.getPrincipal();
 
+                if (user != null) {
+                    user.setEmail(user.getEmail());
+                    userAccountRepository.save(user);
 
-        var savedUser = userAccountRepository.save(user);
+                    System.out.println("MemberId: " + user.getMemberId());
+                    System.out.println("Role: " + user.getRole());
 
-        for (RoleType roleType : RoleType.values()) {
-            if (roleType.getId() == role.getRoleId()) {
-                if (roleType == RoleType.STUDENT) {
-                    Student student = new Student();
-                    student.setFirstName(request.getFirstName());
-                    student.setLastName(request.getLastName());
-                    student.setEmail(request.getEmail());
-                    student.setUserAccount(savedUser);
-                    studentService.createStudentFromUserAccount(student);
-                } else if (roleType == RoleType.LECTURE) {
-                    Lectures lectures = new Lectures();
-                    lectures.setFirstName(request.getFirstName());
-                    lectures.setLastName(request.getLastName());
-                    lectures.setEmail(request.getEmail());
-                    lectures.setUserAccount(savedUser);
-                    lecturesService.createLecturerFromUserAccount(lectures);
+                    user = userAccountRepository.findByMemberId(user.getMemberId());
+                    Student student = studentService.getByUserAccount(user);
+
+                    if (student != null) {
+                        if (request.getFirstName() != null && !request.getFirstName().isEmpty()) {
+                            student.setFirstName(request.getFirstName());
+                        }
+
+                        if (request.getLastName() != null && !request.getLastName().isEmpty()) {
+                            student.setLastName(request.getLastName());
+                        }
+
+                        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+                            student.setEmail(request.getEmail());
+                        }
+
+                        if (request.getAvatar() != null && !request.getAvatar().isEmpty()) {
+                            student.setAvatar(request.getAvatar());
+                        }
+
+                        if (request.getGender() != null) {
+                            student.setGender(request.getGender());
+                        }
+
+                        student.setUserAccount(user);
+                        studentRepository.save(student);
+                    }
                 }
-                break;
+            } else {
+                throw new IllegalStateException("Người dùng không phải là UserAccount.");
             }
-
-
+        } else {
+            throw new IllegalStateException("Người dùng chưa đăng nhập hoặc thông tin không hợp lệ.");
         }
-        return RegisterResponse.builder().build();
-
-
     }
+
+    public void updateProfileLecture(LecturesDto request, Principal connectedUser) {
+        if (connectedUser instanceof UsernamePasswordAuthenticationToken) {
+            UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) connectedUser;
+            if (authenticationToken.getPrincipal() instanceof UserAccount) {
+                UserAccount user = (UserAccount) authenticationToken.getPrincipal();
+
+                if (user != null) {
+                    user.setEmail(user.getEmail());
+                    userAccountRepository.save(user);
+
+                    System.out.println("MemberId: " + user.getMemberId());
+                    System.out.println("Role: " + user.getRole());
+
+                    user = userAccountRepository.findByMemberId(user.getMemberId());
+                    Lectures lectures = lecturesService.getByUserAccount(user);
+
+                    if (lectures != null) {
+                        if (request.getFirstName() != null && !request.getFirstName().isEmpty()) {
+                            lectures.setFirstName(request.getFirstName());
+                        }
+
+                        if (request.getLastName() != null && !request.getLastName().isEmpty()) {
+                            lectures.setLastName(request.getLastName());
+                        }
+
+                        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+                            lectures.setEmail(request.getEmail());
+                        }
+
+                        if (request.getAvatar() != null && !request.getAvatar().isEmpty()) {
+                            lectures.setAvatar(request.getAvatar());
+                        }
+
+                        if (request.getPhone() != null) {
+                            lectures.setPhone(request.getPhone());
+                        }
+
+                        lectures.setUserAccount(user);
+                        lecturersRepository.save(lectures);
+                    }
+                }
+            } else {
+                throw new IllegalStateException("Người dùng không phải là UserAccount.");
+            }
+        } else {
+            throw new IllegalStateException("Người dùng chưa đăng nhập hoặc thông tin không hợp lệ.");
+        }
+    }
+
 
     public void updateResetCode(String restCode, String email) {
         Optional<UserAccount> userAccountOptional = userAccountRepository.findByEmail(email);

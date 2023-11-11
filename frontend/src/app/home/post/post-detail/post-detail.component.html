@@ -132,12 +132,12 @@
                          <!-- <app-list-comment></app-list-comment> -->
 
                         <div class="comment-form">
-                            <form (click)="AddComment()">
+                            <form >
                                 <div class="form-group">
                                     <textarea class="form-control mb-10" rows="5" id="content" name="content" [(ngModel)] = "uComment.content" placeholder="Viết bình luận tại đây"
                                         required=""></textarea>
                                 </div>
-                                <button class="mt-2 btn btn-success submit_btn text-light">Gửi bình luận</button>
+                                <a (click)="AddComment()" class="mt-2 btn btn-success submit_btn text-light">Gửi bình luận</a>
                             </form>
                         </div>
                     </div>

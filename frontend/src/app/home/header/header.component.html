@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <header class="header_area" #header>
   <div class="main_menu">
     <nav class="navbar navbar-expand-lg navbar-light ">
@@ -76,15 +77,15 @@
                     {{currentUser.nickName}}
                   </div>
                 </h3>
-                <ul>
+                <ul class="list-profile">
                   <li>
-                    <span class="material-icons icons-size">person</span>
-                    <a href="#">My Profile </a>
+                    <span class="material-symbols-outlined">person</span>
+                    <a routerLink="./user-profile">Profile của tôi</a>
                   </li>
-                  <li>
-                    <span class="material-icons icons-size">mode</span>
-                    <a href="#">Change Password</a>
-                  </li>
+                  <!-- <li>
+                    <span class="material-symbols-outlined">password</span>
+                    <a routerLink="./change-password">Change Password</a>
+                  </li> -->
                   <div *ngIf="currentUser.role.roleType === 'ADMIN' " >
                   <li>
                     <span class="material-icons icons-size">insert_comment</span>
@@ -94,12 +95,12 @@
                 <div *ngIf="currentUser.role.roleType === 'LECTURE' " >
                   <li>
                     <span class="material-icons icons-size">monetization_on</span>
-                    <a routerLink="./lecturer">Lecture Dashboard</a>
+                    <a routerLink="./lecturer">Trang Giảng viên</a>
                   </li>
                 </div>
                   <li>
                     <span class="material-icons icons-size">account_balance_wallet</span>
-                    <a href="#" (click)="logout()">Log out</a>
+                    <a href="#" (click)="logout()">Đăng xuất</a>
                   </li>
                 </ul>
               </div>

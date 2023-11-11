@@ -43,7 +43,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
-
+import { UserProfileComponent } from './auth/user-profile/user-profile.component';
 @NgModule({
   declarations: [
     FooterComponent,
@@ -71,7 +71,8 @@ import {MatRadioModule} from "@angular/material/radio";
     ClassLandingComponent,
     ClassBoardComponent,
     ClassTestComponent,
-    StudentTestComponent
+    StudentTestComponent,
+    UserProfileComponent
   ],
   exports: [
     FooterComponent,
