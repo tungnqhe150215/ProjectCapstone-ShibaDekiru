@@ -6,6 +6,7 @@ import { StorageService } from '../user-login/storage.service';
 import { Subscription } from 'rxjs';
 import { Student } from 'src/app/core/models/student';
 import { ChangePassword } from 'src/app/core/models/change-password';
+import { Lecture } from 'src/app/core/models/lecture';
 
 @Component({
   selector: 'app-user-profile',
@@ -26,7 +27,7 @@ export class UserProfileComponent implements OnInit{
   currentUser: any;
   isLoggedIn = false;
   eventBusSub?: Subscription;
-  student: Student = new Student;
+  student: any;
 
 
   error: any = {
@@ -53,9 +54,26 @@ export class UserProfileComponent implements OnInit{
     if(this.isLoggedIn){
       const user = this.storageService.getUser();
     }
-    this.getUserByID();
+    if(this.currentUser.role.roleType === 'LECTURE'){
+      this.getLecturerByID();
+    }else{
+      this.getUserByID();
+    }
+    
+    
   }
 
+  getLecturerByID(){
+    this.currentUser = this.storageService.getUser();
+    this.student = new Lecture();
+    this.userService.getLecturersbyID(this.currentUser.userAccountId)
+    .subscribe(
+      data =>{
+        console.log(data);
+        this.student = data;
+      }
+    )
+  }
   getUserByID(){
     this.currentUser = this.storageService.getUser();
     this.student = new Student();
@@ -66,6 +84,16 @@ export class UserProfileComponent implements OnInit{
     })
   }
 
+  updateLecturersProfile(){
+    this.userService.lecturerProfile(this.student).
+    subscribe(
+      data =>{
+        console.log(data);
+        this.getLecturerByID();
+        this.notifiService.openSnackBar('Cập nhật thông tin thành công !');
+      }
+    )
+  }
   updateUserProfile(){
     this.userService.studentProfile(this.student)
     .subscribe(
