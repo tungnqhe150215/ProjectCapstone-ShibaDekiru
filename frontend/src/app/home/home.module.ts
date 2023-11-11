@@ -36,6 +36,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {ClassworkComponent} from "./class/class-landing/classwork/classwork.component";
 import {ClassLandingComponent} from "./class/class-landing/class-landing.component";
 import {ClassBoardComponent} from "./class/class-landing/class-board/class-board.component";
+import { ClassTestComponent } from './class/class-landing/class-test/class-test.component';
+import { StudentTestComponent } from './student-test/student-test.component';
+import {MatListModule} from "@angular/material/list";
+import {MatIconModule} from "@angular/material/icon";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSelectModule} from "@angular/material/select";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -62,7 +69,9 @@ import {ClassBoardComponent} from "./class/class-landing/class-board/class-board
     ListCommentComponent,
     ClassworkComponent,
     ClassLandingComponent,
-    ClassBoardComponent
+    ClassBoardComponent,
+    ClassTestComponent,
+    StudentTestComponent
   ],
   exports: [
     FooterComponent,
@@ -83,6 +92,11 @@ import {ClassBoardComponent} from "./class/class-landing/class-board/class-board
     MatPaginatorModule,
     MatInputModule,
     MatTabsModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatRadioModule,
   ]
 })
 export class HomeModule { }

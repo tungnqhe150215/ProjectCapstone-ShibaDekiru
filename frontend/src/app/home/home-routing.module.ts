@@ -25,6 +25,7 @@ import { ListReadingComponent } from './lesson/list-reading/list-reading.compone
 import { ListWritingComponent } from './lesson/list-writing/list-writing.component';
 import { ListListeningComponent } from './lesson/list-listening/list-listening.component';
 import { ListKanjilessComponent } from './lesson/list-kanjiless/list-kanjiless.component';
+import {StudentTestComponent} from "./student-test/student-test.component";
 
 
 const routes: Routes = [
@@ -49,6 +50,7 @@ const routes: Routes = [
       {path: 'lesson/:id/reading', component: ListReadingComponent},
       {path: 'lesson/:id/writing', component:ListWritingComponent},
       {path: 'lesson/:id/listening', component:ListListeningComponent},
+      {path: 'test/:id', component: StudentTestComponent},
       // {path: 'book/:id/lesson/detail/:id', component: DetailComponent},
       // {
       //   path: 'book',
@@ -61,7 +63,7 @@ const routes: Routes = [
 
   {path: 'login', component: UserLoginComponent},
   {path: 'register', component: UserRegisterComponent},
-    
+
 ];
 
 @NgModule({
