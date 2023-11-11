@@ -1,5 +1,6 @@
 <body>
     <div class="container light-style flex-grow-1 container-p-y">
+        <button class="btn btn-success" routerLink="">Trở về trang chủ</button>
         <h4 class="font-weight-bold py-3 mb-4">
             Thông tin cá nhân
         </h4>
@@ -73,8 +74,54 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="account-change-password">
-                                <form>
-                                    <div class="card-body pb-2">
+                                <form  (ngSubmit)="changePassword()" class="mt-3 mb-3">
+                                    
+                                        <mat-form-field appearance="outline" style="width: 350px;">
+                                            <mat-label>Nhập mật khẩu cũ của bạn</mat-label>
+                                            <input name="password" [(ngModel)]="form.password" #password="ngModel"
+                                                matInput [type]="hide ? 'password' : 'text'" minlength="6"
+                                                maxlength="100" required>
+                                            <button mat-icon-button matSuffix (click)="hide = !hide"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                <mat-icon> {{hide ? 'visibility_off' :
+                                                    'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error *ngIf="password.hasError('required')">Mật khẩu cũ không được để trống</mat-error>
+                                            <mat-error *ngIf="password.hasError('minlength')">Mật khẩu phải ít nhất 6 ký tự</mat-error>
+                                        </mat-form-field><br>
+
+                                        <mat-form-field appearance="outline" style="width: 350px;">
+                                            <mat-label>Nhập mật khẩu mới</mat-label>
+                                            <input name="newPassword" [(ngModel)]="form.newpassword"
+                                                #newpassword="ngModel" matInput [type]="newhide ? 'password' : 'text'"
+                                                minlength="6" maxlength="100" required>
+                                            <button mat-icon-button matSuffix (click)="newhide = !newhide"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="newhide">
+                                                <mat-icon >{{newhide ? 'visibility_off' :
+                                                    'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error *ngIf="newpassword.hasError('required')">Mật khẩu mới không đợi để trống</mat-error>
+                                            <mat-error *ngIf="newpassword.hasError('minlength')">Mật khẩu phải ít nhất 6 ký tự</mat-error>
+                                        </mat-form-field><br>
+                                        <mat-form-field appearance="outline" style="width: 350px;">
+                                            <mat-label>Xác nhận mật khẩu mới</mat-label>
+                                            <input name="confirmpassword" [(ngModel)]="form.confirmpassword"
+                                                #confirmpassword="ngModel" matInput
+                                                [type]="newhide1 ? 'confirmpassword' : 'text'" minlength="6"
+                                                maxlength="100" required>
+                                            <button mat-icon-button matSuffix (click)="newhide1 = !newhide1"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="newhide1">
+                                                <mat-icon >{{newhide1 ? 'visibility_off' :
+                                                    'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error *ngIf="confirmpassword.hasError('required')">Mật khẩu mới không đợi để trống</mat-error>
+                                            <mat-error *ngIf="confirmpassword.hasError('minlength')">Mật khẩu phải ít nhất 6 ký tự</mat-error>
+                                            <mat-error *ngIf="confirmpassword != form.newpassword">Mật khẩu mới và xác nhận mật khẩu không trùng nhau</mat-error>
+                                        </mat-form-field><br>
+                                        <button class="btn btn-success">Đổi mật khẩu
+                                            <!-- <mat-icon matListItemIcon matSuffix>change_circle</mat-icon> -->
+                                        </button>
+                                    <!-- <div class="card-body pb-2">
                                         <div class="form-group">
                                             <label class="form-label">Current password</label>
                                             <input type="password" class="form-control">
@@ -90,7 +137,7 @@
                                     </div>
                                     <div class="text-end mt-3 mb-3 mr-4">
                                         <button type="button" class="btn btn-success">Save changes</button>&nbsp;
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="account-info">
