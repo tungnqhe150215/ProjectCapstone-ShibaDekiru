@@ -1,4 +1,4 @@
-<div class="container p_120">
+<div class="container-fluid p_120">
   <div class="main_title mb-2">
     <h1 class="text-center mb-3 text-success ">Chào mừng bạn vào lớp </h1>
     <p class="fw-bold">Nơi giao lưu của những niềm đam mê tiếng Nhật</p>
@@ -10,20 +10,36 @@
             <mat-tab label="Bảng tin">
             <app-class-board></app-class-board>
             </mat-tab>
-            <mat-tab label="Hoạt động của tôi">
-            <app-classwork></app-classwork>
+            <mat-tab label="Hoạt động lớp">
+              <div>
+                <app-classwork></app-classwork>
+              </div>
+            </mat-tab>
+            <mat-tab label="Bài kiểm tra">
+              <div>
+                <app-class-test></app-class-test>
+              </div>
+            </mat-tab>
+            <mat-tab label="Kết quả ">
             </mat-tab>
           </mat-tab-group>
         </div>
       </div>
       <div class="col-md-3">
         <div class="side-list">
-          <div class="card m-3 w-100">
+          <div class="card mt-3 w-100">
             <div class="card-header">
               <h6 class="text-center">Thông tin lớp học</h6>
             </div>
             <div class="card-body">
-
+              <div class="row">
+                <div class="col-md-8">Tên lớp</div>
+                <div class="col-md-4">{{aClass.className}}</div>
+              </div>
+                  <div class="row">
+                    <div class="col-md-8">Giáo viên</div>
+                    <div class="col-md-4">{{aClass.lecture.firstName + ' ' + aClass.lecture.lastName}}</div>
+                  </div>
             </div>
           </div>
         </div>
