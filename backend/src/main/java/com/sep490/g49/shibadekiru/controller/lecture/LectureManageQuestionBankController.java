@@ -103,8 +103,10 @@ public class LectureManageQuestionBankController {
         SectionType type = SectionType.valueOf(sectionType);
 
         List<TestSectionDto> testSectionDtos = iTestSectionService.getTestSectionByTypeAndTest(type,test).stream().map(section -> modelMapper.map(section, TestSectionDto.class)).collect(Collectors.toList());
-        if (sectionType.equalsIgnoreCase("LISTENING")) {
-            System.out.println(googleDriveService.getFileUrl("12JPXT72xh1xyAXjBViXGMZ_hAL6IOnle"));
+        if(sectionType.equalsIgnoreCase("LISTENING")){
+            for (TestSectionDto testSectionDto: testSectionDtos){
+                testSectionDto.setSectionAttach(googleDriveService.getFileUrl(testSectionDto.getSectionAttach()));
+            }
         }
         return testSectionDtos;
     }
