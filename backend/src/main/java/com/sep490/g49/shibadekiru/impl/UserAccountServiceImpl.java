@@ -97,7 +97,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             return userAccountRepository.save(userAccount1);
         } else {
-            throw new ResourceNotFoundException("Lesson not found with id: " + userAccountId);
+            throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
         }
 
     }
@@ -116,7 +116,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             userAccountRepository.save(userAccount);
         } else {
-            throw new ResourceNotFoundException("Lesson not found with id: " + userAccountId);
+            throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
         }
     }
 
@@ -133,6 +133,19 @@ public class UserAccountServiceImpl implements IUserAccountService {
         return userAccount;
     }
 
+    @Override
+    public UserAccount getUserAccountByEmail(String email) {
+        Optional<UserAccount> userAccountOptional = userAccountRepository.findByEmail(email);
+        UserAccount userAccount = null;
+        if (userAccountOptional.isPresent()) {
+            userAccount = userAccountOptional.get();
+
+        } else {
+            throw new ResourceNotFoundException("User Account not found any email with: " + email);
+        }
+        return userAccount;
+    }
+
     public void changePassword(ChangePasswordDto request, Principal connectedUser) {
         if (!(connectedUser instanceof UsernamePasswordAuthenticationToken authenticationToken)) {
             throw new IllegalStateException("Người dùng chưa đăng nhập hoặc thông tin không hợp lệ.");
@@ -141,17 +154,17 @@ public class UserAccountServiceImpl implements IUserAccountService {
         if (authenticationToken.getPrincipal() instanceof UserAccount) {
             var user = (UserAccount) authenticationToken.getPrincipal();
 
-            // Kiểm tra mật khẩu hiện tại có chính xác không
+
             if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
                 throw new IllegalStateException("Mật khẩu hiện tại không chính xác");
             }
 
-            // Kiểm tra xác nhận mật khẩu mới có trùng khớp không
+
             if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
                 throw new IllegalStateException("Mật khẩu mới không trùng khớp");
             }
 
-            // Cập nhật mật khẩu mới và lưu lại
+
             user.setPassword(passwordEncoder.encode(request.getNewPassword()));
             userAccountRepository.save(user);
         } else {
@@ -294,16 +307,13 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
     }
 
-    public UserAccount get(String restCode) {
+    public UserAccount getByResetCode(String restCode) {
         return userAccountRepository.findByResetCode(restCode);
     }
 
     public void updatePassword(UserAccount userAccount, String newPassword) {
         String encodePassword = passwordEncoder.encode(newPassword);
-
         userAccount.setPassword(encodePassword);
-        userAccount.setResetCode(null);
-
         userAccountRepository.save(userAccount);
     }
 
