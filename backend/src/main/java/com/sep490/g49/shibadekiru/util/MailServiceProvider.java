@@ -4,14 +4,13 @@ import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-
+import java.util.Date;
 import java.util.Properties;
 
 @Component
-public class EmailProviderService {
+public class MailServiceProvider {
 
     @Value("${spring.mail.username}")
     private String email;
@@ -26,7 +25,7 @@ public class EmailProviderService {
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
-
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
         Authenticator auth = new Authenticator() {
             @Override
@@ -37,33 +36,26 @@ public class EmailProviderService {
 
         Session session = Session.getInstance(properties, auth);
 
-        sendHtml(session, email, emailContact, emailSubject, body);
+        send(session, email, emailContact, emailSubject, body);
     }
 
-    private void sendHtml(Session session, String email, String emailContact, String emailSubject, String body) {
+
+    private static void send(Session session, String fromEmail, String emailContact, String subject, String body) {
         try {
-            MimeMessage mimeMessage = new MimeMessage(session);
-            mimeMessage.addHeader("Content-type", "text/HTML; charset=UTF-8");
-
-            mimeMessage.addHeader("format", "flowed");
-
-            mimeMessage.addHeader("Content-Transfer-Encoding", "8bit");
-
-            mimeMessage.setFrom(new InternetAddress(email, "Shiba Dekiru"));
-
-            mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(emailContact));
-
-
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-            mimeMessageHelper.setTo(emailContact);
-            mimeMessageHelper.setSubject(emailSubject);
-            mimeMessageHelper.setText(body, true);
-
-            Transport.send(mimeMessage);
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail, "Shiba Dekiru"));
+            message.setHeader("Content-Type", "text/plain; charset=UTF-8");
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailContact));
+            message.setSubject(subject);
+            message.setText(body, "UTF-8", "html");
+            message.setSentDate(new Date());
+            message.setContent(body, "text/html; charset=UTF-8");
+            Transport.send(message);
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Exception occurred while sending mail");
+            System.out.println("exception occurred while sending mail");
+
         }
     }
 }
