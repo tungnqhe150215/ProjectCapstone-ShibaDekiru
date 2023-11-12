@@ -43,7 +43,7 @@ public class UserAccount implements UserDetails {
     private String password;
 
 
-    @Column(name = "reset_code", nullable = true)
+    @Column(name = "reset_code", nullable = true, length = 350)
     private String resetCode;
 
     @Column(name = "is_banned", nullable = false)
