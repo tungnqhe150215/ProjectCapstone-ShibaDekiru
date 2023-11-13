@@ -133,6 +133,8 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
     this.router.navigate(['register']);
   }
 
-
+  forgotPassword(){
+    this.router.navigate(['forgot-password']);
+  }
 
 }
