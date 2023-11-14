@@ -30,7 +30,7 @@ public class GoogleDriveController {
             String fileId = googleDriveService.uploadFileToGoogleDrive(file);
 
             googleDriveService.configurePublicSharing(fileId);
-            System.out.println(fileId);
+
             DriveDto driveDto = new DriveDto(fileId);
 
             return ResponseEntity.ok(driveDto);

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Test} from "../../core/models/test";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -20,9 +20,9 @@ export class LectureManageTestAssignService {
     return this.httpClient.get<TestAssign[]>(`${this.baseUrl}/${id}/assign`);
   }
 
-  createTestAssign(id: number, testAssign: TestAssign,extendTime:number): Observable<Object> {
+  createTestAssign(id: number, testAssign: TestAssign, extendTime: number): Observable<Object> {
     const params = new HttpParams().set('extendTime', extendTime);
-    return this.httpClient.post(`${this.baseUrl}/assign`, testAssign,{params:params});
+    return this.httpClient.post(`${this.baseUrl}/assign`, testAssign, {params: params});
   }
 
   getTestAsignById(id: number): Observable<TestAssign> {
@@ -30,9 +30,10 @@ export class LectureManageTestAssignService {
   }
 
   updateTestAssign(id: number, extendTime: number): Observable<Object> {
-    const params = new HttpParams().set('id', id);
-    params.set('extendTime',extendTime);
-    return this.httpClient.put(`${this.baseUrl}/assign`, {params: params});
+    const params = new HttpParams()
+      .set('id', id)
+      .set('extendTime', extendTime);
+    return this.httpClient.put(`${this.baseUrl}/assign`, null, {params: params});
   }
 
   deleteTestAssign(id: number): Observable<Object> {

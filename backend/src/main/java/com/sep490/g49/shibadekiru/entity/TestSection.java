@@ -35,11 +35,11 @@ public class TestSection {
     private Test test;
 
     // Mô hình quan hệ với bảng QuestionBank (Nhiều câu hỏi trong một phần)
-    @OneToMany(mappedBy = "section")
+    @OneToMany(mappedBy = "section",cascade = CascadeType.ALL)
     @JsonBackReference
     private List<QuestionBank> questions;
 
-    @OneToMany(mappedBy = "testSection")
+    @OneToMany(mappedBy = "testSection",cascade = CascadeType.ALL)
     @JsonBackReference
     private List<TestResult> testResult;
 

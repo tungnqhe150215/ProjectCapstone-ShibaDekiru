@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { BackButtonDirective } from './directives/back-button.directive';
 import { FormatLocalDateTimePipe } from './pipes/format-local-date-time.pipe';
 
@@ -16,6 +16,10 @@ import { FormatLocalDateTimePipe } from './pipes/format-local-date-time.pipe';
     ],
   imports: [
     CommonModule
-  ]
+  ],
+  providers: [
+    DatePipe, // Thêm DatePipe vào providers
+    // Các service khác
+  ],
 })
 export class SharedModule { }

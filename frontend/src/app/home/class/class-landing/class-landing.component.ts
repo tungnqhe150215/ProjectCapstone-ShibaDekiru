@@ -12,7 +12,7 @@ import {data} from "autoprefixer";
 export class ClassLandingComponent implements OnInit {
 
   id!:number
-  aClass: Class= new Class();
+  aClass: Class = new Class();
 
   constructor(private route: ActivatedRoute,
               private router: Router,

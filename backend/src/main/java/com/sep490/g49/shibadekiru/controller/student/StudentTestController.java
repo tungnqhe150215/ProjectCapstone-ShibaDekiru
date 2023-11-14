@@ -6,6 +6,7 @@ import com.sep490.g49.shibadekiru.entity.Class;
 import com.sep490.g49.shibadekiru.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,9 @@ public class StudentTestController {
     private IClassTestAssignService iClassTestAssignService;
 
     @Autowired
+    private ITestResultService iTestResultService;
+
+    @Autowired
     private IClassService iClassService;
 
     @Autowired
@@ -43,15 +47,37 @@ public class StudentTestController {
     }
 
     @GetMapping("/test/{id}")
-    public List<TestSectionDto> getTestSectionByTestAndType(@PathVariable("id") Long id, @RequestParam("type") String type) {
+    public TestDto getTestById(@PathVariable("id") Long id) {
+
         Test test = iTestService.getTestById(id);
-        SectionType sectionType = SectionType.valueOf(type);
-        return iTestSectionService.getTestSectionByTypeAndTest(sectionType,test).stream().map(testSection -> map.map(testSection, TestSectionDto.class)).collect(Collectors.toList());
+
+        TestDto testDto = map.map(test,TestDto.class);
+
+        return testDto;
     }
 
-    @GetMapping("/test/section/{id}")
+    @GetMapping("/test/{id}/section")
+    public List<TestSectionDto> getTestSectionByTest(@PathVariable("id") Long id) {
+        Test test = iTestService.getTestById(id);
+        return iTestSectionService.getTestSectionByTest(test).stream().map(testSection -> map.map(testSection, TestSectionDto.class)).collect(Collectors.toList());
+    }
+
+
+    @GetMapping("/test/section/{id}/question")
     public List<QuestionBankDto> getQuestionBySection(@PathVariable("id") Long id) {
         TestSection testSection = iTestSectionService.getTestSectionById(id);
         return iQuestionBankService.getAllQuestionByTestSection(testSection).stream().map(questionBank -> map.map(questionBank, QuestionBankDto.class)).collect(Collectors.toList());
+    }
+
+    @PostMapping("/test/result")
+    public ResponseEntity<TestResultDto> createTestResult(@RequestBody TestResultDto testResultDto) {
+
+        TestResult testResultRequest = map.map(testResultDto, TestResult.class);
+
+        TestResult testResult = iTestResultService.createTestResult(testResultRequest);
+
+        TestResultDto testResultResponse = map.map(testResult, TestResultDto.class);
+
+        return new ResponseEntity<TestResultDto>(testResultResponse, HttpStatus.CREATED);
     }
 }

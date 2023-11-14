@@ -1,13 +1,11 @@
 .card {
   border-radius: 20px;
+  width: 80%;
+  margin: 10px auto;
 }
 
 .card-body {
   text-align: center;
-}
-
-.btn-primary {
-  margin-top: 10px;
 }
 
 .text-center {

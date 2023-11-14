@@ -47,7 +47,7 @@ public class TestResultServiceImpl implements ITestResultService {
 
     @Override
     public TestResult createTestResult(TestResult testResultRequest) {
-        testResultRequest.setDoneTime(LocalDateTime.parse(LocalDateTime.now().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        testResultRequest.setDoneTime(LocalDateTime.now());
         return testResultRepository.save(testResultRequest);
     }
 

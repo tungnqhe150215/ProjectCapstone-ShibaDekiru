@@ -63,9 +63,14 @@ public class LectureManageQuestionBankController {
     @PostMapping("/section/{sectionId}/question")
     public ResponseEntity<QuestionBankDto> createQuestion(@PathVariable (name = "sectionId") Long sectionId,@RequestBody QuestionBankDto questionBankDto) {
 
+        System.out.println("check dto " + questionBankDto.toString());
         QuestionBank questionBankRequest = modelMapper.map(questionBankDto, QuestionBank.class);
 
+        System.out.println("check mapper" + questionBankRequest.toString());
+
         questionBankRequest.setSection(iTestSectionService.getTestSectionById(sectionId));
+
+        System.out.println("check controller add" + iTestSectionService.getTestSectionById(sectionId).getSectionAttach());
 
         QuestionBank questionBank = questionBankService.createQuestion(questionBankRequest);
 
@@ -103,11 +108,6 @@ public class LectureManageQuestionBankController {
         SectionType type = SectionType.valueOf(sectionType);
 
         List<TestSectionDto> testSectionDtos = iTestSectionService.getTestSectionByTypeAndTest(type,test).stream().map(section -> modelMapper.map(section, TestSectionDto.class)).collect(Collectors.toList());
-        if(sectionType.equalsIgnoreCase("LISTENING")){
-            for (TestSectionDto testSectionDto: testSectionDtos){
-                testSectionDto.setSectionAttach(googleDriveService.getFileUrl(testSectionDto.getSectionAttach()));
-            }
-        }
         return testSectionDtos;
     }
 
@@ -115,6 +115,9 @@ public class LectureManageQuestionBankController {
     public ResponseEntity<TestSectionDto> getSectionById(@PathVariable(name = "questionId") long questionId) {
 
         TestSection testSection = iTestSectionService.getTestSectionById(questionId);
+
+        if (testSection.getSectionType().equals(SectionType.LISTENING))
+            testSection.setSectionAttach(googleDriveService.getFileUrl(testSection.getSectionAttach()));
 
         //convert Entity to DTO
         TestSectionDto testSectionDto = modelMapper.map(testSection, TestSectionDto.class);

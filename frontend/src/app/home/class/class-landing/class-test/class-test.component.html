@@ -1,17 +1,19 @@
 <div class="container mt-4">
-  <div class="card rounded">
+  <div class="card rounded" *ngFor="let test of listTestAssign">
     <div class="row">
       <div class="col-md-8">
-
         <div class="card-body">
-          <h3 class="card-title text-center">Chủ đề test</h3>
-          <p class="card-text text-center">Thời gian test: 2 giờ</p>
+          <h3 class="card-title text-center">Bài kiểm tra: {{test.test.title}}</h3>
+          <p class="card-text text-center">Thời gian test: {{test.test.duration}} phút</p>
         </div>
-
       </div>
       <div class="col-md-4">
-        <div class="text-center">
-          <a class="btn btn-primary" href="/other-page">Làm bài</a>
+        <div class="text-center mt-2">
+          <h6 style="color: #eb6b55" *ngIf="!checkExpiredTest(test)">Trạng thái: Quá hạn</h6>
+          <h6 style="color: #8ada54" *ngIf="checkExpiredTest(test)">Trạng thái: Đang mở</h6>
+        </div>
+        <div class="text-center" *ngIf="checkExpiredTest(test)">
+          <button class="btn btn-outline-success mt-2" (click)="gotoTest(test.test.testId)">Làm bài</button>
         </div>
       </div>
     </div>

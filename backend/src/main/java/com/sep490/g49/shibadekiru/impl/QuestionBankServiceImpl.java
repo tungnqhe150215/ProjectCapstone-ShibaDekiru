@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +57,7 @@ public class QuestionBankServiceImpl implements IQuestionBankService {
         if(testOptional.isPresent()) {
 
             TestSection test = testOptional.get();
-
+            System.out.println("check section attach" + test.getSectionAttach());
             QuestionBank questionBank1 = new QuestionBank();
             questionBank1.setQuestion(question);
             questionBank1.setFirstChoice(firstChoice);

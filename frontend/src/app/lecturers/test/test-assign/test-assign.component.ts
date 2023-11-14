@@ -174,7 +174,7 @@ export class TestAssignCreateDialog implements OnInit{
   }
 
   createTestAssign(){
-    this.chooseClass.id = this.classId
+    this.chooseClass.classId = this.classId
     this.testAssign.test = this.test
     console.log(this.testAssign)
     console.log(this.chooseClass)
@@ -211,6 +211,7 @@ export class TestAssignUpdateDialog {
   ) {}
 
   updateTestAssign(){
+    console.log(this.extendTime)
     this.manageTestAssignService.updateTestAssign(this.data,this.extendTime).subscribe(data => {
       console.log(data)
       this.dialogRef.close();

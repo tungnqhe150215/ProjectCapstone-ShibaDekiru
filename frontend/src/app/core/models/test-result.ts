@@ -1,10 +1,10 @@
-import {Test} from "./test";
+
 import {Student} from "./student";
-import {Time} from "@angular/common";
+import {TestSection} from "./test-section";
 
 export class TestResult {
     id?:number
-    test?:Test
+    testSection?:TestSection
     student?:Student
     result?:number
     doneTime?:Date

@@ -29,6 +29,7 @@ import {StudentTestComponent} from "./student-test/student-test.component";
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { UserProfileComponent } from './auth/user-profile/user-profile.component';
 import { UserChangePasswordComponent } from './auth/user-change-password/user-change-password.component';
+import {TestLandingComponent} from "./student-test/test-landing/test-landing.component";
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { WaitingRegisterComponent } from './auth/waiting-register/waiting-register.component';
 import { WaitingForgotPasswordComponent } from './auth/waiting-forgot-password/waiting-forgot-password.component';
@@ -57,7 +58,7 @@ const routes: Routes = [
       {path: 'lesson/:id/reading', component: ListReadingComponent},
       {path: 'lesson/:id/writing', component:ListWritingComponent},
       {path: 'lesson/:id/listening', component:ListListeningComponent},
-      {path: 'test/:id', component: StudentTestComponent},
+      {path: 'c/:classId/t/:testId/do', component: StudentTestComponent},
       // {path: 'book/:id/lesson/detail/:id', component: DetailComponent},
       // {
       //   path: 'book',
@@ -66,14 +67,17 @@ const routes: Routes = [
       {path: 'post', component: ListPostComponent },
       {path: 'post/post-detail/:id', component:PostDetailComponent},
       {path: 'user-profile', component:UserProfileComponent},
+      {path: 'c/:classId/t/:testId/landing', component:TestLandingComponent},
+      {path: 'c/:classId/t/:testId/result', component:TestLandingComponent}
     ]
   },
-  
+
   {path: 'login', component: UserLoginComponent},
   {path: 'register', component: UserRegisterComponent},
   {path: 'forgot-password', component:ForgotPasswordComponent},
   {path: 'reset-password/:resetCode', component:ResetPasswordComponent},
   {path: 'change-password', component:UserChangePasswordComponent},
+
   {path: 'check-mail', component:WaitingForgotPasswordComponent},
   {path: 'active-account', component:WaitingRegisterComponent},  
   {path: 'verify/:resetCode', component:ActiveAccountComponent},

@@ -1,36 +1,30 @@
-<div class="container p_120 mt-12">
+<div class="container p_120 mt-12" xmlns="http://www.w3.org/1999/html" (copy)="onCopy($event)">
+  <div class="row bg-test">
+    <h1 class=" text-center font-bold font-black ">{{test.title}}</h1>
+  </div>
+  <div class="row countdown">
+    Thời gian còn lại: {{ displayCountdown }}
+  </div>
   <mat-tab-group>
-    <mat-tab label="Nghe">
-      <div class="container">
-        <mat-toolbar>
-          <button mat-button (click)="showSidebar = !showSidebar">
-            Chủ đề
-            <mat-icon [ngClass]="{'rotate': showSidebar}">chevron_right</mat-icon>
-          </button>
-        </mat-toolbar>
-        <div class="content">
-          <div class="question">
-            <h4>Câu hỏi trắc nghiệm</h4>
-            <div class="radio-group">
-              <mat-radio-group [(ngModel)]="selectedAnswer">
-                <mat-radio-button value="a">Đáp án A</mat-radio-button>
-                <mat-radio-button value="b">Đáp án B</mat-radio-button>
-                <mat-radio-button value="c">Đáp án C</mat-radio-button>
-                <mat-radio-button value="d">Đáp án D</mat-radio-button>
-              </mat-radio-group>
-            </div>
-          </div>
-          <div class="sidebar" *ngIf="showSidebar">
-            <!-- Danh sách các chủ đề và các ô vuông ở đây -->
-            <mat-list>
-              <mat-list-item *ngFor="let topic of topics">
-                {{ topic }}
-              </mat-list-item>
-            </mat-list>
-          </div>
-        </div>
+    <mat-tab label="Nghe" *ngIf="listeningSection.length > 0" style="background-color: #bdf5b0;">
+      <div class="container-fluid ">
+        <app-student-listening-test [sectionList]="listeningSection"></app-student-listening-test>
       </div>
     </mat-tab>
-    <!-- Các tab khác -->
+    <mat-tab label="Đọc" *ngIf="readingSection.length > 0">
+      <div class="container-fluid ">
+        <app-student-reading-test [sectionList]="readingSection"></app-student-reading-test>
+      </div>
+    </mat-tab>
+    <mat-tab label=" Ngữ pháp và từ vựng " *ngIf="grammarVocabSection.length > 0">
+      <div class="container-fluid ">
+        <app-student-grammar-vocab-test [sectionList]="grammarVocabSection"></app-student-grammar-vocab-test>
+      </div>
+    </mat-tab>
   </mat-tab-group>
+  <div class="row justify-items-center">
+    <button class="btn btn-outline-success w-auto m-auto " (click)="submitTest()">
+      Nộp bài
+    </button>
+  </div>
 </div>

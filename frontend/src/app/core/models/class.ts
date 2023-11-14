@@ -1,9 +1,9 @@
 import {Lecture} from "./lecture";
 
 export class Class {
-    id!:number
+    classId!:number
     lecture!:Lecture
-    className!:String
-    classCode!:String
+    className!:string
+    classCode!:string
     isLocked!:Boolean
 }
