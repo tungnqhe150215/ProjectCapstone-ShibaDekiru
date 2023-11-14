@@ -45,6 +45,9 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
 import { UserProfileComponent } from './auth/user-profile/user-profile.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { WaitingRegisterComponent } from './auth/waiting-register/waiting-register.component';
+import { WaitingForgotPasswordComponent } from './auth/waiting-forgot-password/waiting-forgot-password.component';
+import { ActiveAccountComponent } from './auth/active-account/active-account.component';
 @NgModule({
   declarations: [
     FooterComponent,
@@ -74,7 +77,10 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
     ClassTestComponent,
     StudentTestComponent,
     UserProfileComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    WaitingRegisterComponent,
+    WaitingForgotPasswordComponent,
+    ActiveAccountComponent
   ],
   exports: [
     FooterComponent,
