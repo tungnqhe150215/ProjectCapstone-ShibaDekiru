@@ -1,0 +1,17 @@
+<div class="content right-1">
+  <div class="question">
+    <h4>{{question.question}}</h4>
+    <div class="radio-group">
+      <mat-radio-group [(ngModel)]="selectedAnswer" (ngModelChange)="onAnswerSelected($event)">
+        <mat-radio-button value="{{question.firstChoice}}"  >{{question.firstChoice}}</mat-radio-button>
+        <br>
+        <mat-radio-button value="{{question.secondChoice}}" >{{question.secondChoice}}</mat-radio-button>
+        <br>
+        <mat-radio-button *ngIf="question.thirdChoice" value="{{question.thirdChoice}}" >{{question.thirdChoice}}</mat-radio-button>
+        <br>
+        <mat-radio-button *ngIf="question.fourthChoice" value="{{question.fourthChoice}}" >{{question.fourthChoice}}</mat-radio-button>
+        <br>
+      </mat-radio-group>
+    </div>
+  </div>
+</div>

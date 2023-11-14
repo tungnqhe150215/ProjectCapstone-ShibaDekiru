@@ -1,0 +1,17 @@
+<div class="row border border-1 rounded mt-3 mb-4">
+  <div class="col-md-2">
+    <div class="sidebar">
+      <!-- Danh sách các chủ đề và các ô vuông ở đây -->
+      <mat-list>
+        <mat-list-item *ngFor="let section of sectionList, let i = index" class="mb-3">
+          <button class="btn btn-outline-primary rounded-pill" (click)="goToSection(section.sectionId)">Bài nghe {{i+1}}</button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <div *ngIf="selectedSection">
+      <app-test-section-title [section]="selectedSection" ></app-test-section-title>
+    </div>
+  </div>
+</div>

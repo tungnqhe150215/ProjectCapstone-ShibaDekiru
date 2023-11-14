@@ -44,6 +44,14 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
 import { UserProfileComponent } from './auth/user-profile/user-profile.component';
+import { StudentListeningTestComponent } from './student-test/student-listening-test/student-listening-test.component';
+import { StudentReadingTestComponent } from './student-test/student-reading-test/student-reading-test.component';
+import { StudentGrammarVocabTestComponent } from './student-test/student-grammar-vocab-test/student-grammar-vocab-test.component';
+import { TestQuestionComponent } from './student-test/test-question/test-question.component';
+import { SectionTitleComponent } from './student-test/section-title/section-title.component';
+import {MatButtonModule} from "@angular/material/button";
+import { TestResultComponent } from './student-test/test-result/test-result.component';
+import { TestLandingComponent } from './student-test/test-landing/test-landing.component';
 @NgModule({
   declarations: [
     FooterComponent,
@@ -72,7 +80,14 @@ import { UserProfileComponent } from './auth/user-profile/user-profile.component
     ClassBoardComponent,
     ClassTestComponent,
     StudentTestComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    StudentListeningTestComponent,
+    StudentReadingTestComponent,
+    StudentGrammarVocabTestComponent,
+    TestQuestionComponent,
+    SectionTitleComponent,
+    TestResultComponent,
+    TestLandingComponent
   ],
   exports: [
     FooterComponent,
@@ -98,6 +113,7 @@ import { UserProfileComponent } from './auth/user-profile/user-profile.component
     MatToolbarModule,
     MatSelectModule,
     MatRadioModule,
+    MatButtonModule,
   ]
 })
 export class HomeModule { }

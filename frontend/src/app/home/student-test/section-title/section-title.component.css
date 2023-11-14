@@ -1,0 +1,17 @@
+
+.test-title{
+  width: 100%;
+  min-height: 200px;
+  max-height: 400px;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.title-attach{
+  width: 500px;
+}
+
+.question-select{
+  width: 15px;
+  height: 15px;
+}

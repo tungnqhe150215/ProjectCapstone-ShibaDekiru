@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-7">
+    <div *ngIf="selectedQuestion">
+      <app-student-test-question [section]="section" [question]="selectedQuestion"></app-student-test-question>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="test-title card mt-2">
+      <div class="card-title title-attach  m-3 border-bottom">
+        <h5 class="ml-2">{{section.sectionName}} </h5>
+      </div>
+      <div class="card-body title-attach">
+        <audio controls #audioElement *ngIf="section.sectionType === 'LISTENING' && currentAudioSource">
+          <source [src]="currentAudioSource" type="audio/mp3">
+        </audio>
+        <p *ngIf="section.sectionType === 'READING' ">{{section.sectionAttach}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mb-3 mt-4">
+  <div class="question-select m-3" *ngFor="let question of questionList, let i = index">
+    <button class="btn " [ngClass]="{ 'btn-success' :hasAnswer(question.questionBankId),' btn-outline-success': !hasAnswer(question.questionBankId)}" (click)="selectQuestion(question.questionBankId)">{{i+1}}</button>
+  </div>
+</div>
+
+

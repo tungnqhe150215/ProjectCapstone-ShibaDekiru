@@ -29,6 +29,7 @@ import {StudentTestComponent} from "./student-test/student-test.component";
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { UserProfileComponent } from './auth/user-profile/user-profile.component';
 import { UserChangePasswordComponent } from './auth/user-change-password/user-change-password.component';
+import {TestLandingComponent} from "./student-test/test-landing/test-landing.component";
 
 
 const routes: Routes = [
@@ -53,7 +54,7 @@ const routes: Routes = [
       {path: 'lesson/:id/reading', component: ListReadingComponent},
       {path: 'lesson/:id/writing', component:ListWritingComponent},
       {path: 'lesson/:id/listening', component:ListListeningComponent},
-      {path: 'test/:id', component: StudentTestComponent},
+      {path: 'c/:classId/t/:testId/do', component: StudentTestComponent},
       // {path: 'book/:id/lesson/detail/:id', component: DetailComponent},
       // {
       //   path: 'book',
@@ -62,15 +63,17 @@ const routes: Routes = [
       {path: 'post', component: ListPostComponent },
       {path: 'post/post-detail/:id', component:PostDetailComponent},
       {path: 'user-profile', component:UserProfileComponent},
+      {path: 'c/:classId/t/:testId/landing', component:TestLandingComponent},
+      {path: 'c/:classId/t/:testId/result', component:TestLandingComponent}
     ]
   },
-  
+
   {path: 'login', component: UserLoginComponent},
   {path: 'register', component: UserRegisterComponent},
 
   {path: 'reset-password', component:ForgotPasswordComponent},
   {path: 'change-password', component:UserChangePasswordComponent},
-    
+
 ];
 
 @NgModule({
