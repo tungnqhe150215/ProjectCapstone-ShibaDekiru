@@ -4,11 +4,12 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {QuestionBank} from "../../core/models/question-bank";
 import {TestSection} from "../../core/models/test-section";
+import {TestAssign} from "../../core/models/test-assign";
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentTestService {
+export class ClassTestService {
 
   private baseUrl = "http://localhost:8080/api/student";
 
@@ -17,8 +18,8 @@ export class StudentTestService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getTestByClass(id: number): Observable<Test[]> {
-    return this.httpClient.get<Test[]>(`${this.baseUrl}/class/${id}/test`);
+  getTestByClass(id: number): Observable<TestAssign[]> {
+    return this.httpClient.get<TestAssign[]>(`${this.baseUrl}/class/${id}/test`);
   }
 
   getTestById(id: number): Observable<Test> {

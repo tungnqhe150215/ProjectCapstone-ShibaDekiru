@@ -4,6 +4,7 @@ import com.google.api.services.drive.model.File;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface GoogleDriveService {
     String uploadFileToGoogleDrive(MultipartFile file);
