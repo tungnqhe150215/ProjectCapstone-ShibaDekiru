@@ -86,4 +86,8 @@ export class UseServiceService {
   resetPassword(resetCode: string, inforPassword: NewPassword): Observable<NewPassword>{
     return this.httpClient.post<NewPassword>(AUTH_API +'reset-password/'+`${resetCode}`,inforPassword );
   }
+
+  verifyEmail(resetCode:string): Observable<any>{
+    return this.httpClient.get<any>(AUTH_API+'verify/'+`${resetCode}`);
+  }
 }

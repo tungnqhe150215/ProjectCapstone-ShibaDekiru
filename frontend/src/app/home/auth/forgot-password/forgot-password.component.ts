@@ -34,6 +34,7 @@ export class ForgotPasswordComponent implements OnInit{
     .subscribe(
       data =>{
         console.log(data);
+        this.router.navigate(['/check-mail']);
         this.notifiService.openSnackBar('Xin vui lòng kiểm tra Email');
       }
     )
