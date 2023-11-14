@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -45,6 +46,9 @@ public class UserAccount implements UserDetails {
 
     @Column(name = "reset_code", nullable = true, length = 350)
     private String resetCode;
+
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
 
     @Column(name = "is_banned", nullable = false)
     private Boolean isBanned;
