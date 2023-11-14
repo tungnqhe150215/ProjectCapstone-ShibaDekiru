@@ -96,9 +96,9 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.reloadPage();
-        this.notifiService.openSnackBar('Đăng ký thành công');
-        // this.router.navigateByUrl('/login');
+        // this.reloadPage();
+        // this.notifiService.openSnackBar('Đăng ký thành công');
+        this.router.navigateByUrl('/active-account');
       },
       error: err =>{
         this.errorMessage = err.error.message;
@@ -133,6 +133,8 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
     this.router.navigate(['register']);
   }
 
-
+  forgotPassword(){
+    this.router.navigate(['forgot-password']);
+  }
 
 }

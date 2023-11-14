@@ -2,7 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ChangePassword } from 'src/app/core/models/change-password';
+import { ForgotPassword } from 'src/app/core/models/forgot-password';
 import { Lecture } from 'src/app/core/models/lecture';
+import { NewPassword } from 'src/app/core/models/new-password';
 import { Student } from 'src/app/core/models/student';
 
 const USER_KEY = 'auth-user';
@@ -73,4 +75,19 @@ export class UseServiceService {
     return this.httpClient.get<Lecture>(USER +'lecture/'+id);
   }
   
+  forgotPassword(inforEmail: ForgotPassword): Observable<Object>{
+    return this.httpClient.post(AUTH_API + 'forgot-password', inforEmail);
+  }
+
+  verifyUserByResetCode(resetCode:string){
+    return this.httpClient.get(AUTH_API +'reset-password/'+`${resetCode}`);
+  }
+
+  resetPassword(resetCode: string, inforPassword: NewPassword): Observable<NewPassword>{
+    return this.httpClient.post<NewPassword>(AUTH_API +'reset-password/'+`${resetCode}`,inforPassword );
+  }
+
+  verifyEmail(resetCode:string): Observable<any>{
+    return this.httpClient.get<any>(AUTH_API+'verify/'+`${resetCode}`);
+  }
 }

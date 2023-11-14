@@ -19,4 +19,6 @@ public interface IUserAccountService {
 
     UserAccount getUserAccountById(Long userAccountId);
 
+    UserAccount getUserAccountByEmail(String email);
+
 }

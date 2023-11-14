@@ -30,6 +30,10 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { UserProfileComponent } from './auth/user-profile/user-profile.component';
 import { UserChangePasswordComponent } from './auth/user-change-password/user-change-password.component';
 import {TestLandingComponent} from "./student-test/test-landing/test-landing.component";
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { WaitingRegisterComponent } from './auth/waiting-register/waiting-register.component';
+import { WaitingForgotPasswordComponent } from './auth/waiting-forgot-password/waiting-forgot-password.component';
+import { ActiveAccountComponent } from './auth/active-account/active-account.component';
 
 
 const routes: Routes = [
@@ -70,10 +74,13 @@ const routes: Routes = [
 
   {path: 'login', component: UserLoginComponent},
   {path: 'register', component: UserRegisterComponent},
-
-  {path: 'reset-password', component:ForgotPasswordComponent},
+  {path: 'forgot-password', component:ForgotPasswordComponent},
+  {path: 'reset-password/:resetCode', component:ResetPasswordComponent},
   {path: 'change-password', component:UserChangePasswordComponent},
 
+  {path: 'check-mail', component:WaitingForgotPasswordComponent},
+  {path: 'active-account', component:WaitingRegisterComponent},  
+  {path: 'verify/:resetCode', component:ActiveAccountComponent},
 ];
 
 @NgModule({

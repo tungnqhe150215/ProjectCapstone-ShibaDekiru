@@ -1,0 +1,26 @@
+<!-- <p>active-account works!</p>
+<form (click)="activateAccount()">
+    <button>Active Account</button>
+</form> -->
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="card py-4">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="round-image">
+                <img src="https://media.tenor.com/2EIm-E0LrQYAAAAC/shiba-inu.gif" class="rounded-circle" width="97">
+            </div>
+        </div>
+        <div class="text-center">
+            <h4 class="mt-3">Kích hoạt tài khoản</h4>
+            <span>Quay trở lại <a class="text-success" routerLink="/login">đăng nhập</a></span> 
+            <div class="px-5">
+                <form (click)="activateAccount1()">
+                <p class="content">Bấm vào nút "Kích hoạt" để có thể kích hoạt tài khoản của bạn</p>
+                <button class="btn btn-success follow">Kích hoạt</button>
+                <p *ngIf="activationMessage" class="text-danger mt-2">{{ activationMessage }}</p>
+                <p *ngIf="isButtonClicked && countdown > 0" class="text-success">Chúng tôi sẽ chuyển tới trang đăng nhập trong {{countdown}} giây...</p>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

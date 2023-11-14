@@ -52,6 +52,10 @@ import { SectionTitleComponent } from './student-test/section-title/section-titl
 import {MatButtonModule} from "@angular/material/button";
 import { TestResultComponent } from './student-test/test-result/test-result.component';
 import { TestLandingComponent } from './student-test/test-landing/test-landing.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { WaitingRegisterComponent } from './auth/waiting-register/waiting-register.component';
+import { WaitingForgotPasswordComponent } from './auth/waiting-forgot-password/waiting-forgot-password.component';
+import { ActiveAccountComponent } from './auth/active-account/active-account.component';
 @NgModule({
   declarations: [
     FooterComponent,
@@ -87,7 +91,11 @@ import { TestLandingComponent } from './student-test/test-landing/test-landing.c
     TestQuestionComponent,
     SectionTitleComponent,
     TestResultComponent,
-    TestLandingComponent
+    TestLandingComponent,
+    ResetPasswordComponent,
+    WaitingRegisterComponent,
+    WaitingForgotPasswordComponent,
+    ActiveAccountComponent
   ],
   exports: [
     FooterComponent,
