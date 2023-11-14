@@ -16,6 +16,7 @@ public class UserAccountDto {
     private String password;
     private String email;
     private String resetCode;
+    private Boolean isActive;
     private Boolean isBanned;
     private Role role;
 }

@@ -77,6 +77,22 @@ public class JWTUtilityService {
         return null;
     }
 
+    public boolean isTokenExpired(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secretKey);
+            JWTVerifier jwtVerifier = JWT.require(algorithm)
+                    .withIssuer("auth0")
+                    .build();
+
+            DecodedJWT decodedJWT = jwtVerifier.verify(token);
+            Date expiredDate = decodedJWT.getExpiresAt();
+
+            return expiredDate.getTime() < System.currentTimeMillis();
+        } catch (JWTVerificationException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        }
+    }
+
     @Getter
     private static final JWTUtilityService instance = new JWTUtilityService();
 

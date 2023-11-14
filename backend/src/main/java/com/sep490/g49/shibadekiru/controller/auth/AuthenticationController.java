@@ -48,6 +48,9 @@ public class AuthenticationController {
     private UserAccountServiceImpl userAccountService;
 
     @Autowired
+    private UserAccountRepository userAccountRepository;
+
+    @Autowired
     private JWTUtilityService jwtUtilityService;
 
     @Autowired
@@ -78,7 +81,7 @@ public class AuthenticationController {
         String accessToken = authResult.getAccessToken();
         UserAccountDto userAccountDto = authenticationService.getUserInfoByToken(accessToken);
 
-        if (userAccountDto.getIsBanned().equals(false)) {
+        if (userAccountDto.getIsBanned().equals(false) && userAccountDto.getIsActive().equals(true)) {
 
             System.out.println("Token: " + accessToken);
             System.out.println("Nick name: " +  userAccountDto.getNickName());
@@ -101,6 +104,24 @@ public class AuthenticationController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
+    }
+
+    @GetMapping("/verify/{resetCode}")
+    public ResponseEntity<?> registerVerification(@PathVariable (name = "resetCode") String resetCode) throws Exception {
+
+        UserAccount userAccount = userAccountService.getByResetCode(resetCode);
+        System.out.println("Reset code register on: " + userAccount.getResetCode());
+
+        if (jwtUtilityService.isTokenExpired(resetCode)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+
+        userAccount.setIsActive(true);
+        userAccountService.updateResetCode(null, userAccount.getEmail());
+        userAccountRepository.save(userAccount);
+
+        return ResponseEntity.ok("Active account successfully!");
     }
 
     @PostMapping("/forgot-password")
