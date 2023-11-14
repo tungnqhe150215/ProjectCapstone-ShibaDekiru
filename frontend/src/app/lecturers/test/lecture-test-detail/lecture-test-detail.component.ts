@@ -148,6 +148,7 @@ export class QuestionBankCreateDialog {
 
   createQuestionBank(){
     console.log(this.questionBank)
+    console.log(this.data)
     this.manageQuestionBankService.createQuestionBank(this.data,this.questionBank).subscribe(data => {
       this.dialogRef.close();
     })
