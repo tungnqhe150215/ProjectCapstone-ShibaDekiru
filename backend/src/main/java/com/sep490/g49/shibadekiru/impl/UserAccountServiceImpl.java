@@ -67,6 +67,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
             userAccount1.setPassword(userAccount.getPassword());
             userAccount1.setEmail(userAccount.getEmail());
             userAccount1.setResetCode(userAccount.getResetCode());
+            userAccount1.setIsActive(true);
             userAccount1.setIsBanned(userAccount.getIsBanned());
             userAccount1.setRole(role);
 
@@ -93,6 +94,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
             userAccount1.setEmail(userAccount.getEmail());
             userAccount1.setResetCode(userAccount.getResetCode());
             userAccount1.setIsBanned(userAccount.getIsBanned());
+            userAccount1.setIsActive(true);
             userAccount1.setRole(userAccount.getRole());
 
             return userAccountRepository.save(userAccount1);

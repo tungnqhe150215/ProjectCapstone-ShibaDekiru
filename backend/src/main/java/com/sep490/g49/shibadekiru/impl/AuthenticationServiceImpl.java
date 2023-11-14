@@ -5,6 +5,8 @@ import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.*;
+import com.sep490.g49.shibadekiru.util.JWTUtilityService;
+import com.sep490.g49.shibadekiru.util.MailServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,24 +52,38 @@ public class AuthenticationServiceImpl {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JWTUtilityService jwtUtilityService;
+
+    @Autowired
+    private MailServiceProvider mailServiceProvider;
+
     public void register(RegisterResponse request) {
-        Role role = roleRepository.findById(request.getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role "));
-        var user = UserAccount.builder()
-                .nickName(request.getNickName())
-                .memberId(request.getMemberId())
-                .userName(request.getUserName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .resetCode(null)
-                .isBanned(false)
-                .role(role)
-                .build();
+        Role role = roleRepository.findById(request.getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + request.getRoleId()));
 
         Optional<UserAccount> existingUser = userAccountRepository.findByEmailOrMemberId(request.getEmail(), request.getMemberId());
         if (existingUser.isPresent()) {
             throw new IllegalStateException("Email already or member be exists.");
         } else {
-            var savedUser = userAccountRepository.save(user);
+
+            UserAccount userAccount = new UserAccount();
+
+            userAccount.setNickName(request.getNickName());
+            userAccount.setMemberId(request.getMemberId());
+            userAccount.setUserName(request.getUserName());
+            userAccount.setEmail(request.getEmail());
+            userAccount.setPassword(passwordEncoder.encode(request.getPassword()));
+            userAccount.setIsActive(false);
+            userAccount.setIsBanned(false);
+            userAccount.setRole(role);
+
+            int minus = 10;
+
+            String resetCode = jwtUtilityService.createJWT(userAccount, minus);
+            System.out.println("Reset code trong register: " + resetCode);
+            userAccount.setResetCode(resetCode);
+
+            UserAccount savedUser = userAccountRepository.save(userAccount);
 
             for (RoleType roleType : RoleType.values()) {
                 if (roleType.getId() == role.getRoleId()) {
@@ -91,17 +107,28 @@ public class AuthenticationServiceImpl {
             }
 
 
-            var jwtToken = jwtService.generateToken( user);
+            //var jwtToken = jwtService.generateToken(userAccount);
             //var refreshToken = jwtService.generateRefreshToken(user);
-            saveUserToken(savedUser, jwtToken);
+            sendEmail(userAccount.getEmail(), resetCode, minus);
+            //saveUserToken(savedUser, jwtToken);
 
         }
 
-
-
-
     }
 
+    private void sendEmail(String recipientEmail, String resetCode, int minus) {
+
+        String resetLink = "http://localhost:4200/verify/" + resetCode;
+
+        String subject = "Here's the link to activate your account";
+        String content = "<p>Hello,</p>"
+                + "<p>You have requested to activate your account.</p>"
+                + "<p>Click the link below to activate your account:</p>"
+                + "<p><a href='"+ resetLink +"'>Active Now</a></p>"
+                + "<br>"
+                + "<p> This link will expire <strong style=\"color: red; font-size: 18px;\"> "+minus+" </strong> minutes after the email is sent. </p>";
+        mailServiceProvider.sendEmail(recipientEmail, subject, content);
+    }
 
 
 
@@ -179,7 +206,7 @@ public class AuthenticationServiceImpl {
 
     public UserAccountDto getUserInfoByToken(String token) {
         UserAccount users = tokenRepository.findUserAccountByToken(token);
-        System.out.println("usser" + users.getRole().getRoleId());
+        System.out.println("User" + users.getRole().getRoleId());
             UserAccount user = users;
             RoleType roleType = RoleType.valueOf(RoleType.getRoleTypeById(Math.toIntExact(user.getRole().getRoleId())));
             user.getRole().setRoleType(roleType);
@@ -191,6 +218,7 @@ public class AuthenticationServiceImpl {
             userAccountDto.setMemberId(user.getMemberId());
             userAccountDto.setPassword(user.getPassword());
             userAccountDto.setIsBanned(user.getIsBanned());
+            userAccountDto.setIsActive(user.getIsActive());
             userAccountDto.setResetCode(user.getResetCode());
             userAccountDto.setRole(user.getRole());
 
