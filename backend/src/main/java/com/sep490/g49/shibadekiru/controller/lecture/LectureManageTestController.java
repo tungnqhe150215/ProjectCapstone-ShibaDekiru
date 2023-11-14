@@ -146,9 +146,9 @@ public class LectureManageTestController {
     }
 
     @PutMapping("/test/assign")
-    public ResponseEntity<TestAssignDto> updateClassTest( @RequestParam("id") Long id, @RequestParam("extendTime") int extendTime) {
+    public ResponseEntity<TestAssignDto> updateClassTest( @RequestParam("id") Long id, @RequestParam("extendTime") Long extendTime) {
 
-        ClassTestAssign classTestAssign = iClassTestAssignService.updateExpireDate(id, extendTime);
+        ClassTestAssign classTestAssign = iClassTestAssignService.updateExpireDate(id, Math.toIntExact(extendTime));
 
         TestAssignDto assignDto = modelMapper.map(classTestAssign,TestAssignDto.class);
 
