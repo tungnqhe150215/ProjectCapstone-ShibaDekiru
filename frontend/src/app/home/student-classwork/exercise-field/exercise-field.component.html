@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row exercise-title">
+    <h4>{{exercise.title}}</h4>
+  </div>
+  <div class="row question " *ngFor="let question of writingExercise, let i = index">
+    <p>{{i+1}}.{{question.question}}</p>
+    <mat-form-field>
+      <input matInput type="text">
+    </mat-form-field>
+  </div>
+</div>

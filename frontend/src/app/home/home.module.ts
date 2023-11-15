@@ -56,6 +56,8 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { WaitingRegisterComponent } from './auth/waiting-register/waiting-register.component';
 import { WaitingForgotPasswordComponent } from './auth/waiting-forgot-password/waiting-forgot-password.component';
 import { ActiveAccountComponent } from './auth/active-account/active-account.component';
+import { StudentClassworkComponent } from './student-classwork/student-classwork.component';
+import { ExerciseFieldComponent } from './student-classwork/exercise-field/exercise-field.component';
 @NgModule({
   declarations: [
     FooterComponent,
@@ -95,7 +97,9 @@ import { ActiveAccountComponent } from './auth/active-account/active-account.com
     ResetPasswordComponent,
     WaitingRegisterComponent,
     WaitingForgotPasswordComponent,
-    ActiveAccountComponent
+    ActiveAccountComponent,
+    StudentClassworkComponent,
+    ExerciseFieldComponent
   ],
   exports: [
     FooterComponent,
