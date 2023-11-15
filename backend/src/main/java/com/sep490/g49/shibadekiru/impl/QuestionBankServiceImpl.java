@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.entity.QuestionBank;
+import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.entity.TestSection;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.QuestionBankRepository;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +40,18 @@ public class QuestionBankServiceImpl implements IQuestionBankService {
         }
 
         return questionBank;
+    }
+
+    @Override
+    public List<QuestionBank> getQuestionByTest(Test test) {
+        List<QuestionBank> questionBankList = new ArrayList<>();
+
+        List<TestSection> testSections = testSectionRepository.findTestSectionsByTest(test);
+        testSections.forEach(testSection -> {
+            List<QuestionBank> draftList = questionBankRepository.findBySection(testSection);
+            questionBankList.addAll(draftList);
+        });
+        return questionBankList;
     }
 
     @Override

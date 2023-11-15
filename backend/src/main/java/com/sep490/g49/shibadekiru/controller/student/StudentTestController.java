@@ -63,6 +63,13 @@ public class StudentTestController {
     }
 
 
+    @GetMapping("/test/{id}/question")
+    public List<QuestionBankDto> getQuestionByTest(@PathVariable("id") Long id) {
+        Test test = iTestService.getTestById(id);
+
+        return iQuestionBankService.getQuestionByTest(test).stream().map(questionBank -> map.map(questionBank, QuestionBankDto.class)).collect(Collectors.toList());
+    }
+
     @GetMapping("/test/section/{id}/question")
     public List<QuestionBankDto> getQuestionBySection(@PathVariable("id") Long id) {
         TestSection testSection = iTestSectionService.getTestSectionById(id);
@@ -74,10 +81,21 @@ public class StudentTestController {
 
         TestResult testResultRequest = map.map(testResultDto, TestResult.class);
 
-        TestResult testResult = iTestResultService.createTestResult(testResultRequest);
+        TestResult testResult= new TestResult();
 
+        if (iTestResultService.checkTestResultExist(testResultRequest.getStudent(),testResultRequest.getTestSection())){
+           testResult = iTestResultService.updateTestResult(testResultRequest);
+        } else {
+            testResult = iTestResultService.createTestResult(testResultRequest);
+        }
         TestResultDto testResultResponse = map.map(testResult, TestResultDto.class);
 
         return new ResponseEntity<TestResultDto>(testResultResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/test/result")
+    public List<TestResultDto> getTestResultByTestAndStudent(@RequestParam("testId") Long testId, @RequestParam("studentId") Long studentId) {
+        return iTestResultService.getTestResultByTestAndStudent(testId,studentId)
+                        .stream().map(testResult -> map.map(testResult, TestResultDto.class)).collect(Collectors.toList());
     }
 }

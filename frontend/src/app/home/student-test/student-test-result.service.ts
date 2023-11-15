@@ -30,8 +30,9 @@ export class StudentTestResultService {
     return this.httpClient.post(`${this.baseUrl}/result`, testResult);
   }
 
-  getTestResultById(id: number): Observable<TestSection> {
-    return this.httpClient.get<TestSection>(`${this.baseUrl}/section/${id}`);
+  getTestResultByStudentAndTest(studentId: number,testId: number): Observable<TestResult[]> {
+    const params = new HttpParams().set('studentId', studentId).set('testId',testId)
+    return this.httpClient.get<TestResult[]>(`${this.baseUrl}/result`,{params: params});
   }
 
   updateTestSection(id: number, testSection: TestSection): Observable<Object> {

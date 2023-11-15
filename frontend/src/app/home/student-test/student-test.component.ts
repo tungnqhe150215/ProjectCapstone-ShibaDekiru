@@ -11,6 +11,7 @@ import {SessionStorageService} from "../../shared/services/session-storage.servi
 import {Student} from "../../core/models/student";
 import {StudentTestResultService} from "./student-test-result.service";
 import {CurrentTimeFormatService} from "../../shared/services/current-time-format.service";
+import {QuestionBank} from "../../core/models/question-bank";
 
 @Component({
   selector: 'app-student-test',
@@ -29,6 +30,7 @@ export class StudentTestComponent implements OnInit,OnDestroy{
   grammarVocabSection:TestSection[] = [];
   draftResult: TestResult = new TestResult();
   student: Student = new Student();
+  allQuestion:QuestionBank[] = [];
   // Xử lý sự kiện khi người dùng chọn đáp án
   displayCountdown!: string;
 
@@ -60,7 +62,12 @@ export class StudentTestComponent implements OnInit,OnDestroy{
     this.testService.getTestSectionByTest(this.testId).subscribe(data => {
       this.testSection = data
       this.listSection();
+      this.testService.getQuestionByTest(this.testId).subscribe(data => {
+        this.allQuestion = data
+        this.getDefaultAnswer();
+      })
     })
+
   }
 
   ngOnDestroy() {
@@ -86,6 +93,11 @@ export class StudentTestComponent implements OnInit,OnDestroy{
         this.displayCountdown = this.formatTime(hours) + ':' + this.formatTime(minutes) + ':' + this.formatTime(seconds);
       }
     });
+  }
+
+  getDefaultAnswer(){
+    this.answerService.initializeAnswers(this.allQuestion,this.testSection);
+    console.log(this.answerService.getAnswer(6));
   }
 
   private formatTime(time: number): string {

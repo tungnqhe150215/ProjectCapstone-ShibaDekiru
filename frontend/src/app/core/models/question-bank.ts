@@ -2,7 +2,7 @@ import {TestSection} from "./test-section";
 
 export class QuestionBank {
     questionBankId!:number
-    testSection!:TestSection
+    section!:TestSection
     question!:string
     firstChoice!:string
     secondChoice!:string

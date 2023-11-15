@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.service;
 
+import com.sep490.g49.shibadekiru.entity.Student;
 import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.entity.TestResult;
 import com.sep490.g49.shibadekiru.entity.TestSection;
@@ -14,7 +15,11 @@ public interface ITestResultService {
 
     TestResult createTestResult(TestResult testResultRequest);
 
-    TestResult updateTestResult(Long id, TestResult testResultRequest);
+    TestResult updateTestResult(TestResult testResultRequest);
 
     void deleteTestResult(Long id);
+
+    List<TestResult> getTestResultByTestAndStudent(Long testId, Long studentId);
+
+    boolean checkTestResultExist(Student student, TestSection testSection);
 }

@@ -12,6 +12,8 @@ public interface IQuestionBankService {
 
     QuestionBank getQuestionById(long questionId);
 
+    List<QuestionBank> getQuestionByTest(Test test);
+
     QuestionBank createQuestion(QuestionBank questionBank);
 
     QuestionBank updateQuestion(Long questionId, QuestionBank questionBankUpdate);
