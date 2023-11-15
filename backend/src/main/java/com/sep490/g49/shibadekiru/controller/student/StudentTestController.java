@@ -74,10 +74,21 @@ public class StudentTestController {
 
         TestResult testResultRequest = map.map(testResultDto, TestResult.class);
 
-        TestResult testResult = iTestResultService.createTestResult(testResultRequest);
+        TestResult testResult= new TestResult();
 
+        if (iTestResultService.checkTestResultExist(testResultRequest.getStudent(),testResultRequest.getTestSection())){
+           testResult = iTestResultService.updateTestResult(testResultRequest);
+        } else {
+            testResult = iTestResultService.createTestResult(testResultRequest);
+        }
         TestResultDto testResultResponse = map.map(testResult, TestResultDto.class);
 
         return new ResponseEntity<TestResultDto>(testResultResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/test/result")
+    public List<TestResultDto> getTestResultByTestAndStudent(@RequestParam("testId") Long testId, @RequestParam("studentId") Long studentId) {
+        return iTestResultService.getTestResultByTestAndStudent(testId,studentId)
+                        .stream().map(testResult -> map.map(testResult, TestResultDto.class)).collect(Collectors.toList());
     }
 }

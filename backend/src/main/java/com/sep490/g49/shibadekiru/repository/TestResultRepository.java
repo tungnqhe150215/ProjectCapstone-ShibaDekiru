@@ -13,5 +13,5 @@ import java.util.List;
 public interface TestResultRepository extends JpaRepository<TestResult, Long> {
     List<TestResult> findTestResultsByTestSection(TestSection test);
 
-    List<TestResult> findTestResultsByStudent(Student student);
+    TestResult findTestResultsByStudentAndTestSection(Student student,TestSection testSection);
 }
