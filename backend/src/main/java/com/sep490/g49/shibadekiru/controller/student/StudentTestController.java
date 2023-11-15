@@ -63,6 +63,13 @@ public class StudentTestController {
     }
 
 
+    @GetMapping("/test/{id}/question")
+    public List<QuestionBankDto> getQuestionByTest(@PathVariable("id") Long id) {
+        Test test = iTestService.getTestById(id);
+
+        return iQuestionBankService.getQuestionByTest(test).stream().map(questionBank -> map.map(questionBank, QuestionBankDto.class)).collect(Collectors.toList());
+    }
+
     @GetMapping("/test/section/{id}/question")
     public List<QuestionBankDto> getQuestionBySection(@PathVariable("id") Long id) {
         TestSection testSection = iTestSectionService.getTestSectionById(id);

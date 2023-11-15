@@ -39,4 +39,8 @@ export class StudentTestService {
   getQuestionBySectionId(id:number): Observable<QuestionBank[]>{
     return this.httpClient.get<QuestionBank[]>(`${this.baseUrl}/test/section/${id}/question`);
   }
+
+  getQuestionByTest(id:number): Observable<QuestionBank[]>{
+    return this.httpClient.get<QuestionBank[]>(`${this.baseUrl}/test/${id}/question`);
+  }
 }

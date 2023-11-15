@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {QuestionBank} from "../../core/models/question-bank";
+import {TestSection} from "../../core/models/test-section";
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +50,19 @@ export class StudentAnswerService {
     const incorrectAnswers = totalQuestions - correctAnswers;
 
     return { totalQuestions, correctAnswers, incorrectAnswers };
+  }
+
+  clearAllAnswers(): void {
+    this.answers = {};
+  }
+
+  initializeAnswers(questionBank: QuestionBank[],section: TestSection[]): void {
+    questionBank.forEach((question) => {
+      section.forEach(section => {
+          if (question.section.sectionId === section.sectionId) {
+            this.setAnswer(question.questionBankId, '', question.correctAnswer, question.section.sectionId as number, section.sectionType);
+          }
+      })
+    });
   }
 }

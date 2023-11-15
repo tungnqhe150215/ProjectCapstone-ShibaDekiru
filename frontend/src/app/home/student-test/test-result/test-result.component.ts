@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TestResult} from "../../../core/models/test-result";
 import {StudentTestResultService} from "../student-test-result.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,7 +10,7 @@ import {StudentAnswerService} from "../student-answer.service";
   templateUrl: './test-result.component.html',
   styleUrls: ['./test-result.component.css', '../../home-style.css']
 })
-export class TestResultComponent implements OnInit {
+export class TestResultComponent implements OnInit,OnDestroy {
 
   testResultList: TestResult[] = [];
 
@@ -25,6 +25,10 @@ export class TestResultComponent implements OnInit {
               private route: ActivatedRoute,
               private sessionStorage: SessionStorageService,
               private studentAnswer: StudentAnswerService) {
+  }
+
+  ngOnDestroy(): void {
+    this.studentAnswer.clearAllAnswers();
   }
 
   ngOnInit(): void {
