@@ -1,0 +1,18 @@
+.card {
+  border-radius: 20px;
+  width: 80%;
+  margin: 10px auto;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Để lệch phải, bạn có thể sử dụng float-right hoặc một lớp float của riêng bạn tùy ý. */
+.float-right {
+  float: right;
+}

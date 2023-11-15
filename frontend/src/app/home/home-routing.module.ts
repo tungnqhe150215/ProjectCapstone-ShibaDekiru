@@ -35,6 +35,7 @@ import { WaitingRegisterComponent } from './auth/waiting-register/waiting-regist
 import { WaitingForgotPasswordComponent } from './auth/waiting-forgot-password/waiting-forgot-password.component';
 import { ActiveAccountComponent } from './auth/active-account/active-account.component';
 import {TestResultComponent} from "./student-test/test-result/test-result.component";
+import {StudentClassworkComponent} from "./student-classwork/student-classwork.component";
 
 
 const routes: Routes = [
@@ -69,7 +70,8 @@ const routes: Routes = [
       {path: 'post/post-detail/:id', component:PostDetailComponent},
       {path: 'user-profile', component:UserProfileComponent},
       {path: 'c/:classId/t/:testId/landing', component:TestLandingComponent},
-      {path: 'c/:classId/t/:testId/result', component:TestResultComponent}
+      {path: 'c/:classId/t/:testId/result', component:TestResultComponent},
+      {path: 'c/:classId/cw/:classworkId/do', component:StudentClassworkComponent}
     ]
   },
 
