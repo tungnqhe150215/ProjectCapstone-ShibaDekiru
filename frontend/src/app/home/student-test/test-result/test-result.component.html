@@ -2,12 +2,21 @@
   <div class="landing-container">
     <div class="card pt-3">
       <div class="card-header">
-        <h1></h1>
+        <h1>Kết quả kiểm tra</h1>
       </div>
       <div class="card-body">
-        <p>Thời gian làm bài: phút</p>
+        <p *ngIf="typeLength('LISTENING') > 0">
+          Nghe: {{typeCorrectAnswer('LISTENING')}}/{{typeTotalQuestion('LISTENING')}}
+        </p>
+        <p *ngIf="typeLength('READING') > 0">
+          Đọc: {{typeCorrectAnswer('READING')}}/{{typeTotalQuestion('READING')}}
+        </p>
+        <p *ngIf="typeLength('GRAMMAR_VOCAB') > 0">
+          Ngữ pháp: {{typeCorrectAnswer('GRAMMAR_VOCAB')}}/{{typeTotalQuestion('GRAMMAR_VOCAB')}}
+        </p>
+        <p class="test-result">Kết quả : {{avarageResult}}  điểm</p>
         <!-- Các thông tin khác về bài test -->
-        <button class="btn btn-outline-success " (click)="backToClass()">Bắt đầu làm bài</button>
+        <button class="btn btn-outline-success " (click)="backToClass()">Quay về lớp</button>
       </div>
     </div>
   </div>

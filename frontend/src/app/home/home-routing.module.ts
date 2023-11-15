@@ -34,6 +34,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { WaitingRegisterComponent } from './auth/waiting-register/waiting-register.component';
 import { WaitingForgotPasswordComponent } from './auth/waiting-forgot-password/waiting-forgot-password.component';
 import { ActiveAccountComponent } from './auth/active-account/active-account.component';
+import {TestResultComponent} from "./student-test/test-result/test-result.component";
 
 
 const routes: Routes = [
@@ -68,7 +69,7 @@ const routes: Routes = [
       {path: 'post/post-detail/:id', component:PostDetailComponent},
       {path: 'user-profile', component:UserProfileComponent},
       {path: 'c/:classId/t/:testId/landing', component:TestLandingComponent},
-      {path: 'c/:classId/t/:testId/result', component:TestLandingComponent}
+      {path: 'c/:classId/t/:testId/result', component:TestResultComponent}
     ]
   },
 
@@ -79,7 +80,7 @@ const routes: Routes = [
   {path: 'change-password', component:UserChangePasswordComponent},
 
   {path: 'check-mail', component:WaitingForgotPasswordComponent},
-  {path: 'active-account', component:WaitingRegisterComponent},  
+  {path: 'active-account', component:WaitingRegisterComponent},
   {path: 'verify/:resetCode', component:ActiveAccountComponent},
 ];
 
