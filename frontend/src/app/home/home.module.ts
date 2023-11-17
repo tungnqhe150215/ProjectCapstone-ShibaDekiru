@@ -35,7 +35,7 @@ import { ListCommentComponent } from './post/post-detail/list-comment/list-comme
 import { MatTabsModule } from '@angular/material/tabs';
 import {ClassworkComponent} from "./class/class-landing/classwork/classwork.component";
 import {ClassLandingComponent} from "./class/class-landing/class-landing.component";
-import {ClassBoardComponent} from "./class/class-landing/class-board/class-board.component";
+import {ClassBoardComponent} from "./class/class-landing/classwork-result/class-board.component";
 import { ClassTestComponent } from './class/class-landing/class-test/class-test.component';
 import { StudentTestComponent } from './student-test/student-test.component';
 import {MatListModule} from "@angular/material/list";
@@ -58,6 +58,8 @@ import { WaitingForgotPasswordComponent } from './auth/waiting-forgot-password/w
 import { ActiveAccountComponent } from './auth/active-account/active-account.component';
 import { StudentClassworkComponent } from './student-classwork/student-classwork.component';
 import { ExerciseFieldComponent } from './student-classwork/exercise-field/exercise-field.component';
+import { ClassworkCompleteComponent } from './student-classwork/classwork-complete/classwork-complete.component';
+import { ClassTestResultComponent } from './class/class-landing/class-test-result/class-test-result.component';
 @NgModule({
   declarations: [
     FooterComponent,
@@ -99,7 +101,9 @@ import { ExerciseFieldComponent } from './student-classwork/exercise-field/exerc
     WaitingForgotPasswordComponent,
     ActiveAccountComponent,
     StudentClassworkComponent,
-    ExerciseFieldComponent
+    ExerciseFieldComponent,
+    ClassworkCompleteComponent,
+    ClassTestResultComponent
   ],
   exports: [
     FooterComponent,

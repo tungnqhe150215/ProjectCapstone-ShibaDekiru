@@ -14,6 +14,7 @@ import {data} from "autoprefixer";
 export class ExerciseFieldComponent implements OnInit, OnChanges {
   @Input() exercise: Exercise = new Exercise()
   writingExercise: WritingExercise[] = []
+  answers: { [writingQuizId: number]: { userAnswer: string, exerciseId: number } } = {};
 
   constructor(private route: ActivatedRoute,
               private answer: ClassworkAnswerService,
@@ -33,6 +34,23 @@ export class ExerciseFieldComponent implements OnInit, OnChanges {
   getWritingExercise(){
     this.classwork.getWritingExerciseByExercise(this.exercise.exerciseId).subscribe(data => {
       this.writingExercise = data
+      console.log(this.writingExercise)
     })
+  }
+
+  getAnswerByWritingQuizId(writingQuizId: number): { userAnswer: string, exerciseId: number } {
+    return this.answers[writingQuizId] || { userAnswer: '', exerciseId: null };
+  }
+
+  onAnswerChange(newAnswer: string, writingQuizId: number): void {
+    const answer = this.answer.getAnswer(writingQuizId) || { writingQuizId, userAnswer: '', exerciseId: null };
+    answer.userAnswer = newAnswer;
+    this.setAnswer(writingQuizId, answer);
+    // Thực hiện các hành động khác nếu cần
+  }
+
+  setAnswer(writingQuizId: number, answer: { userAnswer: string, exerciseId: number }): void {
+    this.answers[writingQuizId] = { ...answer };
+    // Thực hiện các hành động khác nếu cần
   }
 }

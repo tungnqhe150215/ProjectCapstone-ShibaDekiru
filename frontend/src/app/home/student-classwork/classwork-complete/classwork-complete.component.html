@@ -1,0 +1,17 @@
+<div class="p_120">
+  <div class="landing-container">
+    <div class="card pt-3">
+      <div class="card-body">
+        <mat-icon style="color: greenyellow;width: 30px;height: 30px">done</mat-icon>
+        <p>Bạn đã nộp bài thành công</p>
+        <p>Thời gian nộp bài: {{studentClasswork.submitTime | date:"MM - dd - yyyy "}}</p>
+        <p>Hạn nộp bài: {{studentClasswork.classWork.deadline | date:"MM - dd - yyyy "}}</p>
+        <!-- Các thông tin khác về bài test -->
+        <button class="btn btn-outline-info" (click)="backToClassWork()">Kiểm tra lại</button>
+        <button class="btn btn-outline-success " (click)="backToClass()">Quay về lớp</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
