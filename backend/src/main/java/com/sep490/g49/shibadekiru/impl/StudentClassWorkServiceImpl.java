@@ -1,6 +1,7 @@
 package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.entity.*;
+import com.sep490.g49.shibadekiru.entity.Class;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.*;
 import com.sep490.g49.shibadekiru.service.IStudentClassWorkService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +23,9 @@ public class StudentClassWorkServiceImpl implements IStudentClassWorkService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private ClassRepository classRepository;
 
     @Override
     public List<StudentClassWork> getStudentClassWorkByStudent(Student student) {
@@ -61,6 +66,19 @@ public class StudentClassWorkServiceImpl implements IStudentClassWorkService {
         ClassWork classWork = classWorkRepository.findById(classworkId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
         StudentClassWork studentClassWork = studentClassWorkRepository.findByStudentAndClassWork(student,classWork);
         return studentClassWork;
+    }
+
+    @Override
+    public List<StudentClassWork> getStudentClassWorkByClassAndStudent(Long classId, Long studentId) {
+        Class aClass = classRepository.findById(classId).orElseThrow(null);
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        List<ClassWork> classWorks = classWorkRepository.findByMyC(aClass);
+        List<StudentClassWork> studentClassWorks = new ArrayList<>();
+        classWorks.forEach(classWork -> {
+            if (studentClassWorkRepository.findByStudentAndClassWork(student,classWork) != null)
+            studentClassWorks.add(studentClassWorkRepository.findByStudentAndClassWork(student,classWork));
+        });
+        return studentClassWorks;
     }
 
     @Override

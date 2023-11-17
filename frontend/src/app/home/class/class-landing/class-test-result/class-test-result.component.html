@@ -1,18 +1,29 @@
 <div class="container mt-4">
-  <div class="card rounded" *ngFor="let classwork of classWork">
+  <div class="card rounded m-3" >
     <div class="row">
-      <div class="col-md-8">
         <div class="card-body">
-          <h3 class="card-title text-center">{{classwork.name}}</h3>
-          <p class="card-text text-center">Ngày tạo: {{classwork.createdAt | date:"MM - dd - yyyy " }}</p>
-          <p class="card-text text-center">Hạn làm bài: {{classwork.deadline | date:"MM - dd - yyyy "}}</p>
+          <h3 class="card-title text-center">Bài test 1</h3>
+          <p> Điểm 6.5</p>
+          <p> Điểm thành phần</p>
+          <div class="row">
+            <div class="col-md-4 ">
+              <h6>Nghe</h6>
+              <p> - Phần nghe 1: 5 điểm</p>
+              <p> - Phần nghe 2: 3 điểm</p>
+            </div>
+            <div class="col-md-4 ">
+              <h6>Đọc</h6>
+              <p> - Phần đọc 1: 4 điểm</p>
+              <p> - Phần đọc 2: 6 điểm</p>
+            </div>
+            <div class="col-md-4 ">
+                <h6>Ngữ pháp và từ vựng</h6>
+                <p> - Phần đọc 1: 3 điểm</p>
+            </div>
+          </div>
+<!--          <p class="card-text text-center">Ngày tạo: {{classwork.createdAt | date:"MM - dd - yyyy " }}</p>-->
+<!--          <p class="card-text text-center">Hạn làm bài: {{classwork.deadline | date:"MM - dd - yyyy "}}</p>-->
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="text-center">
-          <button class=" btn btn-outline-success mt-2" (click)="goToClasswork(classwork.classWorkId)">Làm bài</button>
-        </div>
-      </div>
-    </div>
   </div>
 </div>

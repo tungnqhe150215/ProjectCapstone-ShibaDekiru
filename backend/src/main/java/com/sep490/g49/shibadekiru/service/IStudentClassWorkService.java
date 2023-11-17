@@ -19,5 +19,7 @@ public interface IStudentClassWorkService {
 
     StudentClassWork getStudentClassWorkByClassWorkAndStudent(Long classworkId, Long studentId);
 
+    List<StudentClassWork> getStudentClassWorkByClassAndStudent(Long classId, Long studentId);
+
     boolean checkStudentClassWorkExist(Student student, ClassWork classWork);
 }

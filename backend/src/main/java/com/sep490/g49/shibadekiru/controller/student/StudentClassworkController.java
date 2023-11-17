@@ -88,6 +88,15 @@ public class StudentClassworkController {
             return writingExerciseDtos;
     }
 
+    @GetMapping("class/classwork/result")
+    public List<StudentClassWorkDto> getStudentClassworkByClassAndStudent(@RequestParam("studentId") Long studentId, @RequestParam("classId") Long classId) {
+        List<StudentClassWorkDto> studentClassWorkDto = new ArrayList<>();
+        if (iStudentClassWorkService.getStudentClassWorkByClassAndStudent(classId, studentId).size() > 0)
+            return iStudentClassWorkService.getStudentClassWorkByClassAndStudent(classId, studentId).stream().map(studentClassWork -> mapper.map(studentClassWork, StudentClassWorkDto.class)).collect(Collectors.toList());
+        else
+            return studentClassWorkDto;
+    }
+
     @PostMapping("/exercise/answer")
     public ResponseEntity<WritingExerciseAnswerDto> createWritingExerciseAnswer(@RequestBody WritingExerciseAnswerDto writingExerciseAnswerDto) {
 

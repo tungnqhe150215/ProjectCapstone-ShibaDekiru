@@ -1,1 +1,21 @@
-<p>class-board works!</p>
+<div class="container mt-4">
+  <div class="card rounded m-3" *ngFor="let studentClasswork of studentClasswork">
+      <div class="card-header">
+        <h5 class="card-title text-center">{{studentClasswork.classWork.name}}</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8 ">
+            <p> Trạng thái: </p>
+            <p style="color: red" *ngIf="studentClasswork.submitTime > studentClasswork.classWork.deadline">Nộp muộn</p>
+            <p style="color: green" *ngIf="studentClasswork.submitTime <= studentClasswork.classWork.deadline">Nộp đúng hạn</p>
+          </div>
+          <div class="col-md-4 ">
+            <h6>Điểm : {{studentClasswork.result}}</h6>
+          </div>
+        </div>
+        <!--          <p class="card-text text-center">Ngày tạo: {{classwork.createdAt | date:"MM - dd - yyyy " }}</p>-->
+        <!--          <p class="card-text text-center">Hạn làm bài: {{classwork.deadline | date:"MM - dd - yyyy "}}</p>-->
+      </div>
+  </div>
+</div>

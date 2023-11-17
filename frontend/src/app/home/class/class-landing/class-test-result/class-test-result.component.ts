@@ -4,6 +4,8 @@ import {TestAssign} from "../../../../core/models/test-assign";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StudentClassService} from "../../student-class.service";
 import {ClassTestService} from "../../class-test.service";
+import {Test} from "../../../../core/models/test";
+import {TestResult} from "../../../../core/models/test-result";
 
 @Component({
   selector: 'app-class-test-result',
@@ -15,6 +17,8 @@ export class ClassTestResultComponent implements OnInit{
   classNow: Class = new Class();
 
   listTestAssign: TestAssign[] = [];
+
+  draftTestResult: TestResult[] = [];
 
   classId!: number;
 
@@ -37,7 +41,10 @@ export class ClassTestResultComponent implements OnInit{
     })
     this.classTest.getTestByClass(this.classId).subscribe(data => {
       this.listTestAssign = data
-      console.log(data)
     })
+  }
+
+  getTestResultByTest(test:Test){
+
   }
 }

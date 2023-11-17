@@ -49,6 +49,11 @@ export class StudentClassworkService {
     return this.httpClient.get<StudentClassWork>(`${this.baseUrl}/classwork/result`,{params:params});
   }
 
+  getStudentClassworkByCLassAndStudent(studentId:number,classId:number): Observable<StudentClassWork[]> {
+    const params = new HttpParams().set('studentId',studentId).set('classId',classId)
+    return this.httpClient.get<StudentClassWork[]>(`${this.baseUrl}/class/classwork/result`,{params:params});
+  }
+
   getWritingExerciseAnswerByClassworkAndStudent(studentId:number,classworkId:number): Observable<WritingExerciseAnswer[]> {
     const params = new HttpParams().set('studentId',studentId).set('classworkId',classworkId)
     return this.httpClient.get<WritingExerciseAnswer[]>(`${this.baseUrl}/classwork/answer`,{params:params});
