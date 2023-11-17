@@ -18,6 +18,7 @@ import {LectureClassService} from "../lecture-class.service";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {Lecture} from "../../../core/models/lecture";
 import {SharedModule} from "../../../shared/shared.module";
+import { StorageService } from 'src/app/home/auth/user-login/storage.service';
 
 @Component({
   selector: 'app-l-class-list',
@@ -40,12 +41,14 @@ export class LClassListComponent {
   constructor(
     private manageClassService: LectureClassService,
     private router: Router,
+    private storageService: StorageService,
     private route: ActivatedRoute,
     public dialog: MatDialog) {
     // Assign the data to the data source for the table to render
     this.lecture.lectureId = 1;
   }
 
+  currentUser: any;
   ngOnInit(): void {
     this.getClass();
   }
@@ -60,8 +63,10 @@ export class LClassListComponent {
   }
 
   private getClass() {
+    this.currentUser = this.storageService.getUser();
+    
     this.classes = []
-    this.manageClassService.getClassByLecture(this.lecture.lectureId).subscribe(data => {
+    this.manageClassService.getClassByLecture(this.currentUser.userAccountId ).subscribe(data => {
       this.classes = data;
       this.dataSource = new MatTableDataSource(this.classes);
       this.dataSource.paginator = this.paginator;
@@ -111,13 +116,16 @@ export class ClassCreateDialog {
     public dialogRef: MatDialogRef<ClassCreateDialog>,
     private manageClassService: LectureClassService,
     private _snackBar: MatSnackBar,
+    private storageService: StorageService,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {
   }
-
+  currentUser: any;
   createClass() {
+    
+    this.currentUser = this.storageService.getUser();
     console.log(this.iClass)
-    this.manageClassService.createClass(this.data, this.iClass).subscribe(data => {
+    this.manageClassService.createClass(this.currentUser.userAccountId , this.iClass).subscribe(data => {
       this.dialogRef.close();
     })
     this._snackBar.open('Class added!!', 'Close', {
