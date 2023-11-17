@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class StudentClassWorkDto {
     private Long studentClassWorkId;
-    private String result;
+    private Double result;
     private LocalDateTime submitTime;
-    private StudentDto studentDto;
-    private ClassWorkDto classWorkDto;
+    private StudentDto student;
+    private ClassWorkDto classWork;
 
 }

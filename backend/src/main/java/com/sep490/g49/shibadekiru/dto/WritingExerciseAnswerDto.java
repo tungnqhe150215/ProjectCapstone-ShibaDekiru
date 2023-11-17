@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class WritingExerciseAnswerDto {
     private Long writingExerciseAnswerId;
     private String answer;
-    private String mark;
-    private StudentDto studentDto;
-    private WritingExerciseDto writingExerciseDto;
+    private String comment;
+    private double mark;
+    private StudentDto student;
+    private WritingExerciseDto writingExercise;
 }

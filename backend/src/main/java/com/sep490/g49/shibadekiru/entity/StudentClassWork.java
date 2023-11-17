@@ -19,7 +19,7 @@ public class StudentClassWork implements Serializable {
     @Column(name = "student_class_work_id")
     private Long studentClassWorkId;
 
-    private String result;
+    private Double result;
 
     @Column(nullable = true)
     private LocalDateTime submitTime;
