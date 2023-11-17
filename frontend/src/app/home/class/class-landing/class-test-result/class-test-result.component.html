@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <div class="card rounded" *ngFor="let classwork of classWork">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-title text-center">{{classwork.name}}</h3>
+          <p class="card-text text-center">Ngày tạo: {{classwork.createdAt | date:"MM - dd - yyyy " }}</p>
+          <p class="card-text text-center">Hạn làm bài: {{classwork.deadline | date:"MM - dd - yyyy "}}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="text-center">
+          <button class=" btn btn-outline-success mt-2" (click)="goToClasswork(classwork.classWorkId)">Làm bài</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
