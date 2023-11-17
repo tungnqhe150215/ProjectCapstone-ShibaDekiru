@@ -2,10 +2,7 @@ package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
-import com.sep490.g49.shibadekiru.repository.ExerciseRepository;
-import com.sep490.g49.shibadekiru.repository.StudentRepository;
-import com.sep490.g49.shibadekiru.repository.WritingExerciseAnswerRepository;
-import com.sep490.g49.shibadekiru.repository.WritingExerciseRepository;
+import com.sep490.g49.shibadekiru.repository.*;
 import com.sep490.g49.shibadekiru.service.IWritingExerciseAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +24,9 @@ public class WritingExerciseAnswerServiceImpl implements IWritingExerciseAnswerS
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private ClassWorkRepository classWorkRepository;
 
 //    @Override
 //    public List<WritingExerciseAnswer> getWritingExerciseAnswerByExercise(Exercise exercise) {
@@ -66,6 +66,26 @@ public class WritingExerciseAnswerServiceImpl implements IWritingExerciseAnswerS
             if (writingExerciseAnswerRepository.findByStudentAndAndWritingExercise(student, writingExercise) != null) {
                 WritingExerciseAnswer writingExerciseAnswer = writingExerciseAnswerRepository.findByStudentAndAndWritingExercise(student, writingExercise);
                 writingExerciseAnswers.add(writingExerciseAnswer);
+            }
+        });
+        return writingExerciseAnswers;
+    }
+
+    @Override
+    public List<WritingExerciseAnswer> getWritingExerciseAnswerByClassworkAndStudent(Long classworkId, Long studentId) {
+        List<WritingExerciseAnswer> writingExerciseAnswers = new ArrayList<>();
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        ClassWork classWork = classWorkRepository.findById(classworkId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        List<Exercise> exerciseList = exerciseRepository.findExercisesByClassWork(classWork);
+        exerciseList.forEach(exercise -> {
+            if (!writingExerciseRepository.findWritingExerciseByExercise(exercise).isEmpty()) {
+                List<WritingExercise> writingExercises = writingExerciseRepository.findWritingExerciseByExercise(exercise);
+                writingExercises.forEach(writingExercise -> {
+                    if (writingExerciseAnswerRepository.findByStudentAndAndWritingExercise(student, writingExercise) != null) {
+                        WritingExerciseAnswer writingExerciseAnswer = writingExerciseAnswerRepository.findByStudentAndAndWritingExercise(student, writingExercise);
+                        writingExerciseAnswers.add(writingExerciseAnswer);
+                    }
+                });
             }
         });
         return writingExerciseAnswers;

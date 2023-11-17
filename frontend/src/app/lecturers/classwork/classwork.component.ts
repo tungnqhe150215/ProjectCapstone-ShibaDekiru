@@ -33,7 +33,7 @@ export class ClassworkComponent implements OnInit{
 
   idU!:number;
   currentUser: any;
-  
+
 
   displayedColumns: string[] = ['id', 'Name', 'CreateAt', 'Deadline','Status','ClassID','Action'];
   dataSource!: MatTableDataSource<any>;
@@ -55,7 +55,7 @@ export class ClassworkComponent implements OnInit{
     this.getClassWorkList();
   }
 
-  
+
   getClassWorkList(){
     this.idU = this.route.snapshot.params['id'];
     this.letcureClassService.getClassById(this.idU).subscribe(data => {
@@ -117,4 +117,7 @@ export class ClassworkComponent implements OnInit{
     }).afterClosed().subscribe( ()=> this.getClassWorkList())
   }
 
+  goToSubmission(classWorkId: any) {
+    this.router.navigate(['lecturer/class',this.aClass.classId,'cw',classWorkId,'s'])
+  }
 }

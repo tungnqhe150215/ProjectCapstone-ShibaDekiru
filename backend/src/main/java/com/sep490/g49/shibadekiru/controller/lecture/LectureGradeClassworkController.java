@@ -1,4 +1,4 @@
-package com.sep490.g49.shibadekiru.controller.student;
+package com.sep490.g49.shibadekiru.controller.lecture;
 
 import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.*;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/student")
-public class StudentClassworkController {
+@RequestMapping("/api/lecture")
+public class LectureGradeClassworkController {
 
     @Autowired
     private IClassService iClassService;
@@ -88,16 +88,35 @@ public class StudentClassworkController {
             return writingExerciseDtos;
     }
 
+    @GetMapping("/classwork/{id}/submission")
+    public List<StudentClassWorkDto> getStudentClassworkByClasswork(@PathVariable("id") Long classworkId ) {
+        List<StudentClassWorkDto> studentClassWorkDtos = new ArrayList<>();
+        ClassWork classWork = iClassWorkService.getClassWorkById(classworkId);
+        if (iStudentClassWorkService.getStudentClassWorkByClassWork(classWork).size() > 0) {
+            return iStudentClassWorkService.getStudentClassWorkByClassWork(classWork).stream().map(studentClassWork -> mapper.map(studentClassWork, StudentClassWorkDto.class)).collect(Collectors.toList());
+        } else
+            return studentClassWorkDtos;
+    }
+
     @GetMapping("class/classwork/result")
     public List<StudentClassWorkDto> getStudentClassworkByClassAndStudent(@RequestParam("studentId") Long studentId, @RequestParam("classId") Long classId) {
         List<StudentClassWorkDto> studentClassWorkDto = new ArrayList<>();
-        if (iStudentClassWorkService.getStudentClassWorkByClassAndStudent(classId, studentId).size() > 0)
+        if (!iStudentClassWorkService.getStudentClassWorkByClassAndStudent(classId, studentId).isEmpty())
             return iStudentClassWorkService.getStudentClassWorkByClassAndStudent(classId, studentId).stream().map(studentClassWork -> mapper.map(studentClassWork, StudentClassWorkDto.class)).collect(Collectors.toList());
         else
             return studentClassWorkDto;
     }
 
-    @PostMapping("/exercise/answer")
+    @GetMapping("exercise/answer")
+    public List<WritingExerciseAnswerDto> getStudentWritingAnswerByExerciseAndStudent(@RequestParam("exerciseId") Long exerciseId, @RequestParam("studentId") Long studentId) {
+        List<WritingExerciseAnswerDto> writingExerciseAnswerDtos = new ArrayList<>();
+        if (!iWritingExerciseAnswerService.getWritingExerciseAnswerByExerciseAndStudent(exerciseId, studentId).isEmpty())
+            return iWritingExerciseAnswerService.getWritingExerciseAnswerByExerciseAndStudent(exerciseId, studentId).stream().map(writingExerciseAnswer -> mapper.map(writingExerciseAnswer, WritingExerciseAnswerDto.class)).collect(Collectors.toList());
+        else
+            return writingExerciseAnswerDtos;
+    }
+
+    @PutMapping("/exercise/answer")
     public ResponseEntity<WritingExerciseAnswerDto> createWritingExerciseAnswer(@RequestBody WritingExerciseAnswerDto writingExerciseAnswerDto) {
 
         WritingExerciseAnswer writingExerciseAnswerRequest = mapper.map(writingExerciseAnswerDto, WritingExerciseAnswer.class);
@@ -114,7 +133,7 @@ public class StudentClassworkController {
         return new ResponseEntity<WritingExerciseAnswerDto>(writingExerciseAnswerResponse, HttpStatus.CREATED);
     }
 
-    @PostMapping("/exercise/result")
+    @PutMapping("/exercise/result")
     public ResponseEntity<StudentClassWorkDto> createStudentClasswork(@RequestBody StudentClassWorkDto studentClassWorkDto) {
 
         StudentClassWork studentClassWorkRequest = mapper.map(studentClassWorkDto, StudentClassWork.class);

@@ -39,7 +39,7 @@ export class ExerciseFieldComponent implements OnInit, OnChanges {
   }
 
   getAnswerByWritingQuizId(writingQuizId: number): { userAnswer: string, exerciseId: number } {
-    return this.answers[writingQuizId] || { userAnswer: '', exerciseId: null };
+    return this.answer.getAnswer(writingQuizId);
   }
 
   onAnswerChange(newAnswer: string, writingQuizId: number): void {
@@ -50,7 +50,7 @@ export class ExerciseFieldComponent implements OnInit, OnChanges {
   }
 
   setAnswer(writingQuizId: number, answer: { userAnswer: string, exerciseId: number }): void {
-    this.answers[writingQuizId] = { ...answer };
+    this.answer.setAnswer(writingQuizId,answer.userAnswer,answer.exerciseId);
     // Thực hiện các hành động khác nếu cần
   }
 }

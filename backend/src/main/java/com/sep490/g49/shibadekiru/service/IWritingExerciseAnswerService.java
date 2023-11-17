@@ -13,5 +13,7 @@ public interface IWritingExerciseAnswerService {
 
     List<WritingExerciseAnswer> getWritingExerciseAnswerByExerciseAndStudent(Long exerciseId, Long studentId);
 
+    List<WritingExerciseAnswer> getWritingExerciseAnswerByClassworkAndStudent(Long classworkId, Long studentId);
+
     boolean checkWritingExerciseAnswerExist(Student student, WritingExercise writingExercise);
 }

@@ -1,1 +1,35 @@
-<p>grade-classwork works!</p>
+<div class="container-fluid p_120">
+  <div class="card work-field">
+    <div class="card-header">
+      <h2>{{classwork.name}}</h2>
+    </div>
+    <div class="card-body">
+      <div>
+        <div class="row  mt-3 mb-4">
+          <div class="col-md-2">
+            <div class="sidebar">
+              <!-- Danh sách các chủ đề và các ô vuông ở đây -->
+              <mat-list>
+                <mat-list-item *ngFor="let exercise of exerciseList, let i = index" class="mb-3">
+                  <button class="btn btn-outline-primary rounded-pill" (click)="goToExercise(exercise.exerciseId)">Bài {{i+1}}</button>
+                </mat-list-item>
+              </mat-list>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div *ngIf="selectedExercise">
+              <app-answer-field [exercise]="selectedExercise" ></app-answer-field>
+            </div>
+            <div class="row justify-items-center mt-2 mb-2">
+              <button class="btn btn-outline-success w-auto m-auto " (click)="submitComment()">
+                Xác nhận kết quả
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -91,6 +91,7 @@
                         (click)="deleteClassWork(row.classWorkId)"><mat-icon>remove_circle </mat-icon></button>
                       <button class="star-button" [class.star-marked]="row.isLocked"
                         (click)="disableClassWork(row)"><mat-icon>power_settings_new</mat-icon></button>
+                      <button (click)="goToSubmission(row.classWorkId)" mat-icon-button><mat-icon>assignment_turned_in</mat-icon></button>
                     </td>
                   </ng-container>
 
