@@ -7,7 +7,7 @@ export class UserAccount {
   userName?:String
   password?:String
   email?:String
-  memberId?:String
+  memberId!:String
   resetCode?:String
   isBanned!:Boolean
   

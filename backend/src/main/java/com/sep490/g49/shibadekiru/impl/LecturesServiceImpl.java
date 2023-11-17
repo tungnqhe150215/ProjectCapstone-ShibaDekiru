@@ -1,16 +1,21 @@
 package com.sep490.g49.shibadekiru.impl;
 
+import com.sep490.g49.shibadekiru.dto.LecturesDto;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.LecturersRepository;
 import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
 import com.sep490.g49.shibadekiru.service.ILecturesService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LecturesServiceImpl implements ILecturesService {
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Autowired
     private LecturersRepository lecturersRepository;
@@ -20,13 +25,21 @@ public class LecturesServiceImpl implements ILecturesService {
 
 
 
-    public void createLecturerFromUserAccount(Lectures lectures) {
+    public LecturesDto createLecturerFromUserAccount(LecturesDto lectures) {
 
-            lectures.setPhone("");
-            lectures.setAvatar("");
-            lectures.setUserAccount(lectures.getUserAccount());
+            Lectures  lectures1 = modelMapper.map(lectures, Lectures.class);
 
-            lecturersRepository.save(lectures);
+            UserAccount userAccount = userAccountRepository.findByMemberId(lectures.getMemberId());
+
+            lectures1.setPhone("");
+            lectures1.setAvatar("");
+            lectures1.setUserAccount(userAccount);
+
+            Lectures saveLecture = lecturersRepository.save(lectures1);
+
+            LecturesDto lecturesDto = modelMapper.map(saveLecture, LecturesDto.class);
+
+            return lecturesDto;
 
     }
 

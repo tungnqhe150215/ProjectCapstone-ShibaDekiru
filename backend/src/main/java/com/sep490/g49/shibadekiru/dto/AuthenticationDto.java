@@ -22,6 +22,7 @@ public class AuthenticationDto {
     private String nickName;
 
     private String email;
+    private String memberId;
 
     private Role role;
 }
