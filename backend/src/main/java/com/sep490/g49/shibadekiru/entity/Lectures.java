@@ -39,14 +39,4 @@ public class Lectures implements Serializable {
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private UserAccount userAccount;
 
-    @JsonProperty("email")
-    public String getEmail() {
-        return this.userAccount.getEmail();
-    }
-
-    @JsonProperty("memberId")
-    public String getMemberId() {
-        return this.userAccount.getMemberId();
-    }
-
 }
