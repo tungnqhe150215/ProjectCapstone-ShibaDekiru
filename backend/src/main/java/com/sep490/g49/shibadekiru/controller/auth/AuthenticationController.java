@@ -61,7 +61,7 @@ public class AuthenticationController {
             @RequestBody RegisterResponse request
     ) {
         try {
-            request.setRoleId((3L));
+            request.setRoleId((2L));
             authenticationService.register(request);
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
@@ -88,6 +88,7 @@ public class AuthenticationController {
             System.out.println("Member id: " +  userAccountDto.getMemberId());
             System.out.println("Pass word:" + userAccountDto.getPassword());
             System.out.println("Role id: " +  userAccountDto.getRole());
+            System.out.println("Member id: " +  userAccountDto.getMemberId());
             System.out.println("US id: " +  userAccountDto.getUserName());
 
             UserAccount userAccount = modelMapper.map(userAccountDto,UserAccount.class);
@@ -100,6 +101,7 @@ public class AuthenticationController {
             authResult.setRole(userAccountDto.getRole());
             authResult.setEmail(userAccountDto.getEmail());
             authResult.setNickName(userAccountDto.getNickName());
+            authResult.setMemberId(userAccount.getMemberId());
             return ResponseEntity.ok(authResult);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
