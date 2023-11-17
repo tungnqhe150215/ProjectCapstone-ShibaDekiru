@@ -36,6 +36,7 @@ import { WaitingForgotPasswordComponent } from './auth/waiting-forgot-password/w
 import { ActiveAccountComponent } from './auth/active-account/active-account.component';
 import {TestResultComponent} from "./student-test/test-result/test-result.component";
 import {StudentClassworkComponent} from "./student-classwork/student-classwork.component";
+import {ClassworkCompleteComponent} from "./student-classwork/classwork-complete/classwork-complete.component";
 
 
 const routes: Routes = [
@@ -71,7 +72,8 @@ const routes: Routes = [
       {path: 'user-profile', component:UserProfileComponent},
       {path: 'c/:classId/t/:testId/landing', component:TestLandingComponent},
       {path: 'c/:classId/t/:testId/result', component:TestResultComponent},
-      {path: 'c/:classId/cw/:classworkId/do', component:StudentClassworkComponent}
+      {path: 'c/:classId/cw/:classworkId/do', component:StudentClassworkComponent},
+      {path: 'c/:classId/cw/:classworkId/result', component:ClassworkCompleteComponent}
     ]
   },
 

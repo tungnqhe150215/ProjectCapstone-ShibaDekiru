@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row exercise-title">
+    <h4>{{exercise.title}}</h4>
+  </div>
+  <div class="row question " *ngFor="let answer of writingExerciseAnswer, let i = index">
+    <div class="col-md-9">
+      <p>{{i+1}}.{{answer.writingExercise.question}} </p>
+      <p>Câu trả lời: {{answer.answer}}</p>
+      <mat-form-field>
+        <mat-label>Nhận xét của giáo viên (Tùy chọn)</mat-label>
+        <input matInput type="text" [ngModel]="getAnswerByAnswerId(answer.writingExerciseAnswerId).comment"  (ngModelChange)="onCommentChange($event, answer.writingExerciseAnswerId)">
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field>
+        <mat-label>Điểm của câu</mat-label>
+        <input matInput type="text" [ngModel]="getAnswerByAnswerId(answer.writingExerciseAnswerId).mark"  (ngModelChange)="onResultChange($event, answer.writingExerciseAnswerId)">
+        <mat-hint>Với điểm là số thập phân, hãy sử dụng dấu ".". Ví dụ 0.5 </mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+

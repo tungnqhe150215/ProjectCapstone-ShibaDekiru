@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface WritingExerciseAnswerRepository extends JpaRepository<WritingExerciseAnswer, Long> {
 
-    List<WritingExerciseAnswer> findByStudentAndAndWritingExercise(Student student, WritingExercise writingExercise);
+    WritingExerciseAnswer findByStudentAndAndWritingExercise(Student student, WritingExercise writingExercise);
 }

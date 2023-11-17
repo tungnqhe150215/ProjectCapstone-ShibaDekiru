@@ -1,5 +1,6 @@
 package com.sep490.g49.shibadekiru.service;
 
+import com.sep490.g49.shibadekiru.entity.ClassWork;
 import com.sep490.g49.shibadekiru.entity.Exercise;
 import com.sep490.g49.shibadekiru.entity.WritingExercise;
 
@@ -15,4 +16,6 @@ public interface IWritingExerciseService {
     WritingExercise updateWritingExercise(Long id, WritingExercise writingExerciseRequest);
 
     void deleteWritingExercise(Long id);
+
+    List<WritingExercise> getWritingExerciseByClasswork(ClassWork classWork);
 }

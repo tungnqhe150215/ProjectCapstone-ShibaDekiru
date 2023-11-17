@@ -40,6 +40,9 @@ import {ReadingSectionComponent} from './test/test-section/reading-section/readi
 import {GrammarVocabSectionComponent} from './test/test-section/grammar-vocab-section/grammar-vocab-section.component';
 import { TestAssignComponent } from './test/test-assign/test-assign.component';
 import { TestResultComponent } from './test/test-result/test-result.component';
+import { GradeClassworkComponent } from './classwork/grade-classwork/grade-classwork.component';
+import { AnswerFieldComponent } from './classwork/grade-classwork/answer-field/answer-field.component';
+import { SubmissionListComponent } from './classwork/submission-list/submission-list.component';
 
 
 @NgModule({
@@ -57,6 +60,9 @@ import { TestResultComponent } from './test/test-result/test-result.component';
     ClassMemberComponent,
     TestSectionComponent,
     TestResultComponent,
+    GradeClassworkComponent,
+    AnswerFieldComponent,
+    SubmissionListComponent,
   ],
   exports: [
     ClassworkComponent

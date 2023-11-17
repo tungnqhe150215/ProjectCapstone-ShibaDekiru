@@ -2,6 +2,6 @@ import {Exercise} from "./exercise";
 
 export class WritingExercise {
     writingQuizId!:number
-    exercise?:Exercise
-    question!:String
+    exercise!:Exercise
+    question!:string
 }

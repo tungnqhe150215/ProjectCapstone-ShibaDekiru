@@ -19,6 +19,8 @@ import {LectureTestDetailComponent} from "./lecturers/test/lecture-test-detail/l
 import {TestSectionComponent} from "./lecturers/test/test-section/test-section.component";
 import {TestAssignComponent} from "./lecturers/test/test-assign/test-assign.component";
 import {TestResultComponent} from "./lecturers/test/test-result/test-result.component";
+import {GradeClassworkComponent} from "./lecturers/classwork/grade-classwork/grade-classwork.component";
+import {SubmissionListComponent} from "./lecturers/classwork/submission-list/submission-list.component";
 
 
 const routes: Routes = [
@@ -46,6 +48,8 @@ const routes: Routes = [
       // {path: 'class',component:ClassworkComponent},
       {path: 'class/:id/class-work', component:ClassworkComponent},
       {path: 'class/class-work/:id', component:UpdateClassworkComponent},
+      {path: 'class/:classId/cw/:classWorkId/s', component: SubmissionListComponent},
+      {path: 'class/:classId/cw/:classworkId/s/:studentId', component:GradeClassworkComponent},
       {path: 'class/class-work/:id/exercise', component:ListExerciseComponent},
       {path: 'class/class-work/exercise/:id', component:ExerciseDetailComponent},
       {path: 'class', component:LClassListComponent},

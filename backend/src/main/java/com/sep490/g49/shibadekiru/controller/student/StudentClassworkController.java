@@ -1,19 +1,16 @@
 package com.sep490.g49.shibadekiru.controller.student;
 
-import com.sep490.g49.shibadekiru.dto.ClassWorkDto;
-import com.sep490.g49.shibadekiru.dto.ExerciseDto;
-import com.sep490.g49.shibadekiru.dto.WritingExerciseDto;
+import com.sep490.g49.shibadekiru.dto.*;
+import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.entity.Class;
-import com.sep490.g49.shibadekiru.entity.ClassWork;
-import com.sep490.g49.shibadekiru.entity.Exercise;
 import com.sep490.g49.shibadekiru.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,31 +37,97 @@ public class StudentClassworkController {
     private IWritingExerciseService iWritingExerciseService;
 
     @Autowired
+    private IWritingExerciseAnswerService iWritingExerciseAnswerService;
+
+    @Autowired
     private ModelMapper mapper;
 
 
     @GetMapping("classwork/{id}")
-    public ClassWorkDto getClassWorkById(@PathVariable("id") Long id){
-        ClassWorkDto classWorkDto = mapper.map(iClassWorkService.getClassWorkById(id),ClassWorkDto.class);
+    public ClassWorkDto getClassWorkById(@PathVariable("id") Long id) {
+        ClassWorkDto classWorkDto = mapper.map(iClassWorkService.getClassWorkById(id), ClassWorkDto.class);
         return classWorkDto;
     }
 
     @GetMapping("/class/{id}/classwork")
-    public List<ClassWorkDto> getClassWorkByClass(@PathVariable("id") Long id){
+    public List<ClassWorkDto> getClassWorkByClass(@PathVariable("id") Long id) {
         Class aClass = iClassService.getClassById(id);
-        return iClassWorkService.getClassWorkByClass(aClass).stream().map(classWork -> mapper.map(classWork,ClassWorkDto.class)).collect(Collectors.toList());
+        return iClassWorkService.getClassWorkByClass(aClass).stream().map(classWork -> mapper.map(classWork, ClassWorkDto.class)).collect(Collectors.toList());
     }
 
     @GetMapping("/classwork/{id}/exercise")
-    public List<ExerciseDto> getExByClassWork(@PathVariable("id") Long id){
+    public List<ExerciseDto> getExByClassWork(@PathVariable("id") Long id) {
         ClassWork aClasswork = iClassWorkService.getClassWorkById(id);
-        return iExerciseService.getExercisePartByClasswork(aClasswork).stream().map(exercise -> mapper.map(exercise,ExerciseDto.class)).collect(Collectors.toList());
+        return iExerciseService.getExercisePartByClasswork(aClasswork).stream().map(exercise -> mapper.map(exercise, ExerciseDto.class)).collect(Collectors.toList());
     }
 
     @GetMapping("/exercise/{id}/question")
-    public List<WritingExerciseDto> getWritingQuestionByExercise(@PathVariable("id") Long id){
+    public List<WritingExerciseDto> getWritingQuestionByExercise(@PathVariable("id") Long id) {
         Exercise exercise = iExerciseService.getExerciseById(id);
-        return iWritingExerciseService.getWritingExerciseByExercise(exercise).stream().map(writingExercise -> mapper.map(writingExercise,WritingExerciseDto.class)).collect(Collectors.toList());
+        return iWritingExerciseService.getWritingExerciseByExercise(exercise).stream().map(writingExercise -> mapper.map(writingExercise, WritingExerciseDto.class)).collect(Collectors.toList());
     }
 
+    @GetMapping("/classwork/{id}/question")
+    public List<WritingExerciseDto> getWritingQuestionByClasswork(@PathVariable("id") Long id) {
+        ClassWork classWork = iClassWorkService.getClassWorkById(id);
+        return iWritingExerciseService.getWritingExerciseByClasswork(classWork).stream().map(writingExercise -> mapper.map(writingExercise, WritingExerciseDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/classwork/result")
+    public StudentClassWorkDto getStudentClassworkByClassworkAndStudent(@RequestParam("studentId") Long studentId, @RequestParam("classworkId") Long classworkId) {
+        StudentClassWorkDto studentClassWorkDto = mapper.map(iStudentClassWorkService.getStudentClassWorkByClassWorkAndStudent(classworkId, studentId), StudentClassWorkDto.class);
+        return studentClassWorkDto;
+    }
+
+    @GetMapping("/classwork/answer")
+    public List<WritingExerciseAnswerDto> getStudentAnswerByClassworkAndStudent(@RequestParam("studentId") Long studentId, @RequestParam("classworkId") Long classworkId) {
+        List<WritingExerciseAnswerDto> writingExerciseDtos = new ArrayList<>();
+        if (iWritingExerciseAnswerService.getWritingExerciseAnswerByClassworkAndStudent(classworkId, studentId).size() > 0) {
+            return iWritingExerciseAnswerService.getWritingExerciseAnswerByClassworkAndStudent(classworkId, studentId).stream().map(writingExerciseAnswer -> mapper.map(writingExerciseAnswer, WritingExerciseAnswerDto.class)).collect(Collectors.toList());
+        } else
+            return writingExerciseDtos;
+    }
+
+    @GetMapping("class/classwork/result")
+    public List<StudentClassWorkDto> getStudentClassworkByClassAndStudent(@RequestParam("studentId") Long studentId, @RequestParam("classId") Long classId) {
+        List<StudentClassWorkDto> studentClassWorkDto = new ArrayList<>();
+        if (iStudentClassWorkService.getStudentClassWorkByClassAndStudent(classId, studentId).size() > 0)
+            return iStudentClassWorkService.getStudentClassWorkByClassAndStudent(classId, studentId).stream().map(studentClassWork -> mapper.map(studentClassWork, StudentClassWorkDto.class)).collect(Collectors.toList());
+        else
+            return studentClassWorkDto;
+    }
+
+    @PostMapping("/exercise/answer")
+    public ResponseEntity<WritingExerciseAnswerDto> createWritingExerciseAnswer(@RequestBody WritingExerciseAnswerDto writingExerciseAnswerDto) {
+
+        WritingExerciseAnswer writingExerciseAnswerRequest = mapper.map(writingExerciseAnswerDto, WritingExerciseAnswer.class);
+
+        WritingExerciseAnswer writingExerciseAnswer = new WritingExerciseAnswer();
+
+        if (iWritingExerciseAnswerService.checkWritingExerciseAnswerExist(writingExerciseAnswerRequest.getStudent(), writingExerciseAnswerRequest.getWritingExercise())) {
+            writingExerciseAnswer = iWritingExerciseAnswerService.updateWritingExerciseAnswer(writingExerciseAnswerRequest);
+        } else {
+            writingExerciseAnswer = iWritingExerciseAnswerService.createWritingExerciseAnswer(writingExerciseAnswerRequest);
+        }
+        WritingExerciseAnswerDto writingExerciseAnswerResponse = mapper.map(writingExerciseAnswer, WritingExerciseAnswerDto.class);
+
+        return new ResponseEntity<WritingExerciseAnswerDto>(writingExerciseAnswerResponse, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/exercise/result")
+    public ResponseEntity<StudentClassWorkDto> createStudentClasswork(@RequestBody StudentClassWorkDto studentClassWorkDto) {
+
+        StudentClassWork studentClassWorkRequest = mapper.map(studentClassWorkDto, StudentClassWork.class);
+
+        StudentClassWork studentClassWork = new StudentClassWork();
+
+        if (iStudentClassWorkService.checkStudentClassWorkExist(studentClassWorkRequest.getStudent(), studentClassWorkRequest.getClassWork())) {
+            studentClassWork = iStudentClassWorkService.updateStudentClassWork(studentClassWorkRequest);
+        } else {
+            studentClassWork = iStudentClassWorkService.createStudentClassWork(studentClassWorkRequest);
+        }
+        StudentClassWorkDto studentClassWorkResponse = mapper.map(studentClassWork, StudentClassWorkDto.class);
+
+        return new ResponseEntity<StudentClassWorkDto>(studentClassWorkResponse, HttpStatus.CREATED);
+    }
 }
