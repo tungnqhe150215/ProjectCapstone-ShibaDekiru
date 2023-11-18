@@ -60,6 +60,7 @@ export class GradeClassworkComponent implements OnInit,OnDestroy{
       })
     })
     this.classworkService.getWritingExerciseAnswerByClassworkAndStudent(this.studentId,this.classworkId).subscribe(data =>{
+      this.answerList = data
       this.answer.initializeAnswers(data)
       console.log(this.answer.getAllAnswers())
     })
@@ -70,13 +71,14 @@ export class GradeClassworkComponent implements OnInit,OnDestroy{
     this.selectedExercise = this.exerciseList.find(data => data.exerciseId === exerciseId) as Exercise
   }
 
-  updateExerciseAnswer(data: WritingExercise){
+  updateExerciseAnswer(data: WritingExerciseAnswer){
     this.draftAnswer = new WritingExerciseAnswer();
     this.draftAnswer.student = this.student
-    this.draftAnswer.writingExercise = data
-    this.draftAnswer.comment = this.answer.getAnswer(data.writingQuizId).comment
-    this.draftAnswer.mark = this.answer.getAnswer(data.writingQuizId).mark
-    this.draftAnswer.answer = this.answer.getAnswer(data.writingQuizId).userAnswer;
+    this.draftAnswer.writingExercise = data.writingExercise
+    this.draftAnswer.comment = this.answer.getAnswer(data.writingExerciseAnswerId).comment
+    console.log(this.draftAnswer.comment)
+    this.draftAnswer.mark = this.answer.getAnswer(data.writingExerciseAnswerId).mark
+    this.draftAnswer.answer = this.answer.getAnswer(data.writingExerciseAnswerId).userAnswer;
     console.log(this.draftAnswer)
     this.classworkService.updateWritingExerciseAnswer(this.draftAnswer).subscribe(data => {
       console.log(data)
@@ -94,7 +96,7 @@ export class GradeClassworkComponent implements OnInit,OnDestroy{
   }
 
   submitComment(){
-    this.writingExercise.forEach(data =>
+    this.answerList.forEach(data =>
     {
       this.updateExerciseAnswer(data);
     })

@@ -53,6 +53,7 @@ public class WritingExerciseAnswerServiceImpl implements IWritingExerciseAnswerS
         WritingExerciseAnswer writingExerciseAnswer = writingExerciseAnswerRepository.findByStudentAndAndWritingExercise(answerRequest.getStudent(), answerRequest.getWritingExercise());
         writingExerciseAnswer.setAnswer(answerRequest.getAnswer());
         writingExerciseAnswer.setMark(answerRequest.getMark());
+        writingExerciseAnswer.setComment(answerRequest.getComment());
         return writingExerciseAnswerRepository.save(writingExerciseAnswer);
     }
 
