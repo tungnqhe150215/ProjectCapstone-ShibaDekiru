@@ -16,6 +16,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {SharedModule} from "../../../shared/shared.module";
 import {Lecture} from "../../../core/models/lecture";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { StorageService } from 'src/app/home/auth/user-login/storage.service';
 
 @Component({
   selector: 'app-lecture-list-test',
@@ -39,11 +40,12 @@ export class LectureListTestComponent implements OnInit{
     private manageTestService:LectureManageTestService,
     private router:Router,
     private route:ActivatedRoute,
+    private storageService: StorageService,
     public dialog: MatDialog) {
     // Assign the data to the data source for the table to render
     this.lecture.lectureId = 1;
   }
-
+  currentUser: any;
   ngOnInit(): void {
     this.getTest();
   }
@@ -57,9 +59,9 @@ export class LectureListTestComponent implements OnInit{
     }
   }
   private getTest(){
-
+    this.currentUser = this.storageService.getUser();
     this.test = []
-    this.manageTestService.getTestByLecture(this.lecture.lectureId).subscribe(data => {
+    this.manageTestService.getTestByLecture(this.currentUser.userAccountId ).subscribe(data => {
       this.test = data;
       this.dataSource = new MatTableDataSource(this.test);
       this.dataSource.paginator = this.paginator;
