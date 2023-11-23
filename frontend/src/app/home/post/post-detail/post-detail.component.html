@@ -1,3 +1,5 @@
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="courses_area p_120">
     <section class="blog_area single-post-area p_120">
         <div class="container">
@@ -13,7 +15,7 @@
                             <div class="blog_info text-right">
                                 <ul class="blog_meta list">
                                     <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                    <li><a href="#">{{post.createdAt}}<i class="lnr lnr-calendar-full"></i></a></li>
+                                    <li><a href="#">{{post.createdAt | date:'dd/MM/yyyy'}}<i class="lnr lnr-calendar-full"></i></a></li>
                                     <li><a href="#">Lecturers: <i class="lnr lnr-eye"></i></a></li>
                                     <li><a href="#">Comments<i class="lnr lnr-bubble"></i></a></li>
                                 </ul>
@@ -117,20 +119,26 @@
                                         <h5>
                                             <a href="#" style="text-decoration: none;">Người dùng: {{comment.nickName}}</a>
                                         </h5>
-                                        <p class="date">{{comment.createdAt}} </p>
+                                        <p class="date">{{comment.createdAt | date:'dd/MM/yyyy'}} </p>
                                         <p class="comment">
                                             {{comment.content}}
                                         </p>
                                         <!-- <p>{{userAccountId}} {{nickName}}</p> -->
+                                        <!-- <h2> {{post.postId}}</h2> -->
                                     </div>
                                 </div>
                                 <div class="reply-btn">
-                                    <a *ngIf="userId === comment.userAccountId"  style="cursor: pointer; border-radius: 15px;" (click)="deleteComment(comment.commentId)" class="btn-reply text-uppercase">Delete</a>
+                                    <a *ngIf="userId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openUpdateComment(post.postId,comment.commentId)" class="btn-reply text-uppercase">
+                                        <span style="margin-top: 8px;" class="material-symbols-outlined">edit</span>
+                                      </a>
+                                    <a *ngIf="userId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openDeleteComment(comment.commentId)" class="btn-reply text-uppercase">
+                                      <span style="margin-top: 8px;" class="material-symbols-outlined">delete</span>
+                                    </a>
                                 </div>
+
                             </div>
                         </div>
                          <!-- <app-list-comment></app-list-comment> -->
-
                         <div class="comment-form">
                             <form >
                                 <div class="form-group">
@@ -145,118 +153,15 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
-                        <!-- <aside class="single_sidebar_widget search_widget">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search Posts">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><i
-                                            class="lnr lnr-magnifier"></i></button>
-                                </span>
-                            </div>
-                            <div class="br"></div>
-                        </aside> -->
-                        <!-- <aside class="single_sidebar_widget author_widget">
-                            <img class="author_img rounded-circle" src="img/blog/author.png" alt="">
-                            <h4>Charlie Barber</h4>
-                            <p>Senior blog writer</p>
-                            <div class="social_icon">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-github"></i></a>
-                                <a href="#"><i class="fa fa-behance"></i></a>
-                            </div>
-                            <p>Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits detractors.</p>
-                            <div class="br"></div>
-                        </aside> -->
-                        <!-- <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title">Popular Posts</h3>
-                            <div class="media post_item">
-                                <img src="img/blog/popular-post/post1.jpg" alt="post">
-                                <div class="media-body">
-                                    <a href="blog-details.html">
-                                        <h3>Space The Final Frontier</h3>
-                                    </a>
-                                    <p>02 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="media post_item">
-                                <img src="img/blog/popular-post/post2.jpg" alt="post">
-                                <div class="media-body">
-                                    <a href="blog-details.html">
-                                        <h3>The Amazing Hubble</h3>
-                                    </a>
-                                    <p>02 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="media post_item">
-                                <img src="img/blog/popular-post/post3.jpg" alt="post">
-                                <div class="media-body">
-                                    <a href="blog-details.html">
-                                        <h3>Astronomy Or Astrology</h3>
-                                    </a>
-                                    <p>03 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="media post_item">
-                                <img src="img/blog/popular-post/post4.jpg" alt="post">
-                                <div class="media-body">
-                                    <a href="blog-details.html">
-                                        <h3>Asteroids telescope</h3>
-                                    </a>
-                                    <p>01 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="br"></div>
-                        </aside> -->
-                        <!-- <aside class="single_sidebar_widget ads_widget">
-                            <a href="#"><img class="img-fluid" src="img/blog/add.jpg" alt=""></a>
-                            <div class="br"></div>
-                        </aside> -->
                         <aside class="single_sidebar_widget post_category_widget">
                             <h4 class="widget_title">Post Catgories</h4>
-                            <ul class="list cat-list">
+                            <ul class="list cat-list"  *ngFor="let post1 of post1">
                                 <li>
                                     <a href="#" class="d-flex justify-content-between">
-                                        <p>Technology</p>
-                                        <p>37</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Lifestyle</p>
-                                        <p>24</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Fashion</p>
-                                        <p>59</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Art</p>
-                                        <p>29</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Food</p>
-                                        <p>15</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Architecture</p>
-                                        <p>09</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex justify-content-between">
-                                        <p>Adventure</p>
+                                        <p>{{post1.postContent}}</p>
                                         <p>44</p>
                                     </a>
-                                </li>
+                                </li>															
                             </ul>
                             <div class="br"></div>
                         </aside>

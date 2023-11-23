@@ -29,13 +29,27 @@ export class UpdateBookComponent implements OnInit{
       this.book = res
     })
   }
-  updateBook(){
-    this.bookService.updateBook(this.data, this.book).subscribe(data =>{
-      console.log(data)
-      this.dialogRef.close();
-      this.nofiService.openSnackBar('Update successful!', 'Cancel');
-    })
+  // updateBook(){
+  //   this.bookService.updateBook(this.data, this.book).subscribe(data =>{
+  //     console.log(data)
+  //     this.dialogRef.close();
+  //     this.nofiService.openSnackBar('Update successful!', 'Cancel');
+  //   })
+  // }
+  updateBook() {
+    this.bookService.updateBook(this.data, this.book).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.dialogRef.close();
+        this.nofiService.openSnackBar('Cập nhật sách thành công');
+      },
+      error: (err) => {
+        console.error(err);
+        this.nofiService.openSnackBar('Đã xảy ra lỗi khi cập nhật sách');
+      },
+    });
   }
+  
 
 
 }

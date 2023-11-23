@@ -6,6 +6,6 @@ export class Comment {
     createdAt?:Date
     content?:String
     userAccountId!:number
-    postId?:number
+    postId!:number
     nickName!:String
 }
