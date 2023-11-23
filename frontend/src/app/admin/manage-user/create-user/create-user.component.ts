@@ -37,7 +37,7 @@ export class CreateUserComponent implements OnInit {
      data =>{
         console.log(data);
         this.dialogRef.close();
-        this.nofiService.openSnackBar('Create User successful','OK');
+        this.nofiService.openSnackBar("Tạo ngươì dùng thành công!");
       }
     )
   }
