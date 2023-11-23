@@ -13,6 +13,7 @@ import { Book } from 'src/app/core/models/book';
 import { CreateBookComponent } from '../create-book/create-book.component';
 import { UpdateBookComponent } from '../update-book/update-book.component';
 import { BookDetailComponent } from '../book-detail/book-detail.component';
+import { DeleteBookComponent } from '../delete-book/delete-book.component';
 
 
 // export interface PeriodicElement {
@@ -100,6 +101,12 @@ export class ListBookComponent implements OnInit{
     })
   }
 
+  openDeleteBook(id:number){
+    this.dialog.open(DeleteBookComponent, {
+      data:id
+    }).afterClosed().subscribe( () => this.ListBook())
+  }
+  
   deleteBook(id:number){
     this.bookService.deleteBook(id).subscribe({
       next:(res) =>{

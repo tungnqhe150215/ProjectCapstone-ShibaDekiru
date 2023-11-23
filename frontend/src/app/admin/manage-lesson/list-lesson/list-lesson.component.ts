@@ -16,13 +16,14 @@ import { UpdateLessonComponent } from '../update-lesson/update-lesson.component'
 import { Book } from 'src/app/core/models/book';
 import { ManageBookService } from '../../manage-book/manage-book.service';
 import { LessonDetailComponent } from '../lesson-detail/lesson-detail.component';
+import {DeleteLessonComponent} from "../delete-lesson/delete-lesson.component";
 
 // export interface PeriodicElement {
 //   name: string;
 //   No: number;
 //   weight: number;
 //   symbol: string;
-  
+
 // }
 
 // const ELEMENT_DATA: PeriodicElement[] = [
@@ -53,13 +54,13 @@ export class ListLessonComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
   constructor (
     private bookService: ManageBookService,
-    private lessonService: LessonService, 
+    private lessonService: LessonService,
     private nofiService: NotificationService,
-    private router:Router, 
+    private router:Router,
     private route:ActivatedRoute,
     public dialog: MatDialog
     ){
-    
+
   }
 
   lesson: Lesson[] =[];
@@ -72,7 +73,7 @@ export class ListLessonComponent implements OnInit{
   }
 
    // Trong component.ts
-   
+
   //dipsplay Data
   private getLesson(){
     this.lessonService.getLessonNoneID().subscribe( data =>{
@@ -82,7 +83,7 @@ export class ListLessonComponent implements OnInit{
       this.dataSource.sort = this.sort;
       console.log(data)
     })
-  
+
   }
 
   private getLessonList(){
@@ -115,13 +116,13 @@ export class ListLessonComponent implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   }
- 
+
   openCreateLessonialog(id:number){
     this.dialog.open(CreateLessonComponent, {
       data:id
     }).afterClosed().subscribe(() => this.getLessonList())
   }
-  
+
 
   LessonDetail(id:number){
     this.dialog.open(LessonDetailComponent ,{
@@ -129,12 +130,13 @@ export class ListLessonComponent implements OnInit{
     }).afterClosed().subscribe( () => this.getLessonList())
   }
 
-  
+
+
 
   lessonDetail(id:number){
     this.router.navigate(['/admin/book/lesson/lesson-detail',id]);
   }
-  
+
   // openUpdateLessonialog(id:number){
   //   this.dialog.open(UpdateLessonComponent,
   //   data:id  )
@@ -148,7 +150,13 @@ export class ListLessonComponent implements OnInit{
     this.router.navigate(['admin/lesson/update-lesson',id]);
   }
 
-  //delete form 
+  //delete form
+  openDeleteLesson(id: number){
+    this.dialog.open(DeleteLessonComponent,{
+      data:id
+    }).afterClosed().subscribe( () => this.getLesson())
+  }
+
   deleteLesson(id: number) {
     this.lessonService.deleteLesson(id).subscribe({
       next: (res) => {
@@ -165,5 +173,5 @@ export class ListLessonComponent implements OnInit{
 
   //   }
   // }
-  
+
 }
