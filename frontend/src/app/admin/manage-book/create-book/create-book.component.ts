@@ -27,12 +27,27 @@ export class CreateBookComponent implements OnInit{
   ngOnInit(): void {
    
   }
-  createBook(){
-    this.bookService.createBook(this.book).subscribe(data =>{
-      console.log(data);
-      this.nofiService.openSnackBar('Create Book successful!', 'Cancel');
-      this.dialogRef.close();
-    })
+  // createBook(){
+  //   this.bookService.createBook(this.book).subscribe(data =>{
+  //     console.log(data);
+  //     this.nofiService.openSnackBar('Create Book successful!', 'Cancel');
+  //     this.dialogRef.close();
+  //   })
+  // }
+  
+  createBook() {
+    this.bookService.createBook(this.book).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.nofiService.openSnackBar('Tạo sách thành công');
+        this.dialogRef.close();
+      },
+      error: (err) => {
+        console.error(err);
+        this.nofiService.openSnackBar('Tạo sách thất bại vui lòng kiểm tra lại!');
+      },
+    });
   }
+  
 
 }
