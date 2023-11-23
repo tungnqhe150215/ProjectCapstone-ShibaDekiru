@@ -1,0 +1,71 @@
+<div class="mb-2">
+    <!-- <button mat-raised-button (click)="addData()">Add data</button> -->
+    <!-- <a class="btn btn-info" routerLinkActive="active" routerLink="create-lesson">Add Lesson</a> -->
+    <button mat-raised-button (click)="openCreateLessonialog(id)">Tạo bài học</button>
+  </div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+      No.
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.lessonId}} </td>
+  </ng-container>
+  <ng-container matColumnDef="book">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by book">
+      ID Sách
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.bookId}} </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+      Tên bài học
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="content">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by content">
+      Nội dung
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.content}} </td>
+  </ng-container>
+  <ng-container matColumnDef="created_at">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by created_at">
+      Thời gian tạo
+    </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.createdAt | date:'dd/MM/yyyy'}} </td>
+  </ng-container>
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
+      Trạng thái
+    </th>
+    <td mat-cell *matCellDef="let lesson">
+      <h6> <span *ngIf="lesson.status === true" class="badge rounded-pill text-bg-success">Mở</span></h6>
+      <h6> <span *ngIf="lesson.status === false" class="badge rounded-pill text-bg-danger">Đóng</span></h6>
+    </td>
+    
+  </ng-container>
+  <ng-container matColumnDef="image">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by image">
+      Ảnh
+    </th>
+   
+    <td mat-cell *matCellDef="let lesson" > <img src="{{lesson.image}}"> </td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+    <td mat-cell *matCellDef="let lesson">
+
+      <button (click)="UpdateLesson(lesson.lessonId)" mat-icon-button> <mat-icon>edit</mat-icon> </button>
+      <button (click)="LessonDetail(lesson.lessonId)" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button>
+      <!-- <button (click)="lessonDetail(lesson.lessonId)" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button> -->
+      <button mat-icon-button color="warn" (click)="deleteLesson(lesson.lessonId)">
+        <mat-icon>remove_circle </mat-icon>
+      </button>
+    </td>
+  </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let lesson; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+

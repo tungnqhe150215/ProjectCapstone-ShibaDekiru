@@ -74,6 +74,7 @@ import { ListClassComponent } from './manage-class/list-class/list-class.compone
 import { ClassDetailComponent } from './manage-class/class-detail/class-detail.component';
 import { ListKaiwaComponent } from './manage-kaiwa/list-kaiwa/list-kaiwa.component';
 import { BookDetailComponent } from './manage-book/book-detail/book-detail.component';
+import { ListAllLessonComponent } from './manage-lesson/list-all-lesson/list-all-lesson.component';
 
 
 @NgModule({
@@ -114,6 +115,7 @@ import { BookDetailComponent } from './manage-book/book-detail/book-detail.compo
     UpdateKatakanaComponent,
     ClassDetailComponent,
     BookDetailComponent,
+    ListAllLessonComponent,
 
 
   ],
