@@ -62,7 +62,7 @@ export class PostDetailComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.nofiService.openSnackBar('Comment thành công', 'Ok');
+          this.nofiService.openSnackBar('Comment thành công');
           this.getAllComment();
           // this.getPostDetailByID();
           // window.location.reload();
@@ -71,9 +71,15 @@ export class PostDetailComponent implements OnInit {
       
     } else {
       this.router.navigate(['/home']);
-      this.nofiService.openSnackBar('Bạn hãy đăng nhập đã', 'Ok');
+      this.nofiService.openSnackBar('Bạn hãy đăng nhập đã');
     }
   }
+
+  // PostDetail(id:number){
+  //   this.id = this.route.snapshot.params['id'];
+  //   this.userPostService.setPostID(id);
+  //   this.router.navigate(['./post/post-detail',id]);
+  // }
 
   openDeleteComment(idC:number){
     this.dialog.open(DeleteCommentComponent, {
