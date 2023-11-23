@@ -60,6 +60,10 @@ import { StudentClassworkComponent } from './student-classwork/student-classwork
 import { ExerciseFieldComponent } from './student-classwork/exercise-field/exercise-field.component';
 import { ClassworkCompleteComponent } from './student-classwork/classwork-complete/classwork-complete.component';
 import { ClassTestResultComponent } from './class/class-landing/class-test-result/class-test-result.component';
+import { DeleteCommentComponent } from './post/post-detail/list-comment/delete-comment/delete-comment.component';
+import { UpdateCommentComponent } from './post/post-detail/list-comment/update-comment/update-comment.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
 @NgModule({
   declarations: [
     FooterComponent,
@@ -103,7 +107,9 @@ import { ClassTestResultComponent } from './class/class-landing/class-test-resul
     StudentClassworkComponent,
     ExerciseFieldComponent,
     ClassworkCompleteComponent,
-    ClassTestResultComponent
+    ClassTestResultComponent,
+    DeleteCommentComponent,
+    UpdateCommentComponent
   ],
   exports: [
     FooterComponent,
@@ -130,6 +136,7 @@ import { ClassTestResultComponent } from './class/class-landing/class-test-resul
     MatSelectModule,
     MatRadioModule,
     MatButtonModule,
+    MatDialogModule,
   ]
 })
 export class HomeModule { }
