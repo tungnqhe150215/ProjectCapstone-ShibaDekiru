@@ -6,7 +6,7 @@
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>ID bài học: {{lesson.lessonId}}</mat-card-title>
       <mat-card-title>Tên bài học: {{lesson.name}}</mat-card-title>
-      <mat-card-subtitle>Ngày tạo: {{lesson.createdAt}}</mat-card-subtitle>
+      <mat-card-subtitle>Ngày tạo: {{lesson.createdAt | date:'dd/MM/yyyy'}}</mat-card-subtitle>
       <mat-card-subtitle>Trạng thái:   <h6> <span *ngIf="lesson.status === true" class="badge rounded-pill text-bg-success">Mở</span></h6>
         <h6> <span *ngIf="lesson.status === false" class="badge rounded-pill text-bg-danger">Đóng</span></h6></mat-card-subtitle>
     </mat-card-header>

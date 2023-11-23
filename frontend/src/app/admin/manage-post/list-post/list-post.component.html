@@ -33,7 +33,7 @@
 
       <ng-container matColumnDef="created_at">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Thời gian tạo </th>
-        <td mat-cell *matCellDef="let row"> {{row.createdAt}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.createdAt | date:'dd/MM/yyyy'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
