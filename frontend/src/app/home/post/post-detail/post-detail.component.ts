@@ -6,6 +6,9 @@ import { Comment } from 'src/app/core/models/comment';
 import { StudentLessonService } from '../../lesson/student-lesson.service';
 import { StorageService } from '../../auth/user-login/storage.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteCommentComponent } from './list-comment/delete-comment/delete-comment.component';
+import { UpdateCommentComponent } from './list-comment/update-comment/update-comment.component';
 
 @Component({
   selector: 'app-post-detail',
@@ -27,11 +30,13 @@ export class PostDetailComponent implements OnInit {
     private studentLessonService: StudentLessonService,
     private storageService: StorageService,
     private nofiService: NotificationService,
+    public dialog: MatDialog
   ) { }
   ngOnInit(): void {
     
     this.getPostDetailByID();
      this.getAllComment();
+     this.getAllPost();
   }
   
   getPostDetailByID(){
@@ -45,8 +50,8 @@ export class PostDetailComponent implements OnInit {
 
   currentUser: any;
   uComment: Comment = new Comment;
-
-  
+  post1: Post[] = [];
+  idPost!:number;
 
   AddComment() {
     this.id = this.route.snapshot.params['id'];
@@ -69,6 +74,21 @@ export class PostDetailComponent implements OnInit {
       this.nofiService.openSnackBar('Bạn hãy đăng nhập đã', 'Ok');
     }
   }
+
+  openDeleteComment(idC:number){
+    this.dialog.open(DeleteCommentComponent, {
+      data:idC
+    }).afterClosed().subscribe( () => this.getAllComment())
+  }
+
+  openUpdateComment(idC:number, cid:number){
+    this.userPostService.setPostID(cid);
+    this.dialog.open(UpdateCommentComponent, {
+      data:idC
+    },
+    ).afterClosed().subscribe( () => this.getAllComment())
+  }
+
 
   deleteComment(idC: number){
     this.id = this.route.snapshot.params['id'];
@@ -95,6 +115,14 @@ export class PostDetailComponent implements OnInit {
         this.comment = data;
         console.log(data);
       })
+  }
+
+  getAllPost(){
+    this.userPostService.getAllPost()
+    .subscribe(data =>{
+      this.post1 = data;
+      console.log(data);
+    })
   }
 
 }
