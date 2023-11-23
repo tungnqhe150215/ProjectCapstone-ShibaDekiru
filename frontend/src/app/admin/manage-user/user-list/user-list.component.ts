@@ -72,7 +72,7 @@ export class UserListComponent implements OnInit{
     this.userAccountService.banAccountUser(bannedAccount.userAccountId).subscribe(() => {
       // Sau khi cập nhật thành công, cập nhật trạng thái đánh dấu sao trong danh sách
       bannedAccount.isBanned = !bannedAccount.isBanned;
-      this.nofiService.openSnackBar('Change status successful','OK');
+      this.nofiService.openSnackBar("Thay đổi trạng thái người dùng thành công!");
       // flashcard.favorite = !flashcard.favorite;
 
     });
