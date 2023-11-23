@@ -12,6 +12,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { ManageBookService } from '../../manage-book/manage-book.service';
 import { Book } from 'src/app/core/models/book';
 import { Lesson } from 'src/app/core/models/lesson';
+import { DeleteLessonComponent } from '../delete-lesson/delete-lesson.component';
 
 @Component({
   selector: 'app-list-all-lesson',
@@ -99,6 +100,12 @@ export class ListAllLessonComponent implements OnInit{
   }
 
   //delete form 
+  openDeleteLesson(id: number){
+    this.dialog.open(DeleteLessonComponent,{
+      data:id
+    }).afterClosed().subscribe( () => this.getLesson())
+  }
+
   deleteLesson(id: number) {
     this.lessonService.deleteLesson(id).subscribe({
       next: (res) => {

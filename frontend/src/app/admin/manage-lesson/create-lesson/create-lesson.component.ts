@@ -24,13 +24,29 @@ export class CreateLessonComponent implements OnInit {
   ngOnInit(): void {
     // this.empForm.patchValue(this.data);
   }
-    createLesson(){
-      this.lessonService.createLesson(this.data, this.lesson).subscribe(data =>{
-        console.log(data);
-        this.nofiService.openSnackBar('Create lesson successful','OK');
-        this.dialogRef.close();
-      })
-    }
+//     createLesson(){
+//       this.lessonService.createLesson(this.data, this.lesson).subscribe(data =>{
+//         console.log(data);
+//         this.nofiService.openSnackBar('Tạo bài học thành công');
+//         this.dialogRef.close();
+//       },
+//       )
+// }
+
+createLesson() {
+  this.lessonService.createLesson(this.data, this.lesson).subscribe({
+    next: (data) => {
+      console.log(data);
+      this.nofiService.openSnackBar('Tạo bài học thành công');
+      this.dialogRef.close();
+    },
+    error: (err) => {
+      console.error(err);
+      this.nofiService.openSnackBar('Có lỗi xảy ra khi thêm bài học vui lòng kiểm tra lại');
+    },
+  });
+}
+
 
     gotoLessonList(){
       this.router.navigate(['/admin/lesson']);

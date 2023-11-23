@@ -33,6 +33,17 @@
     </mat-nav-list>
 
     <mat-nav-list>
+      <a mat-list-item routerLink="/admin/lesson" routerLinkActive="selected-menu-item" 
+        #rla15="routerLinkActive"
+        [activated]="rla15.isActive">
+        <mat-icon matListItemIcon><span class="material-symbols-outlined">
+          post_add
+          </span></mat-icon>
+        <span>Quản lý bài học</span>
+      </a>
+    </mat-nav-list>
+    
+    <mat-nav-list>
       <a mat-list-item routerLink="/admin/list-user" routerLinkActive="selected-menu-item" 
         #rla="routerLinkActive"
         [activated]="rla.isActive">
@@ -61,16 +72,6 @@
       </a>
     </mat-nav-list>
 
-    <mat-nav-list>
-      <a mat-list-item routerLink="/admin/lesson" routerLinkActive="selected-menu-item" 
-        #rla15="routerLinkActive"
-        [activated]="rla15.isActive">
-        <mat-icon matListItemIcon><span class="material-symbols-outlined">
-          post_add
-          </span></mat-icon>
-        <span>Quản lý bài học</span>
-      </a>
-    </mat-nav-list>
 
     <!-- <mat-nav-list>
       <a mat-list-item routerLink="/admin/lesson/1/writing" routerLinkActive="selected-menu-item"
