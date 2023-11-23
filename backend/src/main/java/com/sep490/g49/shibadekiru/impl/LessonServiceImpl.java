@@ -1,19 +1,16 @@
 package com.sep490.g49.shibadekiru.impl;
 
-import com.sep490.g49.shibadekiru.dto.BookDto;
-import com.sep490.g49.shibadekiru.dto.LessonDto;
 import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.BookRepository;
 import com.sep490.g49.shibadekiru.repository.LessonRepository;
 import com.sep490.g49.shibadekiru.service.ILessonService;
-import org.modelmapper.ModelMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +22,7 @@ public class LessonServiceImpl implements ILessonService {
 
     @Autowired
     private BookRepository bookRepository;
+
 
     @Override
     public List<Lesson> getAllLessons() {
@@ -71,27 +69,35 @@ public class LessonServiceImpl implements ILessonService {
         }
     }
 
-
     @Override
+    @Transactional
     public Lesson updateLesson(Long lessonId, Lesson updatedLesson) {
-
         Optional<Lesson> existingLesson = lessonRepository.findById(lessonId);
+
         if (existingLesson.isPresent()) {
             Lesson lesson = existingLesson.get();
+
+            Optional<Long> bookIdOptional = lessonRepository.findBookIdByLessonId(lessonId);
+            Long bookId = bookIdOptional.orElse(null);
+            System.out.println("Book id trong service: " +  bookId);
 
 
             lesson.setName(updatedLesson.getName());
             lesson.setContent(updatedLesson.getContent());
             lesson.setStatus(updatedLesson.getStatus());
             lesson.setImage(updatedLesson.getImage());
-            lesson.setBook(updatedLesson.getBook());
+
+
+            if (bookId != null) {
+                lesson.getBook().setBookId(bookId);
+            }
 
             return lessonRepository.save(lesson);
-
         } else {
             throw new ResourceNotFoundException("Lesson not found with: " + lessonId);
         }
     }
+
 
 
     @Override
@@ -106,7 +112,7 @@ public class LessonServiceImpl implements ILessonService {
         Lesson lesson = lessonRepository.findById(lessonId).orElse(null);
 
         if (lesson == null) {
-            throw new ResourceNotFoundException("Lesson not found with id: " +  lessonId);
+            throw new ResourceNotFoundException("Lesson not found with id: " + lessonId);
         }
         return lesson;
     }
