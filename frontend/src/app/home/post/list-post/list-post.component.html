@@ -67,8 +67,9 @@
                         <h4 class="widget_title">Các bài viết liên quan</h4>
                         <ul class="list cat-list"  *ngFor="let post of post">
                             <li>
-                                <a href="#" class="d-flex justify-content-between">
+                                <a  style="cursor: pointer" (click)="PostDetail(post.postId)"class="d-flex justify-content-between">
                                     <p>{{post.postContent}}</p>
+                                    <!-- <p><button (click)="PostDetail(post.postId)">{{post.postContent}}</button></p> -->
                                     <p>44</p>
                                 </a>
                             </li>															
