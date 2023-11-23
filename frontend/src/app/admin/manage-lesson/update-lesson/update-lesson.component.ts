@@ -36,13 +36,27 @@ export class UpdateLessonComponent implements OnInit {
     //   this.status = res.status;
     // })
   }
-  onSubmit(){
-    this.lessonService.updateLesson(this.data, this.lesson).subscribe(data =>{
-      // this.goTolessonList();
-      this.nofiService.openSnackBar('Update lesson successful','OK');
-      this.dialogRef.close();
-    },
-    error => console.log(error));
+  // onSubmit(){
+  //   this.lessonService.updateLesson(this.data, this.lesson).subscribe(data =>{
+  //     // this.goTolessonList();
+  //     this.nofiService.openSnackBar('Update lesson successful','OK');
+  //     this.dialogRef.close();
+  //   },
+  //   error => console.log(error));
+  // }
+
+  onSubmit() {
+    this.lessonService.updateLesson(this.data, this.lesson).subscribe({
+      next: (data) => {
+        // this.goTolessonList();
+        this.nofiService.openSnackBar('Cập nhật bài học thành công');
+        this.dialogRef.close();
+      },
+      error: (err) => {
+        console.error(err);
+        this.nofiService.openSnackBar('Cập nhật bài học thất bại vui lòng kiểm tra lại!');
+      },
+    });
   }
   goTolessonList(){
     this.router.navigate(['admin/lesson']);

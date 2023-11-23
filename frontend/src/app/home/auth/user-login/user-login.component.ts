@@ -48,7 +48,14 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         this.isLoggedIn = true;
         this.roleId = this.storageService.getUser().roleId;
         this.notifiService.openSnackBar('Đăng nhập thành công');
-        this.router.navigateByUrl('/home');
+        
+        if(this.storageService.getUser().role.roleType === 'ADMIN'){
+          this.router.navigateByUrl('/admin/book');
+        }else if(this.storageService.getUser().role.roleType === 'LECTURE'){
+          this.router.navigateByUrl('./lecturer');
+        }else{
+          this.router.navigateByUrl('/home');
+        }
         // this.reloadPage();
 
       },
