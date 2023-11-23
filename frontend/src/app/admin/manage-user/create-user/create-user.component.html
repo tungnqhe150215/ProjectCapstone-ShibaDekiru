@@ -8,9 +8,9 @@
                 [ngModelOptions]="{standalone: true}">
             <label class="m-2">Trạng thái</label>
             <input type="radio" [(ngModel)]="userAccount.isBanned" value="true" name="banned"
-                [ngModelOptions]="{standalone: true}"> Active
+                [ngModelOptions]="{standalone: true}"> Hoạt động
             <input type="radio" [(ngModel)]="userAccount.isBanned" value="false" name="banned"
-                [ngModelOptions]="{standalone: true}"> Disable
+                [ngModelOptions]="{standalone: true}"> Cấm
         </div>
         <div class="form-group">
             <label class="mr-2">Mã số thành viên</label>
@@ -36,22 +36,22 @@
                 [ngModelOptions]="{standalone: true}">
         </div>
         <div class="form-group">
-            <!-- <select name="role" id="role">
-                <option value="1" id="role" name="role" [(ngModel)]="userAccount.roleId"
-                    [ngModelOptions]="{standalone: true}">Student</option>
-                <option value="2" id="role" name="role" [(ngModel)]="userAccount.roleId"
-                    [ngModelOptions]="{standalone: true}">Lecturers</option>
-                <option value="3" id="role" name="role" [(ngModel)]="userAccount.roleId"
-                    [ngModelOptions]="{standalone: true}">Admin</option>
-            </select> -->
+          <select name="role" id="role" [(ngModel)]="userAccount.role.roleId">
+            <option value="1" id="role" name="role" [(ngModel)]="userAccount.role.roleId"
+                [ngModelOptions]="{standalone: true}">Admin</option>
+            <option value="2" id="role" name="role" [(ngModel)]="userAccount.role.roleId"
+                [ngModelOptions]="{standalone: true}"> Giảng viên</option>
+            <option value="3" id="role" name="role" [(ngModel)]="userAccount.role.roleId"
+                [ngModelOptions]="{standalone: true}">Học sinh</option>
+        </select>
 
-            <input type="radio" [(ngModel)]="userAccount.roleId" value="1"  id="role" name="role" [ngModelOptions]="{standalone: true}"> Học sinh
+            <!-- <input type="radio" [(ngModel)]="userAccount.roleId" value="1"  id="role" name="role" [ngModelOptions]="{standalone: true}"> Học sinh
             <input type="radio" [(ngModel)]="userAccount.roleId" value="2"  id="role" name="role"  [ngModelOptions]="{standalone: true}"> Giảng viên
-            <input type="radio" [(ngModel)]="userAccount.roleId" value="3" id="role" name="role" [ngModelOptions]="{standalone: true}"> Admin
+            <input type="radio" [(ngModel)]="userAccount.roleId" value="3" id="role" name="role" [ngModelOptions]="{standalone: true}"> Admin -->
         </div>
 
 
-        <button class="btn btn-success" type="submit" (click)="createUser()">Submit</button>
+        <button class="btn btn-success" type="submit" (click)="createUser()">Tạo mớimới</button>
     </form>
 </div>
 
