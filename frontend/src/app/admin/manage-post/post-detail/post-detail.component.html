@@ -1,4 +1,4 @@
-<button mat-button (click)="goToPost()">Back</button>
+<button mat-button (click)="goToPost()">Quay lại</button>
 <div class="header">
     <h2>{{post.postContent}}</h2>
   </div>
@@ -7,7 +7,7 @@
     <div class="leftcolumn">
       <div class="card">
         <h2>{{post.postContent}}</h2>
-        <h5>{{post.createdAt}}</h5>
+        <h5>Ngày tạo: {{post.createdAt  | date:'dd/MM/yyyy'}}</h5>
         <!-- <div class="fakeimg" style="height:200px;">Image</div> -->
         <p>{{post.description}}</p>
       </div>
@@ -15,15 +15,16 @@
     </div>
     <div class="rightcolumn">
       <div class="card">
-        <h2>Status</h2>
+        <h2>Trạng thái</h2>
         <!-- <div class="fakeimg" style="height:100px;">Image</div> -->
-        <p>{{post.isEnabled}}</p>
+          <h4> <span *ngIf="post.isEnabled=== true" class="badge rounded-pill text-bg-success">Mở</span></h4>
+          <h4> <span *ngIf="post.isEnabled === false" class="badge rounded-pill text-bg-danger">Đóng</span></h4>
       </div>
-      <div class="card">
+      <!-- <div class="card">
         <h3>Popular Post</h3>
         <div class="fakeimg">Image</div><br>
         <div class="fakeimg">Image</div><br>
         <div class="fakeimg">Image</div>
-      </div>
+      </div> -->
     </div>
   </div>
