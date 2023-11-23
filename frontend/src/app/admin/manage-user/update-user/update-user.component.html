@@ -1,56 +1,61 @@
 <h3 class="text-center">Cập nhật thông tin người dùng</h3>
 <button mat-button (click)="goToUserList()">Quay về danh sách</button>
 <div class="container">
-<form (ngSubmit)="onSubmit()">
-    <div class="form-group" >
-        <label>User Name</label>
-        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="userAccount.userName" 
-            [ngModelOptions]="{standalone: true}"> 
-        <label class="m-2">Trạng thái</label>
-        <input type="radio" [(ngModel)]="userAccount.isBanned" value="true" name="banned"
-            [ngModelOptions]="{standalone: true}"> Mở
-        <input type="radio" [(ngModel)]="userAccount.isBanned" value="false" name="banned"
-            [ngModelOptions]="{standalone: true}"> Đóng
-    </div>
-    <div class="form-group">
-        <label class="mr-2">Mã số thành viên</label>
-        <input type="text" class="form-control" id="memberID" name="memberID" [(ngModel)]="userAccount.memberId"
-            [ngModelOptions]="{standalone: true}" readonly>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>User Name</label>
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="userAccount.userName"
+                [ngModelOptions]="{standalone: true}">
+            <label class="m-2">Trạng thái: </label>
+            <input type="radio" [(ngModel)]="userAccount.isBanned" [value]="true" name="banned"
+                [ngModelOptions]="{standalone: true}" [checked]="userAccount.isBanned"> Mở
+            <input type="radio" [(ngModel)]="userAccount.isBanned" [value]="false" name="banned"
+                [ngModelOptions]="{standalone: true}" [checked]="!userAccount.isBanned"> Đóng
 
-    </div>
-    <div class="form-group">
-        <label>Email</label>
-        <input type="text" class="form-control" id="emai" name="email" [(ngModel)]="userAccount.email"
-            [ngModelOptions]="{standalone: true}" readonly>
-        <label>Password</label>
+            <!-- <input type="radio" [(ngModel)]="userAccount.isBanned"  name="banned"
+            [ngModelOptions]="{standalone: true}" [checked]="userAccount.isBanned"> Mở
+        <input type="radio" [(ngModel)]="userAccount.isBanned"  name="banned"
+            [ngModelOptions]="{standalone: true}"[checked]="userAccount.isBanned"> Đóng -->
+        </div>
+        <div class="form-group">
+            <label class="mr-2">Mã số thành viên</label>
+            <input type="text" class="form-control" id="memberID" name="memberID" [(ngModel)]="userAccount.memberId"
+                [ngModelOptions]="{standalone: true}" readonly>
+
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" id="emai" name="email" [(ngModel)]="userAccount.email"
+                [ngModelOptions]="{standalone: true}" readonly>
+            <!-- <label>Password</label>
         <input type="text" class="form-control" id="password" name="password" [(ngModel)]="userAccount.password"
-            [ngModelOptions]="{standalone: true}">
-    </div>
+            [ngModelOptions]="{standalone: true}"> -->
+        </div>
 
-    <div class="form-group">
-        <label>Nick Name</label>
-        <input type="text" class="form-control" id="nickname" name="nickname" [(ngModel)]="userAccount.nickName"
-            [ngModelOptions]="{standalone: true}">
-        <label>Reset Code</label>
+        <div class="form-group">
+            <label>Nick Name</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" [(ngModel)]="userAccount.nickName"
+                [ngModelOptions]="{standalone: true}">
+            <!-- <label>Reset Code</label>
         <input type="text" class="form-control" id="resetcode" name="resetcode" [(ngModel)]="userAccount.resetCode"
-            [ngModelOptions]="{standalone: true}">
-    </div>
-    <div class="form-group">
-        <!-- <select name="role" id="role">
-            <option value="1" id="role" name="role" [(ngModel)]="userAccount.roleId"
-                [ngModelOptions]="{standalone: true}">Student</option>
-            <option value="2" id="role" name="role" [(ngModel)]="userAccount.roleId"
-                [ngModelOptions]="{standalone: true}">Lecturers</option>
-            <option value="3" id="role" name="role" [(ngModel)]="userAccount.roleId"
-                [ngModelOptions]="{standalone: true}">Admin</option>
-        </select> -->
+            [ngModelOptions]="{standalone: true}"> -->
+        </div>
+        <div class="form-group mt-2 mb-2">
+            <select name="role" id="role" [(ngModel)]="userAccount.role.roleId">
+                <option value="1" id="role" name="role" [(ngModel)]="userAccount.role.roleId"
+                    [ngModelOptions]="{standalone: true}">Admin</option>
+                <option value="2" id="role" name="role" [(ngModel)]="userAccount.role.roleId"
+                    [ngModelOptions]="{standalone: true}"> Giảng viên</option>
+                <option value="3" id="role" name="role" [(ngModel)]="userAccount.role.roleId"
+                    [ngModelOptions]="{standalone: true}">Học sinh</option>
+            </select>
 
-        <input type="radio" [(ngModel)]="userAccount.roleId" value="1"  id="role" name="role" [ngModelOptions]="{standalone: true}" > Học sinh
-        <input type="radio" [(ngModel)]="userAccount.roleId" value="2"  id="role" name="role"  [ngModelOptions]="{standalone: true}" > Giảng viên
-        <input type="radio" [(ngModel)]="userAccount.roleId" value="3" id="role" name="role" [ngModelOptions]="{standalone: true}" > Admin
-    </div>
+            <!-- <input type="radio" [(ngModel)]="userAccount.role.roleId" value="1"  id="role" name="role" [ngModelOptions]="{standalone: true}" > Admin
+        <input type="radio" [(ngModel)]="userAccount.role.roleId" value="2"  id="role" name="role"  [ngModelOptions]="{standalone: true}" > Giảng viên
+        <input type="radio" [(ngModel)]="userAccount.role.roleId" value="3" id="role" name="role" [ngModelOptions]="{standalone: true}" > Học sinh -->
+        </div>
 
 
-    <button class="btn btn-success" type="submit" >Submit</button>
-</form>
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
 </div>
