@@ -31,15 +31,28 @@ export class UpdateUserComponent implements OnInit{
     );
   }
 
-
-  onSubmit(){
+  onSubmit() {
     this.userAccountService.updateUser(this.id, this.userAccount).subscribe(
-      data =>{
+      data => {
+        this.nofiService.openSnackBar('Cập nhật thông tin thành công!');
         this.goToUserList();
-        this.nofiService.openSnackBar('Update user successful','OK');
-      },error => console.log(error)
+      },
+      error => {
+        console.error(error);
+        this.nofiService.openSnackBar('Lỗi khi cập nhật thông tin. Vui lòng thử lại!', 'Cancel');
+      }
     );
   }
+  
+
+  // onSubmit(){
+  //   this.userAccountService.updateUser(this.id, this.userAccount).subscribe(
+  //     data =>{
+  //       this.goToUserList();
+  //       this.nofiService.openSnackBar('Cập nhật thông tin thành công!');
+  //     },error => console.log(error)
+  //   );
+  // }
 
   goToUserList(){
     this.router.navigate(['admin/user-account']);

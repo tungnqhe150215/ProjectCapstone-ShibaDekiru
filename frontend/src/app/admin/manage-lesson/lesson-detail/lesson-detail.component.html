@@ -1,3 +1,4 @@
+<div class="container">
 <h2>Thông tin bài học</h2>
 <!-- <button mat-button (click)="backtoList()">Back</button> -->
 <form class="form-dialog">
@@ -7,14 +8,15 @@
       <mat-card-title>ID bài học: {{lesson.lessonId}}</mat-card-title>
       <mat-card-title>Tên bài học: {{lesson.name}}</mat-card-title>
       <mat-card-subtitle>Ngày tạo: {{lesson.createdAt | date:'dd/MM/yyyy'}}</mat-card-subtitle>
-      <mat-card-subtitle>Trạng thái:   <h6> <span *ngIf="lesson.status === true" class="badge rounded-pill text-bg-success">Mở</span></h6>
+      <mat-card-subtitle>Trạng thái: <h6> <span *ngIf="lesson.status === true" class="badge rounded-pill text-bg-success">Mở</span></h6>
         <h6> <span *ngIf="lesson.status === false" class="badge rounded-pill text-bg-danger">Đóng</span></h6></mat-card-subtitle>
+        <mat-card-title>Thông tin bài học: {{lesson.content}}</mat-card-title>
     </mat-card-header>
 
     <mat-card-content class="text-center mt-2">
-      <p>
+      <!-- <p>
         {{lesson.content}}
-      </p>
+      </p> -->
       <img mat-card-image src="{{lesson.image}}" alt="Photo of a Shiba Inu">
     </mat-card-content>
     <mat-card-actions>
@@ -26,3 +28,4 @@
     </mat-card-actions>
   </mat-card>
 </form>
+</div>
