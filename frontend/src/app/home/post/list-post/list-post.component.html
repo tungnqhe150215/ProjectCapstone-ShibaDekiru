@@ -8,20 +8,12 @@
             <div class="col-lg-8">
                 <div class="blog_left_sidebar">
 
-                    <article class="row blog_item" *ngFor="let post of post">
+                    <article class="row blog_item" *ngFor="let post of post | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
                        <div class="col-md-3">
                            <div class="blog_info text-right">
-                                <!-- <div class="post_tag">
-                                    <a href="#">Food,</a>
-                                    <a class="active" href="#">Technology,</a>
-                                    <a href="#">Politics,</a>
-                                    <a href="#">Lifestyle</a>
-                                </div> -->
                                 <ul class="blog_meta list">
-                                    <!-- <li><a href="#">Mark wiens{{post.postId}}<i class="lnr lnr-user"></i></a></li> -->
-                                    <li><a href="#">{{post.createdAt | date:'dd/MM/yyyy'}}<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <!-- <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li> -->
-                                    <li><a href="#">Lecturers: {{post.lectureId}}<i class="lnr lnr-bubble"></i></a></li>
+                                    <li>Mã bài viết: {{post.postId}}<i class="lnr lnr-user"></i></li>
+                                    <li>Ngày cập nhật: {{post.createdAt | date:'dd/MM/yyyy'}}<i class="lnr lnr-calendar-full"></i></li>
                                 </ul>
                             </div>
                        </div>
@@ -36,7 +28,29 @@
                             </div>
                         </div>
                     </article>
-                    <nav class="blog-pagination justify-content-center d-flex">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    <!-- <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+                          <li class="page-item" *ngIf="p > 1">
+                            <a href="#" class="page-link" aria-label="Previous" (click)="previousPage($event)">
+                              <span aria-hidden="true">
+                                <span class="lnr lnr-chevron-left"></span>
+                              </span>
+                            </a>
+                          </li>
+                          <li class="page-item" *ngFor="let page of pages" [class.active]="page === p">
+                            <a href="#" class="page-link" (click)="goToPage(page, $event)">{{ page }}</a>
+                          </li>
+                          <li class="page-item" *ngIf="p < totalPages">
+                            <a href="#" class="page-link" aria-label="Next" (click)="nextPage($event)">
+                              <span aria-hidden="true">
+                                <span class="lnr lnr-chevron-right"></span>
+                              </span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav> -->
+                    <!-- <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a href="#" class="page-link" aria-label="Previous">
@@ -58,7 +72,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> -->
                 </div>
             </div>
             <div class="col-lg-4">
