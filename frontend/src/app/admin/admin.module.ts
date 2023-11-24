@@ -76,6 +76,7 @@ import { ListKaiwaComponent } from './manage-kaiwa/list-kaiwa/list-kaiwa.compone
 import { BookDetailComponent } from './manage-book/book-detail/book-detail.component';
 import { ListAllLessonComponent } from './manage-lesson/list-all-lesson/list-all-lesson.component';
 import { DeleteLessonComponent } from './manage-lesson/delete-lesson/delete-lesson.component';
+import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import { DeleteLessonComponent } from './manage-lesson/delete-lesson/delete-less
     BookDetailComponent,
     ListAllLessonComponent,
     DeleteLessonComponent,
+    DeleteBookComponent,
 
 
   ],

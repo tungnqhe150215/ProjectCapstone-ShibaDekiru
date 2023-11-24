@@ -5,7 +5,8 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: rgb(8, 117, 26);
+  
+  color: #ec1212;
 }
 
 .star-button.star-marked {
@@ -14,6 +15,6 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #ec1212;
+  color: rgb(8, 117, 26);
   
 }

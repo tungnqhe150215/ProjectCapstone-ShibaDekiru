@@ -51,10 +51,10 @@
       </ng-container> -->
       
       <ng-container matColumnDef="isBanned">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ban </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái </th>
         <td mat-cell *matCellDef="let row"> 
-          <h6> <span *ngIf="row.isBanned === true" class="badge rounded-pill text-bg-success">Active</span></h6>
-      <h6> <span *ngIf="row.isBanned === false" class="badge rounded-pill text-bg-danger">Banned</span></h6>
+          <h6> <span *ngIf="row.isBanned === true" class="badge rounded-pill text-bg-danger">Cấm</span></h6>
+      <h6> <span *ngIf="row.isBanned === false " class="badge rounded-pill text-bg-success">Hoạt động</span></h6>
         </td>
       </ng-container>
 

@@ -52,7 +52,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         if(this.storageService.getUser().role.roleType === 'ADMIN'){
           this.router.navigateByUrl('/admin/book');
         }else if(this.storageService.getUser().role.roleType === 'LECTURE'){
-          this.router.navigateByUrl('./lecturer');
+          this.router.navigateByUrl('/lecturer/class');
         }else{
           this.router.navigateByUrl('/home');
         }
@@ -60,6 +60,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
 
       },
       error: err =>{
+        this.notifiService.openSnackBar('Có lỗi xáy ra trong quá trình đăng nhập vui lòng kiểm tra lại');
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
@@ -108,6 +109,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         this.router.navigateByUrl('/active-account');
       },
       error: err =>{
+        this.notifiService.openSnackBar('Có lỗi xáy ra trong khi đăng ký vui lòng kiểm tra lại');
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
       }
