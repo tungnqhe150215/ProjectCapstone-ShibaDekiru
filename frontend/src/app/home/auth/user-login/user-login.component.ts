@@ -52,7 +52,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         if(this.storageService.getUser().role.roleType === 'ADMIN'){
           this.router.navigateByUrl('/admin/book');
         }else if(this.storageService.getUser().role.roleType === 'LECTURE'){
-          this.router.navigateByUrl('./lecturer');
+          this.router.navigateByUrl('/lecturer/class');
         }else{
           this.router.navigateByUrl('/home');
         }
