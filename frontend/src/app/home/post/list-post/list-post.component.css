@@ -1,3 +1,9 @@
+/* Trong file CSS của bạn (ví dụ: styles.css) */
+.pagination .page-item.active .page-link {
+  font-weight: bold; /* Đặt trọng số chữ đậm cho số trang hiện tại */
+  color: #333; /* Màu chữ của số trang hiện tại */
+}
+
 .blog_right_sidebar {
     border: 1px solid #eeeeee;
     background: #fafaff;
