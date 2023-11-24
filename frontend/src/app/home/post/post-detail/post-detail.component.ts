@@ -53,27 +53,53 @@ export class PostDetailComponent implements OnInit {
   post1: Post[] = [];
   idPost!:number;
 
+  // AddComment() {
+  //   this.id = this.route.snapshot.params['id'];
+  //   this.currentUser = this.storageService.getUser();
+  //   this.isLoggedIn = this.storageService.isLoggedIn();
+  //   if (this.isLoggedIn) {
+  //     this.userPostService.createComment(this.id, this.currentUser.userAccountId, this.uComment)
+  //     .subscribe(
+  //       data => {
+  //         console.log(data);
+  //         this.nofiService.openSnackBar('Comment thành công');
+  //         this.getAllComment();
+  //         // this.getPostDetailByID();
+  //         // window.location.reload();
+  //       }
+  //     )
+      
+  //   } else {
+  //     this.router.navigate(['/home']);
+  //     this.nofiService.openSnackBar('Bạn hãy đăng nhập đã');
+  //   }
+  // }
   AddComment() {
     this.id = this.route.snapshot.params['id'];
     this.currentUser = this.storageService.getUser();
     this.isLoggedIn = this.storageService.isLoggedIn();
+    
     if (this.isLoggedIn) {
       this.userPostService.createComment(this.id, this.currentUser.userAccountId, this.uComment)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.nofiService.openSnackBar('Comment thành công');
-          this.getAllComment();
-          // this.getPostDetailByID();
-          // window.location.reload();
-        }
-      )
-      
+        .subscribe(
+          data => {
+            console.log(data);
+            this.nofiService.openSnackBar('Comment thành công');
+            this.getAllComment();
+            // this.getPostDetailByID();
+            // window.location.reload();
+          },
+          error => {
+            console.error(error);
+            this.nofiService.openSnackBar('Có lỗi xảy ra khi thêm comment. Vui lòng thử lại!');
+          }
+        );
     } else {
       this.router.navigate(['/home']);
       this.nofiService.openSnackBar('Bạn hãy đăng nhập đã');
     }
   }
+  
 
   // PostDetail(id:number){
   //   this.id = this.route.snapshot.params['id'];
@@ -96,21 +122,41 @@ export class PostDetailComponent implements OnInit {
   }
 
 
-  deleteComment(idC: number){
+  // deleteComment(idC: number){
+  //   this.id = this.route.snapshot.params['id'];
+  //   this.currentUser = this.storageService.getUser();
+  //   this.userPostService.deleteComment(this.id, this.currentUser.userAccountId, idC)
+  //   .subscribe({
+  //     next: (res) => {
+  //       this.nofiService.openSnackBar('Comment đã xóa!');
+  //       this.getAllComment();
+  //       // window.location.reload();
+  //     },
+  //     error: console.log,
+  //   })
+  // }
+  deleteComment(idC: number) {
     this.id = this.route.snapshot.params['id'];
     this.currentUser = this.storageService.getUser();
+  
     this.userPostService.deleteComment(this.id, this.currentUser.userAccountId, idC)
-    .subscribe({
-      next: (res) => {
-        this.nofiService.openSnackBar('Comment đã xóa!', 'Ok');
-        this.getAllComment();
-        // window.location.reload();
-      },
-      error: console.log,
-    })
+      .subscribe({
+        next: (res) => {
+          this.nofiService.openSnackBar('Comment đã xóa!');
+          this.getAllComment();
+          // window.location.reload();
+        },
+        error: (err) => {
+          console.error(err);
+          this.nofiService.openSnackBar('Có lỗi xảy ra khi xóa comment. Vui lòng thử lại!', 'Cancel');
+        },
+      });
   }
+  
 
 
+  p: number = 1;
+  itemsPerPage: number = 5; // Số lượng bình luận trên mỗi trang
   getAllComment() {
     this.id = this.route.snapshot.params['id'];
     this.currentUser  = this.storageService.getUser();

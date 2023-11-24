@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="navigation-area">
+                    <!-- <div class="navigation-area">
                         <div class="row">
                             <div
                                 class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
@@ -106,11 +106,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="comments-area">
                         <h4> Bình luận </h4>
 
-                        <div class="comment-list" *ngFor="let comment of comment">
+                        <div class="comment-list" *ngFor="let comment of comment | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
                             <div class="single-comment justify-content-between d-flex">
                                 <div class="user justify-content-between d-flex">
                                     <div class="thumb">
@@ -139,6 +139,7 @@
 
                             </div>
                         </div>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                          <!-- <app-list-comment></app-list-comment> -->
                         <div class="comment-form">
                             <form >

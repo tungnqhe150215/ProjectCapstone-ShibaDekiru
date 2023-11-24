@@ -9,6 +9,7 @@ import { UserAccount } from 'src/app/core/models/user-account';
   providedIn: 'root'
 })
 export class UserPostService {
+  
 
   private idPost !:number;
 
@@ -19,6 +20,8 @@ export class UserPostService {
   getPostID(){
     return this.idPost;
   }
+
+  
 
   post: Post[]=[];
   comment: Comment[] =[];
