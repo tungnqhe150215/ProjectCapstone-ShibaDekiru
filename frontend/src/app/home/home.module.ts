@@ -63,6 +63,7 @@ import { ClassTestResultComponent } from './class/class-landing/class-test-resul
 import { DeleteCommentComponent } from './post/post-detail/list-comment/delete-comment/delete-comment.component';
 import { UpdateCommentComponent } from './post/post-detail/list-comment/update-comment/update-comment.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -137,6 +138,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatRadioModule,
     MatButtonModule,
     MatDialogModule,
+    NgxPaginationModule,
   ]
 })
 export class HomeModule { }
