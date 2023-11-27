@@ -12,6 +12,8 @@ public interface IClassService {
 
     List<Class> getAllClassByLecture(Lectures lecture);
 
+    Class getClassByCode(String code);
+
     Class createClass(Class classs);
 
     Class updateClass(Long classId, Class classUpdate);

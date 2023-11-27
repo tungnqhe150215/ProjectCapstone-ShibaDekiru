@@ -31,9 +31,6 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef mat-sort-header > Action </th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="success" (click)="getKaiwaDetail(row.kaiwaId)">
-          <mat-icon>remove_red_eye</mat-icon>
-        </button>
         <button mat-icon-button color="primary" (click)="openUpdateKaiwaDialog(row.kaiwaId)">
           <mat-icon>edit</mat-icon>
         </button>

@@ -95,10 +95,6 @@ export class ListKaiwaComponent implements OnInit{
       }
     ).afterClosed().subscribe(() => this.getKaiwa());
   }
-
-  getKaiwaDetail(id:number){
-    this.router.navigate(['admin/lesson/kaiwa',id]);
-  }
 }
 
 @Component({
