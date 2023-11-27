@@ -10,7 +10,10 @@ import java.util.List;
 @Repository
 public interface ClassRepository extends JpaRepository<Class, Long> {
 
+    Class findByClassCode(String code);
 
     List<Class> findByLecture(Lectures lecture);
+
+    boolean existsByClassCode(String code);
 
 }
