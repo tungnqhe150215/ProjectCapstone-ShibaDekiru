@@ -38,7 +38,7 @@ public class ClassStudentServiceImpl implements IClassStudentService {
 
     @Override
     public ClassStudent createClassStudent(ClassStudent classStudentRequest) {
-        classStudentRequest.setJoinedAt(LocalDateTime.parse(LocalDateTime.now().toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        classStudentRequest.setJoinedAt(LocalDateTime.now());
         return classStudentRepository.save(classStudentRequest);
     }
 
