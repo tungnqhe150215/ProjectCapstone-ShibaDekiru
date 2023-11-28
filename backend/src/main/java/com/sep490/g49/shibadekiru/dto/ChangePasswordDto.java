@@ -1,12 +1,12 @@
 package com.sep490.g49.shibadekiru.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChangePasswordDto {
 
     private String currentPassword;
