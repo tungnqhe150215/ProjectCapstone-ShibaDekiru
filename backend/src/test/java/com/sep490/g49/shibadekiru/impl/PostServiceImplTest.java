@@ -4,24 +4,23 @@ import com.sep490.g49.shibadekiru.dto.PostDto;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.entity.Post;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
+import com.sep490.g49.shibadekiru.impl.PostServiceImpl;
 import com.sep490.g49.shibadekiru.repository.LecturersRepository;
 import com.sep490.g49.shibadekiru.repository.PostRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.Mockito.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-
-@SpringBootTest
 class PostServiceImplTest {
 
     @Mock
@@ -36,110 +35,146 @@ class PostServiceImplTest {
     @InjectMocks
     private PostServiceImpl postService;
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+//    @Test
+//    void getAllPosts_ReturnsListOfPosts() {
+//        // Arrange
+//        List<Post> mockPosts = new ArrayList<>();
+//        when(postRepository.findAll()).thenReturn(mockPosts);
+//
+//        // Act
+//        List<Post> result = postService.getAllPosts();
+//
+//        // Assert
+//        assertThat(result).isSameAs(mockPosts);
+//    }
+
     @Test
-    void getAllPosts() {
-        // Mocking the behavior of postRepository.findAll() method
+    void getPostPartByLecture_ReturnsListOfPosts() {
+        // Arrange
+        Lectures mockLecture = new Lectures();
         List<Post> mockPosts = new ArrayList<>();
-        Mockito.when(postRepository.findAll()).thenReturn(mockPosts);
+        when(postRepository.findByLecture(mockLecture)).thenReturn(mockPosts);
 
-        List<Post> result = postService.getAllPosts();
+        // Act
+        List<Post> result = postService.getPostPartByLecture(mockLecture);
 
-        assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockPosts list is empty
+        // Assert
+        assertThat(result).isSameAs(mockPosts);
     }
 
     @Test
-    void getPostPartByLecture() {
-        // Mocking the behavior of postRepository.findByLecture() method
-        Lectures lecture = new Lectures();
-        List<Post> mockPosts = new ArrayList<>();
-        Mockito.when(postRepository.findByLecture(lecture)).thenReturn(mockPosts);
-
-        List<Post> result = postService.getPostPartByLecture(lecture);
-
-        assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockPosts list is empty
-    }
-
-    @Test
-    void getAllLectures() {
-        // Mocking the behavior of lecturersRepository.findAll() method
+    void getAllLectures_ReturnsListOfLectures() {
+        // Arrange
         List<Lectures> mockLectures = new ArrayList<>();
-        Mockito.when(lecturersRepository.findAll()).thenReturn(mockLectures);
+        when(lecturersRepository.findAll()).thenReturn(mockLectures);
 
+        // Act
         List<Lectures> result = postService.getAllLectures();
 
-        assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockLectures list is empty
+        // Assert
+        assertThat(result).isSameAs(mockLectures);
     }
 
     @Test
-    void createPost() {
-        // Mocking the behavior of modelMapper.map() method
-        PostDto postDto = new PostDto();
-        Post post = new Post();
-        Mockito.when(modelMapper.map(postDto, Post.class)).thenReturn(post);
+    void createPost_ReturnsCreatedPostDto() {
+        // Arrange
+        PostDto inputPostDto = new PostDto();
+        Lectures mockLecture = new Lectures();
+        Post mockSavedPost = new Post();
+        PostDto mockSavedPostDto = new PostDto();
+        when(modelMapper.map(inputPostDto, Post.class)).thenReturn(mockSavedPost);
+        when(lecturersRepository.findById(inputPostDto.getLectureId())).thenReturn(Optional.of(mockLecture));
+        when(postRepository.save(mockSavedPost)).thenReturn(mockSavedPost);
+        when(modelMapper.map(mockSavedPost, PostDto.class)).thenReturn(mockSavedPostDto);
 
-        // Mocking the behavior of lecturersRepository.findById() method
-        Long lectureId = 1L;
-        Lectures lecture = new Lectures();
-        Mockito.when(lecturersRepository.findById(lectureId)).thenReturn(Optional.of(lecture));
+        // Act
+        PostDto result = postService.createPost(inputPostDto);
 
-        // Mocking the behavior of postRepository.save() method
-        Post savedPost = new Post();
-        Mockito.when(postRepository.save(post)).thenReturn(savedPost);
-
-        PostDto result = postService.createPost(postDto);
-
-        assertNotNull(result);
-        // Add more assertions as needed
+        // Assert
+        assertThat(result).isSameAs(mockSavedPostDto);
     }
 
     @Test
-    void updatePost() {
+    void updatePost_WithExistingPost_ReturnsUpdatedPostDto() {
+        // Arrange
         Long postId = 1L;
         PostDto updatedPostDto = new PostDto();
-
-        // Mocking the behavior of postRepository.findById() method
         Optional<Post> existingPost = Optional.of(new Post());
-        Mockito.when(postRepository.findById(postId)).thenReturn(existingPost);
+        when(postRepository.findById(postId)).thenReturn(existingPost);
+        when(postRepository.save(any())).thenReturn(existingPost.get());
+        when(modelMapper.map(existingPost.get(), PostDto.class)).thenReturn(updatedPostDto);
 
-        // Mocking the behavior of modelMapper.map() method
-        Post updatedPost = new Post();
-        Mockito.when(modelMapper.map(updatedPostDto, Post.class)).thenReturn(updatedPost);
-
-        // Mocking the behavior of postRepository.save() method
-        Post savedPost = new Post();
-        Mockito.when(postRepository.save(updatedPost)).thenReturn(savedPost);
-
+        // Act
         PostDto result = postService.updatePost(postId, updatedPostDto);
 
-        assertNotNull(result);
-        // Add more assertions as needed
+        // Assert
+        assertThat(result).isSameAs(updatedPostDto);
     }
 
     @Test
-    void deletePost() {
+    void updatePost_WithNonexistentPost_ThrowsResourceNotFoundException() {
+        // Arrange
         Long postId = 1L;
+        PostDto updatedPostDto = new PostDto();
+        when(postRepository.findById(postId)).thenReturn(Optional.empty());
 
-        // Mocking the behavior of postRepository.findById() method
-        Optional<Post> existingPost = Optional.of(new Post());
-        Mockito.when(postRepository.findById(postId)).thenReturn(existingPost);
-
-        assertDoesNotThrow(() -> postService.deletePost(postId));
+        // Act & Assert
+        assertThatThrownBy(() -> postService.updatePost(postId, updatedPostDto))
+                .isInstanceOf(ResourceNotFoundException.class);
     }
 
     @Test
-    void getPostById() {
+    void deletePost_WithExistingPost_DeletesPost() {
+        // Arrange
         Long postId = 1L;
+        Post existingPost = new Post();
+        when(postRepository.findById(postId)).thenReturn(Optional.of(existingPost));
 
-        // Mocking the behavior of postRepository.findById() method
-        Post expectedPost = new Post();
-        Mockito.when(postRepository.findById(postId)).thenReturn(Optional.of(expectedPost));
+        // Act
+        postService.deletePost(postId);
 
+        // Assert
+        verify(postRepository, times(1)).delete(existingPost);
+    }
+
+    @Test
+    void deletePost_WithNonexistentPost_ThrowsResourceNotFoundException() {
+        // Arrange
+        Long postId = 1L;
+        when(postRepository.findById(postId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> postService.deletePost(postId))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @Test
+    void getPostById_WithExistingPost_ReturnsPost() {
+        // Arrange
+        Long postId = 1L;
+        Post existingPost = new Post();
+        when(postRepository.findById(postId)).thenReturn(Optional.of(existingPost));
+
+        // Act
         Post result = postService.getPostById(postId);
 
-        assertNotNull(result);
-        // Add more assertions as needed
+        // Assert
+        assertThat(result).isSameAs(existingPost);
+    }
+
+    @Test
+    void getPostById_WithNonexistentPost_ThrowsResourceNotFoundException() {
+        // Arrange
+        Long postId = 1L;
+        when(postRepository.findById(postId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> postService.getPostById(postId))
+                .isInstanceOf(ResourceNotFoundException.class);
     }
 }
