@@ -65,12 +65,14 @@
 <section class="latest_blog_area p_120">
   <div class="container">
     <div class="main_title">
-      <h2>Latest Posts From Blog</h2>
-      <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope.
-        It’s exciting to think about setting up your own viewing station.</p>
+      <h2>Các bài viết mới nhất</h2>
+      <!-- <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope.
+        It’s exciting to think about setting up your own viewing station.</p> -->
+        <p>Có một khoảnh khắc trong cuộc đời của bất kỳ nhà thiên văn học đầy tham vọng nào đó là lúc phải mua chiếc kính thiên văn đầu tiên đó. 
+          Thật thú vị khi nghĩ đến việc thiết lập trạm quan sát của riêng bạn.</p>
     </div>
     <div class="row latest_blog_inner">
-      <div class="col-lg-3 col-md-6">
+      <!-- <div class="col-lg-3 col-md-6">
         <div class="l_blog_item">
           <img class="img-fluid" src="" alt="">
           <a class="date" href="#">25 October, 2018 | By Mark Wiens</a>
@@ -80,8 +82,8 @@
           <p>Computers have become ubiquitous in almost every facet of our lives. At work, desk jockeys
             spend hours in front of their desktops, while delivery</p>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
+      </div> -->
+      <!-- <div class="col-lg-3 col-md-6">
         <div class="l_blog_item">
           <img class="img-fluid" src="" alt="">
           <a class="date" href="#">25 October, 2018 | By Mark Wiens</a>
@@ -91,8 +93,18 @@
           <p>Computers have become ubiquitous in almost every facet of our lives. At work, desk jockeys
             spend hours in front of their desktops, while delivery</p>
         </div>
+      </div> -->
+      <div class="col-lg-3 col-md-6" *ngFor="let post of post">
+        <div class="l_blog_item">
+          <img class="img-fluid" src="https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/86/f5/aa/86f5aa0f-9a2e-bc6e-fac5-016a4c90c9e6/iMessage_App_Icon-1x_U007emarketing-3-85-181.png/1200x630wb.png" alt="">
+          <a class="date" style="cursor: pointer;" (click)="PostDetail(post.postId)">Ngày đăng: {{post.createdAt | date:'dd/MM/yyyy'}} </a>
+          <a (click)="PostDetail(post.postId)" style="cursor: pointer;">
+            <h4>{{post.postContent}}</h4>
+          </a>
+          <p>Bấm vào để xem thêm</p>
+        </div>
       </div>
-      <div class="col-lg-3 col-md-6">
+      <!-- <div class="col-lg-3 col-md-6">
         <div class="l_blog_item">
           <img class="img-fluid" src="" alt="">
           <a class="date" href="#">25 October, 2018 | By Mark Wiens</a>
@@ -102,18 +114,7 @@
           <p>Computers have become ubiquitous in almost every facet of our lives. At work, desk jockeys
             spend hours in front of their desktops, while delivery</p>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="l_blog_item">
-          <img class="img-fluid" src="" alt="">
-          <a class="date" href="#">25 October, 2018 | By Mark Wiens</a>
-          <a href="blog_detail.html">
-            <h4>Addiction When Gambling Becomes A Problem</h4>
-          </a>
-          <p>Computers have become ubiquitous in almost every facet of our lives. At work, desk jockeys
-            spend hours in front of their desktops, while delivery</p>
-        </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>

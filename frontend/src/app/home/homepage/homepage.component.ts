@@ -4,6 +4,8 @@ import { StorageService } from '../auth/user-login/storage.service';
 import { StudentLessonService } from '../lesson/student-lesson.service';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/core/models/book';
+import { UserPostService } from '../post/user-post.service';
+import { Post } from 'src/app/core/models/post';
 
 @Component({
   selector: 'app-homepage',
@@ -12,10 +14,13 @@ import { Book } from 'src/app/core/models/book';
 })
 export class HomepageComponent implements OnInit{
   book: Book[]= [];
+  post: Post[]=[];
   ngOnInit(): void {
     this.getAllBook();
+    this.getLatestPost();
   }
   constructor(
+    private userPostService: UserPostService,
     private studentLessonService: StudentLessonService,
     private router: Router,
   ){}
@@ -26,6 +31,19 @@ export class HomepageComponent implements OnInit{
      console.log(data);
  
     })  
+   }
+
+   PostDetail(id:number){
+    this.userPostService.setPostID(id);
+    this.router.navigate(['./post/post-detail',id]);
+  }
+  
+   getLatestPost(){
+    this.userPostService.getLatestPost()
+    .subscribe(data =>{
+      this.post = data;
+      console.log(data);
+    })
    }
  
    LessonByBook(id:number){
