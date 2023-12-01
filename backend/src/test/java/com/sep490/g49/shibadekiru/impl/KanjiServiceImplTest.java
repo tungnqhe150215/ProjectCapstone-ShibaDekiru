@@ -49,9 +49,25 @@ class KanjiServiceImplTest {
         assertEquals(2, result.size()); verify(kanjiRepository, times(1)).findKanjiByLesson(lesson);
     }
 
-    @Test
-    void createKanji() {
-    }
+//    @Test
+//    void createKanji() {
+//        // Arrange
+//        Kanji kanjiRequest = new Kanji();
+//        Lesson lesson = new Lesson();
+//        kanjiRequest.setLesson(lesson);
+//
+//        when(lessonRepository.findById(anyLong())).thenReturn(Optional.of(lesson));
+//        when(kanjiRepository.save(any())).thenReturn(kanjiRequest);
+//
+//        // Act
+//        Kanji result = kanjiService.createKanji(kanjiRequest);
+//
+//        // Assert
+//        assertNotNull(result);
+//        assertEquals(kanjiRequest, result);
+//        verify(lessonRepository, times(1)).findById(anyLong());
+//        verify(kanjiRepository, times(1)).save(any());
+//    }
 
     @Test
     void getAllKanji() {
@@ -83,6 +99,24 @@ class KanjiServiceImplTest {
 
     @Test
     void updateKanji() {
+        // Arrange
+        Long kanjiId = 1L;
+        Kanji existingKanji = new Kanji();
+        Kanji updatedKanji = new Kanji();
+        updatedKanji.setCharacterKanji("Updated Kanji");
+        updatedKanji.setLesson(new Lesson());
+
+        when(kanjiRepository.findById(kanjiId)).thenReturn(Optional.of(existingKanji));
+        when(kanjiRepository.save(any())).thenReturn(updatedKanji);
+
+        // Act
+        Kanji result = kanjiService.updateKanji(kanjiId, updatedKanji);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(updatedKanji.getCharacterKanji(), result.getCharacterKanji());
+        verify(kanjiRepository, times(1)).findById(kanjiId);
+        verify(kanjiRepository, times(1)).save(any());
     }
 
     @Test
