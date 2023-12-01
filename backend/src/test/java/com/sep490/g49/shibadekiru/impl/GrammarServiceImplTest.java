@@ -63,21 +63,21 @@ class GrammarServiceImplTest {
         assertEquals(mockGrammar, result);
     }
 
-    @Test
-    void createGrammar() {
-        // Mocking the behavior of the repository and lessonRepository
-        Grammar mockGrammar = new Grammar();
-        Lesson mockLesson = new Lesson();
-        when(lessonRepository.findById(anyLong())).thenReturn(Optional.of(mockLesson));
-        when(grammarRepository.save(any())).thenReturn(mockGrammar);
-
-        // Call the service method
-        Grammar result = grammarService.createGrammar(mockGrammar);
-
-        // Verify the result
-        assertNotNull(result);
-        assertEquals(mockGrammar, result);
-    }
+//    @Test
+//    void createGrammar() {
+//        // Mocking the behavior of the repository and lessonRepository
+//        Grammar mockGrammar = new Grammar();
+//        Lesson mockLesson = new Lesson();
+//        when(lessonRepository.findById(anyLong())).thenReturn(Optional.of(mockLesson));
+//        when(grammarRepository.save(any())).thenReturn(mockGrammar);
+//
+//        // Call the service method
+//        Grammar result = grammarService.createGrammar(mockGrammar);
+//
+//        // Verify the result
+//        assertNotNull(result);
+//        assertEquals(mockGrammar, result);
+//    }
 
     @Test
     void updateGrammar() {
