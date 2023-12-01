@@ -3,20 +3,18 @@ package com.sep490.g49.shibadekiru.impl;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.entity.Listening;
 import com.sep490.g49.shibadekiru.repository.ListeningRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
 class ListeningServiceImplTest {
 
     @Mock
@@ -25,71 +23,90 @@ class ListeningServiceImplTest {
     @InjectMocks
     private ListeningServiceImpl listeningService;
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
     void getListeningPartByLesson() {
+        // Arrange
         Lesson lesson = new Lesson();
-        List<Listening> mockListenings = new ArrayList<>();
-        Mockito.when(listeningRepository.findListeningsByLesson(lesson)).thenReturn(mockListenings);
+        List<Listening> listenings = new ArrayList<>();
+        listenings.add(new Listening());
+        listenings.add(new Listening());
+        when(listeningRepository.findListeningsByLesson(lesson)).thenReturn(listenings);
 
+        // Act
         List<Listening> result = listeningService.getListeningPartByLesson(lesson);
 
-        assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockListenings list is empty
+        // Assert
+        assertEquals(2, result.size());
+        verify(listeningRepository, times(1)).findListeningsByLesson(lesson);
     }
 
     @Test
     void getListeningById() {
+        // Arrange
         Long listeningId = 1L;
-        Listening expectedListening = new Listening();
-        expectedListening.setListeningId(listeningId);
-        Mockito.when(listeningRepository.findListeningByListeningId(listeningId)).thenReturn(expectedListening);
+        Listening listening = new Listening();
+        when(listeningRepository.findListeningByListeningId(listeningId)).thenReturn(listening);
 
+        // Act
         Listening result = listeningService.getListeningById(listeningId);
 
-        assertNotNull(result);
-        assertEquals(listeningId, result.getListeningId());
+        // Assert
+        assertEquals(listening, result);
     }
 
     @Test
     void createListening() {
-        Listening inputListening = new Listening();
-        Mockito.when(listeningRepository.save(any(Listening.class))).thenReturn(inputListening);
+        // Arrange
+        Listening listeningRequest = new Listening();
+        when(listeningRepository.save(listeningRequest)).thenReturn(listeningRequest);
 
-        Listening result = listeningService.createListening(inputListening);
+        // Act
+        Listening result = listeningService.createListening(listeningRequest);
 
+        // Assert
         assertNotNull(result);
-        // Add more assertions as needed
+        assertEquals(listeningRequest, result);
+        verify(listeningRepository, times(1)).save(listeningRequest);
     }
 
     @Test
     void updateListening() {
+        // Arrange
         Long listeningId = 1L;
         Listening existingListening = new Listening();
-        existingListening.setListeningId(listeningId);
-
         Listening updatedListening = new Listening();
-        updatedListening.setLink("Updated Link");
+        updatedListening.setTitle("Updated Title");
 
-        Mockito.when(listeningRepository.findListeningByListeningId(listeningId))
-                .thenReturn(existingListening);
-        Mockito.when(listeningRepository.save(any(Listening.class))).thenReturn(updatedListening);
+        when(listeningRepository.findListeningByListeningId(listeningId)).thenReturn(existingListening);
+        when(listeningRepository.save(any())).thenReturn(updatedListening);
 
+        // Act
         Listening result = listeningService.updateListening(listeningId, updatedListening);
 
+        // Assert
         assertNotNull(result);
-        assertEquals("Updated Link", result.getLink());
-        // Add more assertions as needed
+        assertEquals(updatedListening.getTitle(), result.getTitle());
+        verify(listeningRepository, times(1)).findListeningByListeningId(listeningId);
+        verify(listeningRepository, times(1)).save(any());
     }
 
     @Test
     void deleteListening() {
+        // Arrange
         Long listeningId = 1L;
-        Listening existingListening = new Listening();
-        existingListening.setListeningId(listeningId);
+        Listening listening = new Listening();
+        when(listeningRepository.findListeningByListeningId(listeningId)).thenReturn(listening);
 
-        Mockito.when(listeningRepository.findListeningByListeningId(listeningId))
-                .thenReturn(existingListening);
+        // Act
+        listeningService.deleteListening(listeningId);
 
-        assertDoesNotThrow(() -> listeningService.deleteListening(listeningId));
+        // Assert
+        verify(listeningRepository, times(1)).findListeningByListeningId(listeningId);
+        verify(listeningRepository, times(1)).delete(listening);
     }
 }
