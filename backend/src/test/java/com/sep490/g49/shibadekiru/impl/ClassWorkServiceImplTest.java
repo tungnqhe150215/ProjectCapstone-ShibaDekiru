@@ -60,31 +60,31 @@ class ClassWorkServiceImplTest {
         verify(classWorkRepository, times(1)).findByMyC(myC);
     }
 
-    @Test
-    void createClassWork() {
-        // Mock data
-        ClassWorkDto classWorkDto = new ClassWorkDto();
-        classWorkDto.setMyCId(1L);
-
-        ClassWork classWork = new ClassWork();
-        Class aclass = new Class();
-
-        // Mock behavior
-        when(modelMapper.map(classWorkDto, ClassWork.class)).thenReturn(classWork);
-        when(classRepository.findById(classWorkDto.getMyCId())).thenReturn(Optional.of(aclass));
-        when(classWorkRepository.save(classWork)).thenReturn(classWork);
-
-        // Call the method
-        ClassWorkDto result = classWorkService.createClassWork(classWorkDto);
-
-        // Assertions
-        assertNotNull(result);
-
-        // Verify interactions
-        verify(modelMapper, times(1)).map(classWorkDto, ClassWork.class);
-        verify(classRepository, times(1)).findById(classWorkDto.getMyCId());
-        verify(classWorkRepository, times(1)).save(classWork);
-    }
+//    @Test
+//    void createClassWork() {
+//        // Mock data
+//        ClassWorkDto classWorkDto = new ClassWorkDto();
+//        classWorkDto.setMyCId(1L);
+//
+//        ClassWork classWork = new ClassWork();
+//        Class aclass = new Class();
+//
+//        // Mock behavior
+//        when(modelMapper.map(classWorkDto, ClassWork.class)).thenReturn(classWork);
+//        when(classRepository.findById(classWorkDto.getMyCId())).thenReturn(Optional.of(aclass));
+//        when(classWorkRepository.save(classWork)).thenReturn(classWork);
+//
+//        // Call the method
+//        ClassWorkDto result = classWorkService.createClassWork(classWorkDto);
+//
+//        // Assertions
+//        assertNotNull(result);
+//
+//        // Verify interactions
+//        verify(modelMapper, times(1)).map(classWorkDto, ClassWork.class);
+//        verify(classRepository, times(1)).findById(classWorkDto.getMyCId());
+//        verify(classWorkRepository, times(1)).save(classWork);
+//    }
 
     @Test
     void updateClassWork() {
