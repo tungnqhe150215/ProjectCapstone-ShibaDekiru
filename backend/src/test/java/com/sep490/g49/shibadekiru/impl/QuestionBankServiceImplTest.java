@@ -4,22 +4,21 @@ import com.sep490.g49.shibadekiru.entity.QuestionBank;
 import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.entity.TestSection;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
+import com.sep490.g49.shibadekiru.impl.QuestionBankServiceImpl;
 import com.sep490.g49.shibadekiru.repository.QuestionBankRepository;
 import com.sep490.g49.shibadekiru.repository.TestSectionRepository;
+import org.junit.jupiter.api.BeforeEach;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
-
+import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-
-@SpringBootTest
 class QuestionBankServiceImplTest {
 
     @Mock
@@ -31,92 +30,117 @@ class QuestionBankServiceImplTest {
     @InjectMocks
     private QuestionBankServiceImpl questionBankService;
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @org.junit.jupiter.api.Test
-    void getAllQuestionByTestSection() {
-        // Mocking the behavior of questionBankRepository.findBySection() method
+    void getAllQuestionByTestSection_ReturnsListOfQuestions() {
+        // Arrange
         TestSection testSection = new TestSection();
         List<QuestionBank> mockQuestions = new ArrayList<>();
-        Mockito.when(questionBankRepository.findBySection(testSection)).thenReturn(mockQuestions);
+        when(questionBankRepository.findBySection(testSection)).thenReturn(mockQuestions);
 
+        // Act
         List<QuestionBank> result = questionBankService.getAllQuestionByTestSection(testSection);
 
-        assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockQuestions list is empty
+        // Assert
+        assertThat(result).isSameAs(mockQuestions);
     }
 
     @org.junit.jupiter.api.Test
-    void getQuestionById() {
-        // Mocking the behavior of questionBankRepository.findById() method
+    void getQuestionById_WithExistingQuestion_ReturnsQuestion() {
+        // Arrange
         Long questionId = 1L;
-        QuestionBank expectedQuestion = new QuestionBank();
-        Mockito.when(questionBankRepository.findById(questionId)).thenReturn(Optional.of(expectedQuestion));
+        QuestionBank existingQuestion = new QuestionBank();
+        when(questionBankRepository.findById(questionId)).thenReturn(Optional.of(existingQuestion));
 
+        // Act
         QuestionBank result = questionBankService.getQuestionById(questionId);
 
-        assertNotNull(result);
-        // Add more assertions as needed
+        // Assert
+        assertThat(result).isSameAs(existingQuestion);
     }
 
     @org.junit.jupiter.api.Test
-    void getQuestionByTest() {
-        // Mocking the behavior of questionBankRepository.findBySection() method
-        Test test = new Test();
-        TestSection testSection = new TestSection();
-        testSection.setTest(test);
-        List<QuestionBank> mockQuestions = new ArrayList<>();
-        Mockito.when(testSectionRepository.findTestSectionsByTest(test)).thenReturn(List.of(testSection));
-        Mockito.when(questionBankRepository.findBySection(testSection)).thenReturn(mockQuestions);
+    void getQuestionById_WithNonexistentQuestion_ThrowsResourceNotFoundException() {
+        // Arrange
+        Long questionId = 1L;
+        when(questionBankRepository.findById(questionId)).thenReturn(Optional.empty());
 
-        List<QuestionBank> result = questionBankService.getQuestionByTest(test);
+        // Act & Assert
+        assertThatThrownBy(() -> questionBankService.getQuestionById(questionId))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
 
-        assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockQuestions list is empty
+
+
+
+
+    @org.junit.jupiter.api.Test
+    void createQuestion_WithInvalidSection_ThrowsResourceNotFoundException() {
+        // Arrange
+        QuestionBank inputQuestion = new QuestionBank();
+        inputQuestion.setSection(new TestSection());  // Section with no ID
+        when(testSectionRepository.findById(null)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> questionBankService.createQuestion(inputQuestion))
+                .isInstanceOf(ResourceNotFoundException.class);
     }
 
     @org.junit.jupiter.api.Test
-    void createQuestion() {
-        // Mocking the behavior of testSectionRepository.findById() method
-        Long sectionId = 1L;
-        TestSection testSection = new TestSection();
-        Mockito.when(testSectionRepository.findById(sectionId)).thenReturn(Optional.of(testSection));
-
-        // Mocking the behavior of questionBankRepository.save() method
-        QuestionBank savedQuestion = new QuestionBank();
-        Mockito.when(questionBankRepository.save(any(QuestionBank.class))).thenReturn(savedQuestion);
-
-        QuestionBank result = questionBankService.createQuestion(new QuestionBank());
-
-        assertNotNull(result);
-        // Add more assertions as needed
-    }
-
-    @org.junit.jupiter.api.Test
-    void updateQuestion() {
+    void updateQuestion_WithExistingQuestion_ReturnsUpdatedQuestion() {
+        // Arrange
         Long questionId = 1L;
         QuestionBank updatedQuestion = new QuestionBank();
-
-        // Mocking the behavior of questionBankRepository.findById() method
+        updatedQuestion.setQuestion("Updated Question");
         Optional<QuestionBank> existingQuestion = Optional.of(new QuestionBank());
-        Mockito.when(questionBankRepository.findById(questionId)).thenReturn(existingQuestion);
+        when(questionBankRepository.findById(questionId)).thenReturn(existingQuestion);
+        when(questionBankRepository.save(any())).thenReturn(updatedQuestion);
 
-        // Mocking the behavior of questionBankRepository.save() method
-        QuestionBank savedQuestion = new QuestionBank();
-        Mockito.when(questionBankRepository.save(any(QuestionBank.class))).thenReturn(savedQuestion);
-
+        // Act
         QuestionBank result = questionBankService.updateQuestion(questionId, updatedQuestion);
 
-        assertNotNull(result);
-        // Add more assertions as needed
+        // Assert
+        assertThat(result).isSameAs(updatedQuestion);
     }
 
     @org.junit.jupiter.api.Test
-    void deleteQuestion() {
+    void updateQuestion_WithNonexistentQuestion_ThrowsResourceNotFoundException() {
+        // Arrange
         Long questionId = 1L;
+        QuestionBank updatedQuestion = new QuestionBank();
+        when(questionBankRepository.findById(questionId)).thenReturn(Optional.empty());
 
-        // Mocking the behavior of questionBankRepository.findById() method
-        Optional<QuestionBank> existingQuestion = Optional.of(new QuestionBank());
-        Mockito.when(questionBankRepository.findById(questionId)).thenReturn(existingQuestion);
+        // Act & Assert
+        assertThatThrownBy(() -> questionBankService.updateQuestion(questionId, updatedQuestion))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
 
-        assertDoesNotThrow(() -> questionBankService.deleteQuestion(questionId));
+    @org.junit.jupiter.api.Test
+    void deleteQuestion_WithExistingQuestion_DeletesQuestion() {
+        // Arrange
+        Long questionId = 1L;
+        QuestionBank existingQuestion = new QuestionBank();
+        when(questionBankRepository.findById(questionId)).thenReturn(Optional.of(existingQuestion));
+
+        // Act
+        questionBankService.deleteQuestion(questionId);
+
+        // Assert
+        verify(questionBankRepository, times(1)).delete(existingQuestion);
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteQuestion_WithNonexistentQuestion_ThrowsResourceNotFoundException() {
+        // Arrange
+        Long questionId = 1L;
+        when(questionBankRepository.findById(questionId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> questionBankService.deleteQuestion(questionId))
+                .isInstanceOf(ResourceNotFoundException.class);
     }
 }
