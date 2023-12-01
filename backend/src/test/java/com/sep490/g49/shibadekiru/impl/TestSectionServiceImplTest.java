@@ -1,5 +1,3 @@
-package com.sep490.g49.shibadekiru.impl;
-
 import com.sep490.g49.shibadekiru.entity.SectionType;
 import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.entity.TestSection;
@@ -7,14 +5,17 @@ import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.impl.TestSectionServiceImpl;
 import com.sep490.g49.shibadekiru.repository.TestSectionRepository;
 import com.sep490.g49.shibadekiru.service.GoogleDriveService;
+import org.junit.jupiter.api.BeforeEach;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.stream.Collectors;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 class TestSectionServiceImplTest {
@@ -28,93 +29,102 @@ class TestSectionServiceImplTest {
     @InjectMocks
     private TestSectionServiceImpl testSectionService;
 
-    @org.junit.jupiter.api.Test
-    void getTestSectionByTypeAndTest() {
-        // Mock data
-        SectionType sectionType = SectionType.LISTENING;
-        Test test = new Test();
-        when(testSectionRepository.findTestSectionsBySectionTypeAndAndTest(sectionType, test)).thenReturn(Collections.emptyList());
-
-        // Test
-        var result = testSectionService.getTestSectionByTypeAndTest(sectionType, test);
-
-        // Assertions
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @org.junit.jupiter.api.Test
-    void getTestSectionByTest() {
-        // Mock data
-        Test test = new Test();
-        when(testSectionRepository.findTestSectionsByTest(test)).thenReturn(Collections.emptyList());
-
-        // Test
-        var result = testSectionService.getTestSectionByTest(test);
-
-        // Assertions
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
-
-    @org.junit.jupiter.api.Test
-    void getTestSectionById() {
-        // Mock data
-        Long id = 1L;
-        TestSection testSection = new TestSection();
-        when(testSectionRepository.findById(id)).thenReturn(Optional.of(testSection));
-
-        // Test
-        var result = testSectionService.getTestSectionById(id);
-
-        // Assertions
-        assertNotNull(result);
-        assertEquals(testSection, result);
-    }
-
-    @org.junit.jupiter.api.Test
-    void createTestSection() {
-        // Mock data
-        TestSection testSectionRequest = new TestSection();
-        when(testSectionRepository.save(any(TestSection.class))).thenReturn(testSectionRequest);
-
-        // Test
-        var createdTestSection = testSectionService.createTestSection(testSectionRequest);
-
-        // Assertions
-        assertNotNull(createdTestSection);
-        assertEquals(testSectionRequest, createdTestSection);
-    }
-
-    @org.junit.jupiter.api.Test
-    void updateTestSection() {
-        // Mock data
-        Long id = 1L;
-        TestSection testSectionRequest = new TestSection();
+    void getTestSectionById_WithExistingTestSection_ReturnsTestSection() {
+        // Arrange
+        Long testSectionId = 1L;
         TestSection existingTestSection = new TestSection();
-        when(testSectionRepository.findById(id)).thenReturn(Optional.of(existingTestSection));
-        when(testSectionRepository.save(any(TestSection.class))).thenReturn(testSectionRequest);
+        when(testSectionRepository.findById(testSectionId)).thenReturn(Optional.of(existingTestSection));
 
-        // Test
-        var updatedTestSection = testSectionService.updateTestSection(id, testSectionRequest);
+        // Act
+        TestSection result = testSectionService.getTestSectionById(testSectionId);
 
-        // Assertions
-        assertNotNull(updatedTestSection);
-        assertEquals(testSectionRequest, updatedTestSection);
+        // Assert
+        assertThat(result).isSameAs(existingTestSection);
     }
 
     @org.junit.jupiter.api.Test
-    void deleteTestSection() {
-        // Mock data
-        Long id = 1L;
-        TestSection testSection = new TestSection();
-        testSection.setSectionType(SectionType.LISTENING);
-        when(testSectionRepository.findById(id)).thenReturn(Optional.of(testSection));
+    void getTestSectionById_WithNonexistentTestSection_ThrowsResourceNotFoundException() {
+        // Arrange
+        Long testSectionId = 1L;
+        when(testSectionRepository.findById(testSectionId)).thenReturn(Optional.empty());
 
-        // Test
-        assertDoesNotThrow(() -> testSectionService.deleteTestSection(id));
+        // Act & Assert
+        assertThatThrownBy(() -> testSectionService.getTestSectionById(testSectionId))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
 
-        // Verify if googleDriveService.deleteFile() was called
-        verify(googleDriveService, times(1)).deleteFile(testSection.getSectionAttach());
+    @org.junit.jupiter.api.Test
+    void createTestSection_WithValidData_ReturnsCreatedTestSection() {
+        // Arrange
+        TestSection inputTestSection = new TestSection();
+        when(testSectionRepository.save(any())).thenReturn(inputTestSection);
+
+        // Act
+        TestSection result = testSectionService.createTestSection(inputTestSection);
+
+        // Assert
+        assertThat(result).isSameAs(inputTestSection);
+    }
+
+    @org.junit.jupiter.api.Test
+    void updateTestSection_WithExistingTestSection_ReturnsUpdatedTestSection() {
+        // Arrange
+        Long testSectionId = 1L;
+        TestSection updatedTestSection = new TestSection();
+        updatedTestSection.setSectionName("Updated Section");
+        Optional<TestSection> existingTestSection = Optional.of(new TestSection());
+        when(testSectionRepository.findById(testSectionId)).thenReturn(existingTestSection);
+        when(testSectionRepository.save(any())).thenReturn(updatedTestSection);
+
+        // Act
+        TestSection result = testSectionService.updateTestSection(testSectionId, updatedTestSection);
+
+        // Assert
+        assertThat(result).isSameAs(updatedTestSection);
+    }
+
+    @org.junit.jupiter.api.Test
+    void updateTestSection_WithNonexistentTestSection_ThrowsResourceNotFoundException() {
+        // Arrange
+        Long testSectionId = 1L;
+        TestSection updatedTestSection = new TestSection();
+        when(testSectionRepository.findById(testSectionId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> testSectionService.updateTestSection(testSectionId, updatedTestSection))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteTestSection_WithExistingTestSection_DeletesTestSection() {
+        // Arrange
+        Long testSectionId = 1L;
+        TestSection existingTestSection = new TestSection();
+        existingTestSection.setSectionType(SectionType.LISTENING);
+        when(testSectionRepository.findById(testSectionId)).thenReturn(Optional.of(existingTestSection));
+
+        // Act
+        testSectionService.deleteTestSection(testSectionId);
+
+        // Assert
+        verify(googleDriveService, times(1)).deleteFile(existingTestSection.getSectionAttach());
+        verify(testSectionRepository, times(1)).delete(existingTestSection);
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteTestSection_WithNonexistentTestSection_ThrowsResourceNotFoundException() {
+        // Arrange
+        Long testSectionId = 1L;
+        when(testSectionRepository.findById(testSectionId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> testSectionService.deleteTestSection(testSectionId))
+                .isInstanceOf(ResourceNotFoundException.class);
     }
 }
