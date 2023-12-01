@@ -3,20 +3,18 @@ package com.sep490.g49.shibadekiru.impl;
 import com.sep490.g49.shibadekiru.entity.Listening;
 import com.sep490.g49.shibadekiru.entity.ListeningQuestion;
 import com.sep490.g49.shibadekiru.repository.ListeningQuestionRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
 class ListeningQuestionServiceImplTest {
 
     @Mock
@@ -25,72 +23,90 @@ class ListeningQuestionServiceImplTest {
     @InjectMocks
     private ListeningQuestionServiceImpl listeningQuestionService;
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
     void getListeningQuestionByListening() {
+        // Arrange
         Listening listening = new Listening();
-        List<ListeningQuestion> mockQuestions = new ArrayList<>();
-        Mockito.when(listeningQuestionRepository.findByListening(listening)).thenReturn(mockQuestions);
+        List<ListeningQuestion> listeningQuestions = new ArrayList<>();
+        listeningQuestions.add(new ListeningQuestion());
+        listeningQuestions.add(new ListeningQuestion());
+        when(listeningQuestionRepository.findByListening(listening)).thenReturn(listeningQuestions);
 
+        // Act
         List<ListeningQuestion> result = listeningQuestionService.getListeningQuestionByListening(listening);
 
-        assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockQuestions list is empty
+        // Assert
+        assertEquals(2, result.size());
+        verify(listeningQuestionRepository, times(1)).findByListening(listening);
     }
 
     @Test
     void getListeningQuestionById() {
+        // Arrange
         Long questionId = 1L;
-        ListeningQuestion expectedQuestion = new ListeningQuestion();
-        expectedQuestion.setListeningQuestionId(questionId);
-        Mockito.when(listeningQuestionRepository.findListeningQuestionByListeningQuestionId(questionId))
-                .thenReturn(expectedQuestion);
+        ListeningQuestion listeningQuestion = new ListeningQuestion();
+        when(listeningQuestionRepository.findListeningQuestionByListeningQuestionId(questionId)).thenReturn(listeningQuestion);
 
+        // Act
         ListeningQuestion result = listeningQuestionService.getListeningQuestionById(questionId);
 
-        assertNotNull(result);
-        assertEquals(questionId, result.getListeningQuestionId());
+        // Assert
+        assertEquals(listeningQuestion, result);
     }
 
     @Test
     void createListeningQuestion() {
-        ListeningQuestion inputQuestion = new ListeningQuestion();
-        Mockito.when(listeningQuestionRepository.save(any(ListeningQuestion.class))).thenReturn(inputQuestion);
+        // Arrange
+        ListeningQuestion listeningQuestionRequest = new ListeningQuestion();
+        when(listeningQuestionRepository.save(listeningQuestionRequest)).thenReturn(listeningQuestionRequest);
 
-        ListeningQuestion result = listeningQuestionService.createListeningQuestion(inputQuestion);
+        // Act
+        ListeningQuestion result = listeningQuestionService.createListeningQuestion(listeningQuestionRequest);
 
+        // Assert
         assertNotNull(result);
-        // Add more assertions as needed
+        assertEquals(listeningQuestionRequest, result);
+        verify(listeningQuestionRepository, times(1)).save(listeningQuestionRequest);
     }
 
     @Test
     void updateListeningQuestion() {
+        // Arrange
         Long questionId = 1L;
         ListeningQuestion existingQuestion = new ListeningQuestion();
-        existingQuestion.setListeningQuestionId(questionId);
-
         ListeningQuestion updatedQuestion = new ListeningQuestion();
         updatedQuestion.setQuestion("Updated Question");
 
-        Mockito.when(listeningQuestionRepository.findListeningQuestionByListeningQuestionId(questionId))
-                .thenReturn(existingQuestion);
-        Mockito.when(listeningQuestionRepository.save(any(ListeningQuestion.class))).thenReturn(updatedQuestion);
+        when(listeningQuestionRepository.findListeningQuestionByListeningQuestionId(questionId)).thenReturn(existingQuestion);
+        when(listeningQuestionRepository.save(any())).thenReturn(updatedQuestion);
 
+        // Act
         ListeningQuestion result = listeningQuestionService.updateListeningQuestion(questionId, updatedQuestion);
 
+        // Assert
         assertNotNull(result);
-        assertEquals("Updated Question", result.getQuestion());
-        // Add more assertions as needed
+        assertEquals(updatedQuestion.getQuestion(), result.getQuestion());
+        verify(listeningQuestionRepository, times(1)).findListeningQuestionByListeningQuestionId(questionId);
+        verify(listeningQuestionRepository, times(1)).save(any());
     }
 
     @Test
     void deleteListeningQuestion() {
+        // Arrange
         Long questionId = 1L;
-        ListeningQuestion existingQuestion = new ListeningQuestion();
-        existingQuestion.setListeningQuestionId(questionId);
+        ListeningQuestion listeningQuestion = new ListeningQuestion();
+        when(listeningQuestionRepository.findListeningQuestionByListeningQuestionId(questionId)).thenReturn(listeningQuestion);
 
-        Mockito.when(listeningQuestionRepository.findListeningQuestionByListeningQuestionId(questionId))
-                .thenReturn(existingQuestion);
+        // Act
+        listeningQuestionService.deleteListeningQuestion(questionId);
 
-        assertDoesNotThrow(() -> listeningQuestionService.deleteListeningQuestion(questionId));
+        // Assert
+        verify(listeningQuestionRepository, times(1)).findListeningQuestionByListeningQuestionId(questionId);
+        verify(listeningQuestionRepository, times(1)).delete(listeningQuestion);
     }
 }
