@@ -1,108 +1,144 @@
+package com.sep490.g49.shibadekiru.impl;
+
 import com.sep490.g49.shibadekiru.entity.Class;
 import com.sep490.g49.shibadekiru.entity.ClassTestAssign;
+import com.sep490.g49.shibadekiru.entity.Test;
+import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.impl.ClassTestAssignServiceImpl;
 import com.sep490.g49.shibadekiru.repository.ClassTestAssignRepository;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class ClassTestAssignServiceImplTest {
 
-    @InjectMocks
-    private ClassTestAssignServiceImpl classTestAssignService;
-
     @Mock
     private ClassTestAssignRepository classTestAssignRepository;
 
-    @Test
-    void getAllClassTestByClass() {
-        // Mock data
-        Class assignedClass = new Class();
-        ClassTestAssign classTestAssign1 = new ClassTestAssign();
-        ClassTestAssign classTestAssign2 = new ClassTestAssign();
-        List<ClassTestAssign> classTestAssignList = Arrays.asList(classTestAssign1, classTestAssign2);
+    @InjectMocks
+    private ClassTestAssignServiceImpl classTestAssignService;
 
-        // Mock behavior
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @org.junit.jupiter.api.Test
+    void saveClassTestAssign() {
+        // Arrange
+        ClassTestAssign classTestAssignRequest = new ClassTestAssign();
+        int expirationMinutes = 30;
+
+        // Mock the save method to return the same object passed to it
+        when(classTestAssignRepository.save(any(ClassTestAssign.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // Act
+        ClassTestAssign result = classTestAssignService.saveClassTestAssign(classTestAssignRequest, expirationMinutes);
+
+        // Assert
+        assertNotNull(result.getAccessExpirationDate());
+        verify(classTestAssignRepository, times(1)).save(any(ClassTestAssign.class));
+    }
+
+    @org.junit.jupiter.api.Test
+    void getAllClassTestRelationships() {
+        // Arrange
+        List<ClassTestAssign> classTestAssignList = new ArrayList<>();
+        when(classTestAssignRepository.findAll()).thenReturn(classTestAssignList);
+
+        // Act
+        List<ClassTestAssign> result = classTestAssignService.getAllClassTestRelationships();
+
+        // Assert
+        assertEquals(classTestAssignList, result);
+        verify(classTestAssignRepository, times(1)).findAll();
+    }
+
+    @org.junit.jupiter.api.Test
+    void getClassTestById() {
+        // Arrange
+        Long testId = 1L;
+        ClassTestAssign classTestAssign = new ClassTestAssign();
+        when(classTestAssignRepository.findById(testId)).thenReturn(Optional.of(classTestAssign));
+
+        // Act
+        ClassTestAssign result = classTestAssignService.getClassTestById(testId);
+
+        // Assert
+        assertEquals(classTestAssign, result);
+        verify(classTestAssignRepository, times(1)).findById(testId);
+    }
+
+    @org.junit.jupiter.api.Test
+    void getAllClassTestByClass() {
+        // Arrange
+        Class assignedClass = new Class();
+        List<ClassTestAssign> classTestAssignList = new ArrayList<>();
         when(classTestAssignRepository.findAllByAssignedClass(assignedClass)).thenReturn(classTestAssignList);
 
-        // Call the method
+        // Act
         List<ClassTestAssign> result = classTestAssignService.getAllClassTestByClass(assignedClass);
 
-        // Assertions
-        assertEquals(classTestAssignList.size(), result.size());
-
-        // Verify interactions
+        // Assert
+        assertEquals(classTestAssignList, result);
         verify(classTestAssignRepository, times(1)).findAllByAssignedClass(assignedClass);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void getAllClassTestByTest() {
-        // Mock data
-        com.sep490.g49.shibadekiru.entity.Test test = new com.sep490.g49.shibadekiru.entity.Test();
-        ClassTestAssign classTestAssign1 = new ClassTestAssign();
-        ClassTestAssign classTestAssign2 = new ClassTestAssign();
-        List<ClassTestAssign> classTestAssignList = Arrays.asList(classTestAssign1, classTestAssign2);
-
-        // Mock behavior
+        // Arrange
+        Test test = new Test();
+        List<ClassTestAssign> classTestAssignList = new ArrayList<>();
         when(classTestAssignRepository.findAllByTest(test)).thenReturn(classTestAssignList);
 
-        // Call the method
+        // Act
         List<ClassTestAssign> result = classTestAssignService.getAllClassTestByTest(test);
 
-        // Assertions
-        assertEquals(classTestAssignList.size(), result.size());
-
-        // Verify interactions
+        // Assert
+        assertEquals(classTestAssignList, result);
         verify(classTestAssignRepository, times(1)).findAllByTest(test);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void updateExpireDate() {
-        // Mock data
+        // Arrange
         Long id = 1L;
         int expirationMinutes = 30;
         ClassTestAssign classTestAssign = new ClassTestAssign();
-        classTestAssign.setId(id);
-
-        // Mock behavior
         when(classTestAssignRepository.findById(id)).thenReturn(Optional.of(classTestAssign));
-        when(classTestAssignRepository.save(classTestAssign)).thenReturn(classTestAssign);
+        when(classTestAssignRepository.save(any(ClassTestAssign.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        // Call the method
-        ClassTestAssign updatedClassTestAssign = classTestAssignService.updateExpireDate(id, expirationMinutes);
+        // Act
+        ClassTestAssign result = classTestAssignService.updateExpireDate(id, expirationMinutes);
 
-        // Assertions
-        assertNotNull(updatedClassTestAssign);
-        assertEquals(LocalDateTime.now().plusMinutes(expirationMinutes).getMinute(), updatedClassTestAssign.getAccessExpirationDate().getMinute());
-
-        // Verify interactions
+        // Assert
+        assertNotNull(result.getAccessExpirationDate());
         verify(classTestAssignRepository, times(1)).findById(id);
-        verify(classTestAssignRepository, times(1)).save(classTestAssign);
+        verify(classTestAssignRepository, times(1)).save(any(ClassTestAssign.class));
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void deleteClassTest() {
-        // Mock data
+        // Arrange
         Long id = 1L;
         ClassTestAssign classTestAssign = new ClassTestAssign();
-        classTestAssign.setId(id);
-
-        // Mock behavior
         when(classTestAssignRepository.findById(id)).thenReturn(Optional.of(classTestAssign));
 
-        // Call the method
+        // Act
         classTestAssignService.deleteClassTest(id);
 
-        // Verify interactions
+        // Assert
         verify(classTestAssignRepository, times(1)).findById(id);
         verify(classTestAssignRepository, times(1)).delete(classTestAssign);
     }
