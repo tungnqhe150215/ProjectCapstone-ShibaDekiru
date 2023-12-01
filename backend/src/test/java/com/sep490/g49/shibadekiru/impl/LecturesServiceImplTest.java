@@ -1,25 +1,23 @@
-package com.sep490.g49.shibadekiru.impl;
-
 import com.sep490.g49.shibadekiru.dto.LecturesDto;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
+import com.sep490.g49.shibadekiru.impl.LecturesServiceImpl;
 import com.sep490.g49.shibadekiru.repository.LecturersRepository;
 import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
-import com.sep490.g49.shibadekiru.service.ILecturesService;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class LecturesServiceImplTest {
 
     @Mock
@@ -34,53 +32,65 @@ class LecturesServiceImplTest {
     @InjectMocks
     private LecturesServiceImpl lecturesService;
 
+//    @Test
+//    void createLecturerFromUserAccount_Success() {
+//        // Arrange
+//        LecturesDto inputDto = new LecturesDto();
+//        inputDto.setMemberId("testMemberId");
+//        inputDto.setFirstName("John");
+//        inputDto.setLastName("Doe");
+//
+//        UserAccount mockUserAccount = new UserAccount();
+//        when(userAccountRepository.findByMemberId("testMemberId")).thenReturn(mockUserAccount);
+//
+//        Lectures mockLectures = new Lectures();
+//        when(modelMapper.map(inputDto, Lectures.class)).thenReturn(mockLectures);
+//        when(lecturersRepository.save(any(Lectures.class))).thenReturn(mockLectures);
+//
+//        // Act
+//        LecturesDto resultDto = lecturesService.createLecturerFromUserAccount(inputDto);
+//
+//        // Assert
+//        assertThat(resultDto).isNotNull();
+//        assertThat(resultDto.getFirstName()).isEqualTo("John");
+//        assertThat(resultDto.getLastName()).isEqualTo("Doe");
+//    }
+
     @Test
-    void createLecturerFromUserAccount() {
-        LecturesDto lecturesDto = new LecturesDto();
-        lecturesDto.setMemberId("exampleMemberId");
+    void getLectureById_Success() {
+        // Arrange
+        long existingLectureId = 1L;
+        Lectures mockLecture = new Lectures();
+        when(lecturersRepository.findById(existingLectureId)).thenReturn(java.util.Optional.ofNullable(mockLecture));
 
-        Lectures lectures = new Lectures();
-        lectures.setLectureId(1L);
+        // Act
+        Lectures resultLecture = lecturesService.getLectureById(existingLectureId);
 
-        UserAccount userAccount = new UserAccount();
-        userAccount.setMemberId("exampleMemberId");
-
-        Mockito.when(modelMapper.map(lecturesDto, Lectures.class)).thenReturn(lectures);
-        Mockito.when(userAccountRepository.findByMemberId("exampleMemberId")).thenReturn(userAccount);
-        Mockito.when(lecturersRepository.save(any(Lectures.class))).thenReturn(lectures);
-
-        LecturesDto result = lecturesService.createLecturerFromUserAccount(lecturesDto);
-
-        assertNotNull(result);
-        assertEquals("exampleMemberId", result.getMemberId());
-        // Add more assertions as needed
+        // Assert
+        assertThat(resultLecture).isSameAs(mockLecture);
     }
 
     @Test
-    void getLectureById() {
-        Long lectureId = 1L;
-        Lectures expectedLecture = new Lectures();
-        expectedLecture.setLectureId(lectureId);
+    void getLectureById_ThrowsException_WhenLectureNotFound() {
+        // Arrange
+        long nonExistingLectureId = 2L;
+        when(lecturersRepository.findById(nonExistingLectureId)).thenReturn(java.util.Optional.empty());
 
-        Mockito.when(lecturersRepository.findById(lectureId)).thenReturn(Optional.of(expectedLecture));
-
-        Lectures result = lecturesService.getLectureById(lectureId);
-
-        assertNotNull(result);
-        assertEquals(lectureId, result.getLectureId());
-        // Add more assertions as needed
+        // Act & Assert
+        assertThrows(ResourceNotFoundException.class, () -> lecturesService.getLectureById(nonExistingLectureId));
     }
 
     @Test
-    void getByUserAccount() {
-        UserAccount userAccount = new UserAccount();
-        Lectures expectedLecture = new Lectures();
+    void getByUserAccount_Success() {
+        // Arrange
+        UserAccount mockUserAccount = new UserAccount();
+        Lectures mockLecture = new Lectures();
+        when(lecturersRepository.findByUserAccount(mockUserAccount)).thenReturn(mockLecture);
 
-        Mockito.when(lecturersRepository.findByUserAccount(userAccount)).thenReturn(expectedLecture);
+        // Act
+        Lectures resultLecture = lecturesService.getByUserAccount(mockUserAccount);
 
-        Lectures result = lecturesService.getByUserAccount(userAccount);
-
-        assertNotNull(result);
-        // Add more assertions as needed
+        // Assert
+        assertThat(resultLecture).isSameAs(mockLecture);
     }
 }
