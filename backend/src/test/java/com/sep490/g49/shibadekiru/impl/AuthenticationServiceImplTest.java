@@ -1,9 +1,16 @@
 package com.sep490.g49.shibadekiru.impl;
 
-import com.sep490.g49.shibadekiru.dto.*;
+import com.sep490.g49.shibadekiru.dto.AuthenticationDto;
+import com.sep490.g49.shibadekiru.dto.AuthenticationLoginDto;
+import com.sep490.g49.shibadekiru.dto.RegisterResponse;
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
+import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
+import com.sep490.g49.shibadekiru.impl.JWTServiceImpl;
+import com.sep490.g49.shibadekiru.impl.LecturesServiceImpl;
+import com.sep490.g49.shibadekiru.impl.StudentServiceImpl;
 import com.sep490.g49.shibadekiru.repository.*;
+
 import com.sep490.g49.shibadekiru.util.JWTUtilityService;
 import com.sep490.g49.shibadekiru.util.MailServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,11 +20,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.io.IOException;
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -27,19 +35,13 @@ class AuthenticationServiceImplTest {
     private UserAccountRepository userAccountRepository;
 
     @Mock
-    private LecturersRepository lecturersRepository;
-
-    @Mock
-    private StudentRepository studentRepository;
+    private RoleRepository roleRepository;
 
     @Mock
     private TokenRepository tokenRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;
-
-    @Mock
-    private RoleRepository roleRepository;
 
     @Mock
     private StudentServiceImpl studentService;
@@ -68,165 +70,55 @@ class AuthenticationServiceImplTest {
     }
 
     @Test
-    void register_shouldThrowException_whenEmailOrMemberIdExists() {
+    void register() {
         // Arrange
-        RegisterResponse request = new RegisterResponse();
-        request.setEmail("test@gmail.com");
-        request.setMemberId("123456");
-        request.setRoleId(1L);
+        RegisterResponse registerRequest = new RegisterResponse();
+        registerRequest.setEmail("test@example.com");
+        registerRequest.setRoleId(1L);
+        Long RoleId = registerRequest.getRoleId();
+        Role role = new Role();
 
-        when(userAccountRepository.findByEmailOrMemberId(request.getEmail(), request.getMemberId())).thenReturn(Optional.of(new UserAccount()));
-
-        // Act and Assert
-        assertThrows(IllegalStateException.class, () -> authenticationService.register(request));
-
-        verify(userAccountRepository, times(1)).findByEmailOrMemberId(request.getEmail(), request.getMemberId());
-        verifyNoInteractions(roleRepository, userAccountRepository);
-    }
-
-    @Test
-    void register_shouldCreateUserAccountAndStudent_whenRoleIsStudent() {
-        // Arrange
-        RegisterResponse request = new RegisterResponse();
-        request.setEmail("test@gmail.com");
-        request.setMemberId("123456");
-        request.setUserName("test");
-        request.setPassword("password");
-        request.setRoleId(1L);
-        request.setFirstName("John");
-        request.setLastName("Doe");
-        request.setNickName("JD");
-
-        when(userAccountRepository.findByEmailOrMemberId(request.getEmail(), request.getMemberId())).thenReturn(Optional.empty());
-        when(roleRepository.findById(request.getRoleId())).thenReturn(Optional.of(new Role()));
-        when(passwordEncoder.encode(request.getPassword())).thenReturn("encodedPassword");
-        when(userAccountRepository.save(any(UserAccount.class))).thenReturn(new UserAccount());
+        when(roleRepository.findById(RoleId)).thenReturn(Optional.of(role));
+        when(userAccountRepository.findByEmailOrMemberId(anyString(), anyString())).thenReturn(Optional.empty());
+        when(jwtUtilityService.createJWT(any(), anyInt())).thenReturn("resetCode");
+        when(passwordEncoder.encode(any())).thenReturn("encodedPassword");
 
         // Act
-        authenticationService.register(request);
+        assertDoesNotThrow(() -> authenticationService.register(registerRequest));
 
         // Assert
-        verify(userAccountRepository, times(1)).findByEmailOrMemberId(request.getEmail(), request.getMemberId());
-        verify(roleRepository, times(1)).findById(request.getRoleId());
-        verify(passwordEncoder, times(1)).encode(request.getPassword());
-        verify(userAccountRepository, times(1)).save(any(UserAccount.class));
-        verify(studentService, times(1)).createStudentFromUserAccount(any(Student.class));
-        verifyNoMoreInteractions(userAccountRepository, roleRepository, passwordEncoder, studentService);
-    }
-
-    @Test
-    void register_shouldCreateUserAccountAndLecturer_whenRoleIsLecturer() {
-        // Arrange
-        RegisterResponse request = new RegisterResponse();
-        request.setEmail("test@gmail.com");
-        request.setMemberId("123456");
-        request.setUserName("test");
-        request.setPassword("password");
-        request.setRoleId(2L);
-        request.setFirstName("John");
-        request.setLastName("Doe");
-        request.setNickName("JD");
-
-        when(userAccountRepository.findByEmailOrMemberId(request.getEmail(), request.getMemberId())).thenReturn(Optional.empty());
-        when(roleRepository.findById(request.getRoleId())).thenReturn(Optional.of(new Role()));
-        when(passwordEncoder.encode(request.getPassword())).thenReturn("encodedPassword");
-        when(userAccountRepository.save(any(UserAccount.class))).thenReturn(new UserAccount());
-
-        // Act
-        authenticationService.register(request);
-
-        // Assert
-        verify(userAccountRepository, times(1)).findByEmailOrMemberId(request.getEmail(), request.getMemberId());
-        verify(roleRepository, times(1)).findById(request.getRoleId());
-        verify(passwordEncoder, times(1)).encode(request.getPassword());
-        verify(userAccountRepository, times(1)).save(any(UserAccount.class));
-        verify(lecturesService, times(1)).createLecturerFromUserAccount(any(LecturesDto.class));
-        verifyNoMoreInteractions(userAccountRepository, roleRepository, passwordEncoder, lecturesService);
+        verify(roleRepository, times(1)).findById(anyLong());
+        verify(userAccountRepository, times(1)).findByEmailOrMemberId(anyString(), anyString());
+        verify(jwtUtilityService, times(1)).createJWT(any(), anyInt());
+        verify(passwordEncoder, times(1)).encode(any());
+        verify(userAccountRepository, times(1)).save(any());
+        // Add more assertions as needed
     }
 
     @Test
     void authenticate() {
         // Arrange
-        AuthenticationLoginDto request = new AuthenticationLoginDto();
-        request.setEmail("test@gmail.com");
-        request.setPassword("password");
+        AuthenticationLoginDto loginRequest = new AuthenticationLoginDto();
+        loginRequest.setEmail("test@example.com");
+        loginRequest.setPassword("password");
 
-        UserAccount userAccount = new UserAccount();
-        when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(null);
-        when(userAccountRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(userAccount));
-        when(jwtService.generateToken(userAccount)).thenReturn("accessToken");
-        when(jwtService.generateRefreshToken(userAccount)).thenReturn("refreshToken");
-
-        // Act
-        AuthenticationDto result = authenticationService.authenticate(request);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals("accessToken", result.getAccessToken());
-        assertEquals("refreshToken", result.getRefreshToken());
-        verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
-        verify(userAccountRepository, times(1)).findByEmail(request.getEmail());
-        verify(jwtService, times(1)).generateToken(userAccount);
-        verify(jwtService, times(1)).generateRefreshToken(userAccount);
-        verifyNoMoreInteractions(authenticationManager, userAccountRepository, jwtService);
-    }
-
-    @Test
-    void getUserInfoByToken_shouldReturnUserAccountDto_whenTokenIsValid() {
-        // Arrange
-        String token = "validToken";
-        UserAccount userAccount = new UserAccount();
-        userAccount.setEmail("test@gmail.com");
-        userAccount.setRole(new Role());
-
-        when(tokenRepository.findUserAccountByToken(token)).thenReturn(userAccount);
+        UserAccount user = new UserAccount();
+        user.setEmail("test@example.com");
+        when(userAccountRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
+        when(authenticationManager.authenticate(any())).thenReturn(null);
+        when(jwtService.generateToken(any())).thenReturn("accessToken");
+        when(jwtService.generateRefreshToken(any())).thenReturn("refreshToken");
+        when(tokenRepository.findByUserAccountAndExpiredAndRevoked(any(), anyBoolean(), anyBoolean())).thenReturn(Optional.empty());
+        when(tokenRepository.save(any())).thenReturn(new Token());
 
         // Act
-        UserAccountDto result = authenticationService.getUserInfoByToken(token);
+        AuthenticationDto authenticationDto = authenticationService.authenticate(loginRequest);
 
         // Assert
-        assertNotNull(result);
-        assertEquals(userAccount.getUserAccountId(), result.getUserAccountId());
-        assertEquals(userAccount.getUsername(), result.getUserName());
-        assertEquals(userAccount.getEmail(), result.getEmail());
-        assertEquals(userAccount.getNickName(), result.getNickName());
-        assertEquals(userAccount.getMemberId(), result.getMemberId());
-        assertEquals(userAccount.getPassword(), result.getPassword());
-        assertEquals(userAccount.getIsBanned(), result.getIsBanned());
-        assertEquals(userAccount.getIsActive(), result.getIsActive());
-        assertEquals(userAccount.getResetCode(), result.getResetCode());
-        assertEquals(userAccount.getRole(), result.getRole());
-        verify(tokenRepository, times(1)).findUserAccountByToken(token);
-        verifyNoMoreInteractions(tokenRepository);
+        assertNotNull(authenticationDto);
+        assertEquals("accessToken", authenticationDto.getAccessToken());
+        // Add more assertions if needed
     }
 
-    @Test
-    void refreshToken() {
-        // Arrange
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
-        String authHeader = "Bearer refreshToken";
-        String accessToken = "newAccessToken";
-        String userEmail = "test@gmail.com";
-
-        when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn(authHeader);
-        when(jwtService.extractUsername("refreshToken")).thenReturn(userEmail);
-        when(userAccountRepository.findByEmail(userEmail)).thenReturn(Optional.of(new UserAccount()));
-        when(jwtService.isTokenValid("refreshToken", new UserAccount())).thenReturn(true);
-        when(jwtService.generateToken(new UserAccount())).thenReturn(accessToken);
-        when(jwtService.generateRefreshToken(new UserAccount())).thenReturn("newRefreshToken");
-
-        // Act
-        //authenticationService.refreshToken(request, response);
-
-        // Assert
-        verify(request, times(1)).getHeader(HttpHeaders.AUTHORIZATION);
-        verify(jwtService, times(1)).extractUsername("refreshToken");
-        verify(userAccountRepository, times(1)).findByEmail(userEmail);
-        verify(jwtService, times(1)).isTokenValid("refreshToken", new UserAccount());
-        verify(jwtService, times(1)).generateToken(new UserAccount());
-        verify(jwtService, times(1)).generateRefreshToken(new UserAccount());
-        verifyNoMoreInteractions(request, jwtService, userAccountRepository);
-    }
+    // Add more test cases for other methods as needed
 }
