@@ -3,20 +3,18 @@ package com.sep490.g49.shibadekiru.impl;
 import com.sep490.g49.shibadekiru.entity.Reading;
 import com.sep490.g49.shibadekiru.entity.ReadingQuestion;
 import com.sep490.g49.shibadekiru.repository.ReadingQuestionRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
 class ReadingQuestionServiceImplTest {
 
     @Mock
@@ -25,71 +23,90 @@ class ReadingQuestionServiceImplTest {
     @InjectMocks
     private ReadingQuestionServiceImpl readingQuestionService;
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
     void getReadingQuestionByReading() {
-        // Mocking the behavior of readingQuestionRepository.findAllByReading() method
+        // Arrange
         Reading reading = new Reading();
-        List<ReadingQuestion> mockQuestions = new ArrayList<>();
-        Mockito.when(readingQuestionRepository.findAllByReading(reading)).thenReturn(mockQuestions);
+        List<ReadingQuestion> readingQuestions = new ArrayList<>();
+        readingQuestions.add(new ReadingQuestion());
+        readingQuestions.add(new ReadingQuestion());
+        when(readingQuestionRepository.findAllByReading(reading)).thenReturn(readingQuestions);
 
+        // Act
         List<ReadingQuestion> result = readingQuestionService.getReadingQuestionByReading(reading);
 
-        assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockQuestions list is empty
+        // Assert
+        assertEquals(2, result.size());
+        verify(readingQuestionRepository, times(1)).findAllByReading(reading);
     }
 
     @Test
     void getReadingQuestionById() {
-        // Mocking the behavior of readingQuestionRepository.findReadingQuestionByReadingQuestionId() method
-        Long questionId = 1L;
-        ReadingQuestion expectedQuestion = new ReadingQuestion();
-        Mockito.when(readingQuestionRepository.findReadingQuestionByReadingQuestionId(questionId)).thenReturn(expectedQuestion);
+        // Arrange
+        Long readingQuestionId = 1L;
+        ReadingQuestion readingQuestion = new ReadingQuestion();
+        when(readingQuestionRepository.findReadingQuestionByReadingQuestionId(readingQuestionId)).thenReturn(readingQuestion);
 
-        ReadingQuestion result = readingQuestionService.getReadingQuestionById(questionId);
+        // Act
+        ReadingQuestion result = readingQuestionService.getReadingQuestionById(readingQuestionId);
 
-        assertNotNull(result);
-        // Add more assertions as needed
+        // Assert
+        assertEquals(readingQuestion, result);
     }
 
     @Test
     void createReadingQuestion() {
-        // Mocking the behavior of readingQuestionRepository.save() method
-        ReadingQuestion savedQuestion = new ReadingQuestion();
-        Mockito.when(readingQuestionRepository.save(any(ReadingQuestion.class))).thenReturn(savedQuestion);
+        // Arrange
+        ReadingQuestion readingQuestionRequest = new ReadingQuestion();
+        when(readingQuestionRepository.save(readingQuestionRequest)).thenReturn(readingQuestionRequest);
 
-        ReadingQuestion result = readingQuestionService.createReadingQuestion(new ReadingQuestion());
+        // Act
+        ReadingQuestion result = readingQuestionService.createReadingQuestion(readingQuestionRequest);
 
+        // Assert
         assertNotNull(result);
-        // Add more assertions as needed
+        assertEquals(readingQuestionRequest, result);
+        verify(readingQuestionRepository, times(1)).save(readingQuestionRequest);
     }
 
     @Test
     void updateReadingQuestion() {
-        Long questionId = 1L;
-        ReadingQuestion updatedQuestion = new ReadingQuestion();
+        // Arrange
+        Long readingQuestionId = 1L;
+        ReadingQuestion existingReadingQuestion = new ReadingQuestion();
+        ReadingQuestion updatedReadingQuestion = new ReadingQuestion();
+        updatedReadingQuestion.setSampleAnswer("Updated Sample Answer");
 
-        // Mocking the behavior of readingQuestionRepository.findReadingQuestionByReadingQuestionId() method
-        ReadingQuestion existingQuestion = new ReadingQuestion();
-        Mockito.when(readingQuestionRepository.findReadingQuestionByReadingQuestionId(questionId)).thenReturn(existingQuestion);
+        when(readingQuestionRepository.findReadingQuestionByReadingQuestionId(readingQuestionId)).thenReturn(existingReadingQuestion);
+        when(readingQuestionRepository.save(any())).thenReturn(updatedReadingQuestion);
 
-        // Mocking the behavior of readingQuestionRepository.save() method
-        ReadingQuestion savedQuestion = new ReadingQuestion();
-        Mockito.when(readingQuestionRepository.save(any(ReadingQuestion.class))).thenReturn(savedQuestion);
+        // Act
+        ReadingQuestion result = readingQuestionService.updateReadingQuestion(readingQuestionId, updatedReadingQuestion);
 
-        ReadingQuestion result = readingQuestionService.updateReadingQuestion(questionId, updatedQuestion);
-
+        // Assert
         assertNotNull(result);
-        // Add more assertions as needed
+        assertEquals(updatedReadingQuestion.getSampleAnswer(), result.getSampleAnswer());
+        verify(readingQuestionRepository, times(1)).findReadingQuestionByReadingQuestionId(readingQuestionId);
+        verify(readingQuestionRepository, times(1)).save(any());
     }
 
     @Test
     void deleteReadingQuestion() {
-        Long questionId = 1L;
+        // Arrange
+        Long readingQuestionId = 1L;
+        ReadingQuestion readingQuestion = new ReadingQuestion();
+        when(readingQuestionRepository.findReadingQuestionByReadingQuestionId(readingQuestionId)).thenReturn(readingQuestion);
 
-        // Mocking the behavior of readingQuestionRepository.findReadingQuestionByReadingQuestionId() method
-        ReadingQuestion existingQuestion = new ReadingQuestion();
-        Mockito.when(readingQuestionRepository.findReadingQuestionByReadingQuestionId(questionId)).thenReturn(existingQuestion);
+        // Act
+        readingQuestionService.deleteReadingQuestion(readingQuestionId);
 
-        assertDoesNotThrow(() -> readingQuestionService.deleteReadingQuestion(questionId));
+        // Assert
+        verify(readingQuestionRepository, times(1)).findReadingQuestionByReadingQuestionId(readingQuestionId);
+        verify(readingQuestionRepository, times(1)).delete(readingQuestion);
     }
 }
