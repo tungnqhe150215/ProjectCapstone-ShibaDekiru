@@ -6,15 +6,18 @@ import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.impl.TestServiceImpl;
 import com.sep490.g49.shibadekiru.repository.LecturersRepository;
 import com.sep490.g49.shibadekiru.repository.TestRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 class TestServiceImplTest {
@@ -28,102 +31,114 @@ class TestServiceImplTest {
     @InjectMocks
     private TestServiceImpl testService;
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @org.junit.jupiter.api.Test
-    void getAllTestByLecture() {
-        // Mock data
+    void getAllTestByLecture_ReturnsTests() {
+        // Arrange
         Lectures lecture = new Lectures();
-        when(testRepository.findAllByLecture(lecture)).thenReturn(Collections.emptyList());
+        List<Test> mockTests = new ArrayList<>();
+        when(testRepository.findAllByLecture(lecture)).thenReturn(mockTests);
 
-        // Test
-        var result = testService.getAllTestByLecture(lecture);
+        // Act
+        List<Test> result = testService.getAllTestByLecture(lecture);
 
-        // Assertions
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
+        // Assert
+        assertThat(result).isSameAs(mockTests);
     }
 
     @org.junit.jupiter.api.Test
-    void getTestById() {
-        // Mock data
+    void getTestById_WithExistingTest_ReturnsTest() {
+        // Arrange
         Long testId = 1L;
-        Test test = new Test();
-        when(testRepository.findById(testId)).thenReturn(Optional.of(test));
-
-        // Test
-        var result = testService.getTestById(testId);
-
-        // Assertions
-        assertNotNull(result);
-        assertEquals(test, result);
-    }
-
-    @org.junit.jupiter.api.Test
-    void createTest() {
-        // Mock data
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        String title = "Test Title";
-        Long duration = 60L;
-        Boolean isLocked = false;
-        Lectures lecture = new Lectures();
-
-        Test testRequest = new Test();
-        testRequest.setTitle(title);
-        testRequest.setDuration(duration);
-        testRequest.setIsLocked(isLocked);
-        testRequest.setLecture(lecture);
-
-        when(testRepository.save(any(Test.class))).thenReturn(testRequest);
-
-        // Test
-        var createdTest = testService.createTest(testRequest);
-
-        // Assertions
-        assertNotNull(createdTest);
-        assertEquals(title, createdTest.getTitle());
-        assertEquals(duration, createdTest.getDuration());
-        assertEquals(isLocked, createdTest.getIsLocked());
-        assertEquals(lecture, createdTest.getLecture());
-        assertNotNull(createdTest.getCreatedAt());
-    }
-
-    @org.junit.jupiter.api.Test
-    void updateTest() {
-        // Mock data
-        Long testId = 1L;
-        String updatedTitle = "Updated Title";
-        Long updatedDuration = 90L;
-        Boolean updatedIsLocked = true;
-
-        Test testUpdate = new Test();
-        testUpdate.setTitle(updatedTitle);
-        testUpdate.setDuration(updatedDuration);
-        testUpdate.setIsLocked(updatedIsLocked);
-
         Test existingTest = new Test();
-        existingTest.setTestId(testId);
-
         when(testRepository.findById(testId)).thenReturn(Optional.of(existingTest));
-        when(testRepository.save(any(Test.class))).thenReturn(testUpdate);
 
-        // Test
-        var updatedTest = testService.updateTest(testId, testUpdate);
+        // Act
+        Test result = testService.getTestById(testId);
 
-        // Assertions
-        assertNotNull(updatedTest);
-        assertEquals(testId, updatedTest.getTestId());
-        assertEquals(updatedTitle, updatedTest.getTitle());
-        assertEquals(updatedDuration, updatedTest.getDuration());
-        assertEquals(updatedIsLocked, updatedTest.getIsLocked());
+        // Assert
+        assertThat(result).isSameAs(existingTest);
     }
 
     @org.junit.jupiter.api.Test
-    void deleteTest() {
-        // Mock data
+    void getTestById_WithNonexistentTest_ThrowsResourceNotFoundException() {
+        // Arrange
         Long testId = 1L;
-        Test testDelete = new Test();
-        when(testRepository.findById(testId)).thenReturn(Optional.of(testDelete));
+        when(testRepository.findById(testId)).thenReturn(Optional.empty());
 
-        // Test
-        assertDoesNotThrow(() -> testService.deleteTest(testId));
+        // Act & Assert
+        assertThatThrownBy(() -> testService.getTestById(testId))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @org.junit.jupiter.api.Test
+    void createTest_WithValidData_ReturnsCreatedTest() {
+        // Arrange
+        Test inputTest = new Test();
+        when(testRepository.save(any())).thenReturn(inputTest);
+
+        // Act
+        Test result = testService.createTest(inputTest);
+
+        // Assert
+        assertThat(result).isSameAs(inputTest);
+    }
+
+    @org.junit.jupiter.api.Test
+    void updateTest_WithExistingTest_ReturnsUpdatedTest() {
+        // Arrange
+        Long testId = 1L;
+        Test updatedTest = new Test();
+        updatedTest.setTitle("Updated Test");
+        Optional<Test> existingTest = Optional.of(new Test());
+        when(testRepository.findById(testId)).thenReturn(existingTest);
+        when(testRepository.save(any())).thenReturn(updatedTest);
+
+        // Act
+        Test result = testService.updateTest(testId, updatedTest);
+
+        // Assert
+        assertThat(result).isSameAs(updatedTest);
+    }
+
+    @org.junit.jupiter.api.Test
+    void updateTest_WithNonexistentTest_ThrowsResourceNotFoundException() {
+        // Arrange
+        Long testId = 1L;
+        Test updatedTest = new Test();
+        when(testRepository.findById(testId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> testService.updateTest(testId, updatedTest))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteTest_WithExistingTest_DeletesTest() {
+        // Arrange
+        Long testId = 1L;
+        Test existingTest = new Test();
+        when(testRepository.findById(testId)).thenReturn(Optional.of(existingTest));
+
+        // Act
+        testService.deleteTest(testId);
+
+        // Assert
+        verify(testRepository, times(1)).delete(existingTest);
+    }
+
+    @org.junit.jupiter.api.Test
+    void deleteTest_WithNonexistentTest_ThrowsResourceNotFoundException() {
+        // Arrange
+        Long testId = 1L;
+        when(testRepository.findById(testId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThatThrownBy(() -> testService.deleteTest(testId))
+                .isInstanceOf(ResourceNotFoundException.class);
     }
 }
