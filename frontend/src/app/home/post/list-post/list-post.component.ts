@@ -12,7 +12,7 @@ export class ListPostComponent implements OnInit{
 
   id!:number;
   post: Post[] = [];
-
+  posts: Post[]=[];
   // Thêm biến cho phân trang
   p: number = 1;
   itemsPerPage: number = 5;
@@ -25,6 +25,7 @@ export class ListPostComponent implements OnInit{
 
   ngOnInit(): void {
     this.getAllPost();
+    this.getLatestPost();
   }
 
   getAllPost(){
@@ -69,4 +70,12 @@ export class ListPostComponent implements OnInit{
     this.p = page;
   }
   
+
+  getLatestPost(){
+    this.userPostService.getLatestPost()
+    .subscribe(data =>{
+      this.posts = data;
+      console.log(data);
+    })
+   }
 }
