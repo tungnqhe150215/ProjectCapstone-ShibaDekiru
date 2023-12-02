@@ -119,7 +119,7 @@ export class WritingDeleteDialog {
     this.manageWritingService.deleteWriting(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Đã xóa bài tập viết', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -153,7 +153,7 @@ export class WritingCreateDialog {
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('New writing part added!!', 'Close', {
+    this._snackBar.open('Tạo học viết thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -194,7 +194,7 @@ export class WritingUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('Writing part updated!!', 'Close', {
+    this._snackBar.open('Cập nhật học phần viết thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });

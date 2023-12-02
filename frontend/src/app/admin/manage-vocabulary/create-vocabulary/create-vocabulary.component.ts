@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Vocabulary } from 'src/app/core/models/vocabulary';
 import { VocabularyService } from '../vocabulary.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-create-vocabulary',
@@ -12,7 +13,8 @@ export class CreateVocabularyComponent implements OnInit {
   vocabulary: Vocabulary = new Vocabulary();
   constructor(
     private vocabularyService: VocabularyService,
-    private router: Router
+    private router: Router,
+    private nofiService: NotificationService
   ) {}
   ngOnInit(): void {}
 
@@ -21,6 +23,7 @@ export class CreateVocabularyComponent implements OnInit {
       (data) => {
         console.log(data);
         this.goToVocabulariesList();
+        this.nofiService.openSnackBar('Tạo từ mới thành công')
       },
       (error) => console.log(error)
     );
