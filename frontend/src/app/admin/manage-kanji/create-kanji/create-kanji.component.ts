@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Kanji } from 'src/app/core/models/kanji';
 import { KanjiService } from '../kanji.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-create-kanji',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CreateKanjiComponent implements OnInit {
   kanji: Kanji = new Kanji();
-  constructor(private kanjiService: KanjiService, private router: Router) {}
+  constructor(private kanjiService: KanjiService, private router: Router,private nofiService: NotificationService) {}
   ngOnInit(): void {}
 
   saveKanji() {
@@ -18,6 +19,7 @@ export class CreateKanjiComponent implements OnInit {
       (data) => {
         console.log(data);
         this.goToKanjiesList();
+        this.nofiService.openSnackBar('Tạo kanji thành công')
       },
       (error) => console.log(error)
     );
