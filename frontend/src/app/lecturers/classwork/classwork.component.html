@@ -56,13 +56,13 @@
                   <!-- Name Column -->
                   <ng-container matColumnDef="CreateAt">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Thời gian tạo </th>
-                    <td mat-cell *matCellDef="let row"> {{row.createdAt}} </td>
+                    <td mat-cell *matCellDef="let row"> {{row.createdAt | date:'dd/MM/yyyy'}} </td>
                   </ng-container>
 
                   <!-- Fruit Column -->
                   <ng-container matColumnDef="Deadline">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Hạn nộp </th>
-                    <td mat-cell *matCellDef="let row"> {{row.deadline}} </td>
+                    <td mat-cell *matCellDef="let row"> {{row.deadline | date:'dd/MM/yyyy'}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="ClassID">
