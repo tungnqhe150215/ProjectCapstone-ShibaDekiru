@@ -45,7 +45,7 @@
         <th>Actions</th>
     </thead>
     <tbody>
-        <tr *ngFor="let grammar of grammars">
+        <tr *ngFor="let grammar of grammars | paginate: { itemsPerPage: 10, currentPage: p }">
             <td>{{grammar.grammarId}}</td>
             <td>{{grammar.grammarName}}</td>
             <td>{{grammar.grammarStructure}}</td>
@@ -64,5 +64,6 @@
             </td>
         </tr>
     </tbody>
-    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+    
 </table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

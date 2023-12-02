@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Hiragana } from 'src/app/core/models/hiragana';
 import { HiraganaService } from '../alphabet-services/hiragana.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-list-hiragana',
@@ -16,7 +17,8 @@ export class ListHiraganaComponent implements OnInit {
   p: number = 1;
   constructor(
     private hiraganaService: HiraganaService,
-    private router: Router
+    private router: Router,
+    private nofiService: NotificationService
   ) {}
   ngOnInit(): void {
     this.getHiragana();
@@ -37,6 +39,7 @@ export class ListHiraganaComponent implements OnInit {
     this.hiraganaService.deleteHiragana(id).subscribe((data) => {
       console.log(data);
       this.getHiragana();
+      this.nofiService.openSnackBar('Xóa hiragana thành công');
     });
   }
   key: string = 'id';

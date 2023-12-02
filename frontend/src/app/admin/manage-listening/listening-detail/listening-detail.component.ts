@@ -112,7 +112,7 @@ export class ListeningQuestionDeleteDialog {
     this.manageListeningQuestionService.deleteListeningQuestion(id).subscribe(data => {
       this.dialogRef.close();
     })
-      this._snackBar.open('Deleted!!', 'Close', {
+      this._snackBar.open('Xóa câu hỏi học phần nghe thành công', 'Đóng', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
       });
@@ -148,7 +148,7 @@ export class ListeningQuestionCreateDialog {
     this.manageListeningQuestionService.createListeningQuestion(this.data,this.listeningQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-      this._snackBar.open('Listening question added!!', 'Close', {
+      this._snackBar.open('Thêm câu hỏi cho học phần nghe thành công', 'Đóng', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
       });
@@ -194,7 +194,7 @@ export class ListeningQuestionUpdateDialog implements OnInit {
     this.manageListeningQuestionService.updateListeningQuestion(this.data, this.listeningQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-      this._snackBar.open('Listening question updated!!', 'Close', {
+      this._snackBar.open('Cập nhật câu hỏi học phần nghe thành công', 'Đóng', {
           horizontalPosition: 'center',
           verticalPosition: 'top',
       });

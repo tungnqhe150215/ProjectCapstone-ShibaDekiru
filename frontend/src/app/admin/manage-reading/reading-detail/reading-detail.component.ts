@@ -112,7 +112,7 @@ export class ReadingQuestionDeleteDialog {
     this.manageReadingQuestionService.deleteReadingQuestion(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Xóa câu hỏi đọc thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -148,7 +148,7 @@ export class ReadingQuestionCreateDialog {
     this.manageReadingQuestionService.createReadingQuestion(this.data,this.readingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('New reading question added!!', 'Close', {
+    this._snackBar.open('Tạo câu hỏi cho phần đọc thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -193,7 +193,7 @@ export class ReadingQuestionUpdateDialog implements OnInit{
     this.manageReadingQuestionService.updateReadingQuestion(this.data,this.readingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Reading question added!!', 'Close', {
+    this._snackBar.open('Cập nhật câu hỏi phần đọc thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
