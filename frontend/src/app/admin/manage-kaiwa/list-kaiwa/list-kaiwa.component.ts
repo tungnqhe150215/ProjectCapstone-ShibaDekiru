@@ -115,7 +115,7 @@ export class KaiwaDeleteDialog {
     this.manageKaiwaService.deleteKaiwa(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Xóa học phần thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -149,7 +149,7 @@ export class KaiwaCreateDialog {
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('New kaiwa part added!!', 'Close', {
+    this._snackBar.open('Đã thêm học phần kaiwa', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -190,7 +190,7 @@ export class KaiwaUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('Kaiwa part updated!!', 'Close', {
+    this._snackBar.open('Cập nhật học phần thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });

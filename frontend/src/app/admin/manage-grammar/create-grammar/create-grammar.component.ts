@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Grammar } from 'src/app/core/models/grammar';
 import { GrammarService } from '../grammar.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-create-grammar',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CreateGrammarComponent implements OnInit {
   grammar: Grammar = new Grammar();
-  constructor(private grammarService: GrammarService, private router: Router) {}
+  constructor(private grammarService: GrammarService, private router: Router,private nofiService: NotificationService) {}
   ngOnInit(): void {}
 
   saveGrammar() {
@@ -18,6 +19,7 @@ export class CreateGrammarComponent implements OnInit {
       (data) => {
         console.log(data);
         this.goToGrammarsList();
+        this.nofiService.openSnackBar('Tạo ngữ pháp thành công!');
       },
       (error) => console.log(error)
     );
