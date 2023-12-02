@@ -3,7 +3,9 @@ body {
     padding-top: 5%;
     /* margin-top: 20px; */
 }
-
+.list-group-item.active {
+    background-color: #fff;
+}
 .ui-w-80 {
     width : 80px !important;
     height: auto;

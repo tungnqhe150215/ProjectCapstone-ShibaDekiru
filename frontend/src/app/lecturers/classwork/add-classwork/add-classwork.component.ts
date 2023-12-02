@@ -30,7 +30,7 @@ export class AddClassworkComponent implements OnInit {
     // this.idU = this.route.snapshot.params['id'];
     this.classWorkService.createClassWork(this.data, this.classWork).subscribe(data =>{
       console.log(data);
-      this.notifiService.openSnackBar('Create Class Work Done','Cancel');
+      this.notifiService.openSnackBar('Tạo bài tập thành công');
       this.dialogRef.close();
     })
   }

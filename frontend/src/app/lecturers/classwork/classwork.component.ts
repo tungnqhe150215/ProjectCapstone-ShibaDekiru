@@ -90,7 +90,7 @@ export class ClassworkComponent implements OnInit{
   disableClassWork(disableClassWork: ClassWork){
     this.classWorkService.disableClassWork(disableClassWork.classWorkId).subscribe( () =>{
       disableClassWork.isLocked = !disableClassWork.isLocked;
-      this.notifiService.openSnackBar('Change status successful','OK');
+      this.notifiService.openSnackBar('Thay đổi trạng thái thành công');
     })
   }
 
@@ -98,7 +98,7 @@ export class ClassworkComponent implements OnInit{
   deleteClassWork(id:number){
     this.classWorkService.deleteClassWork(id).subscribe({
       next: (res) => {
-        this.notifiService.openSnackBar('Classwork deleted!', 'Ok');
+        this.notifiService.openSnackBar('Đã xóa bài học');
         this.getClassWorkList();
       },
       error: console.log,

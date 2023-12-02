@@ -127,7 +127,7 @@ export class ListPostComponent implements OnInit {
   deletePost(id: number) {
     this.lecpostService.deletePost(id).subscribe({
       next: () => {
-        this.nofiService.openSnackBar('Post deleted !', 'Cancel');
+        this.nofiService.openSnackBar('Đã xóa bài viết');
         this.getPostbyUser();
       },
       error: console.log,

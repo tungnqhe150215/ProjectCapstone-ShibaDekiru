@@ -33,7 +33,7 @@ export class UpdatePostComponent implements OnInit {
   onSubmit(){
     this.lecpostService.updatePost(this.id, this.post).subscribe( data =>{
       this.gotoPostList();
-      this.nofiService.openSnackBar('Update successful !', 'Cancel');
+      this.nofiService.openSnackBar('Cập nhật bài viết thành công');
     })
   }
   gotoPostList(){
