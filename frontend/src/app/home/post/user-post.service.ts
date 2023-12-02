@@ -52,4 +52,7 @@ export class UserPostService {
     return this.httpClient.delete(`${this.baseURL}/${id}/comment/${userID}/${comtId}`);
   }
 
+  getLatestPost(): Observable<Post[]>{
+    return this.httpClient.get<Post[]>(`${this.baseURL}/4lastest`);
+  }
 }
