@@ -119,7 +119,7 @@ export class ListeningDeleteDialog {
     this.manageListeningService.deleteListening(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Xóa bài nghe thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -153,7 +153,7 @@ export class ListeningCreateDialog {
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('New listening part added!!', 'Close', {
+    this._snackBar.open('Tạo bài nghe thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -194,7 +194,7 @@ export class ListeningUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('Listening part updated!!', 'Close', {
+    this._snackBar.open('Cập nhật bài nghe thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
