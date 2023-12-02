@@ -36,7 +36,7 @@
         <th>Actions</th>
     </thead>
     <tbody>
-        <tr *ngFor="let hiragana of hiraganas">
+        <tr *ngFor="let hiragana of hiraganas | paginate: { itemsPerPage: 10, currentPage: p }">
             <td>{{hiragana.hiraganaId}}</td>
             <td>{{hiragana.hiraganaCharacter}}</td>
             <td>{{hiragana.romanji}}</td>
@@ -52,5 +52,6 @@
             </td>
         </tr>
     </tbody>
-    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+    
 </table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
