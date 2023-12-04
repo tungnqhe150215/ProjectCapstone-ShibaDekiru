@@ -14,6 +14,7 @@ public class TestResultDto {
     private Double result;
     private LocalDateTime doneTime;
     private StudentDto student;
+    private Double numberOfQuestion;
     private TestSectionDto testSection;
 
 }

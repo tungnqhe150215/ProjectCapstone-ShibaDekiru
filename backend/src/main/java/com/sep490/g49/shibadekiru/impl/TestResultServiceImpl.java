@@ -64,6 +64,7 @@ public class TestResultServiceImpl implements ITestResultService {
         TestResult testResult = testResultRepository.findTestResultsByStudentAndTestSection(testResultRequest.getStudent(),testResultRequest.getTestSection());
         testResult.setDoneTime(LocalDateTime.now());
         testResult.setResult(testResultRequest.getResult());
+        testResult.setNumberOfQuestion(testResultRequest.getNumberOfQuestion());
         return testResultRepository.save(testResult);
     }
 

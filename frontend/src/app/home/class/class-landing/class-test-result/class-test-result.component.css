@@ -1,0 +1,15 @@
+.expandable {
+  margin: auto;
+  width: 400px;
+  height: 30px;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+.expanded {
+  height: 300px;
+}
+
+.before-expand {
+  height: 30px;
+}
