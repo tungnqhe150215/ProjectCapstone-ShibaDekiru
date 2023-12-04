@@ -131,6 +131,7 @@ export class StudentTestComponent implements OnInit,OnDestroy{
     this.draftResult.student = this.student
     this.draftResult.testSection = data
     this.draftResult.result = this.answerService.getSectionSummary(data.sectionId).result;
+    this.draftResult.numberOfQuestion = this.answerService.getSectionSummary(data.sectionId).totalQuestions
     console.log(this.draftResult)
     this.testResult.createTestResult(this.draftResult).subscribe(data => {
       console.log(data)

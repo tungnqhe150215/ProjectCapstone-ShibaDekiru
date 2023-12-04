@@ -34,12 +34,12 @@ export class StudentAnswerService {
       return Object.values(this.answers).filter(answer => answer.sectionId === sectionId);
   }
 
-  getSectionSummary(sectionId:number): { result: number }{
+  getSectionSummary(sectionId:number): { result: number,totalQuestions: number }{
     const allAnswers = this.getAllSectionAnswers(sectionId);
     const totalQuestions = allAnswers.length;
     const correctAnswers = allAnswers.filter(answer => answer.userAnswer === answer.correctAnswer).length;
-    const result = Math.round(correctAnswers/totalQuestions*100)/10
-    return {result}
+    const result = correctAnswers
+    return {result, totalQuestions};
   }
 
 
