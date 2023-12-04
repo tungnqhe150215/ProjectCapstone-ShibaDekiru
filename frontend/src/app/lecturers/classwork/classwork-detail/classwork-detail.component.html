@@ -5,19 +5,21 @@
         <div class="form-group">
             <label>Tên bài học</label>
             <input type="text" class="form-control" id="name" name="name" [(ngModel)] = "classWork.name" [value]="classWork.name" [ngModelOptions]="{standalone: true}" >
-            <label class="m-2">Trạng thái</label>
-            <input type="radio" [(ngModel)] = "classWork.isLocked" value="true" name="isLocked" [ngModelOptions]="{standalone: true}" [value]="classWork.isLocked"  > Mở
-            <input type="radio" [(ngModel)] = "classWork.isLocked" value="false" name="isLocked"  [ngModelOptions]="{standalone: true}" [value]="classWork.isLocked" > Đóng
+            <label class="m-2">Trạng thái: 
+                <h6> <span *ngIf="classWork.isLocked === false" class="badge rounded-pill text-bg-danger">Khóa</span></h6>
+                <h6> <span *ngIf="classWork.isLocked === true" class="badge rounded-pill text-bg-success">Mở</span></h6>
+            </label>
+            
         </div>
         <div class="form-group">
             <label class="mr-2" >Thời gian tạo</label>
-            <input type="text" class="form-control" id="createdAt" name="createdAt"   [value]="classWork.createdAt">
+            <input type="text" class="form-control" id="createdAt" name="createdAt"   [value]="classWork.createdAt | date:'dd/MM/yyyy'">
             <label class="mr-2" >Thời hạn</label>
-            <input type="text" class="form-control" id="deadline" name="deadline" [value]="classWork.deadline"  >
+            <input type="text" class="form-control" id="deadline" name="deadline" [value]="classWork.deadline | date:'dd/MM/yyyy'"  >
 
             </div>
-            <button mat-button mat-dialog-close>Bỏ</button>
-      <button mat-button (click)="openExercise(classWork.classWorkId)" mat-dialog-close>Chỉnh sửa bài tập</button>
+            <button mat-button mat-dialog-close class="text-bg-danger">Bỏ</button>
+            <button mat-button (click)="openExercise(classWork.classWorkId)" mat-dialog-close class="text-bg-success ml-3">Chỉnh sửa bài tập</button>
       <!-- <button class="btn btn-success" type="submit"  (click)="updateClassWork()">Submit</button> -->
     </form>
 </div>

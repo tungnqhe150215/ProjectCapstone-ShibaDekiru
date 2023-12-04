@@ -22,7 +22,7 @@
                                 <img  (click)="PostDetail(post.postId)" style="cursor: pointer" src="https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/86/f5/aa/86f5aa0f-9a2e-bc6e-fac5-016a4c90c9e6/iMessage_App_Icon-1x_U007emarketing-3-85-181.png/1200x630wb.png" alt="Image title">
                                 <div class="blog_details">
                                     <a (click)="PostDetail(post.postId)" style="cursor: pointer"><h2>{{post.postContent}}</h2></a>
-                                    <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction.</p>
+                                    <p>Bấm vào xem thêm để có thể xem chi tiết bài viết</p>
                                     <a style="cursor: pointer" class="white_bg_btn" (click)="PostDetail(post.postId)">Xem thêm</a>
                                 </div>
                             </div>
@@ -79,12 +79,12 @@
                 <div class="blog_right_sidebar">
                     <aside class="single_sidebar_widget post_category_widget">
                         <h4 class="widget_title">Các bài viết liên quan</h4>
-                        <ul class="list cat-list"  *ngFor="let post of post">
+                        <ul class="list cat-list"  *ngFor="let posts of posts">
                             <li>
-                                <a  style="cursor: pointer" (click)="PostDetail(post.postId)"class="d-flex justify-content-between">
-                                    <p>{{post.postContent}}</p>
+                                <a  style="cursor: pointer" (click)="PostDetail(posts.postId)"class="d-flex justify-content-between">
+                                    <p>{{posts.postContent}}</p>
                                     <!-- <p><button (click)="PostDetail(post.postId)">{{post.postContent}}</button></p> -->
-                                    <p>44</p>
+                                    <!-- <p>44</p> -->
                                 </a>
                             </li>															
                         </ul>

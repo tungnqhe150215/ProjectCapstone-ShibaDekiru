@@ -1,13 +1,14 @@
 
 <div class="container">
-    <h3 class="text-center"> Create Post</h3>
+    <h3 class="text-center">Tạo bài đăng</h3>
     <form class="form-dialog">
         <div class="form-group">
             <label>Content</label>
-            <input type="text" class="form-control" id="content" name="content" [(ngModel)] = "post.postContent" [ngModelOptions]="{standalone: true}" >
-            <label class="m-2">Enable</label>
-            <input type="radio" [(ngModel)] = "post.isEnabled" value="true" name="isEnabled" [ngModelOptions]="{standalone: true}" > Active
-            <input type="radio" [(ngModel)] = "post.isEnabled" value="false" name="isEnabled"  [ngModelOptions]="{standalone: true}"> Disable
+            <input type="text" class="form-control" id="content" name="content" [(ngModel)] = "post.postContent" [ngModelOptions]="{standalone: true}" required>
+            <label class="m-2">Trạng thái</label>
+            <!-- <mat-slide-toggle [(ngModel)] = "post.isEnabled" name="isEnabled" [ngModelOptions]="{standalone: true}" > Khóa bài viết </mat-slide-toggle> -->
+            <input type="radio" [(ngModel)] = "post.isEnabled" value="true" name="isEnabled" [ngModelOptions]="{standalone: true}" >  Mở
+            <input type="radio" [(ngModel)] = "post.isEnabled" value="false" name="isEnabled"  [ngModelOptions]="{standalone: true}"> Đóng
         </div>
         <div class="form-group">
             <!-- <label class="mr-2" >Lecture</label> -->
@@ -16,11 +17,11 @@
             
             </div>
               <div class="form-group">
-            <label >Description</label>
-            <input type="text" class="form-control" id="description" name="description" [(ngModel)] = "post.description" [ngModelOptions]="{standalone: true}"> 
+            <label >Thông tin bài viết</label>
+            <input type="text" class="form-control" id="description" name="description" [(ngModel)] = "post.description" [ngModelOptions]="{standalone: true}" required> 
             <!-- <label>Content</label>
             <input type="text" class="form-control" id="content" name="content" [(ngModel)] = "post.content" [ngModelOptions]="{standalone: true}"> -->
         </div>
-        <button class="btn btn-success" type="submit" (click)="addPost()">Submit</button>
+        <button class="btn btn-success mt-3" type="submit" (click)="addPost()">Lưu</button>
     </form>
 </div>

@@ -1,7 +1,6 @@
 package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.entity.Class;
-import com.sep490.g49.shibadekiru.entity.ClassWork;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.ClassRepository;
@@ -47,8 +46,22 @@ public class ClassServiceImpl implements IClassService {
     }
 
     @Override
+    public Class getClassByCode(String code) {
+        Class aclass =  classRepository.findByClassCode(code);
+
+        if (aclass == null) {
+            throw new ResourceNotFoundException("Class not found with code: " + code);
+        }
+        return aclass;
+    }
+
+    @Override
     public Class createClass(Class classRequest) {
-        classRequest.setClassCode(randomStringGeneratorService.randomAlphaNumeric(7));
+        String code;
+        do {
+            code = randomStringGeneratorService.randomAlphaNumeric(7);
+        } while (classRepository.existsByClassCode(code));
+        classRequest.setClassCode(code);
         return classRepository.save(classRequest);
     }
 

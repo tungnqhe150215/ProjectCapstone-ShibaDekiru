@@ -1,5 +1,3 @@
-package com.sep490.g49.shibadekiru.impl;
-
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.entity.Writing;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
@@ -16,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class WritingServiceImplTest {
@@ -33,103 +30,116 @@ class WritingServiceImplTest {
     }
 
     @Test
-    void getWritingPartByLesson() {
-        // Mock data
+    void testGetWritingPartByLesson() {
+        // Arrange
         Lesson lesson = new Lesson();
-        when(writingRepository.findByLesson(lesson)).thenReturn(new ArrayList<>());
-
-        // Test
-        var result = writingService.getWritingPartByLesson(lesson);
-
-        // Assertions
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void getWritingById_WhenExists() {
-        // Mock data
-        Long id = 1L;
         Writing writing = new Writing();
-        when(writingRepository.findById(id)).thenReturn(Optional.of(writing));
+        List<Writing> expectedList = new ArrayList<>();
+        expectedList.add(writing);
 
-        // Test
-        var result = writingService.getWritingById(id);
+        when(writingRepository.findByLesson(lesson)).thenReturn(expectedList);
 
-        // Assertions
-        assertNotNull(result);
+        // Act
+        List<Writing> result = writingService.getWritingPartByLesson(lesson);
+
+        // Assert
+        assertEquals(expectedList, result);
     }
 
     @Test
-    void getWritingById_WhenNotExists() {
-        // Mock data
+    void testGetWritingById() {
+        // Arrange
         Long id = 1L;
+        Writing expectedWriting = new Writing();
+
+        when(writingRepository.findById(id)).thenReturn(Optional.of(expectedWriting));
+
+        // Act
+        Writing result = writingService.getWritingById(id);
+
+        // Assert
+        assertEquals(expectedWriting, result);
+    }
+
+    @Test
+    void testGetWritingByIdNotFound() {
+        // Arrange
+        Long id = 1L;
+
         when(writingRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Test
+        // Act and Assert
         assertThrows(ResourceNotFoundException.class, () -> writingService.getWritingById(id));
     }
 
     @Test
-    void createWriting() {
-        // Mock data
+    void testCreateWriting() {
+        // Arrange
         Writing writingRequest = new Writing();
-        when(writingRepository.save(any(Writing.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        Writing expectedWriting = new Writing();
 
-        // Test
-        var createdWriting = writingService.createWriting(writingRequest);
+        when(writingRepository.save(writingRequest)).thenReturn(expectedWriting);
 
-        // Assertions
-        assertNotNull(createdWriting);
+        // Act
+        Writing result = writingService.createWriting(writingRequest);
+
+        // Assert
+        assertEquals(expectedWriting, result);
     }
 
     @Test
-    void updateWriting_WhenExists() {
-        // Mock data
+    void testUpdateWriting() {
+        // Arrange
         Long id = 1L;
         Writing writingRequest = new Writing();
-        writingRequest.setTopic("Updated topic");
         Writing existingWriting = new Writing();
+
         when(writingRepository.findById(id)).thenReturn(Optional.of(existingWriting));
-        when(writingRepository.save(any(Writing.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(writingRepository.save(existingWriting)).thenReturn(existingWriting);
 
-        // Test
-        var updatedWriting = writingService.updateWriting(id, writingRequest);
+        // Act
+        Writing result = writingService.updateWriting(id, writingRequest);
 
-        // Assertions
-        assertNotNull(updatedWriting);
-        assertEquals("Updated topic", updatedWriting.getTopic());
+        // Assert
+        assertEquals(existingWriting, result);
+        assertEquals(writingRequest.getTopic(), existingWriting.getTopic());
     }
 
     @Test
-    void updateWriting_WhenNotExists() {
-        // Mock data
+    void testUpdateWritingNotFound() {
+        // Arrange
         Long id = 1L;
         Writing writingRequest = new Writing();
+
         when(writingRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Test
+        // Act and Assert
         assertThrows(ResourceNotFoundException.class, () -> writingService.updateWriting(id, writingRequest));
     }
 
     @Test
-    void deleteWriting_WhenExists() {
-        // Mock data
+    void testDeleteWriting() {
+        // Arrange
         Long id = 1L;
         Writing existingWriting = new Writing();
+
         when(writingRepository.findById(id)).thenReturn(Optional.of(existingWriting));
 
-        // Test
-        assertDoesNotThrow(() -> writingService.deleteWriting(id));
+        // Act
+        writingService.deleteWriting(id);
+
+        // Assert
+        verify(writingRepository, times(1)).delete(existingWriting);
     }
 
     @Test
-    void deleteWriting_WhenNotExists() {
-        // Mock data
+    void testDeleteWritingNotFound() {
+        // Arrange
         Long id = 1L;
+
         when(writingRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Test
+        // Act and Assert
         assertThrows(ResourceNotFoundException.class, () -> writingService.deleteWriting(id));
     }
 }

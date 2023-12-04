@@ -9,12 +9,11 @@
         class=" fa fa-plus-circle fa-3x " style="color: #11a683;" aria-hidden="true"></i></button>
     </div>
     <div class="row justify-content-start">
-      <div class="col-xl-3 col-10 col-md-6 p-2">
-        <div class="card " style="max-width: 400px">
+      <div class="col-xl-3 col-10 col-md-6 p-2" *ngFor="let class of joinedClass">
+        <div class="card " style="max-width: 400px" >
           <div class="card-header pt-3">
             <div class="row">
-              <h5 class=" text-2 card-font" title="Nhật 1 Nơi giao lưu của những niềm đam mê tiếng Nhật">Nhật 1 Nơi giao lưu của
-                những niềm đam mê tiếng Nhật</h5>
+              <h5 class=" text-2 card-font" title="{{class.belongClass.className}}">{{class.belongClass.className}}</h5>
             </div>
           </div>
           <div class="card-body">
@@ -23,15 +22,7 @@
                 <p class="mb-2 card-font">Giáo viên: </p>
               </div>
               <div class="col-4">
-                <p class="float-right card-font">Doai BX</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-8">
-                <p class=" mb-2 card-font">Số học sinh : </p>
-              </div>
-              <div class="col-4">
-                <p class="float-right card-font">10</p>
+                <p class="float-right card-font">{{class.belongClass.lecture.firstName + ' ' + class.belongClass.lecture.lastName}}</p>
               </div>
             </div>
             <div class="row">
@@ -39,14 +30,14 @@
                 <p class=" mb-2 card-font">Mã lớp : </p>
               </div>
               <div class="col-4">
-                <p class="float-right card-font">123</p>
+                <p class="float-right card-font">{{class.belongClass.classCode}}</p>
               </div>
             </div>
           </div>
           <div class="card-footer">
             <div class="row">
               <div class="col-9 pl-2 m-auto">
-                <a href="class/1" class="card-link "><button class="btn-outline-success btn">Go to class </button></a>
+                <button class="btn-outline-success btn" (click)="goToClass(class.belongClass.classId)">Go to class </button>
               </div>
               <div class="col-3">
                   <button class="btn w-auto">
@@ -54,7 +45,6 @@
                   </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -72,12 +62,13 @@
             </button>
           </div>
           <div class="modal-body mb-2">
-            <form>
-              <label for="class-code">Mã lớp học</label>
-              <input type="text" class="form-row form-inline form-control" id="class-code">
-            </form>
+            <mat-form-field style="width: 100%">
+              <mat-label for="class-code">Mã lớp học</mat-label>
+              <input matInput  [(ngModel)]="code" id="class-code" >
+            </mat-form-field>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="joinClass()" data-bs-dismiss="modal">Tham gia</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
           </div>
         </div>

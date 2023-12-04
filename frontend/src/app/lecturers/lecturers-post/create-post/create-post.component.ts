@@ -7,6 +7,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angula
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { LecPostService } from '../lec-post.service';
 import { StorageService } from 'src/app/home/auth/user-login/storage.service';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -44,7 +45,7 @@ export class CreatePostComponent implements OnInit{
   createPost(){
     this.postService.createPost(this.post).subscribe( data =>{
       console.log(data);
-      this.nofiService.openSnackBar('Create Post successful', 'OK');
+      this.nofiService.openSnackBar('Tạo bài viết thành công');
       this.dialogRef.close();
     })
   }

@@ -22,4 +22,6 @@ public interface IPostService {
     Post getPostById(Long id);
 
     List<Lectures> getAllLectures();
+
+    List<Post> findTop4ByOrderByCreatedAtDesc();
 }

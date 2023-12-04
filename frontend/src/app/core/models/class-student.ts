@@ -3,7 +3,7 @@ import {Student} from "./student";
 
 export class ClassStudent {
     classStudentId!:number
-    class!:Class
+    belongClass!:Class
     student!:Student
     joinedAt!:Date
 }

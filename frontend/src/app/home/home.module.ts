@@ -64,6 +64,7 @@ import { DeleteCommentComponent } from './post/post-detail/list-comment/delete-c
 import { UpdateCommentComponent } from './post/post-detail/list-comment/update-comment/update-comment.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { UnthorizationComponent } from './unthorization/unthorization.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ClassworkCompleteComponent,
     ClassTestResultComponent,
     DeleteCommentComponent,
-    UpdateCommentComponent
+    UpdateCommentComponent,
+    UnthorizationComponent
   ],
   exports: [
     FooterComponent,

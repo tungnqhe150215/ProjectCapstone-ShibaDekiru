@@ -109,4 +109,9 @@ public class StudentPostController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/4lastest")
+    public List<PostDto> List4TopPost(){
+        return iPostService.findTop4ByOrderByCreatedAtDesc().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+    }
+
 }
