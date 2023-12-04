@@ -3,6 +3,8 @@ import { Grammar } from 'src/app/core/models/grammar';
 import { GrammarService } from '../grammar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { LessonService } from 'src/app/core/services/lesson.service';
+import { Lesson } from 'src/app/core/models/lesson';
 
 @Component({
   selector: 'app-update-grammar',
@@ -12,13 +14,16 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 export class UpdateGrammarComponent {
   'id': number;
   grammar: Grammar = new Grammar();
+  lesson: Lesson[] =[];
   constructor(
     private grammarService: GrammarService,
     private route: ActivatedRoute,
     private router: Router,
-    private nofiService: NotificationService
+    private nofiService: NotificationService, 
+    private lessonService: LessonService,
   ) {}
   ngOnInit(): void {
+    this.getLesson();
     this.id = this.route.snapshot.params['id'];
 
     this.grammarService.getGrammarByID(this.id).subscribe(
@@ -40,6 +45,14 @@ export class UpdateGrammarComponent {
 
   goToGrammarsList() {
     this.router.navigate(['/admin/list-grammar']);
+  }
+
+  private getLesson(){
+    this.lessonService.getLessonNoneID().subscribe( data =>{
+      this.lesson = data;
+      console.log(data)
+    })
+  
   }
 }
 

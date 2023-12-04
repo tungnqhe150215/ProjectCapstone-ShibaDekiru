@@ -37,7 +37,12 @@
 
         <div class="form-group">
             <label for="">Id bài học</label>
-            <input type="text" class="form-control" id="lessonId" [(ngModel)]="grammar.lessonId" name="lessonId" />
+            <!-- <input type="text" class="form-control" id="lessonId" [(ngModel)]="grammar.lessonId" name="lessonId" /> -->
+            <select class="form-control" [(ngModel)]="grammar.lessonId" *ngIf="grammar.lessonId" id="lessonId" name="lessonId">
+                <option *ngFor="let lesson of lesson"  [ngValue]="lesson.lessonId">
+                    {{lesson.name}}
+                </option>
+            </select>
         </div>
         <br>
         <button class="btn btn-success" style="margin-left: 50%;" type="submit">Cập nhật</button>
