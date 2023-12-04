@@ -3,12 +3,12 @@
   <form class="form-dialog">
     <mat-form-field>
       <mat-label>Câu hỏi</mat-label>
-      <textarea matInput [(ngModel)]="readingQuestion.question" required></textarea>
+      <textarea matInput [(ngModel)]="readingQuestion.question" [ngModelOptions]="{standalone: true}" required></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
       <mat-label>Câu trả lời mẫu</mat-label>
-      <textarea matInput [(ngModel)]="readingQuestion.sampleAnswer" ></textarea>
+      <textarea matInput [(ngModel)]="readingQuestion.sampleAnswer" [ngModelOptions]="{standalone: true}" ></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
