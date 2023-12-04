@@ -81,7 +81,7 @@ public class StudentTestController {
 
         TestResult testResultRequest = map.map(testResultDto, TestResult.class);
 
-        TestResult testResult= new TestResult();
+        TestResult testResult = new TestResult();
 
         if (iTestResultService.checkTestResultExist(testResultRequest.getStudent(),testResultRequest.getTestSection())){
            testResult = iTestResultService.updateTestResult(testResultRequest);
