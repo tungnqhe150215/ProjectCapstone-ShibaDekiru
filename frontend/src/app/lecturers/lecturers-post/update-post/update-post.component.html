@@ -6,8 +6,8 @@
             <label>Nội dung bài đăng</label>
             <input type="text" class="form-control" id="content" name="content"  [(ngModel)]="post.postContent">
             <label class="m-2">Trạng thái</label>
-            <input type="radio" value="true" name="isEnabled" id="status"  [(ngModel)]="post.isEnabled"> Mở 
-            <input type="radio" value="false" name="isEnabled" id="status"  [(ngModel)]="post.isEnabled"> Đóng
+            <input type="radio" [value]="true" name="isEnabled" id="status" [checked]="post.isEnabled" [(ngModel)]="post.isEnabled"> Mở 
+            <input type="radio" [value]="false" name="isEnabled" id="status" [checked]="post.isEnabled"   [(ngModel)]="post.isEnabled"> Đóng
         </div>
         <div class="form-group">
             <!-- <label class="mr-2" >Leturers</label>
