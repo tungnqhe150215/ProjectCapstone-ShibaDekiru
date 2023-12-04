@@ -17,8 +17,9 @@
             
             </div>
               <div class="form-group">
-            <label >Thông tin bài viết</label>
-            <input type="text" class="form-control" id="description" name="description" [(ngModel)] = "post.description" [ngModelOptions]="{standalone: true}" required> 
+            <label for="" >Nội dung bài đăng</label>
+            <!-- <input type="text" class="form-control" id="description" name="description" [(ngModel)] = "post.description" [ngModelOptions]="{standalone: true}" required>  -->
+            <textarea class="form-control" id="description" name="description" [(ngModel)] = "post.description" [ngModelOptions]="{standalone: true}" placeholder="Nhập nội dung bài đăng"> </textarea>
             <!-- <label>Content</label>
             <input type="text" class="form-control" id="content" name="content" [(ngModel)] = "post.content" [ngModelOptions]="{standalone: true}"> -->
         </div>
