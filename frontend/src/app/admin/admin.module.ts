@@ -77,7 +77,7 @@ import { BookDetailComponent } from './manage-book/book-detail/book-detail.compo
 import { ListAllLessonComponent } from './manage-lesson/list-all-lesson/list-all-lesson.component';
 import { DeleteLessonComponent } from './manage-lesson/delete-lesson/delete-lesson.component';
 import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -159,6 +159,7 @@ import { DeleteBookComponent } from './manage-book/delete-book/delete-book.compo
     MatSortModule,
     CreateUserComponent,
     MatSelectModule,
+    NgxPaginationModule
   ]
 })
 export class AdminModule { }

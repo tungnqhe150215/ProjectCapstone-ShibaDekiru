@@ -5,17 +5,18 @@
         <div class="card-body">
             <h2 class="card-title">{{post.postContent}}</h2>
             <h5>Trạng thái</h5>
-            <p>{{post.isEnabled}}</p>
-            <h5 class="card-title">Content</h5>
+            <h6> <span *ngIf="post.isEnabled === false" class="badge rounded-pill text-bg-danger">Khóa</span></h6>
+            <h6> <span *ngIf="post.isEnabled=== true" class="badge rounded-pill text-bg-success">Mở</span></h6>
+            <h5 class="card-title">Tiêu đề</h5>
             <p class="card-text">
                 {{post.postContent}}
             </p>
-            <h5 class="card-title">Description</h5>
+            <h5 class="card-title">Mô tả</h5>
             <p class="card-text">
                 {{post.description}}
             </p>
-            <small class="text-muted">Last updated {{post.createdAt}}</small> <br> 
-            <small class="text-muted">Status: {{post.isEnabled}}</small>
+            <small class="text-muted">Lần cập nhật cuối {{post.createdAt | date:'dd/MM/yyyy'}}</small> <br> 
+            <!-- <small class="text-muted">Trạng thái: {{post.isEnabled}}</small> -->
         </div>
         <!-- <img class="card-img-bottom img-fluid" src="assets/images/samples/water.jpg"
             alt="Card image cap" style="height: 20rem; object-fit: cover;"> -->

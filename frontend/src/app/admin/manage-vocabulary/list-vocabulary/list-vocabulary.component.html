@@ -45,7 +45,7 @@
         <th>Actions</th>
     </thead>
     <tbody>
-        <tr *ngFor="let vocabulary of vocabularies">
+        <tr *ngFor="let vocabulary of vocabularies | paginate: { itemsPerPage: 10, currentPage: p }">
             <td>{{vocabulary.vocabularyId}}</td>
             <td>{{vocabulary.vocabularyName}}</td>
             <td>{{vocabulary.hiragana}}</td>
@@ -63,5 +63,6 @@
             </td>
         </tr>
     </tbody>
-    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+    
 </table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

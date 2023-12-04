@@ -2,6 +2,7 @@ package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.repository.TokenRepository;
+import com.sep490.g49.shibadekiru.service.JWTService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,7 +20,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JWTServiceImpl {
+public class JWTServiceImpl implements JWTService {
 
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
@@ -28,19 +29,23 @@ public class JWTServiceImpl {
     @Value("${application.security.jwt.refresh-token.expiration}")
     private long refreshExpiration;
 
+    @Override
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
+    @Override
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
+    @Override
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
 
+    @Override
     public String generateToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails
@@ -48,6 +53,7 @@ public class JWTServiceImpl {
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
+    @Override
     public String generateRefreshToken(
             UserDetails userDetails
     ) {
@@ -69,6 +75,7 @@ public class JWTServiceImpl {
                 .compact();
     }
 
+    @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);

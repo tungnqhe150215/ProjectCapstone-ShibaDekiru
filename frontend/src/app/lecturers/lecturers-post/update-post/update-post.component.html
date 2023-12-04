@@ -1,13 +1,13 @@
 <button mat-button (click)="gotoPostList()">Quay lại</button>
 <div class="col-md-6 offset-md-3">
-    <h3 class="text-center">Tạo bài đăng</h3>
+    <h3 class="text-center">Thông tin bài đăng</h3>
     <form (ngSubmit)="onSubmit()" class="form-dialog">
         <div class="form-group">
             <label>Nội dung bài đăng</label>
             <input type="text" class="form-control" id="content" name="content"  [(ngModel)]="post.postContent">
             <label class="m-2">Trạng thái</label>
-            <input type="radio" value="true" name="isEnabled" id="status"  [(ngModel)]="post.isEnabled"> Mở 
-            <input type="radio" value="false" name="isEnabled" id="status"  [(ngModel)]="post.isEnabled"> Đóng
+            <input type="radio" [value]="true" name="isEnabled" id="status" [checked]="post.isEnabled" [(ngModel)]="post.isEnabled"> Mở 
+            <input type="radio" [value]="false" name="isEnabled" id="status" [checked]="post.isEnabled"   [(ngModel)]="post.isEnabled"> Đóng
         </div>
         <div class="form-group">
             <!-- <label class="mr-2" >Leturers</label>

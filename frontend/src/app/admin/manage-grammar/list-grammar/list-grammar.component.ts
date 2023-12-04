@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Grammar } from 'src/app/core/models/grammar';
 import { GrammarService } from '../grammar.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-list-grammar',
@@ -12,7 +13,7 @@ export class ListGrammarComponent implements OnInit {
   'grammars': Grammar[];
   filterText: string = '';
   p: number = 1;
-  constructor(private grammarService: GrammarService, private router: Router) {}
+  constructor(private grammarService: GrammarService, private router: Router,private nofiService: NotificationService) {}
   ngOnInit(): void {
     this.getGrammars();
   }
@@ -31,6 +32,7 @@ export class ListGrammarComponent implements OnInit {
     this.grammarService.deleteGrammar(id).subscribe((data) => {
       console.log(data);
       this.getGrammars();
+      this.nofiService.openSnackBar('Xóa ngữ pháp thành công');
     });
   }
   key: string = 'id';

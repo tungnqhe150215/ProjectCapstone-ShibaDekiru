@@ -1,4 +1,4 @@
-<button mat-button (click)="goToUserList()">Back</button>
+<button mat-button (click)="goToUserList()">Trở lại</button>
 <section class="" >
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -34,8 +34,10 @@
                       <p class="mb-0 px-3">{{userAccount.memberId}}</p>
                     </div>
                     <div class="px-3">
-                      <p class="small text-muted mb-1">isBanned</p>
-                      <p class="mb-0">{{userAccount.isBanned}}</p>
+                      <p class="small text-muted mb-1">Trạng thái</p>
+                      <!-- <p class="mb-0">{{userAccount.isBanned}}</p> -->
+                      <h6> <span *ngIf="userAccount.isBanned=== false" class="badge rounded-pill text-bg-success">Hoạt động</span></h6>
+                      <h6> <span *ngIf="userAccount.isBanned === true" class="badge rounded-pill text-bg-danger">Banned</span></h6>
                     </div>
                     
                   </div>

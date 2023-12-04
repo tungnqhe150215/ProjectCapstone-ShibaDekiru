@@ -50,6 +50,11 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
+    public List<Post> findTop4ByOrderByCreatedAtDesc() {
+        return postRepository.findTop4ByOrderByCreatedAtDesc();
+    }
+
+    @Override
     public PostDto createPost(PostDto postDTO) {
         // Convert PostDTO to Post entity
         Post post = modelMapper.map(postDTO, Post.class);

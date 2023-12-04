@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {AdminModule} from "./admin/admin.module";
+import { AdminModule } from "./admin/admin.module";
 import { LecturersModule } from './lecturers/lecturers.module';
 import { NavsideComponent } from './lecturers/navside/navside.component';
 import { ListPostComponent } from './lecturers/lecturers-post/list-post/list-post.component';
@@ -11,16 +11,18 @@ import { ClassworkComponent } from './lecturers/classwork/classwork.component';
 import { AddClassworkComponent } from './lecturers/classwork/add-classwork/add-classwork.component';
 import { UpdateClassworkComponent } from './lecturers/classwork/update-classwork/update-classwork.component';
 import { HomeModule } from './home/home.module';
-import {ExerciseDetailComponent} from "./lecturers/exercise/exercise-detail/exercise-detail.component";
-import {ListExerciseComponent} from "./lecturers/exercise/list-exercise/list-exercise.component";
-import {LClassListComponent} from "./lecturers/class/l-class-list/l-class-list.component";
-import {LectureListTestComponent} from "./lecturers/test/lecture-list-test/lecture-list-test.component";
-import {LectureTestDetailComponent} from "./lecturers/test/lecture-test-detail/lecture-test-detail.component";
-import {TestSectionComponent} from "./lecturers/test/test-section/test-section.component";
-import {TestAssignComponent} from "./lecturers/test/test-assign/test-assign.component";
-import {TestResultComponent} from "./lecturers/test/test-result/test-result.component";
-import {GradeClassworkComponent} from "./lecturers/classwork/grade-classwork/grade-classwork.component";
-import {SubmissionListComponent} from "./lecturers/classwork/submission-list/submission-list.component";
+import { ExerciseDetailComponent } from "./lecturers/exercise/exercise-detail/exercise-detail.component";
+import { ListExerciseComponent } from "./lecturers/exercise/list-exercise/list-exercise.component";
+import { LClassListComponent } from "./lecturers/class/l-class-list/l-class-list.component";
+import { LectureListTestComponent } from "./lecturers/test/lecture-list-test/lecture-list-test.component";
+import { LectureTestDetailComponent } from "./lecturers/test/lecture-test-detail/lecture-test-detail.component";
+import { TestSectionComponent } from "./lecturers/test/test-section/test-section.component";
+import { TestAssignComponent } from "./lecturers/test/test-assign/test-assign.component";
+import { TestResultComponent } from "./lecturers/test/test-result/test-result.component";
+import { GradeClassworkComponent } from "./lecturers/classwork/grade-classwork/grade-classwork.component";
+import { SubmissionListComponent } from "./lecturers/classwork/submission-list/submission-list.component";
+import { RoleClassGuard } from './guard/role-class.guard';
+import { UnthorizationComponent } from './home/unthorization/unthorization.component';
 
 
 const routes: Routes = [
@@ -28,6 +30,10 @@ const routes: Routes = [
     path: 'admin',
     component: AdminModule,
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    // ,canActivate: [guardRoleGuard],
+    //   data: {
+    //     RoleType: 'ADMIN'
+    //   }
   },
   // {
   //   path: 'lecturers',
@@ -37,30 +43,37 @@ const routes: Routes = [
   {
     path: 'lecturer',
     component: NavsideComponent,
-    children:[
+    canActivate: [RoleClassGuard],
+    data: {
+      RoleType: 'LECTURE'
+    },
+    children: [
       // {path: 'post' ,component: ListPostComponent},
       // {path: '', redirectTo: 'post', pathMatch: 'full'},
-      {path: 'post/post-detail/:id', component:ViewPostComponent},
+      { path: 'post/post-detail/:id', component: ViewPostComponent },
       // {path: ':id/post', component:CreatePostComponent},
-      {path: 'post/update-post/:id', component:UpdatePostComponent},
-      {path: 'class-work', component: ClassworkComponent},
-      {path: ':id/post' ,component: ListPostComponent},
+      { path: 'post/update-post/:id', component: UpdatePostComponent },
+      { path: 'class-work', component: ClassworkComponent },
+      { path: ':id/post', component: ListPostComponent },
       // {path: 'class',component:ClassworkComponent},
-      {path: 'class/:id/class-work', component:ClassworkComponent},
-      {path: 'class/class-work/:id', component:UpdateClassworkComponent},
-      {path: 'class/:classId/cw/:classWorkId/s', component: SubmissionListComponent},
-      {path: 'class/:classId/cw/:classworkId/s/:studentId', component:GradeClassworkComponent},
-      {path: 'class/class-work/:id/exercise', component:ListExerciseComponent},
-      {path: 'class/class-work/exercise/:id', component:ExerciseDetailComponent},
-      {path: 'class', component:LClassListComponent},
-      {path: 'test',component:LectureListTestComponent},
-      {path: 'test/:id',component:TestSectionComponent},
-      {path: 'test/section/:id',component:LectureTestDetailComponent},
-      {path: 'test/:id/assign',component:TestAssignComponent},
-      {path: 'test/:id/result',component:TestResultComponent},
+      { path: 'class/:id/class-work', component: ClassworkComponent },
+      { path: 'class/class-work/:id', component: UpdateClassworkComponent },
+      { path: 'class/:classId/cw/:classWorkId/s', component: SubmissionListComponent },
+      { path: 'class/:classId/cw/:classworkId/s/:studentId', component: GradeClassworkComponent },
+      { path: 'class/class-work/:id/exercise', component: ListExerciseComponent },
+      { path: 'class/class-work/exercise/:id', component: ExerciseDetailComponent },
+      { path: 'class', component: LClassListComponent },
+      { path: 'test', component: LectureListTestComponent },
+      { path: 'test/:id', component: TestSectionComponent },
+      { path: 'test/section/:id', component: LectureTestDetailComponent },
+      { path: 'test/:id/assign', component: TestAssignComponent },
+      { path: 'test/:id/result', component: TestResultComponent },
       // {path: 'class/:id/create-work', component:AddClassworkComponent},
     ]
   },
+  {
+    path: "permission-denied", component: UnthorizationComponent,
+  }
   // {
   //   path: 'home',
   //   component: HomeModule,
