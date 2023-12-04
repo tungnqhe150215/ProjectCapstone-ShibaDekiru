@@ -25,6 +25,9 @@ public class TestResult implements Serializable {
     @Column(nullable = true)
     private LocalDateTime doneTime;
 
+    @Column(name = "num_question")
+    private Double numberOfQuestion;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
