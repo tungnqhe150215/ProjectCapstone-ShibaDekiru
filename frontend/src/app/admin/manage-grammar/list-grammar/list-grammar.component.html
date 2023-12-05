@@ -24,42 +24,40 @@
 </div>
 <table class="table table-striped table-bordered">
     <thead>
-        <th>STT&nbsp;
+        <!-- <th>STT&nbsp;
             <i class="fa fa-thin fa-sort"></i>
-        </th>
+        </th> -->
         <th>Tên &nbsp;
-            <i class="fa fa-thin fa-sort"></i>
+            <i class="fa fa-thin"></i>
         </th>
         <th>Cấu trúc &nbsp;
-            <i class="fa fa-thin fa-sort"></i>
+            <i class="fa fa-thin"></i>
         </th>
         <th>Giải nghĩa &nbsp;
-            <i class="fa fa-thin fa-sort"></i>
+            <i class="fa fa-thin"></i>
         </th>
         <th>Ví dụ &nbsp;
-            <i class="fa fa-thin fa-sort"></i>
+            <i class="fa fa-thin"></i>
         </th>
-        <th>Bài &nbsp;
-            <i class="fa fa-thin fa-sort"></i>
+        <th>Bài học &nbsp;
+            <i class="fa fa-thin"></i>
         </th>
-        <th>Actions</th>
+        <th>Hành động</th>
     </thead>
     <tbody>
         <tr *ngFor="let grammar of grammars | paginate: { itemsPerPage: 10, currentPage: p }">
-            <td>{{grammar.grammarId}}</td>
+            <!-- <td>{{grammar.grammarId}}</td> -->
             <td>{{grammar.grammarName}}</td>
             <td>{{grammar.grammarStructure}}</td>
             <td>{{grammar.description}}</td>
             <td>{{grammar.example}}</td>
             <td>Bài {{grammar.lessonId}}</td>
             <td style="cursor: pointer;">
-                <a   (click)="updateGrammar(grammar.grammarId)" ><span class="material-symbols-outlined">
+                <a class="btn btn-secondary mb-2" title="Cập nhật" (click)="updateGrammar(grammar.grammarId)" ><span class="material-symbols-outlined">
                     colorize
                     </span></a>
-                <a   (click)="deleteGrammar(grammar.grammarId)"
-                    style="margin-left: 10px;"><span class="material-symbols-outlined">
-                        delete_forever
-                        </span></a>
+                <a  class="btn btn-secondary" title="Xóa" (click)="deleteGrammar(grammar.grammarId)"><span class="material-symbols-outlined">
+                        delete_forever</span></a>
                 <!-- <button class="btn btn-info" style="margin-left: 10px;">View</button> -->
             </td>
         </tr>
