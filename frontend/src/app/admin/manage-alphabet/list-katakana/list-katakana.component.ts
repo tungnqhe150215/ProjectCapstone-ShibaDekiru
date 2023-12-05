@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Katakana } from 'src/app/core/models/katakana';
 import { KatakanaService } from '../alphabet-services/katakana.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-list-katakana',
@@ -14,7 +15,8 @@ export class ListKatakanaComponent implements OnInit {
   p: number = 1;
   constructor(
     private katakanaService: KatakanaService,
-    private router: Router
+    private router: Router,
+    private nofiService: NotificationService
   ) {}
   ngOnInit(): void {
     this.getKatakana();
@@ -35,6 +37,7 @@ export class ListKatakanaComponent implements OnInit {
     this.katakanaService.deleteKatakana(id).subscribe((data) => {
       console.log(data);
       this.getKatakana();
+      this.nofiService.openSnackBar('Xóa katakana thành công');
     });
   }
   key: string = 'id';

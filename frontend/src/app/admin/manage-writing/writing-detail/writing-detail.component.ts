@@ -115,7 +115,7 @@ export class WritingQuestionDeleteDialog {
     this.manageWritingQuestionService.deleteWritingQuestion(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Xóa câu hỏi viết thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -151,7 +151,7 @@ export class WritingQuestionCreateDialog {
     this.manageWritingQuestionService.createWritingQuestion(this.data,this.writingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('New writing question created!!', 'Close', {
+    this._snackBar.open('Tạo câu hỏi viết thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -196,7 +196,7 @@ export class WritingQuestionUpdateDialog implements OnInit{
     this.manageWritingQuestionService.updateWritingQuestion(this.data,this.writingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Writing question updated!!', 'Close', {
+    this._snackBar.open('Cập nhật câu hỏi viết thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });

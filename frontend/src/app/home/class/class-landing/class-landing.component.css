@@ -1,6 +1,10 @@
+.class-side{
+  width: 100%;
+}
 
 @media (min-width: 768px) {
   .side-list {
     position: fixed;
+    width: 300px;
   }
 }

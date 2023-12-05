@@ -48,7 +48,7 @@
         <th>Actions</th>
     </thead>
     <tbody>
-        <tr *ngFor="let kanji of kanjis">
+        <tr *ngFor="let kanji of kanjis | paginate: { itemsPerPage: 10, currentPage: p }">
             <td>{{kanji.kanjiId}}</td>
             <td>{{kanji.characterKanji}}</td>
             <td>{{kanji.onReading}}</td>
@@ -68,5 +68,6 @@
             </td>
         </tr>
     </tbody>
-    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+    
 </table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

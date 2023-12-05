@@ -3,6 +3,8 @@ import { Grammar } from 'src/app/core/models/grammar';
 import { GrammarService } from '../grammar.service';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { LessonService } from 'src/app/core/services/lesson.service';
+import { Lesson } from 'src/app/core/models/lesson';
 
 @Component({
   selector: 'app-create-grammar',
@@ -11,8 +13,11 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 })
 export class CreateGrammarComponent implements OnInit {
   grammar: Grammar = new Grammar();
-  constructor(private grammarService: GrammarService, private router: Router,private nofiService: NotificationService) {}
-  ngOnInit(): void {}
+  lesson: Lesson[] =[];
+  constructor(private grammarService: GrammarService, private router: Router,private nofiService: NotificationService, private lessonService: LessonService, ) {}
+  ngOnInit(): void {
+    this.getLesson();
+  }
 
   saveGrammar() {
     this.grammarService.createGrammar(this.grammar).subscribe(
@@ -23,6 +28,14 @@ export class CreateGrammarComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+  }
+
+  private getLesson(){
+    this.lessonService.getLessonNoneID().subscribe( data =>{
+      this.lesson = data;
+      console.log(data)
+    })
+  
   }
 
   goToGrammarsList() {

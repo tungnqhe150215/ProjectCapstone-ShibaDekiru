@@ -1,14 +1,14 @@
-<h2 mat-dialog-title cclass="text-center border-bottom text-bg-info">Cập nhật câu hỏi</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Cập nhật câu hỏi</h2>
 <mat-dialog-content>
   <form class="form-dialog">
     <mat-form-field>
       <mat-label>Câu hỏi</mat-label>
-      <textarea matInput [(ngModel)]="readingQuestion.question" required>{{readingQuestion.question}}</textarea>
+      <textarea matInput [(ngModel)]="readingQuestion.question" [ngModelOptions]="{standalone: true}" required>{{readingQuestion.question}}</textarea>
     </mat-form-field>
     <br>
     <mat-form-field>
       <mat-label>Câu trả lời mẫu</mat-label>
-      <textarea matInput [(ngModel)]="readingQuestion.sampleAnswer" >{{readingQuestion.sampleAnswer}}</textarea>
+      <textarea matInput [(ngModel)]="readingQuestion.sampleAnswer" [ngModelOptions]="{standalone: true}" >{{readingQuestion.sampleAnswer}}</textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>

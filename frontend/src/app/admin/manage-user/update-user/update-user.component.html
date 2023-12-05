@@ -8,9 +8,9 @@
                 [ngModelOptions]="{standalone: true}">
             <label class="m-2">Trạng thái: </label>
             <input type="radio" [(ngModel)]="userAccount.isBanned" [value]="true" name="banned"
-                [ngModelOptions]="{standalone: true}" [checked]="userAccount.isBanned"> Mở
+                [ngModelOptions]="{standalone: true}" [checked]="userAccount.isBanned"> Banned
             <input type="radio" [(ngModel)]="userAccount.isBanned" [value]="false" name="banned"
-                [ngModelOptions]="{standalone: true}" [checked]="!userAccount.isBanned"> Đóng
+                [ngModelOptions]="{standalone: true}" [checked]="!userAccount.isBanned"> Hoạt động
 
             <!-- <input type="radio" [(ngModel)]="userAccount.isBanned"  name="banned"
             [ngModelOptions]="{standalone: true}" [checked]="userAccount.isBanned"> Mở

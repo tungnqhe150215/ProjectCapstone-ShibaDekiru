@@ -108,6 +108,7 @@ public class LectureManageQuestionBankController {
         SectionType type = SectionType.valueOf(sectionType);
 
         List<TestSectionDto> testSectionDtos = iTestSectionService.getTestSectionByTypeAndTest(type,test).stream().map(section -> modelMapper.map(section, TestSectionDto.class)).collect(Collectors.toList());
+
         return testSectionDtos;
     }
 

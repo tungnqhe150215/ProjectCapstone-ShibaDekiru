@@ -5,9 +5,9 @@
         <div class="form-group">
             <label>Tên bài học</label>
             <input type="text" class="form-control" id="name" name="name"  [(ngModel)]="lesson.name">
-            <!-- <label class="m-2">Trạng thái</label>
-            <input type="radio" value="true" name="status" id="status"  [(ngModel)]="lesson.status"> Mở  
-            <input type="radio" value="false" name="status" id="status"  [(ngModel)]="lesson.status"> Đóng -->
+            <label class="m-2">Trạng thái</label>
+            <input type="radio" name="status" id="status" [checked]="lesson.status" [value]="true"  [(ngModel)]="lesson.status"> Mở  
+            <input type="radio"  name="status" id="status" [checked]="lesson.status" [value]="false"  [(ngModel)]="lesson.status"> Đóng
         </div>
         <!-- <div class="form-group">
             <label class="mr-2" >BookID</label>

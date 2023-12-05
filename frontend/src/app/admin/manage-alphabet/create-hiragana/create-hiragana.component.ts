@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hiragana } from 'src/app/core/models/hiragana';
 import { HiraganaService } from '../alphabet-services/hiragana.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-create-hiragana',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CreateHiraganaComponent implements OnInit {
   hiragana: Hiragana = new Hiragana();
-  constructor(private hiraganaService: HiraganaService, private router: Router) {}
+  constructor(private hiraganaService: HiraganaService, private router: Router, private nofiService: NotificationService ) {}
   ngOnInit(): void {}
 
   saveHiragana() {
@@ -18,8 +19,10 @@ export class CreateHiraganaComponent implements OnInit {
       (data) => {
         console.log(data);
         this.goToHiraganasList();
+        this.nofiService.openSnackBar('Tạo hiragana thành công');
       },
       (error) => console.log(error)
+      
     );
   }
 
