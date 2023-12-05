@@ -15,13 +15,13 @@ import {Lesson} from "../../../core/models/lesson";
 import {LessonService} from "../../../core/services/lesson.service";
 import {data} from "autoprefixer";
 import {MatSnackBar} from "@angular/material/snack-bar";
-
+import {SharedModule} from "../../../shared/shared.module";
 @Component({
   selector: 'app-list-writing',
   templateUrl: './list-writing.component.html',
   styleUrls: ['./list-writing.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule,SharedModule],
 })
 export class ListWritingComponent implements OnInit{
   displayedColumns: string[] = ['id', 'topic', 'lesson-name','action'];
