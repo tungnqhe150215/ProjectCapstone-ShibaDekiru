@@ -78,6 +78,8 @@ import { ListAllLessonComponent } from './manage-lesson/list-all-lesson/list-all
 import { DeleteLessonComponent } from './manage-lesson/delete-lesson/delete-lesson.component';
 import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from '../shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -159,7 +161,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatSortModule,
     CreateUserComponent,
     MatSelectModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SharedModule,
   ]
 })
 export class AdminModule { }

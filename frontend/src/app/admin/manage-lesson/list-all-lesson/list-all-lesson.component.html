@@ -57,7 +57,7 @@
     <td mat-cell *matCellDef="let lesson">
 
       <button (click)="UpdateLesson(lesson.lessonId)" mat-icon-button title="Cập nhật"> <mat-icon>edit</mat-icon> </button>
-      <button (click)="LessonDetail(lesson.lessonId)" mat-icon-button title="Xem thông tin"><mat-icon>remove_red_eye</mat-icon></button>
+      <button (click)="lessonDetail(lesson.lessonId)" mat-icon-button title="Xem thông tin"><mat-icon>remove_red_eye</mat-icon></button>
       <!-- <button (click)="lessonDetail(lesson.lessonId)" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button> -->
       <button mat-icon-button color="warn" (click)="openDeleteLesson(lesson.lessonId)" title="Xóa bài học">
         <mat-icon>remove_circle </mat-icon>
