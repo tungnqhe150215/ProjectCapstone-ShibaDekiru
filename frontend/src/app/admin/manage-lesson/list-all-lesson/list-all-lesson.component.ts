@@ -83,7 +83,7 @@ export class ListAllLessonComponent implements OnInit{
   
 
   lessonDetail(id:number){
-    this.router.navigate(['/admin/book/lesson/lesson-detail',id]);
+    this.router.navigate(['admin/book/lesson/lesson-detail',id]);
   }
   
   // openUpdateLessonialog(id:number){
