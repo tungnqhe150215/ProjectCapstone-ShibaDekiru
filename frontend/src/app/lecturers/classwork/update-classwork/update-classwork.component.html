@@ -10,15 +10,15 @@
             <input type="radio" [(ngModel)] = "classWork.isLocked" [value]="false" name="isLocked"  [ngModelOptions]="{standalone: true}" > Đóng
         </div>
         <div class="form-group">
-            <!-- <label class="mr-2" >Deadline</label>
-            <input type="date" class="form-control" id="deadline" name="deadline" [(ngModel)] = "classWork.deadline" [ngModelOptions]="{standalone: true}" >
-             -->
-             <mat-form-field>
+            <label class="mr-2" >Deadline</label>
+            <input type="datetime-local" class="form-control" id="deadline" [value]="classWork.deadline" name="deadline" [(ngModel)] = "classWork.deadline" [ngModelOptions]="{standalone: true}" >
+            
+             <!-- <mat-form-field>
                 <mat-label>Chọn thời hạn</mat-label>
                 <input matInput [matDatepicker]="picker"  [value]="classWork.deadline" [(ngModel)] = "classWork.deadline" name="deadline" [ngModelOptions]="{standalone: true}">
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
+              </mat-form-field> -->
             </div>
             
         <button class="btn btn-success" type="submit"  (click)="updateClassWork()">Cập nhật</button>
