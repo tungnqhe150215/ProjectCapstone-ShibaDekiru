@@ -56,11 +56,11 @@
             <td>{{kanji.chineseMean}}</td>
             <td>{{kanji.example}}</td>
             <td>Bài {{kanji.lessonId}}</td>
-            <td>
-                <a style="cursor: pointer;" (click)="updateKanji(kanji.kanjiId)"><span class="material-symbols-outlined">
+            <td style="cursor: pointer;">
+                <a mat-icon-button title="Cập nhật" (click)="updateKanji(kanji.kanjiId)"><span class="material-symbols-outlined">
                     colorize
                     </span></a>
-                <a style="cursor: pointer;" (click)="deleteKanji(kanji.kanjiId)" 
+                <a mat-icon-button title="Xóa" (click)="deleteKanji(kanji.kanjiId)" 
                     style="margin-left: 10px;"><span class="material-symbols-outlined">
                         delete_forever
                         </span></a>

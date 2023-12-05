@@ -150,7 +150,7 @@ export class ClassCreateDialog {
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('New class added!!', 'Close', {
+    this._snackBar.open('Tạo lớp học thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -193,7 +193,7 @@ export class ClassUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('Class part updated!!', 'Close', {
+    this._snackBar.open('Cập nhật lớp học thành công', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
