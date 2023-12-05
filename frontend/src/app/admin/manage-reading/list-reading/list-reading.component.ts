@@ -15,13 +15,13 @@ import {Lesson} from "../../../core/models/lesson";
 import {LessonService} from "../../../core/services/lesson.service";
 import {data} from "autoprefixer";
 import {MatSnackBar} from "@angular/material/snack-bar";
-
+import {SharedModule} from "../../../shared/shared.module";
 @Component({
   selector: 'app-list-reading',
   templateUrl: './list-reading.component.html',
   styleUrls: ['./list-reading.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule,SharedModule],
 })
 export class ListReadingComponent implements OnInit{
   displayedColumns: string[] = ['id', 'title', 'lesson-name','action'];

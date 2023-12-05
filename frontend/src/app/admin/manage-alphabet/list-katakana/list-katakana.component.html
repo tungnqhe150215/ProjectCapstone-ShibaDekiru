@@ -33,7 +33,7 @@
         <th>Romanji&nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
-        <th>Actions</th>
+        <th>Hành động</th>
     </thead>
     <tbody>
         <tr *ngFor="let katakana of katakanas | paginate: { itemsPerPage: 10, currentPage: p }">
@@ -42,10 +42,10 @@
             <td>{{katakana.romanji}}</td>
 
             <td>
-                <a (click)="updateKatakana(katakana.katakanaId)" class="btn btn-info"><span class="material-symbols-outlined">
+                <a (click)="updateKatakana(katakana.katakanaId)" class="btn btn-secondary"><span class="material-symbols-outlined">
                     colorize
                     </span></a>
-                <a (click)="deleteKatakana(katakana.katakanaId)" class="btn btn-danger" style="margin-left: 10px;"><span class="material-symbols-outlined">
+                <a (click)="deleteKatakana(katakana.katakanaId)" class="btn btn-secondary" style="margin-left: 10px;"><span class="material-symbols-outlined">
                     close
                     </span></a>
                 <!-- <button class="btn btn-info" style="margin-left: 10px;">View</button> -->

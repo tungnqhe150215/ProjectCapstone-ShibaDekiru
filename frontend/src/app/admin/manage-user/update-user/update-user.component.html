@@ -1,6 +1,6 @@
 <h3 class="text-center">Cập nhật thông tin người dùng</h3>
-<button mat-button (click)="goToUserList()">Quay về danh sách</button>
-<div class="container">
+<button class="btn btn-secondary" (click)="goToUserList()">Quay về</button>
+<div class="container w-80">
     <form (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label>User Name</label>
@@ -41,7 +41,8 @@
             [ngModelOptions]="{standalone: true}"> -->
         </div>
         <div class="form-group mt-2 mb-2">
-            <select name="role" id="role" [(ngModel)]="userAccount.role.roleId">
+            <label>Role</label>
+            <select name="role" id="role" class="form-control" [(ngModel)]="userAccount.role.roleId" readonly>
                 <option value="1" id="role" name="role" [(ngModel)]="userAccount.role.roleId"
                     [ngModelOptions]="{standalone: true}">Admin</option>
                 <option value="2" id="role" name="role" [(ngModel)]="userAccount.role.roleId"

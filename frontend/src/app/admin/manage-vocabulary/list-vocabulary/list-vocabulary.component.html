@@ -42,7 +42,7 @@
         <th>Bài &nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
-        <th>Actions</th>
+        <th>Hành động</th>
     </thead>
     <tbody>
         <tr *ngFor="let vocabulary of vocabularies | paginate: { itemsPerPage: 10, currentPage: p }">
@@ -52,11 +52,11 @@
             <td>{{vocabulary.meaning}}</td>
             <td>{{vocabulary.example}}</td>
             <td>Bài {{vocabulary.lessonId}}</td>
-            <td>
-                <a style="cursor: pointer;" (click)="updateVocabulary(vocabulary.vocabularyId)"><span class="material-symbols-outlined">
+            <td style="cursor: pointer;">
+                <a mat-icon-button title="Cập nhật" (click)="updateVocabulary(vocabulary.vocabularyId)"><span class="material-symbols-outlined">
                     colorize
                     </span></a>
-                <a style="cursor: pointer;" (click)="deleteVocabulary(vocabulary.vocabularyId)" ><span class="material-symbols-outlined">
+                <a mat-icon-button title="Xóa" (click)="deleteVocabulary(vocabulary.vocabularyId)" ><span class="material-symbols-outlined">
                     delete_forever
                     </span></a>
                 <!-- <button class="btn btn-info" style="margin-left: 10px;">View</button> -->
