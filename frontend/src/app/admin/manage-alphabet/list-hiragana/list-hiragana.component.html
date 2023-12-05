@@ -33,7 +33,7 @@
         <th>Romanji&nbsp;
             <i class="fa fa-thin fa-sort"></i>
         </th>
-        <th>Actions</th>
+        <th>Hành động</th>
     </thead>
     <tbody>
         <tr *ngFor="let hiragana of hiraganas | paginate: { itemsPerPage: 10, currentPage: p }">
@@ -42,10 +42,10 @@
             <td>{{hiragana.romanji}}</td>
 
             <td>
-                <a (click)="updateHiragana(hiragana.hiraganaId)" class="btn btn-info"><span class="material-symbols-outlined">
+                <a title="Cập nhật" (click)="updateHiragana(hiragana.hiraganaId)" class="btn btn-secondary"><span class="material-symbols-outlined">
                     colorize
                     </span></a>
-                <a (click)="deleteHiragana(hiragana.hiraganaId)" class="btn btn-danger" style="margin-left: 10px;"><span class="material-symbols-outlined">
+                <a title="Xóa" (click)="deleteHiragana(hiragana.hiraganaId)" class="btn btn-secondary" style="margin-left: 10px;"><span class="material-symbols-outlined">
                     close
                     </span></a>
                 <!-- <button class="btn btn-info" style="margin-left: 10px;">View</button> -->
