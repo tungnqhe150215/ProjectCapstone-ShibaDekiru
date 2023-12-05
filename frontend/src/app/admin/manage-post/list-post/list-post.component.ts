@@ -17,8 +17,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 export class ListPostComponent implements OnInit{
   public dataSource !: MatTableDataSource<Post>;
   // public post !: Post[];
-  displayedColumns: string[] = ['id', 'lecture', 'post_content', 'description','created_at','status', 'action'];
-  
+  // displayedColumns: string[] = ['id', 'lecture', 'post_content', 'description','created_at','status', 'action'];
+  displayedColumns: string[] = ['id', 'post_content', 'description','created_at','status', 'action'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
