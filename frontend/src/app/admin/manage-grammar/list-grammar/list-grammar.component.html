@@ -3,8 +3,77 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  
-<div class="navbar-nav">
+
+    <div class="mb-2">
+        <!-- <button mat-raised-button (click)="addData()">Add data</button> -->
+        <!-- <a class="btn btn-info" routerLinkActive="active" routerLink="create-lesson">Add Lesson</a> -->
+        <button mat-raised-button>
+          <a routerLink="../create-grammar" routerLinkActive="active" class="nav-link">
+            Tạo ngữ pháp
+        </a>
+        </button>
+      </div>
+    
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+          No.
+        </th>
+        <td mat-cell *matCellDef="let grammars"> {{grammars.grammarId}} </td>
+      </ng-container>
+      <ng-container matColumnDef="book">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by book">
+          Tên ngữ pháp
+        </th>
+        <td mat-cell *matCellDef="let grammars"> {{grammars.grammarName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+           Cấu trúc
+        </th>
+        <td mat-cell *matCellDef="let grammars"> {{grammars.grammarStructure}} </td>
+      </ng-container>
+      <ng-container matColumnDef="content">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by content">
+          Giải thích
+        </th>
+        <td mat-cell *matCellDef="let grammars"> {{grammars.description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="created_at">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by created_at">
+          Bài học
+        </th>
+        <td mat-cell *matCellDef="let grammars"> Bài {{grammars.lessonId}} </td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
+          Ví dụ
+        </th>
+        <td mat-cell *matCellDef="let grammars"> {{grammars.example}} </td>
+      </ng-container>
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by image">
+         Bài học
+        </th>
+        <td mat-cell *matCellDef="let grammars" > Bài {{grammars.lessonId}} </td>
+      </ng-container> -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động </th>
+        <td mat-cell *matCellDef="let grammars">
+    
+          <button (click)="updateGrammar(grammars.grammarId)" mat-icon-button title="Cập nhật"> <mat-icon>edit</mat-icon> </button>
+          <!-- <button (click)="lessonDetail(lesson.lessonId)" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button> -->
+          <button mat-icon-button color="warn" (click)="openDeleteGrammar(grammars.grammarId)" title="Xóa bài học">
+            <mat-icon>remove_circle </mat-icon>
+          </button>
+        </td>
+      </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let lesson; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+<!-- <div class="navbar-nav">
     <div class="">
         <a routerLink="../list-grammar" routerLinkActive="active" class="nav-link">
             <h2>Danh sách ngữ pháp</h2>
@@ -24,9 +93,9 @@
 </div>
 <table class="table table-striped table-bordered">
     <thead>
-        <!-- <th>STT&nbsp;
+        <th>STT&nbsp;
             <i class="fa fa-thin fa-sort"></i>
-        </th> -->
+        </th>
         <th>Tên &nbsp;
             <i class="fa fa-thin"></i>
         </th>
@@ -46,7 +115,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let grammar of grammars | paginate: { itemsPerPage: 10, currentPage: p }">
-            <!-- <td>{{grammar.grammarId}}</td> -->
+            <td>{{grammar.grammarId}}</td>
             <td>{{grammar.grammarName}}</td>
             <td>{{grammar.grammarStructure}}</td>
             <td>{{grammar.description}}</td>
@@ -56,12 +125,12 @@
                 <a class="btn btn-secondary mb-2" title="Cập nhật" (click)="updateGrammar(grammar.grammarId)" ><span class="material-symbols-outlined">
                     colorize
                     </span></a>
-                <a  class="btn btn-secondary" title="Xóa" (click)="deleteGrammar(grammar.grammarId)"><span class="material-symbols-outlined">
+                <a  class="btn btn-secondary" title="Xóa" (click)="openDeleteGrammar(grammar.grammarId)"><span class="material-symbols-outlined">
                         delete_forever</span></a>
-                <!-- <button class="btn btn-info" style="margin-left: 10px;">View</button> -->
+                <button class="btn btn-info" style="margin-left: 10px;">View</button>
             </td>
         </tr>
     </tbody>
     
 </table>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<pagination-controls (pageChange)="p = $event"></pagination-controls> -->

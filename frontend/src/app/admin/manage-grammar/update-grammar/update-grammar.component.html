@@ -36,7 +36,7 @@
         </div>
 
         <div class="form-group">
-            <label for="">Id bài học</label>
+            <label for="">Bài học</label>
             <!-- <input type="text" class="form-control" id="lessonId" [(ngModel)]="grammar.lessonId" name="lessonId" /> -->
             <select class="form-control" [(ngModel)]="grammar.lessonId" *ngIf="grammar.lessonId" id="lessonId" name="lessonId">
                 <option *ngFor="let lesson of lesson"  [ngValue]="lesson.lessonId">
