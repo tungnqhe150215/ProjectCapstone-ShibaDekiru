@@ -79,6 +79,11 @@ import { DeleteLessonComponent } from './manage-lesson/delete-lesson/delete-less
 import { DeleteBookComponent } from './manage-book/delete-book/delete-book.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from '../shared/shared.module';
+import { DeleteKanjiComponent } from './manage-kanji/delete-kanji/delete-kanji.component';
+import { DeleteGrammarComponent } from './manage-grammar/delete-grammar/delete-grammar.component';
+import { DeleteVocabularyComponent } from './manage-vocabulary/delete-vocabulary/delete-vocabulary.component';
+import { DeleteHiraganaComponent } from './manage-alphabet/delete-hiragana/delete-hiragana.component';
+import { DeleteKatakanaComponent } from './manage-alphabet/delete-katakana/delete-katakana.component';
 
 
 @NgModule({
@@ -122,6 +127,11 @@ import { SharedModule } from '../shared/shared.module';
     ListAllLessonComponent,
     DeleteLessonComponent,
     DeleteBookComponent,
+    DeleteKanjiComponent,
+    DeleteGrammarComponent,
+    DeleteVocabularyComponent,
+    DeleteHiraganaComponent,
+    DeleteKatakanaComponent,
 
 
   ],
