@@ -25,7 +25,10 @@ export class UpdateKatakanaComponent {
       (data) => {
         this.katakana = data;
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.nofiService.openSnackBar('Đã có lỗi xảy ra khi lấy thông tin chữ cái');
+      }
     );
   }
   onSubmit() {
@@ -34,7 +37,10 @@ export class UpdateKatakanaComponent {
         this.goToKatakanasList();
         this.nofiService.openSnackBar('Cập nhật katakana thành công');
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.nofiService.openSnackBar('Đã có lỗi xảy ra khi cập nhật chữ cái')
+      }
     );
   }
 
