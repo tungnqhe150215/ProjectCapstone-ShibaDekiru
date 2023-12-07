@@ -4,7 +4,7 @@
     <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
      
-<div class="navbar-nav">
+<div class="navbar-nav mb-2">
     <div class="">
         <a routerLink="../list-hiragana" routerLinkActive="active" class="nav-link">
             <h2>Bảng chữ cái Hiragana</h2>
@@ -18,7 +18,66 @@
         </button>
     </div>
 </div>
-<div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+        No.
+      </th>
+      <td mat-cell *matCellDef="let hiraganas"> {{hiraganas.hiraganaId}} </td>
+    </ng-container>
+    <ng-container matColumnDef="book">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by book">
+        Tên ngữ pháp
+      </th>
+      <td mat-cell *matCellDef="let hiraganas"> {{hiraganas.hiraganaCharacter}} </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+          Hiragana
+      </th>
+      <td mat-cell *matCellDef="let hiraganas"> {{hiraganas.romanji}} </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="content">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by content">
+        Nghĩa
+      </th>
+      <td mat-cell *matCellDef="let vocabularies"> {{vocabularies.meaning}} </td>
+    </ng-container> -->
+    <!-- <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by created_at">
+        Ví dụ
+      </th>
+      <td mat-cell *matCellDef="let vocabularies"> {{vocabularies.example}} </td>
+    </ng-container>
+     <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
+        Bài
+      </th>
+      <td mat-cell *matCellDef="let grammars"> Bài {{grammars.lessonId}} </td>
+    </ng-container> -->
+    <!--<ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by image">
+       Bài học
+      </th>
+      <td mat-cell *matCellDef="let grammars" > Bài {{grammars.lessonId}} </td>
+    </ng-container> -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động </th>
+      <td mat-cell *matCellDef="let hiraganas">
+  
+        <button (click)="updateHiragana(hiraganas.hiraganaId)" mat-icon-button title="Cập nhật"> <mat-icon>edit</mat-icon> </button>
+        <!-- <button (click)="lessonDetail(lesson.lessonId)" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button> -->
+        <button mat-icon-button color="warn" (click)="openDeleteHira(hiraganas.hiraganaId)" title="Xóa bài học">
+          <mat-icon>remove_circle </mat-icon>
+        </button>
+      </td>
+    </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let lesson; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+<!-- <div>
     <input type="text" placeholder="Tìm kiếm" style="width: 450px;padding: 2px 20px; margin:10px 0px; height:30px;
           " [(ngModel)]="filterText">
 </div>
@@ -48,10 +107,10 @@
                 <a title="Xóa" (click)="deleteHiragana(hiragana.hiraganaId)" class="btn btn-secondary" style="margin-left: 10px;"><span class="material-symbols-outlined">
                     close
                     </span></a>
-                <!-- <button class="btn btn-info" style="margin-left: 10px;">View</button> -->
+                 <button class="btn btn-info" style="margin-left: 10px;">View</button> 
             </td>
         </tr>
     </tbody>
     
 </table>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<pagination-controls (pageChange)="p = $event"></pagination-controls> -->
