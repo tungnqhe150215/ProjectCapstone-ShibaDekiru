@@ -8,11 +8,11 @@
     justify-content: center;
     align-items: center;">Sửa Katakana </h3>
     <form (ngSubmit)="onSubmit()">
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="katakanaId">ID</label>
             <input type="text" class="form-control" id="katakanaId" [(ngModel)]="katakana.katakanaId"
                 name="katakanaId" />
-        </div>
+        </div> -->
         <div class="form-group">
             <label for="katakanaCharacter">Chữ Katakana</label>
             <input type="text" class="form-control" id="katakanaCharacter" [(ngModel)]="katakana.katakanaCharacter"
@@ -24,6 +24,6 @@
                 name="romanji" />
         </div>
         <br>
-        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Submit</button>
+        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Cập nhật</button>
     </form>
 </div>

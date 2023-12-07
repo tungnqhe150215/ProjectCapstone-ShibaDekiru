@@ -25,7 +25,10 @@ export class UpdateHiraganaComponent {
       (data) => {
         this.hiragana = data;
       },
-      (error) => console.log(error)
+      (error) =>{ 
+        console.log(error);
+        this.nofiService.openSnackBar('Đã có lỗi xảy ra khi lấy thông tin chữ cái');
+      }
     );
   }
   onSubmit() {
@@ -34,7 +37,10 @@ export class UpdateHiraganaComponent {
         this.goToHiraganasList();
         this.nofiService.openSnackBar('Cập nhật hiragana thành công');
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.nofiService.openSnackBar('Có lỗi xảy ra khi cập nhật chữ cái');
+      }
     );
   }
 

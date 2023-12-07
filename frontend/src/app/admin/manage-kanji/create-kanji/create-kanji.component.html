@@ -36,10 +36,15 @@
         </div>
 
         <div class="form-group">
-            <label for="">Id bài học</label>
-            <input type="text" class="form-control" id="lessonId" [(ngModel)]="kanji.lessonId" name="lessonId" />
+            <label for="">Chọn bài học</label>
+            <!-- <input type="text" class="form-control" id="lessonId" [(ngModel)]="kanji.lessonId" name="lessonId" /> -->
+            <select class="form-control" [(ngModel)]="kanji.lessonId"  id="lessonId" name="lessonId">
+                <option *ngFor="let lesson of lesson" [ngValue]="lesson.lessonId">
+                    {{lesson.name}}
+                </option>
+            </select>
         </div>
         <br>
-        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Submit</button>
+        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Tạo</button>
     </form>
 </div>

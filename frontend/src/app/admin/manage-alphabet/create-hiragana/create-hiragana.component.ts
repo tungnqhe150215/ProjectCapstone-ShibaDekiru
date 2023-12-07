@@ -21,7 +21,10 @@ export class CreateHiraganaComponent implements OnInit {
         this.goToHiraganasList();
         this.nofiService.openSnackBar('Tạo hiragana thành công');
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.nofiService.openSnackBar('Có lỗi xảy ra khi tạo hiragana')
+      }
       
     );
   }

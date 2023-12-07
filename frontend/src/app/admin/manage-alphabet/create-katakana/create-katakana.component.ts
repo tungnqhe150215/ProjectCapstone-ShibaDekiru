@@ -25,7 +25,10 @@ export class CreateKatakanaComponent implements OnInit {
         this.goToKatakanasList();
         this.nofiService.openSnackBar('Tạo katakana thành công');
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.nofiService.openSnackBar('Có xảy ra lỗi khi tạo chữ cái')
+      }
     );
   }
 

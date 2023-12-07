@@ -20,14 +20,17 @@ export class CreateGrammarComponent implements OnInit {
   }
 
   saveGrammar() {
-    this.grammarService.createGrammar(this.grammar).subscribe(
-      (data) => {
-        console.log(data);
+    this.grammarService.createGrammar(this.grammar).subscribe({
+      next:(res) => {
+        console.log(res);
         this.goToGrammarsList();
         this.nofiService.openSnackBar('Tạo ngữ pháp thành công!');
       },
-      (error) => console.log(error)
-    );
+      error: (err) => {
+        console.error(err);
+        this.nofiService.openSnackBar('Đã xảy ra lỗi khi tạo ngữ pháp! Vui lòng thử lại');
+      },
+    });
   }
 
   private getLesson(){

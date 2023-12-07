@@ -3,6 +3,8 @@ import { Kanji } from 'src/app/core/models/kanji';
 import { KanjiService } from '../kanji.service';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { LessonService } from 'src/app/core/services/lesson.service';
+import { Lesson } from 'src/app/core/models/lesson';
 
 @Component({
   selector: 'app-create-kanji',
@@ -11,19 +13,34 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 })
 export class CreateKanjiComponent implements OnInit {
   kanji: Kanji = new Kanji();
-  constructor(private kanjiService: KanjiService, private router: Router,private nofiService: NotificationService) {}
-  ngOnInit(): void {}
+  lesson: Lesson[] =[];
+  constructor(private kanjiService: KanjiService, private router: Router,private nofiService: NotificationService, private lessonService: LessonService, ) {}
+  ngOnInit(): void {
+    this.getLesson();
+  }
 
   saveKanji() {
-    this.kanjiService.createKanji(this.kanji).subscribe(
-      (data) => {
-        console.log(data);
+    this.kanjiService.createKanji(this.kanji).subscribe({
+      next:(res) =>{
+        console.log(res);
         this.goToKanjiesList();
-        this.nofiService.openSnackBar('Tạo kanji thành công')
+        this.nofiService.openSnackBar('Tạo chữ Hán thành công')
       },
-      (error) => console.log(error)
-    );
+      error: (err) => {
+        console.error(err);
+        this.nofiService.openSnackBar('Đã xảy ra lỗi khi tạo chữ Hán! Vui lòng thử lại');
+      },
+    });
   }
+
+  private getLesson(){
+    this.lessonService.getLessonNoneID().subscribe( data =>{
+      this.lesson = data;
+      console.log(data)
+    })
+  
+  }
+
 
   goToKanjiesList() {
     this.router.navigate(['admin/list-kanji']);
