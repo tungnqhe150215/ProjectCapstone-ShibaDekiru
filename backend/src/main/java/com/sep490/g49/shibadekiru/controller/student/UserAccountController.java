@@ -106,7 +106,7 @@ public class UserAccountController {
         String fileName = file.getOriginalFilename();
         String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
         System.out.println("File extension: " + fileExtension);
-        return Arrays.asList("jpg", "jpeg", "png", "gif").contains(fileExtension);
+        return Arrays.asList("jpg", "jpeg", "png").contains(fileExtension);
     }
 
     @PutMapping("/student/my-profile")

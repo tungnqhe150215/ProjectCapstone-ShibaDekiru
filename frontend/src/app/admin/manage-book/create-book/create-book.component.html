@@ -8,12 +8,17 @@
         <div class="form-group">
             <label class="mr-2" >Mô tả</label>
             <input type="text" class="form-control" id="description" namedescription [(ngModel)] = "book.description" [ngModelOptions]="{standalone: true}" >
-            
+
             </div>
               <div class="form-group">
-            <label >Chọn ảnh</label>
-            <input type="text" class="form-control" id="image" name="image" [(ngModel)] = "book.image" [ngModelOptions]="{standalone: true}"> 
-            
+                <mat-form-field>
+                  <mat-label>Chọn tệp ảnh</mat-label>
+                  <input matInput readonly type="text" id="fakeFileInput" (click)="hiddenInput.click()">
+                  <input hidden type="file" accept=".jpg, .jpeg, .png" #hiddenInput (change)="onFileSelected($event)">
+                  <mat-icon matSuffix>folder_open</mat-icon>
+                </mat-form-field>
+<!--            <input type="text" class="form-control" id="image" name="image" [(ngModel)] = "book.image" [ngModelOptions]="{standalone: true}"> -->
+
         </div>
         <button class="btn btn-success mt-2" type="submit" (click)="createBook()">Tạo</button>
     </form>
