@@ -1,7 +1,7 @@
 
 <h3 class="text-center m-auto mb-28">Quản lý bài viết</h3>
 <hr>
-<button appBackButton class="btn btn-info">Quay trở lại</button> <button mat-raised-button (click)="openCreateWritingDialog(id)"> Tạo bài viết </button>
+<button appBackButton mat-raised-button >Trở lại</button> &nbsp; <button class="ml-3" mat-raised-button  (click)="openCreateWritingDialog(id)"> Tạo bài viết </button>
 <mat-form-field>
   <mat-label>Lọc</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. abc" #input>
@@ -29,7 +29,7 @@
     </ng-container>
 
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header > Action </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Hành Động </th>
       <td mat-cell *matCellDef="let row">
         <button mat-icon-button color="success" (click)="getWritingDetail(row.writingId)">
           <mat-icon>remove_red_eye</mat-icon>

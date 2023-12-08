@@ -1,7 +1,7 @@
 
 <h3 class="text-center m-auto mb-28">Quản lý bài học kaiwa </h3>
 <hr>
-<button appBackButton class="btn btn-info">Quay trở lại</button> <button mat-raised-button (click)="openCreateKaiwaDialog(id)"> Tạo câu hỏi Kaiwa </button>
+<button appBackButton mat-raised-button>Quay trở lại</button> &nbsp;<button mat-raised-button (click)="openCreateKaiwaDialog(id)"> Tạo câu hỏi Kaiwa </button>
 <mat-form-field>
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. abc" #input>

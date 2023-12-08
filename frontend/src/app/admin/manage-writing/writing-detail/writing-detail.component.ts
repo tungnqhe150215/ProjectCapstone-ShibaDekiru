@@ -18,13 +18,14 @@ import {WritingQuestion} from "../../../core/models/writing-question";
 import {FormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {SharedModule} from "../../../shared/shared.module";
 
 @Component({
   selector: 'app-writing-detail',
   templateUrl: './writing-detail.component.html',
   styleUrls: ['./writing-detail.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule,SharedModule],
 })
 export class WritingDetailComponent implements OnInit{
   displayedColumns: string[] = ['id', 'question', 'sample-answer','action'];

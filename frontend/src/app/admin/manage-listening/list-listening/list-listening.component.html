@@ -1,7 +1,7 @@
 
 <h3 class="text-center m-auto mb-28">Quản lý bài tập nghe</h3>
 <hr>
-<button appBackButton class="btn btn-info mr-3">Quay trở lại</button> <button mat-raised-button (click)="openCreateListeningDialog(id)"> Tạo bài nghe </button>
+<button appBackButton mat-raised-button >Trở lại</button> &nbsp;<button mat-raised-button (click)="openCreateListeningDialog(id)"> Tạo bài nghe </button>
 <mat-form-field>
   <mat-label>Lọc</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. abc" #input>
