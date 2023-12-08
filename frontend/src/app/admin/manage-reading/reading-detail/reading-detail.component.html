@@ -13,7 +13,7 @@
   </mat-card-content>
 </mat-card>
 <hr>
-<button mat-raised-button (click)="openCreateReadingQuestionDialog(id)"> Tạo câu hỏi cho bài đọc</button>
+<button appBackButton mat-raised-button >Trở lại</button> &nbsp;<button mat-raised-button (click)="openCreateReadingQuestionDialog(id)"> Tạo câu hỏi cho bài đọc</button>
 <mat-form-field>
   <mat-label>Lọc</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. abc" #input>

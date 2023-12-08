@@ -1,22 +1,31 @@
 <button mat-button (click)="gotoPostList()">Quay lại</button>
-<div class="col-md-6 offset-md-3">
-    <h3 class="text-center">Thông tin bài đăng</h3>
-    <form (ngSubmit)="onSubmit()" class="form-dialog">
-        <div class="form-group">
-            <label>Nội dung bài đăng</label>
-            <input type="text" class="form-control" id="content" name="content"  [(ngModel)]="post.postContent">
-            <label class="m-2">Trạng thái</label>
-            <input type="radio" [value]="true" name="isEnabled" id="status" [checked]="post.isEnabled" [(ngModel)]="post.isEnabled"> Mở 
-            <input type="radio" [value]="false" name="isEnabled" id="status" [checked]="post.isEnabled"   [(ngModel)]="post.isEnabled"> Đóng
-        </div>
-        <div class="form-group">
-            <!-- <label class="mr-2" >Leturers</label>
+<div class="col-md-6 offset-md-3 w-80">
+<div class="card">
+    <div class="card-content">
+        <div class="card-body">
+            <h3 class="text-center">Thông tin bài đăng</h3>
+            <form (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label>Nội dung bài đăng</label>
+                    <input type="text" class="form-control" id="content" name="content" [(ngModel)]="post.postContent">
+                    <label class="m-2">Trạng thái</label>
+                    <input type="radio" [value]="true" name="isEnabled" id="status" [checked]="post.isEnabled"
+                        [(ngModel)]="post.isEnabled"> Mở
+                    <input type="radio" [value]="false" name="isEnabled" id="status" [checked]="post.isEnabled"
+                        [(ngModel)]="post.isEnabled"> Đóng
+                </div>
+                <div class="form-group">
+                    <!-- <label class="mr-2" >Leturers</label>
             <input type="text" class="form-control" id="lectureId" name="lectureId" [(ngModel)] = "post.LecturesDto"  readonly> -->
-            </div>
-              <div class="form-group">
-            <label>Nội dung</label>
-            <input type="text" class="form-control" id="description" name="description"  [(ngModel)]="post.description">
+                </div>
+                <div class="form-group">
+                    <label>Nội dung</label>
+                    <textarea type="text" class="form-control" id="description" name="description"
+                        [(ngModel)]="post.description"></textarea>
+                </div>
+                <button class="btn btn-success mt-2" style="margin-left:40%;" type="submit">Cập nhật</button>
+            </form>
         </div>
-        <button class="btn btn-success" type="submit">Cập nhật</button>
-    </form>
+    </div>
+</div>
 </div>

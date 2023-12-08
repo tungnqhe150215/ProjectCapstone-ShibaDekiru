@@ -15,13 +15,14 @@ import {ListeningQuestion} from "../../../core/models/listening-question";
 import {FormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {SharedModule} from "../../../shared/shared.module";
 
 @Component({
   selector: 'app-listening-detail',
   templateUrl: './listening-detail.component.html',
   styleUrls: ['./listening-detail.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule, SharedModule],
 })
 export class ListeningDetailComponent implements OnInit{
   displayedColumns: string[] = ['id', 'question', 'correct-answer','action'];

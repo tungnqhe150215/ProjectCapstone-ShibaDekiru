@@ -49,6 +49,7 @@
                 <!-- <li class="nav-item"><a class="nav-link" href="blog_detail.html">Blog Details</a></li> -->
               </ul>
             </li>
+            <div *ngIf="isLoggedIn">
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">Lớp học</a>
@@ -57,6 +58,7 @@
                 <li class="nav-item"><a class="nav-link" routerLink="./class">Lớp học của tôi</a></li>
               </ul>
             </li>
+          </div>
             <!-- <li class="nav-item"><a class="nav-link main_btn2 rounded-pill px-3 text-light" routerLink="./login">Đăng nhập<i class="fa fa-arrow-right ms-3"></i></a> </li> -->
             <!-- <li class="nav-item"><a href class="nav-link main_btn2 rounded-pill px-3 text-light" (click)="logout()">LogOut</a></li> -->
           </ul>
