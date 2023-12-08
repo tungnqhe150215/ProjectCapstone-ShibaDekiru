@@ -7,4 +7,6 @@ public interface IStudentService {
     Student getByUserAccount(UserAccount userAccount);
 
     Student getStudentByStudentId(Long studentId);
+
+    Student getStudentByStudentIdToGetAvatar(Long studentId);
 }
