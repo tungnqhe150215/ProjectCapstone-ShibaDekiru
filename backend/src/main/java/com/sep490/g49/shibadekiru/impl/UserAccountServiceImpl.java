@@ -232,7 +232,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             student.setEmail(request.getEmail());
                         }
 
-                        if (request.getAvatar() != null && !request.getAvatar().isEmpty()) {
+                        if (request.getAvatar().length() > 0) {
                             googleDriveService.deleteFile(student.getAvatar());
                             System.out.println("Check id file bị xóa: " + student.getAvatar());
                             updateProfileStudentByAvatar(request.getAvatar(), connectedUser);
