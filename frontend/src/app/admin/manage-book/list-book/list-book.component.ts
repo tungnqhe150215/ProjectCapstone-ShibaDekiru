@@ -21,7 +21,7 @@ import { DeleteBookComponent } from '../delete-book/delete-book.component';
 //   No: number;
 //   weight: number;
 //   symbol: string;
-  
+
 // }
 
 // const ELEMENT_DATA: PeriodicElement[] = [
@@ -49,11 +49,11 @@ export class ListBookComponent implements OnInit{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   constructor(
     private bookService: ManageBookService,
     private nofiService: NotificationService,
-    private router:Router, 
+    private router:Router,
     private route:ActivatedRoute,
     public dialog: MatDialog
   ){}
@@ -96,6 +96,7 @@ export class ListBookComponent implements OnInit{
   }
 
   bookDetail(id: number){
+    console.log(id)
     this.dialog.open(BookDetailComponent,{
       data:id
     })
@@ -106,7 +107,7 @@ export class ListBookComponent implements OnInit{
       data:id
     }).afterClosed().subscribe( () => this.ListBook())
   }
-  
+
   deleteBook(id:number){
     this.bookService.deleteBook(id).subscribe({
       next:(res) =>{
