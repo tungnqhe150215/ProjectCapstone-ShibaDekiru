@@ -4,6 +4,7 @@ import com.sep490.g49.shibadekiru.entity.Student;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.StudentRepository;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ public class StudentServiceImpl implements IStudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private GoogleDriveService googleDriveService;
 
     public void createStudentFromUserAccount(Student student) {
 
@@ -34,6 +38,21 @@ public class StudentServiceImpl implements IStudentService {
         if (student == null) {
             throw new ResourceNotFoundException("Student can not found with id: " + studentId);
         }
+        return student;
+    }
+
+    @Override
+    public Student getStudentByStudentIdToGetAvatar(Long studentId) {
+        Student student = studentRepository.findById(studentId).orElse(null);
+        if (student == null) {
+            throw new ResourceNotFoundException("Student can not be found with id: " + studentId);
+        }
+
+        if (student.getAvatar() != null) {
+            student.setAvatar(googleDriveService.getFileUrl(student.getAvatar()));
+            System.out.println("Đây là trong student: " + student.getAvatar());
+        }
+
         return student;
     }
 

@@ -59,7 +59,6 @@ public class AuthenticationServiceImpl {
     private MailServiceProvider mailServiceProvider;
 
     public void register(RegisterResponse request) {
-        Role role = roleRepository.findById(request.getRoleId()).orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + request.getRoleId()));
 
         Optional<UserAccount> existingUser = userAccountRepository.findByEmailOrMemberId(request.getEmail(), request.getMemberId());
         if (existingUser.isPresent()) {
@@ -75,6 +74,11 @@ public class AuthenticationServiceImpl {
             userAccount.setPassword(passwordEncoder.encode(request.getPassword()));
             userAccount.setIsActive(false);
             userAccount.setIsBanned(false);
+
+            Long roleId = request.getRoleId();
+
+            Role role = roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + roleId));
+
             userAccount.setRole(role);
 
             int minus = 10;

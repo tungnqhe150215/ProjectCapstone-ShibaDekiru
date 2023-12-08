@@ -1,11 +1,18 @@
 package com.sep490.g49.shibadekiru.impl;
 
-import com.sep490.g49.shibadekiru.dto.*;
-import com.sep490.g49.shibadekiru.entity.*;
+import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
+import com.sep490.g49.shibadekiru.dto.LecturesDto;
+import com.sep490.g49.shibadekiru.dto.StudentDto;
+import com.sep490.g49.shibadekiru.dto.UserAccountDto;
+import com.sep490.g49.shibadekiru.entity.Lectures;
+import com.sep490.g49.shibadekiru.entity.Role;
+import com.sep490.g49.shibadekiru.entity.Student;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.*;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IUserAccountService;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,6 +52,9 @@ public class UserAccountServiceImpl implements IUserAccountService {
     @Autowired
     private LecturesServiceImpl lecturesService;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @Override
     public List<UserAccount> getAllUserAccounts() {
         return userAccountRepository.findAll();
@@ -73,8 +83,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             return userAccountRepository.save(userAccount1);
 
-        }
-        else {
+        } else {
             throw new ResourceNotFoundException("User Account can't be added.");
         }
     }
@@ -121,8 +130,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
             throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
         }
     }
-
-
 
 
     @Override
@@ -226,12 +233,72 @@ public class UserAccountServiceImpl implements IUserAccountService {
                         }
 
                         if (request.getAvatar() != null && !request.getAvatar().isEmpty()) {
+                            googleDriveService.deleteFile(student.getAvatar());
+                            System.out.println("Check id file bị xóa: " + student.getAvatar());
+                            updateProfileStudentByAvatar(request.getAvatar(), connectedUser);
                             student.setAvatar(request.getAvatar());
+                        }
+                        else {
+                            String newFileUrl = googleDriveService.getFileUrl(student.getAvatar());
+                            if (newFileUrl != null) {
+                                // Loại bỏ phần &export=download từ đường dẫn mới
+                                newFileUrl = removeExportParameter(newFileUrl);
+                                // Cắt chuỗi để chỉ lấy phần ID của file
+                                String fileId = cutFileId(newFileUrl);
+                                student.setAvatar(fileId);
+                                System.out.println("Current file id: " + student.getAvatar());
+                            }
                         }
 
                         if (request.getGender() != null) {
                             student.setGender(request.getGender());
                         }
+
+                        student.setUserAccount(user);
+                        studentRepository.save(student);
+                    }
+                }
+            } else {
+                throw new IllegalStateException("Người dùng không phải là UserAccount.");
+            }
+        } else {
+            throw new IllegalStateException("Người dùng chưa đăng nhập hoặc thông tin không hợp lệ.");
+        }
+    }
+
+    private String removeExportParameter(String url) {
+        int exportIndex = url.indexOf("&export=download");
+        if (exportIndex != -1) {
+            return url.substring(0, exportIndex);
+        }
+        return url;
+    }
+
+    private String cutFileId(String url) {
+        int idIndex = url.lastIndexOf('=') + 1;
+        return url.substring(idIndex);
+    }
+
+    public void updateProfileStudentByAvatar(String fileId, Principal connectedUser) {
+        if (connectedUser instanceof UsernamePasswordAuthenticationToken) {
+            UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) connectedUser;
+            if (authenticationToken.getPrincipal() instanceof UserAccount) {
+                UserAccount user = (UserAccount) authenticationToken.getPrincipal();
+
+                if (user != null) {
+                    user.setEmail(user.getEmail());
+                    userAccountRepository.save(user);
+
+                    System.out.println("MemberId: " + user.getMemberId());
+                    System.out.println("Role: " + user.getRole());
+
+                    user = userAccountRepository.findByMemberId(user.getMemberId());
+                    Student student = studentService.getByUserAccount(user);
+
+                    if (student != null) {
+
+                        student.setAvatar(fileId);
+                        System.out.println("File ảnh : " + fileId);
 
                         student.setUserAccount(user);
                         studentRepository.save(student);
