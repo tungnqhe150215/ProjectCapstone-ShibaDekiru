@@ -61,11 +61,10 @@ public class AuthenticationController {
             @RequestBody RegisterResponse request
     ) {
         try {
-            request.setRoleId((2L));
             authenticationService.register(request);
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
 
     }
