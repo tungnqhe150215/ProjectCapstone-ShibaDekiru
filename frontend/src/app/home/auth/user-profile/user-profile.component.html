@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="account-change-password">
-                                <form  (ngSubmit)="changePassword()" class="mt-3 mb-3">
+                                <form  class="mt-3 mb-3">
                                     
                                         <mat-form-field appearance="outline" style="width: 350px;">
                                             <mat-label>Nhập mật khẩu cũ của bạn</mat-label>
@@ -116,7 +116,7 @@
                                             <mat-label>Xác nhận mật khẩu mới</mat-label>
                                             <input name="confirmpassword" [(ngModel)]="form.confirmpassword"
                                                 #confirmpassword="ngModel" matInput
-                                                [type]="hide ? 'confirmpassword' : 'text'" minlength="6"
+                                                [type]="hide ? 'password' : 'text'" minlength="6"
                                                 maxlength="100" required>
                                             <button mat-icon-button matSuffix (click)="hide = !newhide1"
                                                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -127,7 +127,7 @@
                                             <mat-error *ngIf="confirmpassword.hasError('minlength')">Mật khẩu phải ít nhất 6 ký tự</mat-error>
                                             <!-- <mat-error *ngIf="confirmpassword != form.newpassword">Mật khẩu mới và xác nhận mật khẩu không trùng nhau</mat-error> -->
                                         </mat-form-field><br>
-                                        <button class="btn btn-success">Đổi mật khẩu
+                                        <button class="btn btn-success" (click)="changePassword()">Đổi mật khẩu
                                             <!-- <mat-icon matListItemIcon matSuffix>change_circle</mat-icon> -->
                                         </button>
                                     <!-- <div class="card-body pb-2">
@@ -150,7 +150,7 @@
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="account-info">
-                                <form>
+                                <form class="form-control">
                                     <div class="tab-pane fade active show" id="account-general">
                                         <div class="card-body media align-items-center">
                                             <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
