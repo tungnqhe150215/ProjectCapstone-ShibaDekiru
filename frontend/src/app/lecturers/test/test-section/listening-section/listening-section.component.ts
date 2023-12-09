@@ -18,6 +18,9 @@ import {MatSortModule} from "@angular/material/sort";
 import {FileService} from "../../../../shared/services/file.service";
 import {data} from "autoprefixer";
 import {Drive} from "../../../../core/models/drive";
+import {FilePreviewService} from "../../../../shared/services/file-preview.service";
+import {SharedModule} from "../../../../shared/shared.module";
+import {switchMap,timer} from "rxjs";
 
 
 @Component({
@@ -47,44 +50,44 @@ export class ListeningSectionComponent implements OnInit {
 
   @Input() expandedElement: any | null;
 
-  dataSource:TestSection[] = [];
-  columnsToDisplay = ['id', 'name','action'];
+  dataSource: TestSection[] = [];
+  columnsToDisplay = ['id', 'name', 'action'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   test: Test = new Test()
-  id!:number
+  id!: number
 
   ngOnInit(): void {
     this.expandedElement = null;
     this.getListeningSection()
   }
 
-  private getListeningSection(){
+  private getListeningSection() {
     this.id = this.route.snapshot.params['id'];
     this.testService.getTestById(this.id).subscribe(data => {
       this.test = data
       console.log(data)
     });
     this.dataSource = []
-    this.testSectionService.getTestSectionByTestAndType(this.id,"LISTENING").subscribe(data => {
+    this.testSectionService.getTestSectionByTestAndType(this.id, "LISTENING").subscribe(data => {
       this.dataSource = data;
       console.log(data)
     })
     // return this.courseService.getCourseList();
   }
 
-  openDeleteListeningSectionDialog(id:number){
+  openDeleteListeningSectionDialog(id: number) {
     this.dialog.open(ListeningSectionDeleteDialog, {
       data: id
     }).afterClosed().subscribe(() => this.getListeningSection());
   }
 
-  openCreateListeningSectionDialog(id:number){
-    this.dialog.open(ListeningSectionCreateDialog,{
+  openCreateListeningSectionDialog(id: number) {
+    this.dialog.open(ListeningSectionCreateDialog, {
       data: id
     }).afterClosed().subscribe(() => this.getListeningSection());
   }
 
-  openUpdateListeningSectionDialog(id:number){
+  openUpdateListeningSectionDialog(id: number) {
     this.dialog.open(ListeningSectionUpdateDialog,
       {
         data: id
@@ -92,8 +95,8 @@ export class ListeningSectionComponent implements OnInit {
     ).afterClosed().subscribe(() => this.getListeningSection());
   }
 
-  getListeningSectionDetail(id:number){
-    this.router.navigate(['lecturer/test/section',id]);
+  getListeningSectionDetail(id: number) {
+    this.router.navigate(['lecturer/test/section', id]);
   }
 }
 
@@ -107,19 +110,22 @@ export class ListeningSectionComponent implements OnInit {
 export class ListeningSectionDeleteDialog {
   constructor(
     public dialogRef: MatDialogRef<ListeningSectionDeleteDialog>,
-    private testSectionService:LectureTestSectionService,
+    private testSectionService: LectureTestSectionService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
-  ) {}
-  deleteListeningSection(id:number){
+  ) {
+  }
+
+  deleteListeningSection(id: number) {
     this.testSectionService.deleteTestSection(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Đã xóa phần nghe!!', 'Close', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -130,36 +136,45 @@ export class ListeningSectionDeleteDialog {
   templateUrl: 'listening-section-create-dialog.html',
   styleUrls: ['./listening-section.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule,NgIf, SharedModule],
 })
 export class ListeningSectionCreateDialog {
 
-  section:TestSection =  new TestSection();
-  file!: File ;
+  section: TestSection = new TestSection();
+  file!: File;
   drive: Drive = new Drive();
 
   constructor(
     public dialogRef: MatDialogRef<ListeningSectionCreateDialog>,
-    private testSectionService:LectureTestSectionService,
-    private fileService:FileService,
+    private testSectionService: LectureTestSectionService,
+    private fileService: FileService,
+    private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
-  ) {}
+  ) {
+  }
 
-  createListeningSection(){
-    this.fileService.uploadFile(this.file).subscribe(data => {
-      console.log(data)
-      this.drive = data as Drive
+  createListeningSection() {
+    if (this.file) {
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        console.log(data)
+        this.drive = data as Drive
+        this.section.sectionType = "LISTENING"
+        this.section.sectionAttach = this.drive.fileId;
+        console.log(this.section)
+        this.testSectionService.createTestSection(this.data, this.section).subscribe(data => {
+          console.log(data)
+          this.dialogRef.close();
+        })
+      })
+    } else {
       this.section.sectionType = "LISTENING"
-      this.section.sectionAttach = this.drive.fileId;
-      console.log(this.section)
-      this.testSectionService.createTestSection(this.data,this.section).subscribe(data => {
+      this.testSectionService.createTestSection(this.data, this.section).subscribe(data => {
         console.log(data)
         this.dialogRef.close();
       })
-    })
-
-    this._snackBar.open('New listening part added!!', 'Close', {
+    }
+    this._snackBar.open('Phần nghe mới đã được thêm!!', 'Close', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -172,28 +187,49 @@ export class ListeningSectionCreateDialog {
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
-    if(element != null) {
+    if (element != null) {
       element.value = this.file.name;
     }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 }
+
 @Component({
   selector: 'app-listening-section-update-dialog',
   templateUrl: 'listening-section-update-dialog.html',
   styleUrls: ['./listening-section.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule, NgIf, SharedModule],
 })
-export class ListeningSectionUpdateDialog implements OnInit{
+export class ListeningSectionUpdateDialog implements OnInit {
 
   section: TestSection = new TestSection();
+  file!: File;
+  drive: Drive = new Drive();
 
   constructor(
     public dialogRef: MatDialogRef<ListeningSectionUpdateDialog>,
-    private testSectionService:LectureTestSectionService,
+    private testSectionService: LectureTestSectionService,
+    private fileService: FileService,
+    private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.testSectionService.getTestSectionById(this.data).subscribe(e => {
@@ -201,13 +237,27 @@ export class ListeningSectionUpdateDialog implements OnInit{
     })
   }
 
-  updateListeningSection(){
-    console.log(this.section)
-    this.testSectionService.updateTestSection(this.data,this.section).subscribe(data => {
-      console.log(data)
-      this.dialogRef.close();
-    })
-    this._snackBar.open('Listening Section part updated!!', 'Close', {
+  updateListeningSection() {
+    if (this.file) {
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        console.log(data)
+        this.drive = data as Drive
+        this.section.sectionAttach = this.drive.fileId;
+        console.log(this.section)
+        this.testSectionService.updateTestSection(this.data, this.section).subscribe(data => {
+          console.log(data)
+          this.dialogRef.close();
+        })
+      })
+    } else {
+      this.section.sectionAttach = ''
+      this.testSectionService.updateTestSection(this.data, this.section).subscribe(data => {
+        console.log(data)
+        this.dialogRef.close();
+      })
+    }
+
+    this._snackBar.open('Phần nghe đã được cập nhật!!', 'Close', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -215,5 +265,28 @@ export class ListeningSectionUpdateDialog implements OnInit{
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if (element != null && this.file.name.length > 0) {
+      element.value = this.file.name;
+    }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 }
