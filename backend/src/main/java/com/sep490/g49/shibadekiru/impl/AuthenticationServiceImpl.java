@@ -68,6 +68,7 @@ public class AuthenticationServiceImpl {
             UserAccount userAccount = new UserAccount();
 
             userAccount.setNickName(request.getNickName());
+            userAccount.setUserName(request.getNickName());
             userAccount.setMemberId(request.getMemberId());
             userAccount.setEmail(request.getEmail());
             userAccount.setPassword(passwordEncoder.encode(request.getPassword()));
