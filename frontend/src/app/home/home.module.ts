@@ -66,6 +66,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UnthorizationComponent } from './unthorization/unthorization.component';
 
+
 @NgModule({
   declarations: [
     FooterComponent,

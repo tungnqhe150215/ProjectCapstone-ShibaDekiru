@@ -107,6 +107,7 @@
                             </div>
                         </div>
                     </div> -->
+                    <div *ngIf="isLoggedIn">
                     <div class="comments-area">
                         <h4> Bình luận </h4>
 
@@ -151,7 +152,21 @@
                             </form>
                         </div>
                     </div>
-
+                    </div>
+                    <div *ngIf="!isLoggedIn">
+                        <!-- <div class="container">
+                        <h6 class="text-center"> Để có thể xem bình luận bạn hãy đăng nhập </h6>
+                        </div> -->
+                        <div  style="text-align: center">
+                            <i class="mdi mdi-forum"></i>
+                            <br>
+                            <h2 style="color: #666;">Xem bình luận</h2>
+                            <br>
+                            <p class="text-center" style="color:#444;">Để có thể xem bình luận hãy đăng nhập</p>
+                            <br>
+                            <button (click)="backTohome()" class="btn btn-outline-success ml-sm-2 mb-2" style="border-radius: 50px" >&emsp;&emsp;Đăng nhập tại đây&emsp;&emsp;</button>
+                          </div>
+                    </div>
                 </div>
                 <!-- <div class="col-lg-4">
                     <div class="blog_right_sidebar">
