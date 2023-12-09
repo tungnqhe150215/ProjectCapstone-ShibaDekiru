@@ -3,6 +3,7 @@ import { UseServiceService } from '../use-service.service';
 import { StorageService } from './storage.service';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { RoleInte } from 'src/app/core/models/role';
 
 @Component({
   selector: 'app-user-login',
@@ -60,45 +61,53 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
 
       },
       error: err =>{
-        this.notifiService.openSnackBar('Có lỗi xáy ra trong quá trình đăng nhập vui lòng kiểm tra lại');
+        console.log(err.status);
+        this.notifiService.openSnackBar('Email hoặc mật khẩu sai!');
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
+        if(err.status === 403){
+          this.notifiService.openSnackBar('Email hoặc mật khẩu sai!')
+        }
       }
     })
   }
 
-
+  
   //Register
   form: any = {
     nickName :null,
     firstName :null,
     lastName :null,
     memberId :null,
-    userName :null,
+    // userName :null,
     email :null,
-    password :null
+    password :null,
+    roleId: null
+    // role: { roleId: null }
   };
   isSuccessful = false;
   isSignUpFailed = false;
   // errorMessage = '';
-
+  
   onSubmit(): void {
     const {nickName,
       firstName,
       lastName,
       memberId,
-      userName,
+      // userName,
       email,
-      password 
+      password,
+      roleId
     } = this.form;
-    
-    this.userService.register(nickName,
+    console.log('Role:',roleId);
+    this.userService.register1(nickName,
       firstName,
       lastName,
       memberId,
-      userName,
+      // userName,
       email,
-      password)
+      password,
+      roleId)
       .subscribe({
       next: data =>{
         console.log(data);
@@ -112,6 +121,9 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         this.notifiService.openSnackBar('Có lỗi xáy ra trong khi đăng ký vui lòng kiểm tra lại');
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
+        if(err.staus === 409){
+          this.notifiService.openSnackBar('Email đã tồn tại vui lòng kiểm tra lại!')
+        }
       }
     })
   }

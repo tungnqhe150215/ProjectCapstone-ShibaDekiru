@@ -29,23 +29,26 @@ export class UserRegisterComponent {
     private router: Router,
   ){}
 
+  
   onSubmit(): void {
     const {nickName,
       firstName,
       lastName,
       memberId,
-      userName,
+      // userName,
       email,
-      password 
+      password,
+      roleId 
     } = this.form;
     
     this.userService.register(nickName,
       firstName,
       lastName,
       memberId,
-      userName,
+      // userName,
       email,
-      password)
+      password,
+      roleId)
       .subscribe({
       next: data =>{
         console.log(data);
