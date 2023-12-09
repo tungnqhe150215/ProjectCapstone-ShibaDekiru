@@ -1,18 +1,11 @@
 package com.sep490.g49.shibadekiru.impl;
 
-import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
-import com.sep490.g49.shibadekiru.dto.LecturesDto;
-import com.sep490.g49.shibadekiru.dto.StudentDto;
-import com.sep490.g49.shibadekiru.dto.UserAccountDto;
-import com.sep490.g49.shibadekiru.entity.Lectures;
-import com.sep490.g49.shibadekiru.entity.Role;
-import com.sep490.g49.shibadekiru.entity.Student;
-import com.sep490.g49.shibadekiru.entity.UserAccount;
+import com.sep490.g49.shibadekiru.dto.*;
+import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.*;
 import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IUserAccountService;
-import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,11 +54,17 @@ public class UserAccountServiceImpl implements IUserAccountService {
     }
 
     @Override
-    public UserAccount createUserAccount(UserAccount userAccount) {
-        Long roleId = userAccount.getRole().getRoleId();
+    public void createUserAccount(UserAccountRegisterDto userAccount) {
+        Long roleId = userAccount.getRoleId();
 
         Optional<Role> roleOptional = roleRepository.findById(roleId);
-        if (roleOptional.isPresent()) {
+        Optional<UserAccount> existingUser = userAccountRepository.findByEmailOrMemberId(userAccount.getEmail(), userAccount.getMemberId());
+
+        if (existingUser.isPresent()) {
+            throw new IllegalStateException("Email already or member be exists.");
+        }
+
+        else if (roleOptional.isPresent()) {
 
             Role role = roleOptional.get();
 
@@ -73,15 +72,41 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
-            userAccount1.setUserName(userAccount.getUsername());
-            userAccount1.setPassword(userAccount.getPassword());
+            userAccount1.setUserName(userAccount.getNickName());
+
+            String passWordEncode = passwordEncoder.encode(userAccount.getPassword());
+            userAccount1.setPassword(passWordEncode);
+
             userAccount1.setEmail(userAccount.getEmail());
-            userAccount1.setResetCode(userAccount.getResetCode());
-            userAccount1.setIsActive(true);
+            userAccount1.setResetCode(null);
+            userAccount1.setIsActive(userAccount.getIsActive());
             userAccount1.setIsBanned(userAccount.getIsBanned());
             userAccount1.setRole(role);
 
-            return userAccountRepository.save(userAccount1);
+            UserAccount savedUser = userAccountRepository.save(userAccount1);
+
+            //return userAccountRepository.save(userAccount1);
+
+            for (RoleType roleType : RoleType.values()) {
+                if (roleType.getId() == role.getRoleId()) {
+                    if (roleType == RoleType.STUDENT) {
+                        Student student = new Student();
+                        student.setFirstName(userAccount.getFirstName());
+                        student.setLastName(userAccount.getLastName());
+                        student.setEmail(userAccount.getEmail());
+                        student.setUserAccount(savedUser);
+                        studentService.createStudentFromUserAccount(student);
+                    } else if (roleType == RoleType.LECTURE) {
+                        LecturesDto lectures = new LecturesDto();
+                        lectures.setFirstName(userAccount.getFirstName());
+                        lectures.setLastName(userAccount.getLastName());
+                        lectures.setEmail(userAccount.getEmail());
+                        lectures.setMemberId(userAccount.getMemberId());
+                        lecturesService.createLecturerFromUserAccount(lectures);
+                    }
+                    break;
+                }
+            }
 
         } else {
             throw new ResourceNotFoundException("User Account can't be added.");
@@ -99,7 +124,10 @@ public class UserAccountServiceImpl implements IUserAccountService {
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
             userAccount1.setUserName(userAccount.getUsername());
-            userAccount1.setPassword(userAccount.getPassword());
+
+            String passWordEncode = passwordEncoder.encode(userAccount.getPassword());
+
+            userAccount1.setPassword(passWordEncode);
             userAccount1.setEmail(userAccount.getEmail());
             userAccount1.setResetCode(userAccount.getResetCode());
             userAccount1.setIsBanned(userAccount.getIsBanned());

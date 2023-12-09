@@ -48,9 +48,11 @@ public class StudentServiceImpl implements IStudentService {
             throw new ResourceNotFoundException("Student can not be found with id: " + studentId);
         }
 
-        if (student.getAvatar() != null) {
+        if (student.getAvatar().length() > 0) {
             student.setAvatar(googleDriveService.getFileUrl(student.getAvatar()));
             System.out.println("Đây là trong student: " + student.getAvatar());
+        } else {
+            student.setAvatar("");
         }
 
         return student;

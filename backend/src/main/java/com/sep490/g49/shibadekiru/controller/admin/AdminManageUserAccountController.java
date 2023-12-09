@@ -2,6 +2,7 @@ package com.sep490.g49.shibadekiru.controller.admin;
 
 
 import com.sep490.g49.shibadekiru.dto.UserAccountDto;
+import com.sep490.g49.shibadekiru.dto.UserAccountRegisterDto;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.service.IUserAccountService;
 import org.modelmapper.ModelMapper;
@@ -41,15 +42,13 @@ public class AdminManageUserAccountController {
     }
 
     @PostMapping("/user-account")
-    public ResponseEntity<UserAccountDto> createUserAccount(@RequestBody UserAccountDto userAccountDto) {
-
-        UserAccount userAccountRequest = modelMapper.map(userAccountDto, UserAccount.class);
-
-        UserAccount userAccount = iUserAccountService.createUserAccount(userAccountRequest);
-
-        UserAccountDto userAccountResponse = modelMapper.map(userAccount, UserAccountDto.class);
-
-        return new ResponseEntity<UserAccountDto>(userAccountResponse, HttpStatus.CREATED);
+    public ResponseEntity<?> createUserAccount(@RequestBody UserAccountRegisterDto userAccountDto) {
+        try {
+            iUserAccountService.createUserAccount(userAccountDto);
+            return ResponseEntity.ok().build();
+        }catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @PutMapping("/user-account/{id}")
