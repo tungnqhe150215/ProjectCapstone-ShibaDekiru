@@ -124,10 +124,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
             userAccount1.setUserName(userAccount.getUsername());
-
-            String passWordEncode = passwordEncoder.encode(userAccount.getPassword());
-
-            userAccount1.setPassword(passWordEncode);
+            userAccount1.setPassword(userAccount.getPassword());
             userAccount1.setEmail(userAccount.getEmail());
             userAccount1.setResetCode(userAccount.getResetCode());
             userAccount1.setIsBanned(userAccount.getIsBanned());
