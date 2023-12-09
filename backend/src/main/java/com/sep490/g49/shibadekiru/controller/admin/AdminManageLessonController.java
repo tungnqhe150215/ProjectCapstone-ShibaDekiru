@@ -4,6 +4,7 @@ import com.sep490.g49.shibadekiru.dto.LessonDto;
 import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.repository.LessonRepository;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IBookService;
 import com.sep490.g49.shibadekiru.service.ILessonService;
 import org.modelmapper.ModelMapper;
@@ -32,6 +33,9 @@ public class AdminManageLessonController {
     @Autowired
     private IBookService iBookService;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
 
     @GetMapping("/lesson")
     public List<LessonDto> getAllLessons() {
@@ -47,6 +51,8 @@ public class AdminManageLessonController {
     @GetMapping("/book/lesson/{lessonId}")
     public ResponseEntity<LessonDto> getLessonById(@PathVariable (name = "lessonId") Long lessonId) {
         Lesson lesson = iLessonService.getLessonById(lessonId);
+
+        lesson.setImage(googleDriveService.getFileUrl(lesson.getImage()));
 
         // convert entity to DTO
         LessonDto lessonResponse = modelMapper.map(lesson, LessonDto.class);

@@ -66,6 +66,10 @@ public class BookServiceImpl implements IBookService {
     public void deleteBook(Long bookId) {
         Book book = bookRepository.findById(bookId).orElseThrow(() ->
                 new ResourceNotFoundException("Book can not delete with id: " + bookId));
+        if (book.getImage() != null) {
+            googleDriveService.deleteFile(book.getImage());
+            System.out.println("Đã vào đây.");
+        }
         bookRepository.delete(book);
     }
 
