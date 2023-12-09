@@ -11,11 +11,12 @@
     <input matInput [(ngModel)]="test.duration" [ngModelOptions]="{standalone: true}" required type="text">
   </mat-form-field>
   <br>
-  <mat-slide-toggle [(ngModel)]="test.isLocked" [ngModelOptions]="{standalone: true}" > Khóa bài kiểm tra này</mat-slide-toggle>
+  <h6>Khóa bài kiểm tra này ?</h6>
+  <mat-slide-toggle [(ngModel)]="test.isLocked" [ngModelOptions]="{standalone: true}" > {{test.isLocked === true ? 'Có' : 'Không'}} </mat-slide-toggle>
 </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Hủy bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="createTest()">Create</button>
+  <button mat-button [mat-dialog-close]="true" (click)="createTest()">Tạo mới</button>
 </mat-dialog-actions>
