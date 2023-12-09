@@ -117,9 +117,6 @@ public class LectureManageQuestionBankController {
 
         TestSection testSection = iTestSectionService.getTestSectionById(questionId);
 
-        if (testSection.getSectionType().equals(SectionType.LISTENING))
-            testSection.setSectionAttach(googleDriveService.getFileUrl(testSection.getSectionAttach()));
-
         //convert Entity to DTO
         TestSectionDto testSectionDto = modelMapper.map(testSection, TestSectionDto.class);
 

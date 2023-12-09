@@ -27,12 +27,12 @@
             <p class="text-subtitle text-muted">{{currentUser.userAccountId}}</p>
           </div>
           <div class="col-2 order-last">
-            <button appBackButton class="btn btn-outline-info">Back</button>
+            <button appBackButton class="btn btn-outline-success">Quay lại</button>
           </div>
         </div>
         <mat-form-field>
-          <mat-label>Bộ lọc</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+          <mat-label>Lọc tên bài kiểm tra</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ví dụ: final test, ..." #input>
         </mat-form-field>
         <div class="mb-2">
           <button mat-raised-button (click)="openCreateTestDialog(lecture.lectureId)">Thêm bài kiểm tra</button>
@@ -58,7 +58,9 @@
 
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái </th>
-              <td mat-cell *matCellDef="let row"> {{row.isLocked == true ? 'khóa':'mở'}} </td>
+              <td mat-cell *matCellDef="let row">
+                <h6> <span *ngIf="row.isLocked === true" class="badge rounded-pill text-bg-danger">Đóng</span></h6>
+                <h6> <span *ngIf="row.isLocked === false" class="badge rounded-pill text-bg-success">Mở</span></h6></td>
             </ng-container>
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động</th>
@@ -73,7 +75,7 @@
                   <mat-icon>remove_circle</mat-icon>
                 </button>
                 <button (click)="getTestAssign(row.testId)" title="giao bài kiểm tra" mat-icon-button>
-                  <mat-icon>remove_red_eye</mat-icon>
+                  <mat-icon>assignment</mat-icon>
                 </button>
               </td>
             </ng-container>

@@ -17,13 +17,15 @@ import {SharedModule} from "../../../shared/shared.module";
 import {Lecture} from "../../../core/models/lecture";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { StorageService } from 'src/app/home/auth/user-login/storage.service';
+import {data} from "autoprefixer";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-lecture-list-test',
   templateUrl: './lecture-list-test.component.html',
   styleUrls: ['./lecture-list-test.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, SharedModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, SharedModule, NgIf],
 })
 export class LectureListTestComponent implements OnInit{
   displayedColumns: string[] = ['id', 'title','duration','status','action'];
@@ -43,7 +45,6 @@ export class LectureListTestComponent implements OnInit{
     private storageService: StorageService,
     public dialog: MatDialog) {
     // Assign the data to the data source for the table to render
-    this.lecture.lectureId = 1;
   }
   currentUser: any;
   ngOnInit(): void {
@@ -137,7 +138,7 @@ export class TestDeleteDialog {
   standalone: true,
   imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatSlideToggleModule],
 })
-export class TestCreateDialog {
+export class TestCreateDialog implements OnInit{
 
   test:Test =  new Test;
   lecture:Lecture = new Lecture();
@@ -165,6 +166,10 @@ export class TestCreateDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  ngOnInit(): void {
+    this.test.isLocked = false
   }
 }
 @Component({

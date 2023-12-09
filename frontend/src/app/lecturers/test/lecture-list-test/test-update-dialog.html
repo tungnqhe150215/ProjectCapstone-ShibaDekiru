@@ -1,18 +1,18 @@
-<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Thay đổi mô tả bài kiểm tra</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Thay đổi chi tiết bài kiểm tra</h2>
 <mat-dialog-content>
   <form class="form-dialog">
   <mat-form-field>
     <mat-label>Tên</mat-label>
     <input matInput [(ngModel)]="test.title" [value]="test.title" [ngModelOptions]="{standalone: true}" type="text" required>
   </mat-form-field>
-
   <br>
     <mat-form-field>
       <mat-label>Thời lượng làm bài(phút)</mat-label>
       <input matInput [(ngModel)]="test.duration"  [ngModelOptions]="{standalone: true}" type="number" value="{{test.duration}}" required>
     </mat-form-field>
     <br>
-    <mat-slide-toggle [(ngModel)]="test.isLocked" [ngModelOptions]="{standalone: true}" > Khóa bài kiểm tra này</mat-slide-toggle>
+    <h6>Khóa bài kiểm tra này ?</h6>
+    <mat-slide-toggle [(ngModel)]="test.isLocked" [ngModelOptions]="{standalone: true}" > {{test.isLocked === true ? 'Có' : 'Không'}} </mat-slide-toggle>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
