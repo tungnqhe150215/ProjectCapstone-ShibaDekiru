@@ -28,7 +28,7 @@ public class TestSectionServiceImpl implements ITestSectionService {
 
         return testSections.stream()
                 .peek(data -> {
-                    if (data.getSectionType().equals(SectionType.LISTENING)) {
+                    if (data.getSectionType().equals(SectionType.LISTENING) && data.getSectionAttach() != null && data.getSectionAttach().length() > 0) {
                         data.setSectionAttach(googleDriveService.getFileUrl(data.getSectionAttach()));
                     }
                 })
@@ -40,7 +40,7 @@ public class TestSectionServiceImpl implements ITestSectionService {
         List<TestSection> testSections = testSectionRepository.findTestSectionsByTest(test);
         return testSections.stream()
                 .peek(data -> {
-                    if (data.getSectionType().equals(SectionType.LISTENING)) {
+                    if (data.getSectionType().equals(SectionType.LISTENING) && data.getSectionAttach() != null && data.getSectionAttach().length() > 0) {
                         data.setSectionAttach(googleDriveService.getFileUrl(data.getSectionAttach()));
                     }
                 })
@@ -51,6 +51,9 @@ public class TestSectionServiceImpl implements ITestSectionService {
     public TestSection getTestSectionById(Long id) {
         TestSection testSection = testSectionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        if (testSection.getSectionType().equals(SectionType.LISTENING) && testSection.getSectionAttach() != null && testSection.getSectionAttach().length() > 0) {
+            testSection.setSectionAttach(googleDriveService.getFileUrl(testSection.getSectionAttach()));
+        }
         return testSection;
     }
 
@@ -63,8 +66,18 @@ public class TestSectionServiceImpl implements ITestSectionService {
     public TestSection updateTestSection(Long id, TestSection testSectionRequest) {
         TestSection testSection = testSectionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        System.out.println(testSectionRequest.getSectionAttach());
         testSection.setSectionName(testSectionRequest.getSectionName());
-        testSection.setSectionAttach(testSectionRequest.getSectionAttach());
+        if (testSectionRequest.getSectionAttach().length() > 0 || !testSectionRequest.getSectionType().equals(SectionType.LISTENING)){
+            if (testSectionRequest.getSectionType().equals(SectionType.LISTENING)){
+                try {
+                    googleDriveService.deleteFile(testSection.getSectionAttach());
+                } catch (Exception e){
+                    System.out.println("File không tồn tại");
+                }
+            }
+            testSection.setSectionAttach(testSectionRequest.getSectionAttach());
+        }
         return testSectionRepository.save(testSection);
     }
 
@@ -74,7 +87,6 @@ public class TestSectionServiceImpl implements ITestSectionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
         if (testSection.getSectionType().equals(SectionType.LISTENING)){
             googleDriveService.deleteFile(testSection.getSectionAttach());
-            System.out.println(" check id file bị xóa"+ testSection.getSectionAttach());
         }
         testSectionRepository.delete(testSection);
     }
