@@ -7,5 +7,5 @@ export class Lecture {
   lastName!:String
   email!:String
   gender!:String
-  avatar?:String
+  avatar!:String
 }

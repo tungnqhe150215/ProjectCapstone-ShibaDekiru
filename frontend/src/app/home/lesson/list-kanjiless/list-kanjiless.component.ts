@@ -7,6 +7,7 @@ import { StudentLessonService } from '../student-lesson.service';
 import { Kanji } from 'src/app/core/models/kanji';
 import { MatDialog } from '@angular/material/dialog';
 import { KanjiDetailComponent } from '../../list-knowledge/kanji/kanji-detail/kanji-detail.component';
+import { Lesson } from 'src/app/core/models/lesson';
 @Component({
   selector: 'app-list-kanjiless',
   templateUrl: './list-kanjiless.component.html',
@@ -20,7 +21,7 @@ export class ListKanjilessComponent implements OnInit{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  lesson: Lesson[] =[];
   kanji: Kanji[] =[];
   
   constructor(
@@ -33,6 +34,7 @@ export class ListKanjilessComponent implements OnInit{
 
   ngOnInit(): void {
    this.getKanjiByLesson();
+   this.getLessonByBookID();
   }
 
   getKanjiByLesson(){
@@ -48,6 +50,39 @@ export class ListKanjilessComponent implements OnInit{
       }
     })
   }
+
+  id !: number;
+  getKanjiByLessons(id:number){
+    this.id = this.route.snapshot.params['id'];
+    // const idLesson = this.studentLessonService.getLessonID();
+    this.kanji = [];
+    this.studentLessonService.getKanjiByLesson(id)
+    .subscribe({
+      next:(res) =>{
+        this.kanji = res;
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        console.log(res)
+      }
+    })
+  }
+
+  getLessonByBookID(){
+    // this.studentLessonService.setBookId(this.id);
+    // this.id = this.route.snapshot.params['id'];
+    const  idBook = this.studentLessonService.getBookId();
+    this.lesson = [];
+    this.studentLessonService.getLessonByBook(idBook).subscribe({
+      next:(res) =>{
+        this.lesson = res;
+        // this.dataSource = new MatTableDataSource(res);
+        // this.dataSource.paginator = this.paginator;
+        console.log(res)
+      },
+    })
+
+  }
+
 
   kanjiDetail(id: number){
     this.dialog.open(KanjiDetailComponent ,{

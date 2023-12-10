@@ -7,6 +7,7 @@ import { Vocabulary } from 'src/app/core/models/vocabulary';
 import { StudentLessonService } from '../student-lesson.service';
 import { MatDialog } from '@angular/material/dialog';
 import { VocabDetailComponent } from '../../list-knowledge/vocab/vocab-detail/vocab-detail.component';
+import { Lesson } from 'src/app/core/models/lesson';
 
 @Component({
   selector: 'app-list-vocabless',
@@ -21,7 +22,7 @@ export class ListVocablessComponent implements OnInit{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  lesson: Lesson[] =[];
   vocab: Vocabulary[] =[];
   id !: number;
   constructor(
@@ -34,6 +35,7 @@ export class ListVocablessComponent implements OnInit{
   
   ngOnInit(): void {
     this.getVocabByLessonID();
+    this.getLessonByBookID();
   }
 
   getVocabByLessonID(){
@@ -51,6 +53,36 @@ export class ListVocablessComponent implements OnInit{
     })
   }
 
+  getVocabByLessonIDs(id:number){
+    this.id = this.route.snapshot.params['id'];
+    // const idLesson = this.studentLessonService.getLessonID();
+    this.vocab = [];
+    this.studentLessonService.getVocabByLesson(id)
+    .subscribe({
+      next:(res) =>{
+        this.vocab = res;
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        console.log(res)
+      }
+    })
+  }
+
+  getLessonByBookID(){
+    // this.studentLessonService.setBookId(this.id);
+    // this.id = this.route.snapshot.params['id'];
+    const  idBook = this.studentLessonService.getBookId();
+    this.lesson = [];
+    this.studentLessonService.getLessonByBook(idBook).subscribe({
+      next:(res) =>{
+        this.lesson = res;
+        // this.dataSource = new MatTableDataSource(res);
+        // this.dataSource.paginator = this.paginator;
+        console.log(res)
+      },
+    })
+
+  }
 
 
   applyFilter(event: Event) {
