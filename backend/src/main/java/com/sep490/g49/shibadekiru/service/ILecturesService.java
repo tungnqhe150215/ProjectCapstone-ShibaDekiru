@@ -8,4 +8,6 @@ public interface ILecturesService {
     Lectures getLectureById(Long lectureId);
 
     Lectures getByUserAccount(UserAccount userAccount);
+
+    Lectures getLectureByIdToGetAvatar(Long lectureId);
 }
