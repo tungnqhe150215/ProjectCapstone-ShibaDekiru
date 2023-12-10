@@ -36,8 +36,6 @@ export class DeleteCommentComponent implements OnInit{
     .subscribe({
       next: (res) => {
         this.nofiService.openSnackBar('Comment đã xóa!', 'Ok');
-        // this.getAllComment();
-        // window.location.reload();
       },
       error: console.log,
     })

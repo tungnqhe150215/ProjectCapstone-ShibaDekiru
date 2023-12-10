@@ -1,4 +1,6 @@
-<div class="courses_area p_120">
+<div class="p_120"> 
+ <div class="row">
+<div class="col-md-10 list-table">
   <div class="table-content">
       <!-- <mat-form-field>
           <mat-label>Filter</mat-label>
@@ -45,4 +47,17 @@
           <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
       </div>
   </div>
+</div>
+
+  <div class="col-md-2 lesson-container">
+    <h3>Danh sách bài học</h3>
+    <div class="list-lesson">
+        <div class="lesson" *ngFor="let lesson of lesson; let i = index">
+          <a style="cursor: pointer;" (click)="getVocabByLessonIDs(lesson.lessonId)">
+            <p>{{i+1}}</p>
+          </a>
+        </div>
+    </div>
+  </div>
+</div>   
 </div>

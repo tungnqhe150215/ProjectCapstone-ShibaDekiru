@@ -43,6 +43,7 @@ import { TestResultComponent } from './test/test-result/test-result.component';
 import { GradeClassworkComponent } from './classwork/grade-classwork/grade-classwork.component';
 import { AnswerFieldComponent } from './classwork/grade-classwork/answer-field/answer-field.component';
 import { SubmissionListComponent } from './classwork/submission-list/submission-list.component';
+import { DeletelecCommentComponent } from './lecturers-post/deletelec-comment/deletelec-comment.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { SubmissionListComponent } from './classwork/submission-list/submission-
     GradeClassworkComponent,
     AnswerFieldComponent,
     SubmissionListComponent,
+    DeletelecCommentComponent,
   ],
   exports: [
     ClassworkComponent

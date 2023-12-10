@@ -129,10 +129,10 @@
                                     </div>
                                 </div>
                                 <div class="reply-btn">
-                                    <a *ngIf="userId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openUpdateComment(post.postId,comment.commentId)" class="btn-reply text-uppercase">
+                                    <a *ngIf="currentUser.userAccountId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openUpdateComment(post.postId,comment.commentId)" class="btn-reply text-uppercase">
                                         <span style="margin-top: 8px;" class="material-symbols-outlined">edit</span>
                                       </a>
-                                    <a *ngIf="userId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openDeleteComment(comment.commentId)" class="btn-reply text-uppercase">
+                                    <a *ngIf="currentUser.userAccountId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openDeleteComment(comment.commentId)" class="btn-reply text-uppercase">
                                       <span style="margin-top: 8px;" class="material-symbols-outlined">delete</span>
                                     </a>
                                 </div>
