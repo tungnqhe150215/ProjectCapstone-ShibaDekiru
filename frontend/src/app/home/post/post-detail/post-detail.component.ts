@@ -160,8 +160,8 @@ export class PostDetailComponent implements OnInit {
   getAllComment() {
     this.id = this.route.snapshot.params['id'];
     this.currentUser  = this.storageService.getUser();
-    this.nickName = this.currentUser.nickName;
-    this.userId = this.currentUser.userAccountId;
+    // this.nickName = this.currentUser.nickName;
+    // this.userId = this.currentUser.userAccountId;
     this.userPostService.getAllComment(this.id)
       .subscribe(data => {
         this.comment = data;
