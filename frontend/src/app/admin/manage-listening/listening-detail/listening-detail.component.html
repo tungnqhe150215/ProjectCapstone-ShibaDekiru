@@ -14,7 +14,7 @@
   </mat-card-content>
 </mat-card>
 <hr>
-<button mat-raised-button (click)="openCreateListeningQuestionDialog(id)"> Tạo câu hỏi cho bài nghe</button>
+<button appBackButton mat-raised-button >Trở lại</button> &nbsp; <button mat-raised-button (click)="openCreateListeningQuestionDialog(id)"> Tạo câu hỏi cho bài nghe</button>
 <mat-form-field>
   <mat-label>Lọc</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. abc" #input>

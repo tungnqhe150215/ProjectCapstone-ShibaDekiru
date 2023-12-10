@@ -1,0 +1,4 @@
+<div *ngIf="previewUrl">
+  <img *ngIf="isImage" [src]="previewUrl" alt="File Preview" />
+  <audio *ngIf="isAudio" controls [src]="previewUrl" type="audio/*"></audio>
+</div>

@@ -2,9 +2,9 @@ package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.*;
-import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.*;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IUserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -45,17 +45,26 @@ public class UserAccountServiceImpl implements IUserAccountService {
     @Autowired
     private LecturesServiceImpl lecturesService;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @Override
     public List<UserAccount> getAllUserAccounts() {
         return userAccountRepository.findAll();
     }
 
     @Override
-    public UserAccount createUserAccount(UserAccount userAccount) {
-        Long roleId = userAccount.getRole().getRoleId();
+    public void createUserAccount(UserAccountRegisterDto userAccount) {
+        Long roleId = userAccount.getRoleId();
 
         Optional<Role> roleOptional = roleRepository.findById(roleId);
-        if (roleOptional.isPresent()) {
+        Optional<UserAccount> existingUser = userAccountRepository.findByEmailOrMemberId(userAccount.getEmail(), userAccount.getMemberId());
+
+        if (existingUser.isPresent()) {
+            throw new IllegalStateException("Email already or member be exists.");
+        }
+
+        else if (roleOptional.isPresent()) {
 
             Role role = roleOptional.get();
 
@@ -63,18 +72,43 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
-            userAccount1.setUserName(userAccount.getUsername());
-            userAccount1.setPassword(userAccount.getPassword());
+            userAccount1.setUserName(userAccount.getNickName());
+
+            String passWordEncode = passwordEncoder.encode(userAccount.getPassword());
+            userAccount1.setPassword(passWordEncode);
+
             userAccount1.setEmail(userAccount.getEmail());
-            userAccount1.setResetCode(userAccount.getResetCode());
-            userAccount1.setIsActive(true);
+            userAccount1.setResetCode(null);
+            userAccount1.setIsActive(userAccount.getIsActive());
             userAccount1.setIsBanned(userAccount.getIsBanned());
             userAccount1.setRole(role);
 
-            return userAccountRepository.save(userAccount1);
+            UserAccount savedUser = userAccountRepository.save(userAccount1);
 
-        }
-        else {
+            //return userAccountRepository.save(userAccount1);
+
+            for (RoleType roleType : RoleType.values()) {
+                if (roleType.getId() == role.getRoleId()) {
+                    if (roleType == RoleType.STUDENT) {
+                        Student student = new Student();
+                        student.setFirstName(userAccount.getFirstName());
+                        student.setLastName(userAccount.getLastName());
+                        student.setEmail(userAccount.getEmail());
+                        student.setUserAccount(savedUser);
+                        studentService.createStudentFromUserAccount(student);
+                    } else if (roleType == RoleType.LECTURE) {
+                        LecturesDto lectures = new LecturesDto();
+                        lectures.setFirstName(userAccount.getFirstName());
+                        lectures.setLastName(userAccount.getLastName());
+                        lectures.setEmail(userAccount.getEmail());
+                        lectures.setMemberId(userAccount.getMemberId());
+                        lecturesService.createLecturerFromUserAccount(lectures);
+                    }
+                    break;
+                }
+            }
+
+        } else {
             throw new ResourceNotFoundException("User Account can't be added.");
         }
     }
@@ -121,8 +155,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
             throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
         }
     }
-
-
 
 
     @Override
@@ -225,13 +257,73 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             student.setEmail(request.getEmail());
                         }
 
-                        if (request.getAvatar() != null && !request.getAvatar().isEmpty()) {
+                        if (request.getAvatar().length() > 0) {
+                            googleDriveService.deleteFile(student.getAvatar());
+                            System.out.println("Check id file bị xóa: " + student.getAvatar());
+                            updateProfileStudentByAvatar(request.getAvatar(), connectedUser);
                             student.setAvatar(request.getAvatar());
+                        }
+                        else {
+                            String newFileUrl = googleDriveService.getFileUrl(student.getAvatar());
+                            if (newFileUrl != null) {
+                                // Loại bỏ phần &export=download từ đường dẫn mới
+                                newFileUrl = removeExportParameter(newFileUrl);
+                                // Cắt chuỗi để chỉ lấy phần ID của file
+                                String fileId = cutFileId(newFileUrl);
+                                student.setAvatar(fileId);
+                                System.out.println("Current file id: " + student.getAvatar());
+                            }
                         }
 
                         if (request.getGender() != null) {
                             student.setGender(request.getGender());
                         }
+
+                        student.setUserAccount(user);
+                        studentRepository.save(student);
+                    }
+                }
+            } else {
+                throw new IllegalStateException("Người dùng không phải là UserAccount.");
+            }
+        } else {
+            throw new IllegalStateException("Người dùng chưa đăng nhập hoặc thông tin không hợp lệ.");
+        }
+    }
+
+    private String removeExportParameter(String url) {
+        int exportIndex = url.indexOf("&export=download");
+        if (exportIndex != -1) {
+            return url.substring(0, exportIndex);
+        }
+        return url;
+    }
+
+    private String cutFileId(String url) {
+        int idIndex = url.lastIndexOf('=') + 1;
+        return url.substring(idIndex);
+    }
+
+    public void updateProfileStudentByAvatar(String fileId, Principal connectedUser) {
+        if (connectedUser instanceof UsernamePasswordAuthenticationToken) {
+            UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) connectedUser;
+            if (authenticationToken.getPrincipal() instanceof UserAccount) {
+                UserAccount user = (UserAccount) authenticationToken.getPrincipal();
+
+                if (user != null) {
+                    user.setEmail(user.getEmail());
+                    userAccountRepository.save(user);
+
+                    System.out.println("MemberId: " + user.getMemberId());
+                    System.out.println("Role: " + user.getRole());
+
+                    user = userAccountRepository.findByMemberId(user.getMemberId());
+                    Student student = studentService.getByUserAccount(user);
+
+                    if (student != null) {
+
+                        student.setAvatar(fileId);
+                        System.out.println("File ảnh : " + fileId);
 
                         student.setUserAccount(user);
                         studentRepository.save(student);

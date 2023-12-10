@@ -33,7 +33,7 @@ export class PostDetailComponent implements OnInit {
     public dialog: MatDialog
   ) { }
   ngOnInit(): void {
-    
+    this.isLoggedIn = this.storageService.isLoggedIn();
     this.getPostDetailByID();
      this.getAllComment();
      this.getAllPost();
@@ -177,4 +177,8 @@ export class PostDetailComponent implements OnInit {
     })
   }
 
+
+  backTohome(){
+    this.router.navigate(['/login']);
+  }
 }

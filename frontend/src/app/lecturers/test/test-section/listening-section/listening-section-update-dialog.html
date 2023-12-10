@@ -1,4 +1,4 @@
-<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Thay đổi mô tả bài kiểm tra</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Thay đổi nội dung phần nghe</h2>
 <mat-dialog-content>
   <form class="form-dialog">
     <mat-form-field>
@@ -6,10 +6,23 @@
       <input matInput [(ngModel)]="section.sectionName" [ngModelOptions]="{standalone: true}" required type="text" [value]="section.sectionName">
     </mat-form-field>
     <br>
+    <h6>File nghe hiện tại</h6>
+    <div *ngIf=" section.sectionAttach !== null">
+      <audio  controls [src]="section.sectionAttach" type="audio/*"></audio>
+    </div>
+    <span *ngIf=" section.sectionAttach === null">Không có file</span>
+    <h6 class="mt-1">Cập nhật file nghe</h6>
     <mat-form-field>
-      <mat-label> Bài đọc</mat-label>
-      <textarea matInput [(ngModel)]="section.sectionAttach" [ngModelOptions]="{standalone: true}" required type="text" rows="5" cols="15">{{section.sectionAttach}}</textarea>
+      <mat-label>Chọn tệp đính kèm định dạng mp3, wav hoặc flac</mat-label>
+      <input matInput readonly type="text" id="fakeFileInput" (click)="hiddenInput.click()">
+      <input hidden type="file" accept=".mp3, .wav, .flac" #hiddenInput (change)="onFileSelected($event)">
+      <mat-hint>Nhấn vào dòng trên để chọn file </mat-hint>
     </mat-form-field>
+    <br>
+    <div *ngIf="this.file">
+      <h6>File nghe mới</h6>
+      <app-file-preview></app-file-preview>
+    </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>

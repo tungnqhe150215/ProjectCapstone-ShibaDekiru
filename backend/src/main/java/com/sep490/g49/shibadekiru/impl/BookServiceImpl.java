@@ -3,21 +3,30 @@ package com.sep490.g49.shibadekiru.impl;
 import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.BookRepository;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements IBookService {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @Override
     public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+
+        return bookRepository.findAll().stream().peek(data ->
+                data.setImage(googleDriveService.getFileUrl(data.getImage()))
+        ).collect(Collectors.toList());
     }
 
     @Override
@@ -28,14 +37,24 @@ public class BookServiceImpl implements IBookService {
     @Override
     public Book updateBook(Long bookId, Book updatedBook) {
 
-        Optional<Book> existingBook =  bookRepository.findById(bookId);
+        Optional<Book> existingBook = bookRepository.findById(bookId);
+
         if (existingBook.isPresent()) {
 
             Book book = existingBook.get();
 
             book.setName(updatedBook.getName());
             book.setDescription(updatedBook.getDescription());
-            book.setImage(updatedBook.getImage());
+            if (updatedBook.getImage().length() > 0) {
+
+                googleDriveService.deleteFile(book.getImage());
+                System.out.println("File đã xóa : " + book.getImage());
+                book.setImage(updatedBook.getImage());
+            } else {
+
+                book.setImage(book.getImage());
+            }
+
 
             return bookRepository.save(book);
         } else {
@@ -45,9 +64,13 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public void deleteBook(Long bookId) {
-         Book book = bookRepository.findById(bookId).orElseThrow(()->
-                 new ResourceNotFoundException("Book can not delete with id: " + bookId));
-         bookRepository.delete(book);
+        Book book = bookRepository.findById(bookId).orElseThrow(() ->
+                new ResourceNotFoundException("Book can not delete with id: " + bookId));
+        if (book.getImage() != null) {
+            googleDriveService.deleteFile(book.getImage());
+            System.out.println("Đã vào đây.");
+        }
+        bookRepository.delete(book);
     }
 
     @Override

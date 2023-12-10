@@ -2,17 +2,20 @@ import { NgModule } from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 import { BackButtonDirective } from './directives/back-button.directive';
 import { FormatLocalDateTimePipe } from './pipes/format-local-date-time.pipe';
+import { FilePreviewComponent } from './component/file-preview/file-preview.component';
 
 
 
 @NgModule({
   declarations: [
     BackButtonDirective,
-    FormatLocalDateTimePipe
+    FormatLocalDateTimePipe,
+    FilePreviewComponent
   ],
     exports: [
         BackButtonDirective,
-        FormatLocalDateTimePipe
+        FormatLocalDateTimePipe,
+        FilePreviewComponent
     ],
   imports: [
     CommonModule

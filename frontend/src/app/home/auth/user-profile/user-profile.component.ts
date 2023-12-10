@@ -7,6 +7,9 @@ import { Subscription } from 'rxjs';
 import { Student } from 'src/app/core/models/student';
 import { ChangePassword } from 'src/app/core/models/change-password';
 import { Lecture } from 'src/app/core/models/lecture';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-user-profile',

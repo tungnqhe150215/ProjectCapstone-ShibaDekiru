@@ -4,3 +4,6 @@ export class Role {
   roleId!:number
   roleType !:RoleType
 }
+export interface RoleInte {
+  roleId: number;
+}

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Lesson } from 'src/app/core/models/lesson';
 import { LessonService } from 'src/app/core/services/lesson.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import {Drive} from "../../../core/models/drive";
+import {FileService} from "../../../shared/services/file.service";
 
 @Component({
   selector: 'app-update-lesson',
@@ -13,11 +15,14 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 export class UpdateLessonComponent implements OnInit {
   id!:number;
   lesson: Lesson = new Lesson();
+  file!: File ;
+  drive: Drive = new Drive();
   status!: boolean;
   constructor(
     public dialogRef: MatDialogRef<UpdateLessonComponent>,
     private lessonService: LessonService,
-     private route: ActivatedRoute, 
+    private fileService:FileService,
+     private route: ActivatedRoute,
      private router: Router,
      private nofiService: NotificationService,
      @Inject(MAT_DIALOG_DATA) public data: number,
@@ -46,20 +51,50 @@ export class UpdateLessonComponent implements OnInit {
   // }
 
   onSubmit() {
-    this.lessonService.updateLesson(this.data, this.lesson).subscribe({
-      next: (data) => {
-        // this.goTolessonList();
-        this.nofiService.openSnackBar('Cập nhật bài học thành công');
-        this.dialogRef.close();
-      },
-      error: (err) => {
-        console.error(err);
-        this.nofiService.openSnackBar('Cập nhật bài học thất bại vui lòng kiểm tra lại!');
-      },
-    });
+    if (this.file == null || this.file.size == 0) {
+      this.lesson.image = ""
+      this.lessonService.updateLesson(this.data, this.lesson).subscribe({
+        next: (data) => {
+          // this.goTolessonList();
+          this.nofiService.openSnackBar('Cập nhật bài học thành công');
+          this.dialogRef.close();
+        },
+        error: (err) => {
+          console.error(err);
+          this.nofiService.openSnackBar('Cập nhật bài học thất bại vui lòng kiểm tra lại!');
+        },
+      });
+    } else {
+
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        console.log(data)
+        this.drive = data as Drive
+        this.lesson.image = this.drive.fileId
+        this.lessonService.updateLesson(this.data, this.lesson).subscribe({
+          next: (data) => {
+            // this.goTolessonList();
+            this.nofiService.openSnackBar('Cập nhật bài học thành công');
+            this.dialogRef.close();
+          },
+          error: (err) => {
+            console.error(err);
+            this.nofiService.openSnackBar('Cập nhật bài học thất bại vui lòng kiểm tra lại!');
+          },
+        });
+      })
+
+    }
+
   }
   goTolessonList(){
     this.router.navigate(['admin/lesson']);
   }
 
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if(element != null) {
+      element.value = this.file.name;
+    }
+  }
 }

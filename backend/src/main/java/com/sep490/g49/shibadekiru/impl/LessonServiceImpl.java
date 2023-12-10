@@ -5,6 +5,7 @@ import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.BookRepository;
 import com.sep490.g49.shibadekiru.repository.LessonRepository;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.ILessonService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LessonServiceImpl implements ILessonService {
@@ -23,15 +25,21 @@ public class LessonServiceImpl implements ILessonService {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
 
     @Override
     public List<Lesson> getAllLessons() {
-        return lessonRepository.findAll();
+        return lessonRepository.findAll().stream().peek(data ->
+                data.setImage(googleDriveService.getFileUrl(data.getImage()))
+        ).collect(Collectors.toList());
     }
 
     @Override
     public List<Lesson> getLessonPartByBook(Book book) {
-        return lessonRepository.findByBook(book);
+        return lessonRepository.findByBook(book).stream().peek(data ->
+                data.setImage(googleDriveService.getFileUrl(data.getImage()))
+        ).collect(Collectors.toList());
     }
 
     @Override
@@ -79,13 +87,19 @@ public class LessonServiceImpl implements ILessonService {
 
             Optional<Long> bookIdOptional = lessonRepository.findBookIdByLessonId(lessonId);
             Long bookId = bookIdOptional.orElse(null);
-            System.out.println("Book id trong service: " +  bookId);
+            System.out.println("Book id trong service: " + bookId);
 
 
             lesson.setName(updatedLesson.getName());
             lesson.setContent(updatedLesson.getContent());
             lesson.setStatus(updatedLesson.getStatus());
-            lesson.setImage(updatedLesson.getImage());
+
+            if (updatedLesson.getImage().length() > 0) {
+                googleDriveService.deleteFile(lesson.getImage());
+                lesson.setImage(updatedLesson.getImage());
+            } else {
+                lesson.setImage(lesson.getImage());
+            }
 
 
             if (bookId != null) {
@@ -99,10 +113,15 @@ public class LessonServiceImpl implements ILessonService {
     }
 
 
-
     @Override
     public void deleteLesson(Long lessonId) {
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResourceNotFoundException("Lesson not exist with id:" + lessonId));
+        if (lesson.getImage() != null) {
+            System.out.println("Đã xóa trong đây.");
+            googleDriveService.deleteFile(lesson.getImage());
+
+        }
+
         lessonRepository.delete(lesson);
     }
 

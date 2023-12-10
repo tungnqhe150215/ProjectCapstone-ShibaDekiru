@@ -30,7 +30,10 @@ export class UpdateGrammarComponent {
       (data) => {
         this.grammar = data;
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.nofiService.openSnackBar('Đã xảy ra lỗi khi lấy thông tin grammar');
+      }
     );
   }
   onSubmit() {
@@ -39,7 +42,10 @@ export class UpdateGrammarComponent {
         this.goToGrammarsList();
         this.nofiService.openSnackBar('Cập nhật ngữ pháp thành công');
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.nofiService.openSnackBar('Đã xảy ra lỗi trong quá trình cập nhật')
+      }
     );
   }
 

@@ -15,13 +15,14 @@ import {ReadingQuestion} from "../../../core/models/reading-question";
 import {FormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {SharedModule} from "../../../shared/shared.module";
 
 @Component({
   selector: 'app-reading-detail',
   templateUrl: './reading-detail.component.html',
   styleUrls: ['./reading-detail.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule,SharedModule],
 })
 export class ReadingDetailComponent implements OnInit{
   displayedColumns: string[] = ['id', 'question', 'sample-answer','action'];

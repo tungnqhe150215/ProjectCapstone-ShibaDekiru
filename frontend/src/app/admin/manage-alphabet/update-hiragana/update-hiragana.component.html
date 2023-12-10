@@ -8,22 +8,22 @@
     justify-content: center;
     align-items: center;">Sửa Hiragana </h3>
     <form (ngSubmit)="onSubmit()">
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="hiraganaId">Hiragana ID</label>
             <input type="text" class="form-control" id="hiraganaId" [(ngModel)]="hiragana.hiraganaId"
                 name="hiraganaId" />
-        </div>
+        </div> -->
         <div class="form-group">
             <label for="hiraganaCharacter">Chữ Hiragana</label>
             <input type="text" class="form-control" id="hiraganaCharacter" [(ngModel)]="hiragana.hiraganaCharacter"
                 name="hiraganaCharacter" />
         </div>
         <div class="form-group">
-            <label for="romanji">Hiragana Romanji</label>
+            <label for="romanji">Hiragana Romaji</label>
             <input type="text" class="form-control" id="romanji" [(ngModel)]="hiragana.romanji"
                 name="romanji" />
         </div>
         <br>
-        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Submit</button>
+        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Cập nhật</button>
     </form>
 </div>

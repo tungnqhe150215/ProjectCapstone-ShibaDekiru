@@ -11,14 +11,14 @@
         <div class="form-group">
             <label for="hiraganaCharacter">Chữ cái Hiragana</label>
             <input type="text" class="form-control" id="hiraganaCharacter" [(ngModel)]="hiragana.hiraganaCharacter"
-                name="hiraganaCharacter" />
+                name="hiraganaCharacter" required/>
         </div>
         <div class="form-group">
-            <label for="hiraganaCharacter">Romanji</label>
+            <label for="hiraganaCharacter">Romaji</label>
             <input type="text" class="form-control" id="romanji" [(ngModel)]="hiragana.romanji"
-                name="romanji" />
+                name="romanji" required/>
         </div>
         <br>
-        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Submit</button>
+        <button class="btn btn-success" style="margin-left: 50%;" type="submit">Tạo</button>
     </form>
 </div>

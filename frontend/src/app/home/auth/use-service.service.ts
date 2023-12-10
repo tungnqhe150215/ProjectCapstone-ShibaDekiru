@@ -2,9 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ChangePassword } from 'src/app/core/models/change-password';
+import { Drive } from 'src/app/core/models/drive';
 import { ForgotPassword } from 'src/app/core/models/forgot-password';
 import { Lecture } from 'src/app/core/models/lecture';
 import { NewPassword } from 'src/app/core/models/new-password';
+import { Role, RoleInte } from 'src/app/core/models/role';
 import { Student } from 'src/app/core/models/student';
 
 const USER_KEY = 'auth-user';
@@ -19,7 +21,7 @@ const httpOptions = {
 })
 export class UseServiceService {
   constructor(private httpClient: HttpClient) { }
-
+  
   login(email:string, password: string): Observable<any>{
     return this.httpClient.post(
       AUTH_API +'authenticate',
@@ -36,20 +38,36 @@ export class UseServiceService {
     //   })
     // )
   }
-  register(nickName:string, firstName: string,lastName:string,  memberId:string,  userName: string , email:string,password:string ): Observable<any>{
+  register(nickName:string, firstName: string,lastName:string,  memberId:string,  email:string,password:string, role: {roleId:String} ): Observable<any>{
     return this.httpClient.post(
       AUTH_API + 'register',{
         nickName,
         firstName,
         lastName,
         memberId,
-        userName,
         email,
-        password
+        password,
+        role
       },
       httpOptions
     );
   }
+
+  register1(nickName:string, firstName: string,lastName:string,  memberId:string,  email:string,password:string, roleId:number ): Observable<Object>{
+    return this.httpClient.post(
+      AUTH_API + 'register',{
+        nickName,
+        firstName,
+        lastName,
+        memberId,
+        email,
+        password,
+        roleId
+      },
+      httpOptions
+    );
+  }
+
   logout():Observable<any>{
     return this.httpClient.post(AUTH_API + 'logout', {}, httpOptions);
   }
@@ -89,5 +107,12 @@ export class UseServiceService {
 
   verifyEmail(resetCode:string): Observable<any>{
     return this.httpClient.get<any>(AUTH_API+'verify/'+`${resetCode}`);
+  }
+
+  updateImage(file: File):Observable<Object>{
+    const formData = new FormData();
+    formData.append('file', file);
+    console.log(formData.get('file'))
+    return this.httpClient.post(USER +'upload',file);
   }
 }

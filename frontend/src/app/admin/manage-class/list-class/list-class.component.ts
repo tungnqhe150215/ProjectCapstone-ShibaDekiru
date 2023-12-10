@@ -35,7 +35,6 @@ export class ListClassComponent implements OnInit{
 
   class :Class[] = [];
   id!: number;
-  private updateSubscription: Subscription = new Subscription;
 
 
   constructor(
@@ -48,9 +47,7 @@ export class ListClassComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.updateSubscription = interval(1000).subscribe(
-      (val) => { this.getClass()});
-
+    this.getClass();
   }
 
   applyFilter(event: Event) {

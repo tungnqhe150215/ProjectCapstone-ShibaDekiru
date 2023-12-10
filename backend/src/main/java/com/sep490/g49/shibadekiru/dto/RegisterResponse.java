@@ -14,7 +14,6 @@ public class RegisterResponse {
     private String firstName;
     private String lastName;
     private String memberId;
-    private String userName;
     private String email;
     private String password;
     private Long roleId;

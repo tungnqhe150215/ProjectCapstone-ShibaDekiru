@@ -5,6 +5,7 @@ import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.RoleType;
 import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IBookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class AdminManageBookController {
     @Autowired
     private IBookService iBookService;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @GetMapping("/book")
     public List<BookDto> getAllBook() {
         return iBookService.getAllBooks().stream().map(book -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
@@ -38,7 +42,10 @@ public class AdminManageBookController {
     public ResponseEntity<BookDto> getBookById(@PathVariable (name = "id") Long bookId) {
         Book book = iBookService.getBookById(bookId);
 
+        book.setImage(googleDriveService.getFileUrl(book.getImage()));
+
         BookDto bookResponse = modelMapper.map(book, BookDto.class);
+
 
         return ResponseEntity.ok().body(bookResponse);
     }
