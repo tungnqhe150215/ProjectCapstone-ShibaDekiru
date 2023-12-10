@@ -65,6 +65,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/api/user-account/change-password").hasAnyRole("ADMIN", "LECTURE", "STUDENT")
                                 .requestMatchers("/api/user-account/student/**").hasRole("STUDENT")
                                 .requestMatchers("/api/user-account/lecture/**").hasRole("LECTURE")
+                                .requestMatchers("/api/drive/upload/my-profile").hasAnyRole("ADMIN", "LECTURE", "STUDENT")
                                 .anyRequest()
                                 .authenticated()
                 )
