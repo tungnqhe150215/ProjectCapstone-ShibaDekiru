@@ -4,7 +4,7 @@
     <h3>Cập nhật comment</h3>
     <form  class="form-group">
         <div>
-            <textarea class="form-control mb-10" rows="5" id="content" name="content" [(ngModel)] = "comment.content" value="comment.content"
+            <textarea class="form-control mb-10" rows="5" id="content" name="content" [(ngModel)] = "comment.content" [value]="comment.content"
                 required=""></textarea>
         </div>
         <a (click)="updateComment()" class="mt-2 btn btn-success submit_btn text-light mb-2">Sửa bình luận</a>
