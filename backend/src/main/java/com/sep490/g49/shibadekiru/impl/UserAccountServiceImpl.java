@@ -228,7 +228,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
         }
     }
 
-    public void updateProfileStudent(StudentDto request, Principal connectedUser) {
+    public Student updateProfileStudent(Student request, Principal connectedUser) {
         if (connectedUser instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) connectedUser;
             if (authenticationToken.getPrincipal() instanceof UserAccount) {
@@ -243,7 +243,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
                     user = userAccountRepository.findByMemberId(user.getMemberId());
                     Student student = studentService.getByUserAccount(user);
-
+                    System.out.println("Ảnh trong student: " + student.getAvatar());
                     if (student != null) {
                         if (request.getFirstName() != null && !request.getFirstName().isEmpty()) {
                             student.setFirstName(request.getFirstName());
@@ -260,7 +260,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
                         if (request.getAvatar().length() > 0) {
                             googleDriveService.deleteFile(student.getAvatar());
                             System.out.println("Check id file bị xóa: " + student.getAvatar());
-                            updateProfileStudentByAvatar(request.getAvatar(), connectedUser);
                             student.setAvatar(request.getAvatar());
                         }
                         else {
@@ -280,7 +279,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
                         }
 
                         student.setUserAccount(user);
-                        studentRepository.save(student);
+                        return studentRepository.save(student);
                     }
                 }
             } else {
@@ -289,6 +288,70 @@ public class UserAccountServiceImpl implements IUserAccountService {
         } else {
             throw new IllegalStateException("Người dùng chưa đăng nhập hoặc thông tin không hợp lệ.");
         }
+        return request;
+    }
+
+    public Lectures updateProfileLecture(Lectures request, Principal connectedUser) {
+        if (connectedUser instanceof UsernamePasswordAuthenticationToken) {
+            UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) connectedUser;
+            if (authenticationToken.getPrincipal() instanceof UserAccount) {
+                UserAccount user = (UserAccount) authenticationToken.getPrincipal();
+
+                if (user != null) {
+                    user.setEmail(user.getEmail());
+                    userAccountRepository.save(user);
+
+                    System.out.println("MemberId: " + user.getMemberId());
+                    System.out.println("Role: " + user.getRole());
+
+                    user = userAccountRepository.findByMemberId(user.getMemberId());
+                    Lectures lectures = lecturesService.getByUserAccount(user);
+                    System.out.println("Ảnh trong lecture: " + lectures.getAvatar());
+                    if (lectures != null) {
+                        if (request.getFirstName() != null && !request.getFirstName().isEmpty()) {
+                            lectures.setFirstName(request.getFirstName());
+                        }
+
+                        if (request.getLastName() != null && !request.getLastName().isEmpty()) {
+                            lectures.setLastName(request.getLastName());
+                        }
+
+                        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+                            lectures.setEmail(request.getEmail());
+                        }
+
+                        if (request.getAvatar().length() > 0) {
+                            googleDriveService.deleteFile(lectures.getAvatar());
+                            System.out.println("Check id file bị xóa: " + lectures.getAvatar());
+                            lectures.setAvatar(request.getAvatar());
+                        }
+                        else {
+                            String newFileUrl = googleDriveService.getFileUrl(lectures.getAvatar());
+                            if (newFileUrl != null) {
+                                // Loại bỏ phần &export=download từ đường dẫn mới
+                                newFileUrl = removeExportParameter(newFileUrl);
+                                // Cắt chuỗi để chỉ lấy phần ID của file
+                                String fileId = cutFileId(newFileUrl);
+                                lectures.setAvatar(fileId);
+                                System.out.println("Current file id: " + lectures.getAvatar());
+                            }
+                        }
+
+                        if (request.getPhone() != null) {
+                            lectures.setPhone(request.getPhone());
+                        }
+
+                        lectures.setUserAccount(user);
+                        return lecturersRepository.save(lectures);
+                    }
+                }
+            } else {
+                throw new IllegalStateException("Người dùng không phải là UserAccount.");
+            }
+        } else {
+            throw new IllegalStateException("Người dùng chưa đăng nhập hoặc thông tin không hợp lệ.");
+        }
+        return request;
     }
 
     private String removeExportParameter(String url) {
@@ -304,7 +367,8 @@ public class UserAccountServiceImpl implements IUserAccountService {
         return url.substring(idIndex);
     }
 
-    public void updateProfileStudentByAvatar(String fileId, Principal connectedUser) {
+
+    public void updateProfileByAvatar(String fileId, Principal connectedUser) {
         if (connectedUser instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) connectedUser;
             if (authenticationToken.getPrincipal() instanceof UserAccount) {
@@ -318,15 +382,22 @@ public class UserAccountServiceImpl implements IUserAccountService {
                     System.out.println("Role: " + user.getRole());
 
                     user = userAccountRepository.findByMemberId(user.getMemberId());
-                    Student student = studentService.getByUserAccount(user);
 
-                    if (student != null) {
+                    if (user.getRole() != null) {
+                        RoleType roleType = user.getRole().getRoleType();
 
-                        student.setAvatar(fileId);
-                        System.out.println("File ảnh : " + fileId);
-
-                        student.setUserAccount(user);
-                        studentRepository.save(student);
+                        switch (roleType) {
+                            case STUDENT:
+                                updateAvatarForStudent(fileId, user);
+                                break;
+                            case LECTURE:
+                                updateAvatarForLecturer(fileId, user);
+                                break;
+                            default:
+                                throw new IllegalStateException("Role không hợp lệ.");
+                        }
+                    } else {
+                        throw new IllegalStateException("Role không tồn tại.");
                     }
                 }
             } else {
@@ -337,54 +408,24 @@ public class UserAccountServiceImpl implements IUserAccountService {
         }
     }
 
-    public void updateProfileLecture(LecturesDto request, Principal connectedUser) {
-        if (connectedUser instanceof UsernamePasswordAuthenticationToken) {
-            UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) connectedUser;
-            if (authenticationToken.getPrincipal() instanceof UserAccount) {
-                UserAccount user = (UserAccount) authenticationToken.getPrincipal();
-
-                if (user != null) {
-                    user.setEmail(user.getEmail());
-                    userAccountRepository.save(user);
-
-                    System.out.println("MemberId: " + user.getMemberId());
-                    System.out.println("Role: " + user.getRole());
-
-                    user = userAccountRepository.findByMemberId(user.getMemberId());
-                    Lectures lectures = lecturesService.getByUserAccount(user);
-
-                    if (lectures != null) {
-                        if (request.getFirstName() != null && !request.getFirstName().isEmpty()) {
-                            lectures.setFirstName(request.getFirstName());
-                        }
-
-                        if (request.getLastName() != null && !request.getLastName().isEmpty()) {
-                            lectures.setLastName(request.getLastName());
-                        }
-
-                        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
-                            lectures.setEmail(request.getEmail());
-                        }
-
-                        if (request.getAvatar() != null && !request.getAvatar().isEmpty()) {
-                            lectures.setAvatar(request.getAvatar());
-                        }
-
-                        if (request.getPhone() != null) {
-                            lectures.setPhone(request.getPhone());
-                        }
-
-                        lectures.setUserAccount(user);
-                        lecturersRepository.save(lectures);
-                    }
-                }
-            } else {
-                throw new IllegalStateException("Người dùng không phải là UserAccount.");
-            }
-        } else {
-            throw new IllegalStateException("Người dùng chưa đăng nhập hoặc thông tin không hợp lệ.");
+    private void updateAvatarForStudent(String fileId, UserAccount user) {
+        Student student = studentService.getByUserAccount(user);
+        if (student != null) {
+            student.setAvatar(fileId);
+            student.setUserAccount(user);
+            studentRepository.save(student);
         }
     }
+
+    private void updateAvatarForLecturer(String fileId, UserAccount user) {
+        Lectures lecturer = lecturesService.getByUserAccount(user);
+        if (lecturer != null) {
+            lecturer.setAvatar(fileId);
+            lecturer.setUserAccount(user);
+            lecturersRepository.save(lecturer);
+        }
+    }
+
 
 
     public void updateResetCode(String restCode, String email) {

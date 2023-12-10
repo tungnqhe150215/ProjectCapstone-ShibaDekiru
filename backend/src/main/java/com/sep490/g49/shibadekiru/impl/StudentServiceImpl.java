@@ -50,7 +50,7 @@ public class StudentServiceImpl implements IStudentService {
 
         if (student.getAvatar().length() > 0) {
             student.setAvatar(googleDriveService.getFileUrl(student.getAvatar()));
-            System.out.println("Đây là trong student: " + student.getAvatar());
+            System.out.println("Đây là ảnh trong student: " + student.getAvatar());
         } else {
             student.setAvatar("");
         }
