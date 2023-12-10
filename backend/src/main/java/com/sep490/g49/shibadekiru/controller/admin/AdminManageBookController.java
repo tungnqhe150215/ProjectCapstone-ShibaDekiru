@@ -7,6 +7,7 @@ import com.sep490.g49.shibadekiru.entity.RoleType;
 import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
 import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IBookService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/admin")
+@RequiredArgsConstructor
 public class AdminManageBookController {
 
     @Autowired
