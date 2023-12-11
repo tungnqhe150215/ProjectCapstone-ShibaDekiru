@@ -41,12 +41,6 @@ public class UserAccountController {
     @Autowired
     private IStudentService iStudentService;
 
-    @Autowired
-    private GoogleDriveService googleDriveService;
-
-    @Autowired
-    private StudentRepository studentRepository;
-
 
 
     @PutMapping("/change-password")
@@ -71,7 +65,7 @@ public class UserAccountController {
 
     @GetMapping("/lecture/{id}")
     public ResponseEntity<LecturesDto> getLectureById(@PathVariable Long id) {
-        Lectures lectures = iLecturesService.getLectureById(id);
+        Lectures lectures = iLecturesService.getLectureByIdToGetAvatar(id);
 
         LecturesDto lecturesDto = modelMapper.map(lectures, LecturesDto.class);
 
@@ -79,54 +73,33 @@ public class UserAccountController {
 
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<DriveDto> uploadFile(@RequestParam("file") MultipartFile file, Principal connectedUser) throws IOException {
-        if (!file.isEmpty() && isImageFile(file)) {
+    @PutMapping("/student/my-profile")
+    public ResponseEntity<StudentDto> updateProfileStudent(@RequestBody StudentDto studentDto, Principal connectedUser) {
+        try {
+            Student studentRequest = modelMapper.map(studentDto, Student.class);
 
-            // Lưu tệp vào thư mục lưu trữ
-            String fileId = googleDriveService.uploadFileToGoogleDrive(file);
+            Student student = userAccountService.updateProfileStudent(studentRequest, connectedUser);
 
-            // Cập nhật đường dẫn ảnh trong bảng Student
-            userAccountService.updateProfileStudentByAvatar(fileId, connectedUser);
+            StudentDto studentResponse = modelMapper.map(student, StudentDto.class);
 
-            System.out.println("Đã có file");
-
-            googleDriveService.configurePublicSharing(fileId);
-
-            DriveDto driveDto = new DriveDto(fileId);
-
-            return ResponseEntity.ok(driveDto);
-        } else {
+            return ResponseEntity.ok().body(studentResponse);
+        } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
-    private boolean isImageFile(MultipartFile file) {
-        // Kiểm tra phần mở rộng của tệp để xác định xem nó có phải là hình ảnh không
-        String fileName = file.getOriginalFilename();
-        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-        System.out.println("File extension: " + fileExtension);
-        return Arrays.asList("jpg", "jpeg", "png").contains(fileExtension);
-    }
-
-    @PutMapping("/student/my-profile")
-    public ResponseEntity<?> updateProfileStudent(@RequestBody StudentDto request, Principal connectedUser) {
-        try {
-
-            userAccountService.updateProfileStudent(request, connectedUser);
-            return ResponseEntity.ok().build();
-        } catch (IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
     @PutMapping("/lecture/my-profile")
-    public ResponseEntity<?> updateProfileLecture(@RequestBody LecturesDto request, Principal connectedUser) {
+    public ResponseEntity<LecturesDto> updateProfileLecture(@RequestBody LecturesDto lecturesDto, Principal connectedUser) {
         try {
-            userAccountService.updateProfileLecture(request, connectedUser);
-            return ResponseEntity.ok().build();
+            Lectures lecturesRequest = modelMapper.map(lecturesDto, Lectures.class);
+
+            Lectures lectures = userAccountService.updateProfileLecture(lecturesRequest, connectedUser);
+
+            LecturesDto lectureResponse = modelMapper.map(lectures, LecturesDto.class);
+
+            return ResponseEntity.ok().body(lectureResponse);
         } catch (IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 

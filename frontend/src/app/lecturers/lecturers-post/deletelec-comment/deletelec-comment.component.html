@@ -1,0 +1,7 @@
+<h2 mat-dialog-title class="text-center border-bottom">Xóa bình luận này?</h2>
+<mat-dialog-content>Thao tác này sẽ xóa tất cả các thành phần hiện có trên trang này và không thể hoàn tác được.</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Bỏ</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button [mat-dialog-close]="{ userId: data.userAccountId, commentId: data.commentId }" (click)="deleteComment(data)">Xóa</button>
+</mat-dialog-actions>

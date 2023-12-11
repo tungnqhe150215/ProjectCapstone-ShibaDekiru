@@ -13,7 +13,7 @@ import { RoleInte } from 'src/app/core/models/role';
 export class UserLoginComponent implements OnInit, AfterViewInit{
 
 
-  
+
   //Login
   formlogin: any = {
     email: null,
@@ -49,7 +49,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         this.isLoggedIn = true;
         this.roleId = this.storageService.getUser().roleId;
         this.notifiService.openSnackBar('Đăng nhập thành công');
-        
+
         if(this.storageService.getUser().role.roleType === 'ADMIN'){
           this.router.navigateByUrl('/admin/book');
         }else if(this.storageService.getUser().role.roleType === 'LECTURE'){
@@ -72,7 +72,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
     })
   }
 
-  
+
   //Register
   form: any = {
     nickName :null,
@@ -88,7 +88,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
   isSuccessful = false;
   isSignUpFailed = false;
   // errorMessage = '';
-  
+
   onSubmit(): void {
     const {nickName,
       firstName,
@@ -121,8 +121,8 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         this.notifiService.openSnackBar('Có lỗi xáy ra trong khi đăng ký vui lòng kiểm tra lại');
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
-        if(err.staus === 409){
-          this.notifiService.openSnackBar('Email đã tồn tại vui lòng kiểm tra lại!')
+        if(err.status === 409){
+          this.notifiService.openSnackBar('Email hoặc ID thành viên đã tồn tại vui lòng kiểm tra lại!')
         }
       }
     })

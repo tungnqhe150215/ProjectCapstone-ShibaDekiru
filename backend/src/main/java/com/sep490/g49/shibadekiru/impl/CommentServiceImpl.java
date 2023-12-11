@@ -53,9 +53,6 @@ public class CommentServiceImpl implements ICommentService {
     public CommentDto createComment(CommentDto commentDto) {
 
             Comment comment = modelMapper.map(commentDto, Comment.class);
-            if (commentDto.getContent() ==  null) {
-                comment.setContent("");
-            }
             comment.setContent(comment.getContent());
             comment.setCreatedAt(LocalDateTime.now());
             Comment savedComment = commentRepository.save(comment);
