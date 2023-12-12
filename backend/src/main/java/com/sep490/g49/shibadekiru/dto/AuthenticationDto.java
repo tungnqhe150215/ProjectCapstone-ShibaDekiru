@@ -18,6 +18,7 @@ public class AuthenticationDto {
     private String refreshToken;
 
     private Long userAccountId;
+    private Long userId;
 
     private String nickName;
 

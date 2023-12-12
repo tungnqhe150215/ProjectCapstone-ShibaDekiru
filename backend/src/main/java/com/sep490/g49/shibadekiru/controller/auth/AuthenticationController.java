@@ -97,6 +97,7 @@ public class AuthenticationController {
             if (userAccount.getRole().getRoleId() == 3L){
                 authResult.setUserAccountId(iStudentService.getByUserAccount(userAccount).getStudentId());
             }
+            authResult.setUserId(userAccount.getUserAccountId());
             authResult.setRole(userAccountDto.getRole());
             authResult.setEmail(userAccountDto.getEmail());
             authResult.setNickName(userAccountDto.getNickName());
