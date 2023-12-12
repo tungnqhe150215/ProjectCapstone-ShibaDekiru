@@ -117,7 +117,7 @@
                                     <div class="thumb">
                                         <img height="60px" width="60px" src="https://dogily.vn/wp-content/uploads/2022/12/Anh-avatar-cho-Shiba-4.jpg" alt="">
                                     </div>
-                                    
+
                                     <div class="desc">
                                         <h5>
                                             <div *ngIf="isLoggedIn"> <h6  style="text-decoration: none;">Người dùng: {{comment.nickName}}</h6></div>
@@ -131,10 +131,10 @@
                                 </div>
                                 <div *ngIf="isLoggedIn">
                                 <div class="reply-btn">
-                                    <a *ngIf="currentUser.userAccountId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openUpdateComment(post.postId,comment.commentId)" class="btn-reply text-uppercase">
+                                    <a *ngIf="currentUser.userId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openUpdateComment(post.postId,comment.commentId)" class="btn-reply text-uppercase">
                                         <span style="margin-top: 8px;" class="material-symbols-outlined">edit</span>
                                       </a>
-                                    <a *ngIf="currentUser.userAccountId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openDeleteComment(comment.commentId)" class="btn-reply text-uppercase">
+                                    <a *ngIf="currentUser.userId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openDeleteComment(comment.commentId)" class="btn-reply text-uppercase">
                                       <span style="margin-top: 8px;" class="material-symbols-outlined">delete</span>
                                     </a>
                                 </div>
@@ -167,7 +167,7 @@
                             <br>
                             <p class="text-center" style="color:#444;">Để có thể bình luận hãy <a style="color:blue; cursor: pointer; " (click)="backTohome()" >đăng nhập</a></p>
                             <br>
-                            
+
                           </div>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
                                         <p>{{post1.postContent}}</p>
                                         <p>44</p>
                                     </a>
-                                </li>															
+                                </li>
                             </ul>
                             <div class="br"></div>
                         </aside>

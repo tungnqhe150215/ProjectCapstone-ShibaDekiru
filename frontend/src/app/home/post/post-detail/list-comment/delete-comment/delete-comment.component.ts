@@ -16,12 +16,12 @@ export class DeleteCommentComponent implements OnInit{
   constructor(
     private userPostService: UserPostService,
     private nofiService: NotificationService,
-    private router:Router, 
+    private router:Router,
     private route:ActivatedRoute,
     public dialogRef: MatDialogRef<DeleteCommentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number,
     private storageService: StorageService,
-    
+
   ){}
   currentUser: any;
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class DeleteCommentComponent implements OnInit{
   deleteComment(idC: number){
     this.idC = this.route.snapshot.params['id'];
     this.currentUser = this.storageService.getUser();
-    this.userPostService.deleteComment(this.idC, this.currentUser.userAccountId, this.data)
+    this.userPostService.deleteComment(this.idC, this.currentUser.userId, this.data)
     .subscribe({
       next: (res) => {
         this.nofiService.openSnackBar('Comment đã xóa!', 'Ok');
