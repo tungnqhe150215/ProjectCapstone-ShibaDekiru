@@ -15,7 +15,7 @@
         </div>
         <!-- <div *ngIf="comment.userAccountId === currentUser.userAccountId" > -->
             <div class="reply-btn" >
-                <a *ngIf="comment.userAccountId === currentUser.userAccountId" style="cursor: pointer;" (click)="deleteComment(comment.commentId)"
+                <a *ngIf="comment.userAccountId === currentUser.userId" style="cursor: pointer;" (click)="deleteComment(comment.commentId)"
                     class="btn-reply text-uppercase" >Delete</a>
             </div>
         <!-- </div> -->

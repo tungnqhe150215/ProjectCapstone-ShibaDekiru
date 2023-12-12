@@ -21,7 +21,7 @@ export class PostDetailComponent implements OnInit {
   post: Post = new Post;
   comment: Comment[] = [];
   isLoggedIn = false;
-  nickName!: string; 
+  nickName!: string;
   userId !:number;
   constructor(
     private userPostService: UserPostService,
@@ -38,7 +38,7 @@ export class PostDetailComponent implements OnInit {
      this.getAllComment();
      this.getAllPost();
   }
-  
+
   getPostDetailByID(){
     this.id = this.route.snapshot.params['id'];
     this.post = new Post();
@@ -68,7 +68,7 @@ export class PostDetailComponent implements OnInit {
   //         // window.location.reload();
   //       }
   //     )
-      
+
   //   } else {
   //     this.router.navigate(['/home']);
   //     this.nofiService.openSnackBar('Bạn hãy đăng nhập đã');
@@ -78,9 +78,10 @@ export class PostDetailComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.currentUser = this.storageService.getUser();
     this.isLoggedIn = this.storageService.isLoggedIn();
-    
+
     if (this.isLoggedIn) {
-      this.userPostService.createComment(this.id, this.currentUser.userAccountId, this.uComment)
+      console.log(this.userId)
+      this.userPostService.createComment(this.id, this.currentUser.userId, this.uComment)
         .subscribe(
           data => {
             console.log(data);
@@ -99,7 +100,7 @@ export class PostDetailComponent implements OnInit {
       this.nofiService.openSnackBar('Bạn hãy đăng nhập đã');
     }
   }
-  
+
 
   // PostDetail(id:number){
   //   this.id = this.route.snapshot.params['id'];
@@ -138,8 +139,8 @@ export class PostDetailComponent implements OnInit {
   deleteComment(idC: number) {
     this.id = this.route.snapshot.params['id'];
     this.currentUser = this.storageService.getUser();
-  
-    this.userPostService.deleteComment(this.id, this.currentUser.userAccountId, idC)
+
+    this.userPostService.deleteComment(this.id, this.currentUser.userId, idC)
       .subscribe({
         next: (res) => {
           this.nofiService.openSnackBar('Comment đã xóa!');
@@ -152,7 +153,7 @@ export class PostDetailComponent implements OnInit {
         },
       });
   }
-  
+
 
 
   p: number = 1;

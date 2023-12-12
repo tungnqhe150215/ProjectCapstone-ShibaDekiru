@@ -35,6 +35,11 @@ public class Comment implements Serializable {
     @JoinColumn(name = "post_id", referencedColumnName = "post_id")
     private Post post;
 
+    @JsonProperty("postId")
+    public Long getPostId() {
+        return this.post.getPostId();
+    }
+
     @JsonProperty("userAccountId")
     public Long getUserAccountId() {
         return this.userAccount.getUserAccountId();
