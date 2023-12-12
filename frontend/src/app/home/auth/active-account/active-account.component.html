@@ -17,7 +17,7 @@
                 <form (click)="activateAccount1()">
                 <p class="content">Bấm vào nút "Kích hoạt" để có thể kích hoạt tài khoản của bạn</p>
                 <button class="btn btn-success follow">Kích hoạt</button>
-                <p *ngIf="activationMessage" class="text-danger mt-2">{{ activationMessage }}</p>
+                <p *ngIf="activationMessage" class="text-danger mt-2">{{ activationMessage }} Chúng tôi sẽ chuyển tới trang đăng nhập trong {{countdown}} giây...</p>
                 <p *ngIf="isButtonClicked && countdown > 0" class="text-success">Chúng tôi sẽ chuyển tới trang đăng nhập trong {{countdown}} giây...</p>
             </form>
             </div>

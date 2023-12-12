@@ -12,7 +12,7 @@
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
-                    <td  (click)="kanjiDetail(row.kanjiId)" style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.kanjiId}} </td>
+                    <td style="cursor: pointer" mat-cell *matCellDef="let i = index"> {{i+1}} </td>
                 </ng-container>
 
                 <!-- Progress Column -->
