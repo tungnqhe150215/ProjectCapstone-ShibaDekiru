@@ -36,10 +36,12 @@ export class ListListeningComponent implements OnInit {
     this.getListenByLessonID();
   }
 
+  id!:number
   getListenByLessonID() {
-    const idLesson = this.studentLessonService.getLessonID();
+    // const idLesson = this.studentLessonService.getLessonID();
+    this.id = this.route.snapshot.params['idL'];
     this.listening = [];
-    this.studentLessonService.getListeningByLesson(idLesson)
+    this.studentLessonService.getListeningByLesson(this.id)
     .subscribe({
       next:(res) =>{
         this.listening = res;
