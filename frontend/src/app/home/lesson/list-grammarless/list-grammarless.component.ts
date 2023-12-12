@@ -19,7 +19,7 @@ export class ListGrammarlessComponent implements OnInit {
 
   public dataSource !: MatTableDataSource<Grammar>;
 
-  displayedColumns: string[] = ['id', 'name','structure','explain','Example'];
+  displayedColumns: string[] = ['id', 'name','structure','explain'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   lesson: Lesson[] =[];

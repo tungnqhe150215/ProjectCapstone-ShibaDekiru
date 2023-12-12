@@ -2,8 +2,13 @@
     height: 600px;
     width: 1000px;
 } */
-mat-card{
+/* mat-card{
     border-radius: 60px;
     height: 250px;
+    width: 700px;
+} */
+mat-card {
+    /* border-radius: 60px; */
+    height: 450px;
     width: 700px;
 }
