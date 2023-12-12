@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {TestSection} from "../../core/models/test-section";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,8 @@ export class LectureTestSectionService {
 
   testSections: TestSection[] = [];
 
+  private sectionUpdatedSource = new Subject<void>();
+  sectionUpdated$ = this.sectionUpdatedSource.asObservable();
 
 
   constructor(private httpClient: HttpClient) {
@@ -38,5 +40,9 @@ export class LectureTestSectionService {
 
   deleteTestSection(id: number): Observable<Object> {
     return this.httpClient.delete(`${this.baseUrl}/section/${id}`);
+  }
+
+  announceSectionUpdated() {
+    this.sectionUpdatedSource.next();
   }
 }

@@ -77,13 +77,13 @@ export class LectureListTestComponent implements OnInit{
   openDeleteTestDialog(id:number){
     this.dialog.open(TestDeleteDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getTest());
+    }).afterClosed().subscribe(data => { if (data) this.getTest()});
   }
 
   openCreateTestDialog(id:number){
     this.dialog.open(TestCreateDialog,{
       data: id
-    }).afterClosed().subscribe(() => this.getTest());
+    }).afterClosed().subscribe(data => { if (data) this.getTest()});
   }
 
   openUpdateTestDialog(id:number){
@@ -91,7 +91,7 @@ export class LectureListTestComponent implements OnInit{
       {
         data: id
       }
-    ).afterClosed().subscribe(() => this.getTest());
+    ).afterClosed().subscribe(data => { if (data) this.getTest()});
   }
 
   getTestDetail(id:number){
@@ -119,11 +119,12 @@ export class TestDeleteDialog {
   ) {}
   deleteTest(id:number){
     this.manageTestService.deleteTest(id).subscribe(data => {
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Đã xóa bài kiểm tra!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration:2000,
     });
   }
   onNoClick(): void {
@@ -156,11 +157,12 @@ export class TestCreateDialog implements OnInit{
     console.log(this.test)
     this.manageTestService.createTest(this.data,this.test).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('New test part added!!', 'Close', {
+    this._snackBar.open('Đã thêm bài kiểm tra mới!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration:2000,
     });
   }
 
@@ -201,11 +203,12 @@ export class TestUpdateDialog implements OnInit{
     console.log(this.test)
     this.manageTestService.updateTest(this.data,this.test).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Test part updated!!', 'Close', {
+    this._snackBar.open('Thông tin bài kiểm tra đã được cập nhật!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration:2000,
     });
   }
 
