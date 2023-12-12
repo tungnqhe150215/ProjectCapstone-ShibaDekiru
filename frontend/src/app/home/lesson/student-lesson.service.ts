@@ -73,6 +73,10 @@ export class StudentLessonService {
     return this.httpClient.get<Lesson[]>(`${this.baseURL}/book/${id}/lesson`);
   }
 
+  getBookById(id:number): Observable<Book>{
+    return this.httpClient.get<Book>(`${this.baseURL}/book/${id}`);
+  }
+
   getReadingByLesson(id:number): Observable<Reading[]>{
     return this.httpClient.get<Reading[]>(`${this.baseURL}/lesson/${id}/reading`);
   }

@@ -4,21 +4,21 @@
     <div class="list-sections">
       
       <div style="cursor: pointer;" class="section">
-        <a (click)="ListVocab(lessonN.lessonId)">
+        <a (click)="ListVocab(lessonN.bookId,lessonN.lessonId)">
           <img style="width: 100px; height: 80px;" [src]="'https://vtieducation.vn/upload/images/seo-web/du-hoc/tieng-nhat-co-ban-1024x1024.png'" />
           <p>Phần 1: Từ vựng</p>
         </a>
       </div>
 
       <div style="cursor: pointer;" class="section">
-        <a (click)="ListGrammar(lessonN.lessonId)">
+        <a (click)="ListGrammar(lessonN.bookId,lessonN.lessonId)">
           <img style="width: 100px; height: 80px;" [src]="'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-adO1dZ3sbf-aP8HSozv_guuFA36MvmN_r-pfnI2QtvC5mkSGBArXfPFg6MNrkGBpLF0&usqp=CAU'" />
           <p>Phần 2: Ngữ pháp</p>
         </a>
       </div>
 
       <div style="cursor: pointer;" class="section">
-        <a (click)="ListKanji(lessonN.lessonId)">
+        <a (click)="ListKanji(lessonN.bookId,lessonN.lessonId)">
           <img style="width: 120px; height: 100px;" [src]="'https://tuhoconline.net/wp-content/uploads/bo-thu-kanji-co-ban-1.jpg'" />
           <p>Phần 3: Hán tự</p>
         </a>
@@ -26,14 +26,14 @@
       
 
       <div style="cursor: pointer;" class="section">
-        <a (click)="ListKaiwa(lessonN.lessonId)">
+        <a (click)="ListKaiwa(lessonN.bookId,lessonN.lessonId)">
           <img style="width: 100px; height: 80px;" [src]="'https://ichigo.edu.vn/wp-content/uploads/2018/10/y-nghia-cua-san.png'" />
           <p>Phần 4: Hội thoại</p>
         </a>
       </div>
 
       <div style="cursor: pointer;" class="section">
-        <a (click)="ListListening(lessonN.lessonId)">
+        <a (click)="ListListening(lessonN.bookId,lessonN.lessonId)">
           <img style="width: 100px; height: 80px;" [src]="'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJJkLrXNRsmq_49GIcyGMxcYl7U5_ODuGfQrOvwskmuMwuHRbt0fRiWVZ1iU0W8sMPk9w&usqp=CAU'" />
           <p>Phần 5: Luyện nghe</p>
         </a>
@@ -47,14 +47,14 @@
       </div> -->
 
       <div style="cursor: pointer;" class="section">
-        <a (click)="ListWriting(lessonN.lessonId)">
+        <a (click)="ListWriting(lessonN.bookId,lessonN.lessonId)">
           <img style="width: 100px; height: 80px;" [src]="'https://dungmori.com/cdn/ckeditor/images/23-4/24-4/2-5/27.jpg'" />
           <p>Phần 6: Luyện viết</p>
         </a>
       </div>
 
       <div style="cursor: pointer;" class="section">
-        <a (click)="ListReading(lessonN.lessonId)">
+        <a (click)="ListReading(lessonN.bookId,lessonN.lessonId)">
           <img style="width: 100px; height: 80px;" [src]="'https://livedoor.blogimg.jp/onlyone05771-yarukinoderugakusyuhou/imgs/f/9/f9433f8c.jpg'" />
           <p>Phần 7: Đọc hiểu</p>
         </a>
@@ -76,21 +76,12 @@
 
     </div>
 
-    
-    <!-- <div class="list-sections">
-      <div class="section" *ngFor="let section of sections">
-        <a [routerLink]="['section']">
-          <img [src]="section.img" />
-          <p>{{ section.name }}</p>
-        </a>
-      </div>
-    </div> -->
   </div>
   <div class="lesson-container">
-    <h3>Danh sách bài đọc</h3>
+    <h5>{{Lbook.name}}</h5>
     <div class="list-lesson">
       <div class="lesson" *ngFor="let lesson of lesson; let i = index">
-        <a style="cursor: pointer; width: 10%;" (click)="LessonDetail(lesson.lessonId)">
+        <a style="cursor: pointer; width: 10%;"(click)="LessonDetail(lesson.bookId,lesson.lessonId)" >
           <!-- <p>{{ lesson.lessonId }}</p> -->
           <p>{{i+1}}</p>
         </a>
