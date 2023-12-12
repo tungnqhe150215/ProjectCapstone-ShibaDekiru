@@ -37,10 +37,12 @@ export class ListKaiwaComponent implements OnInit{
    this.getKaiwaByLessonID();
   }
 
+  id!:number
   getKaiwaByLessonID(){
-    const idLesson = this.studentLessonService.getLessonID();
+    // const idLesson = this.studentLessonService.getLessonID();
+    this.id = this.route.snapshot.params['idL'];
     this.kaiwa = [];
-    this.studentLessonService.getKaiwaByLesson(idLesson)
+    this.studentLessonService.getKaiwaByLesson(this.id)
     .subscribe({
       next:(res) =>{
         this.kaiwa = res;

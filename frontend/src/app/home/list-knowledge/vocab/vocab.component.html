@@ -11,7 +11,7 @@
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
-                    <td  (click)="vocabDetail(row.vocabularyId)" style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.vocabularyId}} </td>
+                    <td  style="cursor: pointer" mat-cell *matCellDef="let  i = index"> {{i+1}} </td>
                 </ng-container>
 
                 <!-- Progress Column -->
