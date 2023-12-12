@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Test} from "../../core/models/test";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -16,7 +16,8 @@ export class LectureManageTestService {
   }
 
   getTestByLecture(id: number): Observable<Test[]> {
-    return this.httpClient.get<Test[]>(`${this.baseUrl}/test`);
+    const params = new HttpParams().set("lectureId",id);
+    return this.httpClient.get<Test[]>(`${this.baseUrl}/test`,{params:params});
   }
 
   createTest(id: number, test: Test): Observable<Object> {
