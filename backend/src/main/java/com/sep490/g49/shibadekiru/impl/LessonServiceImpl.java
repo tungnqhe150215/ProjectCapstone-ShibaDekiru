@@ -37,9 +37,7 @@ public class LessonServiceImpl implements ILessonService {
 
     @Override
     public List<Lesson> getLessonPartByBook(Book book) {
-        return lessonRepository.findByBook(book).stream().peek(data ->
-                data.setImage(googleDriveService.getFileUrl(data.getImage()))
-        ).collect(Collectors.toList());
+        return lessonRepository.findByBook(book);
     }
 
     @Override
