@@ -1,4 +1,5 @@
-form-dialog {
-    height: 400px;
-    width: 400px;
+mat-card {
+    /* border-radius: 60px; */
+    height: 450px;
+    width: 700px;
 }
