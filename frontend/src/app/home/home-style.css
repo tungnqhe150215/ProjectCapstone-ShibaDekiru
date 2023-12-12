@@ -270,7 +270,8 @@ button:focus {
   width: 100%;
   min-height: 780px; }
 .home_banner_area .banner_inner .overlay {
-  background: url(https://wallpaperaccess.com/full/12202.jpg) no-repeat scroll center center;
+  background: url(../../assets/homepage.jpg) no-repeat scroll center center;
+  background-size: cover;
   position: absolute;
   left: 0;
   right: 0;
