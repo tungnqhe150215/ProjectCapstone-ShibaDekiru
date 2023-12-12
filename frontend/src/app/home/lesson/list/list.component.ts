@@ -15,9 +15,11 @@ import { Book } from 'src/app/core/models/book';
 })
 export class ListComponent implements OnInit {
 
-  // id!: number;
+  id!: number;
   lesson: Lesson[] =[];
   book: Book[]= [];
+
+  Lbook: Book = new Book;
   // book: Book = new Book;
   constructor(
    
@@ -37,14 +39,16 @@ export class ListComponent implements OnInit {
     //   // Lưu bookId trong service hoặc biến của component để sử dụng sau này
     // });
     this.getLessonByBookID();
+    this.getBookById();
     // this.getAllBook();
   }
   getLessonByBookID(){
     // this.studentLessonService.setBookId(this.id);
-    // this.id = this.route.snapshot.params['id'];
-    const  idBook = this.studentLessonService.getBookId();
+    this.id = this.route.snapshot.params['id'];
+    // const  idBook = this.studentLessonService.getBookId();
+    this.studentLessonService.setBookId(this.id);
     this.lesson = [];
-    this.studentLessonService.getLessonByBook(idBook).subscribe({
+    this.studentLessonService.getLessonByBook(this.id).subscribe({
       next:(res) =>{
         this.lesson = res;
         // this.dataSource = new MatTableDataSource(res);
@@ -54,7 +58,14 @@ export class ListComponent implements OnInit {
     })
 
   }
-  
+
+  getBookById()  {
+    this.Lbook = new Book();
+    const  idBook = this.studentLessonService.getBookId();
+    this.studentLessonService.getBookById(idBook).subscribe(res =>{
+    this.Lbook = res
+   })
+  }
 
   // applyFilter(event: Event) {
   //   const filterValue = (event.target as HTMLInputElement).value;
@@ -65,9 +76,9 @@ export class ListComponent implements OnInit {
   //   }
   // }
   
-  LessonDetail(id:number){
+  LessonDetail(id:number, idL:number){
     this.studentLessonService.setLessonID(id);
-    this.router.navigate(['./lesson/'+id+'/detail']);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/detail']);
   
   }
   // LessonDetail(id:number){

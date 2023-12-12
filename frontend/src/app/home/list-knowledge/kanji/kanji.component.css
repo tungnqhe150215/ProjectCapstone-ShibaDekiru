@@ -2,8 +2,8 @@
 
 
 .table-content{
-  width: 90%;
-  margin-left: 5%;
+  width: 80%;
+  margin-left: 12%;
 }
 
 .logo {
@@ -43,9 +43,9 @@ body {
   font-weight: normal;
   color: #777777; }
 
-h1, h2, h3, h4, h5, h6 {
+/* h1, h2, h3, h4, h5, h6 {
   font-family: "Playfair Display", serif;
-  font-weight: bold; }
+  font-weight: bold; } */
 
 button:focus {
   outline: none;

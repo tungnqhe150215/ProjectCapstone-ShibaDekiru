@@ -17,12 +17,12 @@ export class UpdateCommentComponent implements OnInit{
   constructor(
     private userPostService: UserPostService,
     private nofiService: NotificationService,
-    private router:Router, 
+    private router:Router,
     private route:ActivatedRoute,
     public dialogRef: MatDialogRef<UpdateCommentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number,
     private storageService: StorageService,
-    
+
   ){}
 
   currentUser: any;
@@ -36,7 +36,7 @@ export class UpdateCommentComponent implements OnInit{
     // this.idC = this.route.snapshot.params['id'];
     const idPost = this.userPostService.getPostID();
     this.currentUser = this.storageService.getUser();
-    this.userPostService.updateComment(this.data, this.currentUser.userAccountId,idPost, this.comment).subscribe({
+    this.userPostService.updateComment(this.data, this.currentUser.userId,idPost, this.comment).subscribe({
       next: (data) => {
         // this.goTolessonList();
         this.nofiService.openSnackBar('Cập nhật bình luận thành công');
@@ -46,6 +46,6 @@ export class UpdateCommentComponent implements OnInit{
         console.error(err);
         this.nofiService.openSnackBar('Cập nhật bình luận thất bại vui lòng kiểm tra lại!');
       },
-    }) 
+    })
   }
 }

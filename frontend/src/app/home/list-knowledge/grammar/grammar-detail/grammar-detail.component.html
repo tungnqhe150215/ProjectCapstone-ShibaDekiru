@@ -1,13 +1,21 @@
 <mat-card class="rounded">
-    <mat-card-content class="text-center mt-2">
-     <h1 class="fw-bold">
+  <mat-card-header class=" mt-2">
+    <h2 style="color:#11a683;">Ngữ pháp</h2>
+    <hr>
+  </mat-card-header>
+    <mat-card-content class=" mt-2">
+      <hr>
+     <h2 class="fw-bold"  style="color:red;">
        ~ {{grammar.grammarName}}
-     </h1>
-     <h3 class="fw-bold" style="color: blue"> Cấu trúc: {{grammar.grammarStructure}} </h3>
-     <p>
-      Ý nghĩa:   {{grammar.description}}
-     </p>
-     <p> Ví dụ: {{grammar.example}}  </p>
+     </h2>
+     <h5>Cấu trúc:</h5>
+     <h2 class="fw-bold" style="color: green"> {{grammar.grammarStructure}} </h2>
+     <h5 >Ý nghĩa:</h5>
+     <h3 class="fw-bold" style="color: blue">
+       {{grammar.description}}
+     </h3>
+     <h5 >Ví dụ:</h5>
+     <h3>{{grammar.example}}  </h3>
     </mat-card-content>
 </mat-card>
 

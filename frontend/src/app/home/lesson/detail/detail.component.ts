@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StudentLessonService } from '../student-lesson.service';
 import { Book } from 'src/app/core/models/book';
@@ -13,17 +13,19 @@ import { StorageService } from '../../auth/user-login/storage.service';
 export class DetailComponent implements OnInit {
 
   id!: number;
+  idB!:number;
   lessonN: Lesson = new Lesson;
-  lesson: Lesson[] =[];
-  book: Book[]= [];
+  lesson: Lesson[] = [];
+  book: Book[] = [];
   isLoggedIn = false;
-
+  Lbook: Book = new Book;
   constructor(
     private studentLessonService: StudentLessonService,
     private router: Router,
-    private route:ActivatedRoute,
+    private route: ActivatedRoute,
     private storageService: StorageService,
-  ) {}
+  ) { }
+
 
   currentUser: any;
 
@@ -32,71 +34,84 @@ export class DetailComponent implements OnInit {
     this.isLoggedIn = this.storageService.isLoggedIn();
     this.getLessonByBookID();
     this.getLessonById();
-  } 
-
-  getLessonById(){
-    // this.id = this.route.snapshot.params['id'];
-    const idLesson = this.studentLessonService.getLessonID();
-    this.lessonN = new Lesson();
-    this.studentLessonService.getLessonById(idLesson)
-    .subscribe(
-      data =>{
-        this.lessonN = data
-        console.log(data)
-      }
-    )
+    this.getBookById();
   }
-  
-  
-  getLessonByBookID(){
-    // this.id = this.route.snapshot.params['id'];
-    const  idBook = this.studentLessonService.getBookId();
+
+  getLessonById() {
+    this.id = this.route.snapshot.params['idL'];
+    if(this.studentLessonService.getLessonID()){
+      this.id = this.studentLessonService.getLessonID();
+    }
+    // const idLesson = this.studentLessonService.getLessonID();
+    this.lessonN = new Lesson();
+    console.log(this.id);
+    this.studentLessonService.getLessonById(this.id)
+      .subscribe(
+        data => {
+          this.lessonN = data
+          console.log(data)
+        }
+      )
+  }
+
+  LessonDetail(id:number, idL:number) {
+    this.id = idL;
+    this.studentLessonService.setLessonID(idL);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/detail']);
+    this.getLessonById();
+  }
+
+
+  getLessonByBookID() {
+    this.idB = this.route.snapshot.params['id'];
+    const idBook = this.studentLessonService.getBookId();
     this.lesson = [];
-    this.studentLessonService.getLessonByBook(idBook).subscribe({
-      next:(res) =>{
+    this.studentLessonService.getLessonByBook(this.idB).subscribe({
+      next: (res) => {
         this.lesson = res;
-        // this.dataSource = new MatTableDataSource(res);
-        // this.dataSource.paginator = this.paginator;
         console.log(res)
       },
     })
   }
 
-  LessonDetail(id:number){
-    // const idLesson = this.studentLessonService.getLessonID();
-    this.studentLessonService.setLessonID(id);
-    this.router.navigate(['./lesson/'+id+'/detail']);
-    this.getLessonById();
+  getBookById() {
+    this.Lbook = new Book();
+    this.idB = this.route.snapshot.params['id'];
+    this.studentLessonService.getBookById(this.idB).subscribe(res => {
+      this.Lbook = res
+    })
   }
 
-  ListVocab(id:number){
+
+
+  ListVocab(id:number, idL:number) {
     const idLesson = this.studentLessonService.getLessonID();
-    this.router.navigate(['./lesson/'+idLesson+'/vocabulary']);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/vocabulary']);
   }
-  ListKanji(id:number){
+  ListKanji(id:number, idL:number) {
     const idLesson = this.studentLessonService.getLessonID();
-    this.router.navigate(['./lesson/'+idLesson+'/kanji']);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/kanji']);
   }
 
-  ListGrammar(id:number){
+  ListGrammar(id:number, idL:number) {
     const idLesson = this.studentLessonService.getLessonID();
-    this.router.navigate(['./lesson/'+idLesson+'/grammar']);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/grammar']);
   }
-  ListKaiwa(id:number){
+  ListKaiwa(id:number, idL:number) {
     const idLesson = this.studentLessonService.getLessonID();
-    this.router.navigate(['./lesson/'+idLesson+'/kaiwa']);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/kaiwa']);
   }
-  ListListening(id:number){
+  ListListening(id:number, idL:number) {
     const idLesson = this.studentLessonService.getLessonID();
-    this.router.navigate(['./lesson/'+idLesson+'/listening']);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/listening']);
   }
-  ListReading(id:number){
+  ListReading(id:number, idL:number) {
     const idLesson = this.studentLessonService.getLessonID();
-    this.router.navigate(['./lesson/'+idLesson+'/reading']);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/reading']);
   }
-  ListWriting(id:number){
+  ListWriting(id:number, idL:number) {
     const idLesson = this.studentLessonService.getLessonID();
-    this.router.navigate(['./lesson/'+idLesson+'/writing']);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/writing']);
   }
 
 
@@ -143,7 +158,7 @@ export class DetailComponent implements OnInit {
     },
   ]
 
- 
+
   // lessons = [
   //   {
   //     img: 'https://www.vnjpclub.com/images/icon/tuvung.png',
@@ -179,5 +194,5 @@ export class DetailComponent implements OnInit {
   //   },
   // ]
 
-  
+
 }

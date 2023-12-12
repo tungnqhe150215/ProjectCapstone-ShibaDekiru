@@ -1,11 +1,11 @@
 <div class="courses_area p_120">
 <div class="list-lesson">
   <h1 class="title">
-    Danh sách bài học
+    {{Lbook.name}}
   </h1>
   <ul>
     <li *ngFor="let lesson of lesson, let i = index" [ngClass]="{'even-row': i % 2 == 0}">
-      <a  style="cursor: pointer;" (click)="LessonDetail(lesson.lessonId)"> Bài {{i+1}}: {{ lesson.content }}</a>
+      <a  style="cursor: pointer;" (click)="LessonDetail(lesson.bookId,lesson.lessonId)"> Bài {{i+1}}: {{ lesson.content }}</a>
     </li>
   </ul>
 </div>
