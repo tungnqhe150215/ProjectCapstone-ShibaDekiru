@@ -7,8 +7,9 @@ body {
     background-color: #fff;
 }
 .ui-w-80 {
-    width : 80px !important;
-    height: auto;
+    width : 100px !important;
+    height: 100px!important;
+    margin: auto;
 }
 
 .btn-default {
