@@ -24,7 +24,7 @@ import {SharedModule} from "../../../shared/shared.module";
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule,SharedModule],
 })
 export class ListKaiwaComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'title', 'lesson-name','action'];
+  displayedColumns: string[] = ['id', 'title', 'lesson-name','script','action'];
   dataSource!: MatTableDataSource<Kaiwa> ;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
