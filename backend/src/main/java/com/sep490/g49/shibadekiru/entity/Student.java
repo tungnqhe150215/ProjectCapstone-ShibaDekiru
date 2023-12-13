@@ -32,6 +32,9 @@ public class Student implements Serializable {
     @Column(name = "gender", nullable = false)
     private Boolean gender;
 
+    @Column(name = "phone", nullable = false, length = 10)
+    private String phone;
+
     @Column(name = "avatar", length = 250)
     private String avatar;
 
