@@ -7,6 +7,7 @@ import { StudentLessonService } from '../student-lesson.service';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { Listening } from 'src/app/core/models/listening';
+import { Lesson } from 'src/app/core/models/lesson';
 
 @Component({
   selector: 'app-list-listening',
@@ -17,13 +18,14 @@ export class ListListeningComponent implements OnInit {
 
   public dataSource !: MatTableDataSource<Listening>;
 
-  displayedColumns: string[] = ['id', 'name', 'lesson'];
-
+  displayedColumns: string[] = ['id', 'name', 'lesson','script'];
+  slicedItems: string[][] = []; // Khai báo ở đây
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   listening: Listening[] = [];
-
+  lesson: Lesson = new Lesson;
+  
   constructor(
     private router: Router,
     private studentLessonService: StudentLessonService,
@@ -43,13 +45,29 @@ export class ListListeningComponent implements OnInit {
     this.listening = [];
     this.studentLessonService.getListeningByLesson(this.id)
     .subscribe({
-      next:(res) =>{
-        this.listening = res;
-        this.dataSource = new MatTableDataSource(res);
+      next:data =>{
+        this.listening = data;
+        this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
-        console.log(res)
+        this.slicedItems = this.getSlicedItems(this.listening, 'script');
+        console.log(data)
       }
     })
 
+  }
+
+  getSlicedItems(data: any[], propertyName: string): string[][] {
+    return data.map(item => item[propertyName]
+      .split('。')
+      .filter((subItem: string) => subItem.trim() !== '')
+    );
+  }
+
+  getLessonById() {
+    this.lesson = new Lesson();
+    this.id = this.route.snapshot.params['idL'];
+    this.studentLessonService.getLessonById(this.id).subscribe(data => {
+      this.lesson = data
+    })
   }
 }
