@@ -257,12 +257,19 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             student.setEmail(request.getEmail());
                         }
 
-                        if (request.getAvatar().length() > 0) {
-                            googleDriveService.deleteFile(student.getAvatar());
-                            System.out.println("Check id file bị xóa: " + student.getAvatar());
-                            student.setAvatar(request.getAvatar());
+                        if (!request.getAvatar().equals(student.getAvatar())) {
+                            System.out.println("Khi request khác student");
+                            googleDriveService.deleteFile(request.getAvatar());
+                            System.out.println("Check id file bị xóa: " + request.getAvatar());
+                            student.setAvatar(student.getAvatar());
                         }
+
+                        else if (request.getAvatar().equals("")) {
+                            student.setAvatar("");
+                        }
+
                         else {
+                            System.out.println("Vẫn giữ nguyên link ảnh.");
                             String newFileUrl = googleDriveService.getFileUrl(student.getAvatar());
                             if (newFileUrl != null) {
                                 // Loại bỏ phần &export=download từ đường dẫn mới
@@ -276,6 +283,10 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
                         if (request.getGender() != null) {
                             student.setGender(request.getGender());
+                        }
+
+                        if (request.getPhone() != null) {
+                            student.setPhone(request.getPhone());
                         }
 
                         student.setUserAccount(user);
@@ -320,12 +331,21 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             lectures.setEmail(request.getEmail());
                         }
 
-                        if (request.getAvatar().length() > 0) {
-                            googleDriveService.deleteFile(lectures.getAvatar());
-                            System.out.println("Check id file bị xóa: " + lectures.getAvatar());
-                            lectures.setAvatar(request.getAvatar());
+
+                        if (!request.getAvatar().equals(lectures.getAvatar())) {
+                            System.out.println("Khi request khác lecture");
+                            googleDriveService.deleteFile(request.getAvatar());
+                            System.out.println("Check id file bị xóa: " + request.getAvatar());
+                            lectures.setAvatar(lectures.getAvatar());
                         }
+
+                        else if (request.getAvatar().equals("")) {
+                            lectures.setAvatar("");
+                        }
+
                         else {
+
+                            System.out.println("Vẫn giữ nguyên link ảnh.");
                             String newFileUrl = googleDriveService.getFileUrl(lectures.getAvatar());
                             if (newFileUrl != null) {
                                 // Loại bỏ phần &export=download từ đường dẫn mới
@@ -337,9 +357,14 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             }
                         }
 
+                        if (request.getGender() != null) {
+                            lectures.setGender(request.getGender());
+                        }
+
                         if (request.getPhone() != null) {
                             lectures.setPhone(request.getPhone());
                         }
+
 
                         lectures.setUserAccount(user);
                         return lecturersRepository.save(lectures);
@@ -411,7 +436,12 @@ public class UserAccountServiceImpl implements IUserAccountService {
     private void updateAvatarForStudent(String fileId, UserAccount user) {
         Student student = studentService.getByUserAccount(user);
         if (student != null) {
-            student.setAvatar(fileId);
+            if (!student.getAvatar().equals(fileId)) {
+                googleDriveService.deleteFile(student.getAvatar());
+                System.out.println("Check id file bị xóa trong updateAvatarForStudent: " + student.getAvatar());
+                student.setAvatar(fileId);
+            }
+
             student.setUserAccount(user);
             studentRepository.save(student);
         }
@@ -420,7 +450,12 @@ public class UserAccountServiceImpl implements IUserAccountService {
     private void updateAvatarForLecturer(String fileId, UserAccount user) {
         Lectures lecturer = lecturesService.getByUserAccount(user);
         if (lecturer != null) {
-            lecturer.setAvatar(fileId);
+            if (!lecturer.getAvatar().equals(fileId)) {
+                googleDriveService.deleteFile(lecturer.getAvatar());
+                System.out.println("Check id file bị xóa trong updateAvatarForLecturer: " + lecturer.getAvatar());
+                lecturer.setAvatar(fileId);
+            }
+
             lecturer.setUserAccount(user);
             lecturersRepository.save(lecturer);
         }

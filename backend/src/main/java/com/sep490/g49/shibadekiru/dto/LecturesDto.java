@@ -15,6 +15,7 @@ public class LecturesDto {
     private String firstName;
     private String lastName;
     private String email;
+    private Boolean gender;
     private String phone;
     private String avatar;
     private String memberId;

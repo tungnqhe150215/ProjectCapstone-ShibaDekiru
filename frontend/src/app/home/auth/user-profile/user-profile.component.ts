@@ -9,6 +9,9 @@ import { ChangePassword } from 'src/app/core/models/change-password';
 import { Lecture } from 'src/app/core/models/lecture';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import {Drive} from "../../../core/models/drive";
+import {FileService} from "../../../shared/services/file.service";
+import {data} from "autoprefixer";
 
 
 @Component({
@@ -23,6 +26,7 @@ export class UserProfileComponent implements OnInit{
   constructor(
     private notifiService: NotificationService,
     private userService: UseServiceService,
+    private fileService:FileService,
     private storageService: StorageService,
     private router: Router,
   ){}
@@ -31,7 +35,8 @@ export class UserProfileComponent implements OnInit{
   isLoggedIn = false;
   eventBusSub?: Subscription;
   student: any;
-
+  file!: File ;
+  drive: Drive = new Drive();
 
   error: any = {
     message: 'no'
@@ -50,7 +55,7 @@ export class UserProfileComponent implements OnInit{
   // lastName !: string;
   // userName !: string;
   // memberId !: string;
-  
+
   ngOnInit(): void {
     this.currentUser = this.storageService.getUser();
     this.isLoggedIn = this.storageService.isLoggedIn();
@@ -62,8 +67,8 @@ export class UserProfileComponent implements OnInit{
     }else{
       this.getUserByID();
     }
-    
-    
+
+
   }
 
   getLecturerByID(){
@@ -88,24 +93,79 @@ export class UserProfileComponent implements OnInit{
   }
 
   updateLecturersProfile(){
-    this.userService.lecturerProfile(this.student).
-    subscribe(
-      data =>{
-        console.log(data);
-        this.getLecturerByID();
-        this.notifiService.openSnackBar('Cập nhật thông tin thành công !');
-      }
-    )
+
+    if (this.file == null || this.file.size == 0) {
+
+      this.student.avatar = "";
+      this.userService.lecturerProfile(this.student).
+      subscribe(
+        data =>{
+          console.log(data);
+          this.getLecturerByID();
+          this.notifiService.openSnackBar('Cập nhật thông tin thành công !');
+        },
+        error1 =>  {
+          console.error(error1);
+          this.notifiService.openSnackBar('Đã xảy ra lỗi khi cập nhật thông tin người dùng!')
+        },
+      );
+    } else {
+      this.fileService.uploadFileForMyProfile(this.file).subscribe(data => {
+        console.log(data)
+        this.drive = data as Drive
+        this.student.avatar = this.drive.fileId
+        this.userService.lecturerProfile(this.student).
+        subscribe(
+          data =>{
+            console.log(data);
+            this.getLecturerByID();
+            this.notifiService.openSnackBar('Cập nhật thông tin thành công !');
+          },
+          error1 =>  {
+            console.error(error1);
+            this.notifiService.openSnackBar('Đã xảy ra lỗi khi cập nhật thông tin người dùng!')
+          },
+        );
+      })
+    }
+
   }
   updateUserProfile(){
-    this.userService.studentProfile(this.student)
-    .subscribe(
-      data =>{
-        console.log(data);
-        this.getUserByID();
-        this.notifiService.openSnackBar('Cập nhật thông tin thành công !');
-      }
-    )
+    if (this.file == null || this.file.size == 0) {
+
+      this.student.avatar = "";
+      this.userService.studentProfile(this.student).
+      subscribe(
+        data =>{
+          console.log(data);
+          this.getUserByID();
+          this.notifiService.openSnackBar('Cập nhật thông tin thành công !');
+        },
+        error1 =>  {
+          console.error(error1);
+          this.notifiService.openSnackBar('Đã xảy ra lỗi khi cập nhật thông tin người dùng!')
+        },
+      );
+    } else  {
+      this.fileService.uploadFileForMyProfile(this.file).subscribe(data => {
+        console.log(data)
+        this.drive = data as Drive
+        this.student.avatar = this.drive.fileId
+        this.userService.studentProfile(this.student).
+        subscribe(
+          data =>{
+            console.log(data);
+            this.getUserByID();
+            this.notifiService.openSnackBar('Cập nhật thông tin thành công !');
+          },
+          error1 =>  {
+            console.error(error1);
+            this.notifiService.openSnackBar('Đã xảy ra lỗi khi cập nhật thông tin người dùng!')
+          },
+        );
+      })
+    }
+
   }
 
 
@@ -113,13 +173,13 @@ export class UserProfileComponent implements OnInit{
   changePassword() {
     // @ts-ignore
     this.updatePassword = new ChangePassword(this.form.password, this.form.newpassword, this.form.confirmpassword);
-    
+
     this.userService.changePassword(this.updatePassword).subscribe(data => {
       console.log('dataPassword----->',data);
-      
+
       this.notifiService.openSnackBar('Đổi mật khẩu thành công, bạn cần đăng nhập lại');
       this.logout();
-      
+
     })
 
   }
@@ -140,5 +200,12 @@ export class UserProfileComponent implements OnInit{
   }
 
 
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if(element != null) {
+      element.value = this.file.name;
+    }
+  }
 
 }
