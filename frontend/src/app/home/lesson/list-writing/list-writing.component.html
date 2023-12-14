@@ -4,12 +4,13 @@
     <div class="table-content">
         <div class="blog-single gray-bg">
             <div class="container">
-                <button appBackButton class="btn btn-infor border mb-1">Trở lại</button>
+                <h2 style="cursor:pointer ;color:#11a683" appBackButton>Luyện viết bài {{lesson.name}}: {{lesson.content}}</h2>
+                <!-- <button appBackButton class="btn btn-infor border mb-1">Trở lại</button> -->
                 <div class="row">
                     <div class="col-md-9">
                         <div class="overflow-hidden card table-nowrap table-card">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4 class="mb-0">Phần luyện viết</h4>
+                                <h4 class="mb-0">Danh sách phần viết</h4>
                                 <pagination-controls (pageChange)="p = $event"></pagination-controls>
                             </div>
                             <div class="align-items-start"
