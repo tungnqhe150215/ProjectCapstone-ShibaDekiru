@@ -122,7 +122,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
         if(err.status === 409){
-          this.notifiService.openSnackBar('Email hoặc ID thành viên đã tồn tại vui lòng kiểm tra lại!')
+          this.notifiService.openSnackBar('Email đã tồn tại vui lòng kiểm tra lại!')
         }
       }
     })

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ChangePassword } from 'src/app/core/models/change-password';
@@ -8,6 +8,8 @@ import { Lecture } from 'src/app/core/models/lecture';
 import { NewPassword } from 'src/app/core/models/new-password';
 import { Role, RoleInte } from 'src/app/core/models/role';
 import { Student } from 'src/app/core/models/student';
+import {Test} from "../../core/models/test";
+import {UserAccount} from "../../core/models/user-account";
 
 const USER_KEY = 'auth-user';
 const AUTH_API = 'http://localhost:8080/api/auth/';
@@ -21,7 +23,7 @@ const httpOptions = {
 })
 export class UseServiceService {
   constructor(private httpClient: HttpClient) { }
-  
+
   login(email:string, password: string): Observable<any>{
     return this.httpClient.post(
       AUTH_API +'authenticate',
@@ -72,6 +74,15 @@ export class UseServiceService {
     return this.httpClient.post(AUTH_API + 'logout', {}, httpOptions);
   }
 
+  getUserAccountByUserId(id: string): Observable<UserAccount> {
+    const params = new HttpParams().set("userId",id);
+    return this.httpClient.get<UserAccount>(AUTH_API + 'user-account',{params:params});
+  }
+
+  updateUserAccount(id: number, nickName: string): Observable<Object> {
+    const params = new HttpParams().set("userId",id).set("nickName", nickName);
+    return this.httpClient.put(AUTH_API + 'user-account', {}, {params:params});
+  }
 
   changePassword(changePassword: ChangePassword): Observable<any>{
     return this.httpClient.put(USER +'change-password', changePassword);
@@ -92,7 +103,7 @@ export class UseServiceService {
   getLecturersbyID(id: number): Observable<Lecture>{
     return this.httpClient.get<Lecture>(USER +'lecture/'+id);
   }
-  
+
   forgotPassword(inforEmail: ForgotPassword): Observable<Object>{
     return this.httpClient.post(AUTH_API + 'forgot-password', inforEmail);
   }
