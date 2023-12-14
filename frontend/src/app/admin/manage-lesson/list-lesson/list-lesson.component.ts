@@ -47,7 +47,8 @@ import {DeleteLessonComponent} from "../delete-lesson/delete-lesson.component";
 })
 export class ListLessonComponent implements OnInit{
 
-  displayedColumns: string[] = ['id', 'book', 'name', 'content','created_at','status', 'image','action'];
+  // displayedColumns: string[] = ['id', 'book', 'name', 'content','created_at','status', 'image','action'];
+  displayedColumns: string[] = ['id', 'book', 'name', 'content','created_at','status','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
