@@ -20,7 +20,7 @@ public class WritingQuestion implements Serializable {
 
     private String question;
 
-    @Column(name = "sample_answer")
+    @Column(name = "sample_answer", columnDefinition = "LONGTEXT")
     private String sampleAnswer;
 
     @ManyToOne

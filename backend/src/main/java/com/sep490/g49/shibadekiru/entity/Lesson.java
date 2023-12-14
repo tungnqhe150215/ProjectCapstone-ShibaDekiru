@@ -24,7 +24,7 @@ public class Lesson implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @Column(nullable = true)
