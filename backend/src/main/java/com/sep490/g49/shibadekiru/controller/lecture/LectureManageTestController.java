@@ -43,9 +43,9 @@ public class LectureManageTestController {
     private ITestSectionService iTestSectionService;
 
     @GetMapping("/test")
-    public List<TestDto> getAllTestByLecture() {
+    public List<TestDto> getAllTestByLecture(@RequestParam("lectureId") Long id) {
 
-        Lectures lectures = iLecturesService.getLectureById(1L);
+        Lectures lectures = iLecturesService.getLectureById(id);
 
         return iTestService.getAllTestByLecture(lectures).stream().map(test -> modelMapper.map(test, TestDto.class)).collect(Collectors.toList());
     }

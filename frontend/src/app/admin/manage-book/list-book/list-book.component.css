@@ -4,3 +4,10 @@ img{
  th{
     margin-bottom: 10px;
  } 
+ /*body {*/
+   /* Đường dẫn đến hình ảnh và kiểu lặp lại */
+   /*background-image: url('https://images.pond5.com/sakura-cherry-blossom-falling-pink-086372059_prevstill.jpeg');
+   background-size: cover; /* Phủ toàn bộ diện tích của body */
+   /*background-repeat: no-repeat; /* Không lặp lại hình nền */
+   /* Các thuộc tính khác có thể thêm vào theo nhu cầu */
+ /* }*/

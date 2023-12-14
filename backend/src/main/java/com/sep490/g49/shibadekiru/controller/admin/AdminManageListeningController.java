@@ -5,6 +5,7 @@ import com.sep490.g49.shibadekiru.dto.ListeningQuestionDto;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.entity.Listening;
 import com.sep490.g49.shibadekiru.entity.ListeningQuestion;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.ILessonService;
 import com.sep490.g49.shibadekiru.service.IListeningQuestionService;
 import com.sep490.g49.shibadekiru.service.IListeningService;
@@ -35,6 +36,9 @@ public class AdminManageListeningController {
     @Autowired
     private ModelMapper map;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @GetMapping("/{id}/listening")
     public List<ListeningDto> getListeningByLesson(@PathVariable(name = "id") Long lessonId) {
         Lesson lessonResponse = iLessonService.getLessonById(lessonId);
@@ -46,6 +50,7 @@ public class AdminManageListeningController {
     public ResponseEntity<ListeningDto> getListeningById(@PathVariable(name = "id") Long id) {
         Listening listening = iListeningService.getListeningById(id);
 
+        listening.setLink(googleDriveService.getFileUrl(listening.getLink()));
         // convert entity to DTO
         ListeningDto listeningResponse = map.map(listening, ListeningDto.class);
 

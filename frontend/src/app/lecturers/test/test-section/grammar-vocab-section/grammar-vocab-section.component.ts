@@ -68,13 +68,13 @@ export class GrammarVocabSectionComponent implements OnInit {
   openDeleteGrammarSectionDialog(id:number){
     this.dialog.open(GrammarSectionDeleteDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getGrammarSection());
+    }).afterClosed().subscribe(data => { if (data) this.getGrammarSection()});
   }
 
   openCreateGrammarSectionDialog(id:number){
     this.dialog.open(GrammarSectionCreateDialog,{
       data: id
-    }).afterClosed().subscribe(() => this.getGrammarSection());
+    }).afterClosed().subscribe(data => { if (data) this.getGrammarSection()});
   }
 
   openUpdateGrammarSectionDialog(id:number){
@@ -82,7 +82,7 @@ export class GrammarVocabSectionComponent implements OnInit {
       {
         data: id
       }
-    ).afterClosed().subscribe(() => this.getGrammarSection());
+    ).afterClosed().subscribe(data => { if (data) this.getGrammarSection()});
   }
 
   getGrammarSectionDetail(id:number){
@@ -106,11 +106,12 @@ export class GrammarSectionDeleteDialog {
   ) {}
   deleteGrammarSection(id:number){
     this.testSectionService.deleteTestSection(id).subscribe(data => {
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Xóa thành công!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
   onNoClick(): void {
@@ -141,11 +142,12 @@ export class GrammarSectionCreateDialog {
     console.log(this.section)
     this.testSectionService.createTestSection(this.data,this.section).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('New grammar part added!!', 'Close', {
+    this._snackBar.open('Phần mới đã được thêm!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
 
@@ -181,11 +183,12 @@ export class GrammarSectionUpdateDialog implements OnInit{
     console.log(this.section)
     this.testSectionService.updateTestSection(this.data,this.section).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('GrammarSection part updated!!', 'Close', {
+    this._snackBar.open('Cập nhật thành công!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
 

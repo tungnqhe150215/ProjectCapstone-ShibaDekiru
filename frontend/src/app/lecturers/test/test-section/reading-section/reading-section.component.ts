@@ -72,13 +72,13 @@ export class ReadingSectionComponent implements OnInit {
   openDeleteReadingSectionDialog(id:number){
     this.dialog.open(ReadingSectionDeleteDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getReadingSection());
+    }).afterClosed().subscribe(data => { if (data) this.getReadingSection()});
   }
 
   openCreateReadingSectionDialog(id:number){
     this.dialog.open(ReadingSectionCreateDialog,{
       data: id
-    }).afterClosed().subscribe(() => this.getReadingSection());
+    }).afterClosed().subscribe(data => { if (data) this.getReadingSection()});
   }
 
   openUpdateReadingSectionDialog(id:number){
@@ -86,7 +86,7 @@ export class ReadingSectionComponent implements OnInit {
       {
         data: id
       }
-    ).afterClosed().subscribe(() => this.getReadingSection());
+    ).afterClosed().subscribe(data => { if (data) this.getReadingSection()});
   }
 
   getReadingSectionDetail(id:number){
@@ -110,11 +110,12 @@ export class ReadingSectionDeleteDialog {
   ) {}
   deleteReadingSection(id:number){
     this.testSectionService.deleteTestSection(id).subscribe(data => {
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Phần đọc đã bị xóa!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
   onNoClick(): void {
@@ -145,11 +146,12 @@ export class ReadingSectionCreateDialog {
     console.log(this.section)
     this.testSectionService.createTestSection(this.data,this.section).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('New reading part added!!', 'Close', {
+    this._snackBar.open('Phần đọc mới đã được thêm !!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
 
@@ -185,11 +187,12 @@ export class ReadingSectionUpdateDialog implements OnInit{
     console.log(this.section)
     this.testSectionService.updateTestSection(this.data,this.section).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Reading Section part updated!!', 'Close', {
+    this._snackBar.open('Phần đọc đã được cập nhật!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
 

@@ -20,4 +20,11 @@ export class FileService {
     return this.httpClient.post(`${this.baseUrl}/upload`,formData);
   }
 
+  uploadFileForMyProfile(file: File): Observable<Object> {
+    const formData = new FormData();
+    formData.append('file', file);
+    console.log(formData.get('file'))
+    return this.httpClient.post(`${this.baseUrl}/upload/my-profile`,formData);
+  }
+
 }

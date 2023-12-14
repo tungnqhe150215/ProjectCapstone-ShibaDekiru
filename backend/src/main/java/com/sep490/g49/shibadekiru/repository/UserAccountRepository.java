@@ -19,4 +19,6 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
 
     UserAccount findByResetCode(String restCode);
 
+    boolean existsByMemberId(String memberId);
+
 }

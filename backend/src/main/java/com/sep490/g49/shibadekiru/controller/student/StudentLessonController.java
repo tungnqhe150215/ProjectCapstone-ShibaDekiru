@@ -50,6 +50,18 @@ public class StudentLessonController {
     public List<BookDto> getAllBook(){
         return bookService.getAllBooks().stream().map(book -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
     }
+    @GetMapping("/book/{id}")
+    public ResponseEntity<BookDto> getBookById(@PathVariable (name = "id") Long bookId) {
+        Book book = bookService.getBookById(bookId);
+
+//        book.setImage(googleDriveService.getFileUrl(book.getImage()));
+
+        BookDto bookResponse = modelMapper.map(book, BookDto.class);
+
+
+        return ResponseEntity.ok().body(bookResponse);
+    }
+
     @GetMapping("/lesson/{lessonId}")
     public ResponseEntity<LessonDto> getLessonById(@PathVariable (name = "lessonId") Long lessonId) {
         Lesson lesson = lessonService.getLessonById(lessonId);

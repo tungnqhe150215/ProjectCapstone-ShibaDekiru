@@ -20,7 +20,7 @@ import {data} from "autoprefixer";
 import {Drive} from "../../../../core/models/drive";
 import {FilePreviewService} from "../../../../shared/services/file-preview.service";
 import {SharedModule} from "../../../../shared/shared.module";
-import {switchMap,timer} from "rxjs";
+import {debounceTime, finalize, firstValueFrom, switchMap, tap, timer} from "rxjs";
 
 
 @Component({
@@ -78,13 +78,13 @@ export class ListeningSectionComponent implements OnInit {
   openDeleteListeningSectionDialog(id: number) {
     this.dialog.open(ListeningSectionDeleteDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getListeningSection());
+    }).afterClosed().subscribe(data => {if(data) {this.getListeningSection()}});
   }
 
   openCreateListeningSectionDialog(id: number) {
     this.dialog.open(ListeningSectionCreateDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getListeningSection());
+    }).afterClosed().subscribe(data => {if(data) {this.getListeningSection()}});
   }
 
   openUpdateListeningSectionDialog(id: number) {
@@ -92,7 +92,7 @@ export class ListeningSectionComponent implements OnInit {
       {
         data: id
       }
-    ).afterClosed().subscribe(() => this.getListeningSection());
+    ).afterClosed().subscribe(data => {if(data) {this.getListeningSection()}});
   }
 
   getListeningSectionDetail(id: number) {
@@ -118,9 +118,9 @@ export class ListeningSectionDeleteDialog {
 
   deleteListeningSection(id: number) {
     this.testSectionService.deleteTestSection(id).subscribe(data => {
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Đã xóa phần nghe!!', 'Close', {
+    this._snackBar.open('Đã xóa phần nghe!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -164,17 +164,17 @@ export class ListeningSectionCreateDialog {
         console.log(this.section)
         this.testSectionService.createTestSection(this.data, this.section).subscribe(data => {
           console.log(data)
-          this.dialogRef.close();
+          this.dialogRef.close(data)
         })
       })
     } else {
       this.section.sectionType = "LISTENING"
       this.testSectionService.createTestSection(this.data, this.section).subscribe(data => {
         console.log(data)
-        this.dialogRef.close();
+        this.dialogRef.close(data);
       })
     }
-    this._snackBar.open('Phần nghe mới đã được thêm!!', 'Close', {
+    this._snackBar.open('Phần nghe mới đã được thêm!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
@@ -237,7 +237,7 @@ export class ListeningSectionUpdateDialog implements OnInit {
     })
   }
 
-  updateListeningSection() {
+ updateListeningSection() {
     if (this.file) {
       this.fileService.uploadFile(this.file).subscribe(data => {
         console.log(data)
@@ -246,18 +246,18 @@ export class ListeningSectionUpdateDialog implements OnInit {
         console.log(this.section)
         this.testSectionService.updateTestSection(this.data, this.section).subscribe(data => {
           console.log(data)
-          this.dialogRef.close();
+          this.dialogRef.close(data);
         })
       })
     } else {
       this.section.sectionAttach = ''
       this.testSectionService.updateTestSection(this.data, this.section).subscribe(data => {
         console.log(data)
-        this.dialogRef.close();
+        this.dialogRef.close(data);
       })
     }
 
-    this._snackBar.open('Phần nghe đã được cập nhật!!', 'Close', {
+    this._snackBar.open('Phần nghe đã được cập nhật!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });

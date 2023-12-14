@@ -1,7 +1,8 @@
 
-<div class="row courses_area p_120">
+<div class="row detail p_120">
     <div class="col-md-10 list-table">
     <div class="table-content">
+        <h2 style="cursor:pointer ;color:#11a683" appBackButton>Chữ Hán bài {{lessonN.name}}: {{lessonN.content}}</h2>
         <!-- <mat-form-field>
             <mat-label>Filter</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
@@ -30,10 +31,10 @@
                 </ng-container>
 
 
-                <ng-container matColumnDef="lesson">
+                <!-- <ng-container matColumnDef="lesson">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Bài học</th>
                     <td  style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.lessonId}} </td>
-                </ng-container>
+                </ng-container> -->
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -49,10 +50,10 @@
     </div>
     </div>
     <div class="col-md-2 lesson-container">
-        <h3>Danh sách bài học</h3>
+        <h5>{{Lbook.name}}</h5>
         <div class="list-lesson">
             <div class="lesson" *ngFor="let lesson of lesson; let i = index">
-              <a style="cursor: pointer;" (click)="getKanjiByLessons(lesson.lessonId)">
+              <a style="cursor: pointer;" (click)="LessonDetail(lesson.bookId,lesson.lessonId)">
                 <p>{{i+1}}</p>
               </a>
             </div>

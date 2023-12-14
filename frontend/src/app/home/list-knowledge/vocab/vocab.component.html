@@ -11,13 +11,13 @@
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
-                    <td  (click)="vocabDetail(row.vocabularyId)" style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.vocabularyId}} </td>
+                    <td  style="cursor: pointer" mat-cell *matCellDef="let  i = index"> {{i+1}} </td>
                 </ng-container>
 
                 <!-- Progress Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên công thức </th>
-                    <td (click)="vocabDetail(row.vocabularyId)"  style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.vocabularyName}}  <p style="color: red">{{row.hiragana}}</p>   </td>
+                    <td (click)="vocabDetail(row.vocabularyId)"  style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.vocabularyName}}    </td>
                   
                 </ng-container>
                 <ng-container matColumnDef="meaning">
@@ -29,8 +29,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="lesson">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Bài học</th>
-                    <td (click)="vocabDetail(row.vocabularyId)" style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.lessonId}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cách đọc</th>
+                    <td (click)="vocabDetail(row.vocabularyId)" style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.hiragana}}</td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -38,7 +38,7 @@
 
                 <!-- Row shown when there is no matching data. -->
                 <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    <td class="mat-cell" colspan="4">Không có dữ liệu "{{input.value}}"</td>
                 </tr>
             </table>
 

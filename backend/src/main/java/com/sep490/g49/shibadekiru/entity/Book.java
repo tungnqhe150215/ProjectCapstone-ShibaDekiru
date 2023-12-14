@@ -19,10 +19,10 @@ public class Book implements Serializable {
     @Column(name = "book_id")
     private Long bookId;
 
-    @Column(name = "name", nullable = false, length = 45)
+    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "LONGTEXT")
     private String description;
 
     @Column(name = "image", length = 250)

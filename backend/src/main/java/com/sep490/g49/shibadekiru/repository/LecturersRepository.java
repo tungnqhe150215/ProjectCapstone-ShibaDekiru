@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface LecturersRepository extends JpaRepository<Lectures, Long> {
 
     Lectures findByUserAccount(UserAccount userAccount);
+
+    boolean existsByPhone(String phone);
 }

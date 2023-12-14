@@ -1,7 +1,6 @@
 package com.sep490.g49.shibadekiru.impl;
 
 import com.sep490.g49.shibadekiru.dto.PostDto;
-import com.sep490.g49.shibadekiru.entity.Comment;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.entity.Post;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
@@ -13,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements IPostService {
@@ -28,16 +27,34 @@ public class PostServiceImpl implements IPostService {
 
     @Autowired
     private ModelMapper modelMapper;
+
     @Override
     public List<Post> getAllPosts() {
+
         List<Post> postList = postRepository.findAll();
         if (!postList.isEmpty()) {
             return postList;
-        }
-        else {
+        } else {
             throw new ResourceNotFoundException("List Post is blank.");
         }
+
     }
+
+    @Override
+    public List<Post> getAllPostByIsEnable() {
+        List<Post> postList = postRepository.findAll();
+
+        List<Post> openPosts = postList.stream()
+                .filter(post -> post.getIsEnabled().equals(true))
+                .collect(Collectors.toList());
+
+        if (!openPosts.isEmpty()) {
+            return openPosts;
+        } else {
+            throw new ResourceNotFoundException("No open posts found.");
+        }
+    }
+
 
     @Override
     public List<Post> getPostPartByLecture(Lectures lectures) {
@@ -51,7 +68,7 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public List<Post> findTop4ByOrderByCreatedAtDesc() {
-        return postRepository.findTop4ByOrderByCreatedAtDesc();
+        return postRepository.findTop4ByOrderByCreatedAtDesc().stream().filter(post -> post.getIsEnabled().equals(true)).collect(Collectors.toList());
     }
 
     @Override
@@ -63,6 +80,7 @@ public class PostServiceImpl implements IPostService {
                 .orElseThrow(() -> new ResourceNotFoundException("Lecture not found"));
 
         post.setLecture(lecture);
+        post.setIsEnabled(postDTO.getIsEnabled());
         post.setCreatedAt(LocalDateTime.now());
 
         // Save the post
@@ -105,7 +123,7 @@ public class PostServiceImpl implements IPostService {
     @Override
     public Post getPostById(Long id) {
 
-        Post post =  postRepository.findById(id).orElse(null);
+        Post post = postRepository.findById(id).orElse(null);
 
         if (post == null) {
             throw new ResourceNotFoundException("Post not found with id: " + id);
@@ -113,4 +131,8 @@ public class PostServiceImpl implements IPostService {
 
         return post;
     }
+
+
+
+
 }

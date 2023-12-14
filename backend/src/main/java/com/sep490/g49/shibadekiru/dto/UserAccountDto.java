@@ -18,5 +18,6 @@ public class UserAccountDto {
     private String resetCode;
     private Boolean isActive;
     private Boolean isBanned;
+    private Boolean isCreatedByAdmin;
     private Role role;
 }

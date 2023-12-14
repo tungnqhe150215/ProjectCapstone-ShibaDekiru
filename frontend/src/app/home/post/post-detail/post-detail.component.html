@@ -24,54 +24,12 @@
                         </div>
                         <div class="col-lg-9 col-md-9 blog_details">
                             <h2>{{post.postContent}}</h2>
-                            <p class="excert">
+                            <p class="excert" style="white-space: pre-line">
                               {{post.description}}
                             </p>
-                            <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you
-                                should have to spend money on boot camp when you can get the MCSE study materials
-                                yourself at a fraction of the camp price. However, who has the willpower to actually sit
-                                through a self-imposed MCSE training. who has the willpower to actually sit through a
-                                self-imposed
-                            </p>
-                            <p>
-                                Boot camps have its supporters and its detractors. Some people do not understand why you
-                                should have to spend money on boot camp when you can get the MCSE study materials
-                                yourself at a fraction of the camp price. However, who has the willpower to actually sit
-                                through a self-imposed MCSE training. who has the willpower to actually sit through a
-                                self-imposed
-                            </p>
+
                         </div>
-                        <div class="col-lg-12">
-                            <div class="quotes">
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand
-                                why you should have to spend money on boot camp when you can get the MCSE study
-                                materials yourself at a fraction of the camp price. However, who has the willpower to
-                                actually sit through a self-imposed MCSE training.
-                            </div>
-                            <div class="row">
-                                <!-- <div class="col-6">
-                                    <img class="img-fluid" src="img/blog/post-img1.jpg" alt="">
-                                </div>
-                                <div class="col-6">
-                                    <img class="img-fluid" src="img/blog/post-img2.jpg" alt="">
-                                </div> -->
-                                <div class="col-lg-12 mt-25">
-                                    <p>
-                                        MCSE boot camps have its supporters and its detractors. Some people do not
-                                        understand why you should have to spend money on boot camp when you can get the
-                                        MCSE study materials yourself at a fraction of the camp price. However, who has
-                                        the willpower.
-                                    </p>
-                                    <p>
-                                        MCSE boot camps have its supporters and its detractors. Some people do not
-                                        understand why you should have to spend money on boot camp when you can get the
-                                        MCSE study materials yourself at a fraction of the camp price. However, who has
-                                        the willpower.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                     <!-- <div class="navigation-area">
                         <div class="row">
@@ -117,7 +75,7 @@
                                     <div class="thumb">
                                         <img height="60px" width="60px" src="https://dogily.vn/wp-content/uploads/2022/12/Anh-avatar-cho-Shiba-4.jpg" alt="">
                                     </div>
-                                    
+
                                     <div class="desc">
                                         <h5>
                                             <div *ngIf="isLoggedIn"> <h6  style="text-decoration: none;">Người dùng: {{comment.nickName}}</h6></div>
@@ -131,10 +89,10 @@
                                 </div>
                                 <div *ngIf="isLoggedIn">
                                 <div class="reply-btn">
-                                    <a *ngIf="currentUser.userAccountId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openUpdateComment(post.postId,comment.commentId)" class="btn-reply text-uppercase">
+                                    <a *ngIf="currentUser.userId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openUpdateComment(post.postId,comment.commentId)" class="btn-reply text-uppercase">
                                         <span style="margin-top: 8px;" class="material-symbols-outlined">edit</span>
                                       </a>
-                                    <a *ngIf="currentUser.userAccountId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openDeleteComment(comment.commentId)" class="btn-reply text-uppercase">
+                                    <a *ngIf="currentUser.userId === comment.userAccountId" style="cursor: pointer; border-radius: 15px; display: inline-block;" (click)="openDeleteComment(comment.commentId)" class="btn-reply text-uppercase">
                                       <span style="margin-top: 8px;" class="material-symbols-outlined">delete</span>
                                     </a>
                                 </div>
@@ -167,7 +125,7 @@
                             <br>
                             <p class="text-center" style="color:#444;">Để có thể bình luận hãy <a style="color:blue; cursor: pointer; " (click)="backTohome()" >đăng nhập</a></p>
                             <br>
-                            
+
                           </div>
                     </div>
                 </div>
@@ -181,7 +139,7 @@
                                         <p>{{post1.postContent}}</p>
                                         <p>44</p>
                                     </a>
-                                </li>															
+                                </li>
                             </ul>
                             <div class="br"></div>
                         </aside>

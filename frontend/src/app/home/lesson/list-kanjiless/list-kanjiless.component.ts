@@ -8,6 +8,7 @@ import { Kanji } from 'src/app/core/models/kanji';
 import { MatDialog } from '@angular/material/dialog';
 import { KanjiDetailComponent } from '../../list-knowledge/kanji/kanji-detail/kanji-detail.component';
 import { Lesson } from 'src/app/core/models/lesson';
+import { Book } from 'src/app/core/models/book';
 @Component({
   selector: 'app-list-kanjiless',
   templateUrl: './list-kanjiless.component.html',
@@ -17,13 +18,16 @@ export class ListKanjilessComponent implements OnInit{
 
   public dataSource !: MatTableDataSource<Kanji>;
 
-  displayedColumns: string[] = ['id', 'name','chineseMean', 'lesson' ];
+  displayedColumns: string[] = ['id', 'name','chineseMean'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   lesson: Lesson[] =[];
   kanji: Kanji[] =[];
-  
+  idB!:number;
+  id !: number;
+  Lbook: Book = new Book;
+  lessonN: Lesson = new Lesson;
   constructor(
     private router: Router,
     private studentLessonService: StudentLessonService,
@@ -35,12 +39,15 @@ export class ListKanjilessComponent implements OnInit{
   ngOnInit(): void {
    this.getKanjiByLesson();
    this.getLessonByBookID();
+   this.getLessonById();
+   this.getBookById();
   }
 
   getKanjiByLesson(){
-    const idLesson = this.studentLessonService.getLessonID();
+    this.id = this.route.snapshot.params['idL'];
+    // const idLesson = this.studentLessonService.getLessonID();
     this.kanji = [];
-    this.studentLessonService.getKanjiByLesson(idLesson)
+    this.studentLessonService.getKanjiByLesson(this.id)
     .subscribe({
       next:(res) =>{
         this.kanji = res;
@@ -51,28 +58,42 @@ export class ListKanjilessComponent implements OnInit{
     })
   }
 
-  id !: number;
-  getKanjiByLessons(id:number){
-    this.id = this.route.snapshot.params['id'];
-    // const idLesson = this.studentLessonService.getLessonID();
-    this.kanji = [];
-    this.studentLessonService.getKanjiByLesson(id)
-    .subscribe({
-      next:(res) =>{
-        this.kanji = res;
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
-        console.log(res)
-      }
+  LessonDetail(id:number, idL:number) {
+    this.id = idL;
+    this.studentLessonService.setLessonID(idL);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/detail']);
+    // this.getLessonById();
+  }
+
+  getLessonById() {
+    this.lessonN = new Lesson();
+    this.id = this.route.snapshot.params['idL'];
+    this.studentLessonService.getLessonById(this.id).subscribe(res => {
+      this.lessonN = res
     })
   }
+  
+  // getKanjiByLessons(id:number){
+  //   this.id = this.route.snapshot.params['id'];
+  //   const idLesson = this.studentLessonService.getLessonID();
+  //   this.kanji = [];
+  //   this.studentLessonService.getKanjiByLesson(id)
+  //   .subscribe({
+  //     next:(res) =>{
+  //       this.kanji = res;
+  //       this.dataSource = new MatTableDataSource(res);
+  //       this.dataSource.paginator = this.paginator;
+  //       console.log(res)
+  //     }
+  //   })
+  // }
 
   getLessonByBookID(){
     // this.studentLessonService.setBookId(this.id);
-    // this.id = this.route.snapshot.params['id'];
-    const  idBook = this.studentLessonService.getBookId();
+    this.idB = this.route.snapshot.params['id'];
+    // const  idBook = this.studentLessonService.getBookId();
     this.lesson = [];
-    this.studentLessonService.getLessonByBook(idBook).subscribe({
+    this.studentLessonService.getLessonByBook(this.idB).subscribe({
       next:(res) =>{
         this.lesson = res;
         // this.dataSource = new MatTableDataSource(res);
@@ -83,6 +104,14 @@ export class ListKanjilessComponent implements OnInit{
 
   }
 
+  getBookById()  {
+    this.idB = this.route.snapshot.params['id'];
+    this.Lbook = new Book();
+    // const idBook = this.studentLessonService.getBookId();
+    this.studentLessonService.getBookById(this.idB).subscribe(res =>{
+    this.Lbook = res
+   })
+  }
 
   kanjiDetail(id: number){
     this.dialog.open(KanjiDetailComponent ,{

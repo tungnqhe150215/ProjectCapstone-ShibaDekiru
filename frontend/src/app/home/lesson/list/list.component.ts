@@ -15,9 +15,11 @@ import { Book } from 'src/app/core/models/book';
 })
 export class ListComponent implements OnInit {
 
-  // id!: number;
+  id!: number;
   lesson: Lesson[] =[];
   book: Book[]= [];
+
+  Lbook: Book = new Book;
   // book: Book = new Book;
   constructor(
    
@@ -37,14 +39,16 @@ export class ListComponent implements OnInit {
     //   // Lưu bookId trong service hoặc biến của component để sử dụng sau này
     // });
     this.getLessonByBookID();
+    this.getBookById();
     // this.getAllBook();
   }
   getLessonByBookID(){
     // this.studentLessonService.setBookId(this.id);
-    // this.id = this.route.snapshot.params['id'];
-    const  idBook = this.studentLessonService.getBookId();
+    this.id = this.route.snapshot.params['id'];
+    // const  idBook = this.studentLessonService.getBookId();
+    this.studentLessonService.setBookId(this.id);
     this.lesson = [];
-    this.studentLessonService.getLessonByBook(idBook).subscribe({
+    this.studentLessonService.getLessonByBook(this.id).subscribe({
       next:(res) =>{
         this.lesson = res;
         // this.dataSource = new MatTableDataSource(res);
@@ -54,7 +58,15 @@ export class ListComponent implements OnInit {
     })
 
   }
-  
+
+  getBookById()  {
+    this.Lbook = new Book();
+    this.id = this.route.snapshot.params['id'];
+    // const  idBook = this.studentLessonService.getBookId();
+    this.studentLessonService.getBookById(this.id).subscribe(res =>{
+    this.Lbook = res
+   })
+  }
 
   // applyFilter(event: Event) {
   //   const filterValue = (event.target as HTMLInputElement).value;
@@ -65,9 +77,9 @@ export class ListComponent implements OnInit {
   //   }
   // }
   
-  LessonDetail(id:number){
+  LessonDetail(id:number, idL:number){
     this.studentLessonService.setLessonID(id);
-    this.router.navigate(['./lesson/'+id+'/detail']);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/detail']);
   
   }
   // LessonDetail(id:number){
@@ -75,17 +87,7 @@ export class ListComponent implements OnInit {
   
   // }
 
-  // lessons = [
-  //   {id: 1, name: 'bai 1'},
-  //   {id: 2, name: 'bai 2'},
-  //   {id: 3, name: 'bai 3'},
-  //   {id: 4, name: 'bai 4'},
-  //   {id: 5, name: 'bai 5'},
-  //   {id: 6, name: 'bai 6'},
-  //   {id: 7, name: 'bai 7'},
-  //   {id: 8, name: 'bai 8'},
-  //   {id: 9, name: 'bai 9'},
-  // ]
+
 
  
 }

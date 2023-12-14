@@ -19,7 +19,7 @@ public class Comment implements Serializable {
     @Column(name = "comment_id")
     private Long commentId;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @Column(nullable = true)
@@ -34,6 +34,11 @@ public class Comment implements Serializable {
     @JsonBackReference
     @JoinColumn(name = "post_id", referencedColumnName = "post_id")
     private Post post;
+
+    @JsonProperty("postId")
+    public Long getPostId() {
+        return this.post.getPostId();
+    }
 
     @JsonProperty("userAccountId")
     public Long getUserAccountId() {

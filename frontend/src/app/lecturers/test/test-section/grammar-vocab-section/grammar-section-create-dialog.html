@@ -1,4 +1,4 @@
-<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm phần ngữ pháp, từ vựng cho kiểm tra</h2>
+<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm mới phần ngữ pháp, từ vựng </h2>
 <mat-dialog-content>
 <form class="form-dialog">
   <br>
@@ -10,7 +10,7 @@
 </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Hủy bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="createGrammarSection()">Create</button>
+  <button mat-button (click)="createGrammarSection()">Tạo mới</button>
 </mat-dialog-actions>

@@ -16,6 +16,10 @@ import {LessonService} from "../../../core/services/lesson.service";
 import {data} from "autoprefixer";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SharedModule} from "../../../shared/shared.module";
+import {NgIf} from "@angular/common";
+import {Drive} from "../../../core/models/drive";
+import {FileService} from "../../../shared/services/file.service";
+import {FilePreviewService} from "../../../shared/services/file-preview.service";
 
 @Component({
   selector: 'app-list-listening',
@@ -135,33 +139,67 @@ export class ListeningDeleteDialog {
   templateUrl: 'listening-create-dialog.html',
   styleUrls: ['./list-listening.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, NgIf, SharedModule],
 })
 export class ListeningCreateDialog {
 
   listening:Listening =  new Listening;
+  file!: File;
+  drive: Drive = new Drive();
 
   constructor(
     public dialogRef: MatDialogRef<ListeningCreateDialog>,
     private manageListeningService:AdminManageListeningService,
+    private fileService: FileService,
+    private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
   createListening(){
-    console.log(this.listening)
-    this.manageListeningService.createListening(this.data,this.listening).subscribe(data => {
-      console.log(data)
-      this.dialogRef.close();
-    })
-    this._snackBar.open('Tạo bài nghe thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    if (this.file) {
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        console.log(this.listening)
+        this.drive = data as Drive
+        this.listening.link = this.drive.fileId;
+        this.manageListeningService.createListening(this.data,this.listening).subscribe(data => {
+          console.log(data)
+          this.dialogRef.close();
+        })
+        this._snackBar.open('Tạo bài nghe thành công', 'Đóng', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      })
+    }
+
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if (element != null) {
+      element.value = this.file.name;
+    }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 }
 @Component({
@@ -169,15 +207,19 @@ export class ListeningCreateDialog {
   templateUrl: 'listening-update-dialog.html',
   styleUrls: ['./list-listening.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, SharedModule, NgIf],
 })
 export class ListeningUpdateDialog implements OnInit{
 
   listening:Listening =  new Listening;
+  file!: File;
+  drive: Drive = new Drive();
 
   constructor(
     public dialogRef: MatDialogRef<ListeningUpdateDialog>,
     private manageListeningService:AdminManageListeningService,
+    private fileService: FileService,
+    private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
@@ -190,18 +232,59 @@ export class ListeningUpdateDialog implements OnInit{
   }
 
   updateListening(){
-    console.log(this.listening)
-    this.manageListeningService.updateListening(this.data,this.listening).subscribe(data => {
-      console.log(data)
-      this.dialogRef.close();
-    })
-    this._snackBar.open('Cập nhật bài nghe thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    if (this.file == null || this.file.size == 0) {
+      this.listening.link = "";
+      console.log(this.listening)
+      this.manageListeningService.updateListening(this.data,this.listening).subscribe(data => {
+        console.log(data)
+        this.dialogRef.close();
+      })
+      this._snackBar.open('Cập nhật bài nghe thành công', 'Đóng', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        this.drive = data as Drive
+        this.listening.link = this.drive.fileId
+        this.manageListeningService.updateListening(this.data,this.listening).subscribe(data => {
+          console.log(data)
+          this.dialogRef.close();
+        })
+        this._snackBar.open('Cập nhật bài nghe thành công', 'Đóng', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      })
+    }
+
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if (element != null) {
+      element.value = this.file.name;
+    }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 }

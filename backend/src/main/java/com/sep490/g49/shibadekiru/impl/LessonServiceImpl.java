@@ -30,16 +30,15 @@ public class LessonServiceImpl implements ILessonService {
 
     @Override
     public List<Lesson> getAllLessons() {
-        return lessonRepository.findAll().stream().peek(data ->
-                data.setImage(googleDriveService.getFileUrl(data.getImage()))
-        ).collect(Collectors.toList());
+        return lessonRepository.findAll();
+//        return lessonRepository.findAll().stream().peek(data ->
+//                data.setImage(googleDriveService.getFileUrl(data.getImage()))
+//        ).collect(Collectors.toList());
     }
 
     @Override
     public List<Lesson> getLessonPartByBook(Book book) {
-        return lessonRepository.findByBook(book).stream().peek(data ->
-                data.setImage(googleDriveService.getFileUrl(data.getImage()))
-        ).collect(Collectors.toList());
+        return lessonRepository.findByBook(book);
     }
 
     @Override

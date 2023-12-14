@@ -65,6 +65,8 @@ public class AuthenticationController {
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (RuntimeException r) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r.getMessage());
         }
 
     }
@@ -89,6 +91,7 @@ public class AuthenticationController {
             System.out.println("Role id: " +  userAccountDto.getRole());
             System.out.println("Member id: " +  userAccountDto.getMemberId());
             System.out.println("US id: " +  userAccountDto.getUserName());
+            System.out.println("Is created by Admin: " + userAccountDto.getIsCreatedByAdmin());
 
             UserAccount userAccount = modelMapper.map(userAccountDto,UserAccount.class);
             if ( userAccount.getRole().getRoleId() == 2L){
@@ -97,6 +100,8 @@ public class AuthenticationController {
             if (userAccount.getRole().getRoleId() == 3L){
                 authResult.setUserAccountId(iStudentService.getByUserAccount(userAccount).getStudentId());
             }
+            authResult.setUserId(userAccount.getUserAccountId());
+            authResult.setIsCreatedByAdmin(userAccount.getIsCreatedByAdmin());
             authResult.setRole(userAccountDto.getRole());
             authResult.setEmail(userAccountDto.getEmail());
             authResult.setNickName(userAccountDto.getNickName());
@@ -107,20 +112,54 @@ public class AuthenticationController {
         }
     }
 
+    @GetMapping("/user-account")
+    public ResponseEntity<UserAccountDto> getUserAccountByMemberId(@RequestParam (name = "userId") Long memberId){
+
+        UserAccount userAccountRequest =  userAccountRepository.findById(memberId).orElseThrow();
+
+        UserAccountDto userAccountDto = modelMapper.map(userAccountRequest, UserAccountDto.class);
+
+        return ResponseEntity.ok().body(userAccountDto);
+
+    }
+
+    @PutMapping("/user-account")
+    public ResponseEntity<UserAccountDto> updateUserAccountByNickname(@RequestParam (name = "nickName") String nickName, @RequestParam (name = "userId") Long userAccountId){
+
+        UserAccount userAccountRequest =  userAccountRepository.findById(userAccountId).orElseThrow();
+
+
+        userAccountRequest.setNickName(nickName);
+
+
+        UserAccount userAccount = userAccountService.updateUserAccount(userAccountId, userAccountRequest);
+
+
+        UserAccountDto userAccountDto = modelMapper.map(userAccount, UserAccountDto.class);
+
+        return ResponseEntity.ok().body(userAccountDto);
+    }
+
     @GetMapping("/verify/{resetCode}")
     public ResponseEntity<?> registerVerification(@PathVariable (name = "resetCode") String resetCode) throws Exception {
 
-        UserAccount userAccount = userAccountService.getByResetCode(resetCode);
-        System.out.println("Reset code register on: " + userAccount.getResetCode());
+        UserAccount userAccountRequest = userAccountService.getByResetCode(resetCode);
+        System.out.println("Reset code register on: " + userAccountRequest.getResetCode());
 
         if (jwtUtilityService.isTokenExpired(resetCode)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
 
-        userAccount.setIsActive(true);
-        userAccountService.updateResetCode(null, userAccount.getEmail());
-        userAccountRepository.save(userAccount);
+        userAccountRequest.setIsActive(true);
+
+        userAccountService.updateResetCode(null, userAccountRequest.getEmail());
+
+        UserAccount userAccount = userAccountService.updateUserAccount(userAccountRequest.getUserAccountId() , userAccountRequest);
+
+
+        UserAccountDto userAccountDto = modelMapper.map(userAccount, UserAccountDto.class);
+
 
         return ResponseEntity.ok("Active account successfully!");
     }

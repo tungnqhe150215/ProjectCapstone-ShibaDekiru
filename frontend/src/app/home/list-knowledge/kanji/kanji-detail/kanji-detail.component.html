@@ -1,5 +1,26 @@
-<mat-card class="form-dialog">
-    <mat-card-content class="text-center mt-2">
+<mat-card class="rounded">
+    <mat-card-header class=" mt-2">
+        <h2 style="color:#11a683;">Chi tiết chữ Hán: {{kanji.characterKanji}} </h2>
+        <hr>
+      </mat-card-header>
+        <mat-card-content class=" mt-2">
+          <hr>
+         <h2 class="fw-bold"  style="color:red;">
+           ~ {{kanji.characterKanji}}
+         </h2>
+         <h5>On:</h5>
+         <h2 class="fw-bold" style="color: green"> {{kanji.onReading}} </h2>
+         <h5>Kun:</h5>
+         <h2 class="fw-bold" style="color: #CC5404"> {{kanji.kunReading}} </h2>
+         <h5 >Ý nghĩa:</h5>
+         <h3 class="fw-bold" style="color: blue">
+           {{kanji.chineseMean}}
+         </h3>
+         <h5 >Ví dụ:</h5>
+         <h3>{{kanji.example}}  </h3>
+        </mat-card-content>
+
+    <!-- <mat-card-content class="text-center mt-2">
      
      <h3 class="fw-bold" style="color: blue">  Âm đọc </h3> 
         <p>Âm Ôn: {{kanji.onReading}} </p>
@@ -11,5 +32,5 @@
       Ý nghĩa chữ Hán:   {{kanji.chineseMean}}
      </p>
      <p> Ví dụ: {{kanji.example}}  </p>
-    </mat-card-content>
+    </mat-card-content> -->
 </mat-card>

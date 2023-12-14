@@ -12,26 +12,26 @@
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
-                    <td  (click)="kanjiDetail(row.kanjiId)" style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.kanjiId}} </td>
+                    <td style="cursor: pointer" mat-cell *matCellDef="let i = index"> {{i+1}} </td>
                 </ng-container>
 
                 <!-- Progress Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên chữ Hán </th>
-                    <td (click)="kanjiDetail(row.kanjiId)"  style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.characterKanji}}  <p style="color: red">{{row.description}}</p> </td>
+                    <td (click)="kanjiDetail(row.kanjiId)"  style="cursor: pointer" mat-cell *matCellDef="let row">  {{row.characterKanji}} </td>
                   
                 </ng-container>
 
                 <ng-container matColumnDef="chineseMean">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Nghĩa Hán</th>
-                    <td (click)="kanjiDetail(row.kanjiId)"  style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.chineseMean}}  <p style="color: red">{{row.description}}</p> </td>
+                    <td (click)="kanjiDetail(row.kanjiId)"  style="cursor: pointer" mat-cell *matCellDef="let row">  {{row.chineseMean}}  </td>
                   
                 </ng-container>
 
 
                 <ng-container matColumnDef="lesson">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Bài học</th>
-                    <td (click)="kanjiDetail(row.kanjiId)" style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.lessonId}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Ví dụ</th>
+                    <td (click)="kanjiDetail(row.kanjiId)" style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.example}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

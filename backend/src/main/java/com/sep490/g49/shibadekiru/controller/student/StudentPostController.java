@@ -1,14 +1,14 @@
 package com.sep490.g49.shibadekiru.controller.student;
 
+import com.sep490.g49.shibadekiru.dto.AuthenticationDto;
 import com.sep490.g49.shibadekiru.dto.CommentDto;
 import com.sep490.g49.shibadekiru.dto.PostDto;
 import com.sep490.g49.shibadekiru.dto.UserAccountDto;
 import com.sep490.g49.shibadekiru.entity.Comment;
 import com.sep490.g49.shibadekiru.entity.Post;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
-import com.sep490.g49.shibadekiru.service.ICommentService;
-import com.sep490.g49.shibadekiru.service.IPostService;
-import com.sep490.g49.shibadekiru.service.IUserAccountService;
+import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
+import com.sep490.g49.shibadekiru.service.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -44,7 +44,7 @@ public class StudentPostController {
 
     @GetMapping()
     public List<PostDto> getAllPosts() {
-        return iPostService.getAllPosts().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+        return iPostService.getAllPostByIsEnable().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
     }
 
 
@@ -88,6 +88,8 @@ public class StudentPostController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(commentResponse);
     }
+
+
 
     @PutMapping("/{id}/comment/{userId}/{commentId}")
     public ResponseEntity<CommentDto> updateComment(@PathVariable (name = "id") Long postId, @PathVariable(name = "userId") Long userId

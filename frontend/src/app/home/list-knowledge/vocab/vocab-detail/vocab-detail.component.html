@@ -1,14 +1,20 @@
-<mat-card class="form-dialog">
-    <mat-card-content class="text-center mt-2">
-     
-     <p class="fw-bold">  Đọc hiragana</p> 
-        <p>{{vocab.hiragana}}</p>
-     <h1 class="fw-bold">
-         {{vocab.vocabularyName}}
-      </h1>
-     <p>
-     Nghĩa của từ  {{vocab.meaning}}
-     </p>
-     <p> Ví dụ: {{vocab.example}}  </p>
+<mat-card class="rounded">
+    <mat-card-header class=" mt-2">
+    <h2 style="color:#11a683;">Từ vựng</h2>
+    <hr>
+  </mat-card-header>
+    <mat-card-content class=" mt-2">
+      <hr>
+     <h2 class="fw-bold"  style="color:red;">
+       ~ {{vocab.vocabularyName}}
+     </h2>
+     <h5>Cách đọc hiragana</h5>
+     <h2 class="fw-bold" style="color: green"> {{vocab.hiragana}} </h2>
+     <h5 >Ý nghĩa:</h5>
+     <h3 class="fw-bold" style="color: blue">
+       {{vocab.meaning}}
+     </h3>
+     <h5 >Ví dụ:</h5>
+     <h3>{{vocab.example}}  </h3>
     </mat-card-content>
 </mat-card>
