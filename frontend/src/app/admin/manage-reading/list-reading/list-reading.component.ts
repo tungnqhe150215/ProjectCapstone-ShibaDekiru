@@ -16,6 +16,8 @@ import {LessonService} from "../../../core/services/lesson.service";
 import {data} from "autoprefixer";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SharedModule} from "../../../shared/shared.module";
+import {Drive} from "../../../core/models/drive";
+import {FileService} from "../../../shared/services/file.service";
 @Component({
   selector: 'app-list-reading',
   templateUrl: './list-reading.component.html',
@@ -134,33 +136,51 @@ export class ReadingDeleteDialog {
   templateUrl: 'reading-create-dialog.html',
   styleUrls: ['./list-reading.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
 })
 export class ReadingCreateDialog {
 
   reading:Reading =  new Reading;
+  file!: File ;
+  drive: Drive = new Drive();
 
   constructor(
     public dialogRef: MatDialogRef<ReadingCreateDialog>,
     private manageReadingService:AdminManageReadingService,
+    private fileService:FileService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
   createReading(){
-    console.log(this.reading)
-    this.manageReadingService.createReading(this.data,this.reading).subscribe(data => {
+
+    this.fileService.uploadFile(this.file).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.drive = data as Drive
+      this.reading.image =  this.drive.fileId
+      console.log(this.reading)
+      this.manageReadingService.createReading(this.data,this.reading).subscribe(data => {
+        console.log(data)
+        this.dialogRef.close();
+      })
+      this._snackBar.open('New reading part added!!', 'Close', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
     })
-    this._snackBar.open('New reading part added!!', 'Close', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if(element != null) {
+      element.value = this.file.name;
+    }
   }
 }
 @Component({
@@ -168,15 +188,18 @@ export class ReadingCreateDialog {
   templateUrl: 'reading-update-dialog.html',
   styleUrls: ['./list-reading.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
 })
 export class ReadingUpdateDialog implements OnInit{
 
   reading:Reading =  new Reading;
+  file!: File ;
+  drive: Drive = new Drive();
 
   constructor(
     public dialogRef: MatDialogRef<ReadingUpdateDialog>,
     private manageReadingService:AdminManageReadingService,
+    private fileService:FileService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
@@ -189,18 +212,45 @@ export class ReadingUpdateDialog implements OnInit{
   }
 
   updateReading(){
-    console.log(this.reading)
-    this.manageReadingService.updateReading(this.data,this.reading).subscribe(data => {
-      console.log(data)
-      this.dialogRef.close();
-    })
-    this._snackBar.open('Reading part updated!!', 'Close', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    if (this.file == null || this.file.size == 0) {
+      this.reading.image = "";
+      console.log(this.reading)
+      this.manageReadingService.updateReading(this.data,this.reading).subscribe(data => {
+        console.log(data)
+        this.dialogRef.close();
+      })
+      this._snackBar.open('Reading part updated!!', 'Close', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        this.drive = data as Drive
+        this.reading.image = this.drive.fileId
+        console.log(this.reading)
+        this.manageReadingService.updateReading(this.data,this.reading).subscribe(data => {
+          console.log(data)
+          this.dialogRef.close();
+        })
+        this._snackBar.open('Reading part updated!!', 'Close', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      })
+
+    }
+
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if(element != null) {
+      element.value = this.file.name;
+    }
   }
 }
