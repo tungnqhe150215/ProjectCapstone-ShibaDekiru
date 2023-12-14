@@ -7,6 +7,8 @@ import { StudentLessonService } from '../student-lesson.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { Writing } from 'src/app/core/models/writing';
+import { Lesson } from 'src/app/core/models/lesson';
+import { WritingQuestion } from 'src/app/core/models/writing-question';
 
 @Component({
   selector: 'app-list-writing',
@@ -19,11 +21,14 @@ export class ListWritingComponent implements OnInit{
 
   displayedColumns: string[] = ['id', 'name', 'lesson'];
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
+  // @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild(MatSort) sort!: MatSort;
+  
+  lesson: Lesson = new Lesson;
+  writingQuestion :WritingQuestion[] =[];
   writing: Writing[] = [];
-
+  id !: number;
+  p: number = 1;
   constructor(
     private router: Router,
     private studentLessonService: StudentLessonService,
@@ -34,19 +39,51 @@ export class ListWritingComponent implements OnInit{
 
   ngOnInit(): void {
     this.getWritingByLessonID();
+    this.getLessonById();
+    // this.getQuestionWritingByLesson();
   }
 
   getWritingByLessonID(){
-    const idLesson = this.studentLessonService.getLessonID();
+    this.id = this.route.snapshot.params['idL'];
+    // const idLesson = this.studentLessonService.getLessonID();
     this.writing = [];
-    this.studentLessonService.getWritingByLesson(idLesson)
+    this.studentLessonService.getWritingByLesson(this.id)
     .subscribe({
-      next:(res) =>{
-        this.writing = res;
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
-        console.log(res)
+      next:data =>{
+        this.writing = data;
+        this.dataSource = new MatTableDataSource(data);
+        // this.dataSource.paginator = this.paginator;
+        console.log(data)
       }
     })
+  }
+  
+  getLessonById() {
+    this.lesson = new Lesson();
+    this.id = this.route.snapshot.params['idL'];
+    this.studentLessonService.getLessonById(this.id).subscribe(data => {
+      this.lesson = data
+    })
+  }
+
+  idW!:number;
+  getQuestionWritingByLesson(idW:number){
+    // this.id = this.route.snapshot.params['idL'];
+    // const idLesson = this.studentLessonService.getLessonID();
+    this.writingQuestion = [];
+    this.studentLessonService.getWritingQuesByWriting(idW)
+    .subscribe({
+      next:data =>{
+        this.writingQuestion = data;
+        // this.dataSource.paginator = this.paginator;
+        console.log(data)
+      }
+    })
+  }
+    key: string = 'id';
+  reverse: boolean = false;
+  sort(key: string) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 }
