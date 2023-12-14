@@ -61,6 +61,12 @@ public class ReadingServiceImpl implements IReadingService {
     @Override
     public void deleteReading(Long id) {
         Reading reading = readingRepository.findReadingByReadingId(id);
+
+        if (reading.getImage() != null) {
+            googleDriveService.deleteFile(reading.getImage());
+            System.out.println("File đã xóa : " + reading.getImage());
+        }
+
         readingRepository.delete(reading);
     }
 

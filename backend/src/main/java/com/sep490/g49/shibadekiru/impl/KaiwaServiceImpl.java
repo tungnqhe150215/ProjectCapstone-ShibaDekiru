@@ -58,6 +58,12 @@ public class KaiwaServiceImpl implements IKaiwaService {
     @Override
     public void deleteKaiwa(Long id) {
         Kaiwa kaiwa = kaiwaRepository.findKaiwaByKaiwaId(id);
+
+        if (kaiwa.getLink() != null) {
+            googleDriveService.deleteFile(kaiwa.getLink());
+            System.out.println("File đã xóa : " + kaiwa.getLink());
+        }
+
         kaiwaRepository.delete(kaiwa);
     }
 }
