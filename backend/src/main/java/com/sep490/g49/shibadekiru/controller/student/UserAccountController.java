@@ -83,8 +83,10 @@ public class UserAccountController {
             StudentDto studentResponse = modelMapper.map(student, StudentDto.class);
 
             return ResponseEntity.ok().body(studentResponse);
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException e ) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        } catch (RuntimeException r) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
@@ -100,6 +102,8 @@ public class UserAccountController {
             return ResponseEntity.ok().body(lectureResponse);
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        } catch (RuntimeException r) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 

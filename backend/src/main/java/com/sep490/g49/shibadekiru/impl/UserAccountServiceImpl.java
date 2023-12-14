@@ -344,18 +344,17 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             student.setGender(request.getGender());
                         }
 
-                        if (request.getPhone() != null && request.getPhone().matches("^(((\\+|)84)|0)+(3|5|7|8|9|1[2|6|8|9])+([0-9]{8})$")) {
-
-                            if (!request.getPhone().equals(student.getPhone()) && studentRepository.existsByPhone(request.getPhone())) {
+                        String phoneNumber = request.getPhone();
+                        if (phoneNumber != null && !phoneNumber.isEmpty() && phoneNumber.matches("^(((\\+|)84)|0)+(3|5|7|8|9|1[2|6|8|9])+([0-9]{8})$")) {
+                            if (!phoneNumber.equals(student.getPhone()) && studentRepository.existsByPhone(phoneNumber)) {
                                 throw new IllegalStateException("Số điện thoại mới đã tồn tại trong cơ sở dữ liệu.");
                             } else {
-                                student.setPhone(request.getPhone());
+                                student.setPhone(phoneNumber);
                             }
-
-                            
                         } else {
-                            throw new IllegalStateException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
+                            throw new RuntimeException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
                         }
+
 
                         student.setUserAccount(user);
                         return studentRepository.save(student);
@@ -429,16 +428,15 @@ public class UserAccountServiceImpl implements IUserAccountService {
                         }
 
 
-                        if (request.getPhone() != null && request.getPhone().matches("^(((\\+|)84)|0)+(3|5|7|8|9|1[2|6|8|9])+([0-9]{8})$")) {
-
-                            if (!request.getPhone().equals(lectures.getPhone()) && lecturersRepository.existsByPhone(request.getPhone())) {
+                        String phoneNumber = request.getPhone();
+                        if (phoneNumber != null && !phoneNumber.isEmpty() && phoneNumber.matches("^(((\\+|)84)|0)+(3|5|7|8|9|1[2|6|8|9])+([0-9]{8})$")) {
+                            if (!phoneNumber.equals(lectures.getPhone()) && studentRepository.existsByPhone(phoneNumber)) {
                                 throw new IllegalStateException("Số điện thoại mới đã tồn tại trong cơ sở dữ liệu.");
                             } else {
-                                lectures.setPhone(request.getPhone());
+                                lectures.setPhone(phoneNumber);
                             }
-
                         } else {
-                            throw new IllegalStateException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
+                            throw new RuntimeException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
                         }
 
 

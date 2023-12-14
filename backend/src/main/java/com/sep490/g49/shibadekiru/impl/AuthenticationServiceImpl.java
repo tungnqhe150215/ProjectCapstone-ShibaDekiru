@@ -82,7 +82,7 @@ public class AuthenticationServiceImpl {
             if (request.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
                 userAccount.setEmail(request.getEmail());
             } else {
-                throw new IllegalStateException("Vui lòng nhập email theo đúng định dạng. Ex: abc@gmail.com");
+                throw new RuntimeException("Vui lòng nhập email theo đúng định dạng. Ex: abc@gmail.com");
             }
 
             userAccount.setPassword(passwordEncoder.encode(request.getPassword()));

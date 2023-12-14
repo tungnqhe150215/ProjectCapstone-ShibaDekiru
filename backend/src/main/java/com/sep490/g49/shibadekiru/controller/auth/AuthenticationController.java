@@ -65,6 +65,8 @@ public class AuthenticationController {
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (RuntimeException r) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r.getMessage());
         }
 
     }
