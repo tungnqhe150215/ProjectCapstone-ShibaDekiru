@@ -50,7 +50,7 @@ export class UpdateGrammarComponent {
   }
 
   goToGrammarsList() {
-    this.router.navigate(['/admin/list-grammar']);
+    this.router.navigate(['admin/list-grammar']);
   }
 
   private getLesson(){
