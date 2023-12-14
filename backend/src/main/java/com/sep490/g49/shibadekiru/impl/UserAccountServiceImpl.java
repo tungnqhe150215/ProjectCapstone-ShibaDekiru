@@ -146,16 +146,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
         if (existingUserAccount.isPresent()) {
             UserAccount userAccount1 = existingUserAccount.get();
-
-
-            String memberIdPrefix = userAccount.getMemberId().substring(0, 4);
-
-            if ("USER".equals(memberIdPrefix)) {
-                userAccount1.setIsCreatedByAdmin(false);
-            } else {
-                userAccount1.setIsCreatedByAdmin(true);
-            }
-
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
             userAccount1.setUserName(userAccount.getUsername());

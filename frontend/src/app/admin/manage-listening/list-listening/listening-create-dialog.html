@@ -6,11 +6,20 @@
     <input matInput [(ngModel)]="listening.title" [ngModelOptions]="{standalone: true}" required type="text">
   </mat-form-field>
   <br>
+
+  <h6>Thêm file nghe</h6>
   <mat-form-field>
-    <mat-label>Link</mat-label>
-    <input matInput [(ngModel)]="listening.link" [ngModelOptions]="{standalone: true}" type="text" required>
+    <mat-label>Chọn tệp đính kèm định dạng mp3, wav hoặc flac</mat-label>
+    <input matInput readonly type="text" id="fakeFileInput" (click)="hiddenInput.click()">
+    <input hidden type="file" accept=".mp3, .wav, .flac" #hiddenInput (change)="onFileSelected($event)">
+    <mat-hint>Nhấn vào dòng trên để chọn file </mat-hint>
   </mat-form-field>
   <br>
+  <div *ngIf="this.file">
+    <h6>Xem trước</h6>
+    <app-file-preview></app-file-preview>
+  </div>
+
   <mat-form-field>
     <mat-label>Script</mat-label>
     <textarea rows="7" matInput [(ngModel)]="listening.script" [ngModelOptions]="{standalone: true}" type="text"></textarea>
