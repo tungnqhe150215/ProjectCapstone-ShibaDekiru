@@ -1,27 +1,50 @@
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="courses_area p_120">
     <div class="table-content">
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort>
+        <div class="blog-single gray-bg">
+            <div class="container">
+                <button appBackButton class="btn btn-infor border mb-1">Trở lại</button>
+                <div class="row align-items-start" *ngFor="let writing of writing | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                        <article class="article" >
+                            <!-- <div class="article-img">
+                                <img  src="https://cdnmedia.baotintuc.vn/Upload/e9GdNZvHDFi8lZSWc6ubA/files/2021/02/khanh-phan-18221abc.jpg" title="" alt="">
+                            </div> -->
+                            <div class="article-content">
+                                <h4 style="color: red">Luyện tập viết của bài: {{lesson.name}}</h4>
+                                <h3 style="font-weight: 600; color:black ">Chủ đề {{i+1}}: {{writing.topic}}</h3>
+                                <a class="text-decoration-none fw-bold" data-bs-toggle="collapse" href="#collapseExample{{i+1}}"
+                                (click)="getQuestionWritingByLesson(writing.writingId)" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    << Xem câu hỏi luyện tập >>
+                                </a>
+                                <div class="collapse" id="collapseExample{{i+1}}">
+                                    <div class="card card-body">
+                                        <div *ngFor="let writingQuestion of writingQuestion; let j = index">
+                                            <h4 style="color: green">Câu hỏi {{j+1}}: {{writingQuestion.question}}</h4>
+                                            <h4 class="mb-4" style="color: green">Câu trả lời tham khảo: {{writingQuestion.sampleAnswer}}</h4>
+                                        </div>
+                                    </div>
+                                  </div>
+                            </div>
+                        </article>
+                </div>
+                <div *ngif="itemsPerPage > 5">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
 
-                <!-- ID Column -->
+        <!-- <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
                     <td style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.writingId}} </td>
                 </ng-container>
 
-                <!-- Progress Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên bài viết </th>
-                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.topic}}  <p style="color: red">{{row.description}}</p> </td>
-                  
+                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.topic}} {{row.description}}</td>
                 </ng-container>
-
-                <!-- <ng-container matColumnDef="script">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.script}}  <p style="color: red">{{row.description}}</p> </td>
-                  
-                </ng-container> -->
-
 
                 <ng-container matColumnDef="lesson">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Bài học</th>
@@ -31,17 +54,9 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                <!-- Row shown when there is no matching data. -->
-                <!-- <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                </tr> -->
             </table>
 
             <mat-paginator [pageSizeOptions]="[ 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-        </div>
+        </div> -->
     </div>
 </div>
-
-
-
-
