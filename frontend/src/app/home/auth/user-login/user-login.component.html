@@ -41,7 +41,7 @@
           </div>
         </div>
       </form>
-      
+
       <div class="alert alert-success" *ngIf="isLoggedIn">
         Logged in as --{{ roleId }}.
       </div>
@@ -66,16 +66,16 @@
         <input type="password" placeholder="Mật Khẩu"> -->
         <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
           <div class="form-group">
-            <input type="text" placeholder="Nick Name" class="form-control" name="nickName" [(ngModel)]="form.nickName"
+            <input type="text" placeholder="Biệt danh" class="form-control" name="nickName" [(ngModel)]="form.nickName"
               required minlength="5" maxlength="15" #nickName="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && nickName.errors }" />
             <div class="invalid-feedback" *ngIf="nickName.errors && f.submitted">
-              <div *ngIf="nickName.errors['required']"> Nick Name is required</div>
+              <div *ngIf="nickName.errors['required']"> Biệt danh không được để trống</div>
               <div *ngIf="nickName.errors['minlength']">
-                Nick Name cần ít nhất 5 ký tự
+                Biệt danh cần ít nhất 5 ký tự
               </div>
               <div *ngIf="nickName.errors['maxlength']">
-                Nick Name giới hạn 15 ký tự
+                Biệt danh giới hạn 15 ký tự
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@
                 </div>
               </div>
             </div>
-          
+
             <div class="col-md-6 pl-md-1">
               <div class="form-group">
                 <input type="text" placeholder="Tên" class="form-control" name="lastName" [(ngModel)]="form.lastName"
@@ -101,7 +101,7 @@
               </div>
             </div>
           </div>
-          
+
 
           <!-- <div class="form-group">
             <input type="text" placeholder="Họ " class="form-control" name="firstName" [(ngModel)]="form.firstName"
@@ -119,21 +119,21 @@
           </div> -->
 
 
-          <div class="form-group">
-            <input type="text" placeholder="ID thành viên" class="form-control" name="memberId"
-              [(ngModel)]="form.memberId" required minlength="5" maxlength="8" #memberId="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && memberId.errors }" />
-            <div class="invalid-feedback" *ngIf="memberId.errors && f.submitted">
-              <div *ngIf="memberId.errors['required']">ID thành viên không được để trống </div>
-              <div *ngIf="memberId.errors['minlength']">
-                ID thành viên cần ít nhất 5 ký tự
-              </div>
-              <div *ngIf="memberId.errors['maxlength']">
-                ID thành viên giới hạn 8 ký tự
-              </div>
-            </div>
-          </div>
-          
+<!--          <div class="form-group">-->
+<!--            <input type="text" placeholder="ID thành viên" class="form-control" name="memberId"-->
+<!--              [(ngModel)]="form.memberId" required minlength="5" maxlength="8" #memberId="ngModel"-->
+<!--              [ngClass]="{ 'is-invalid': f.submitted && memberId.errors }" />-->
+<!--            <div class="invalid-feedback" *ngIf="memberId.errors && f.submitted">-->
+<!--              <div *ngIf="memberId.errors['required']">ID thành viên không được để trống </div>-->
+<!--              <div *ngIf="memberId.errors['minlength']">-->
+<!--                ID thành viên cần ít nhất 5 ký tự-->
+<!--              </div>-->
+<!--              <div *ngIf="memberId.errors['maxlength']">-->
+<!--                ID thành viên giới hạn 8 ký tự-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
           <div class="form-group">
             <input type="email" placeholder="Email" class="form-control" name="email" [(ngModel)]="form.email" required
               email #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.errors }" />
@@ -172,17 +172,17 @@
               </div> -->
             </div>
           </div>
-          
+
           <!-- <mat-radio-group aria-label="Bạn là">
             <mat-radio-button [(ngModel)]="form.roleId" value="2" name="roleId" required>Giảng viên</mat-radio-button>
             <mat-radio-button [(ngModel)]="form.roleId" value="3" name="roleId"  required>Sinh viên</mat-radio-button>
-          </mat-radio-group>          
+          </mat-radio-group>
          -->
          <mat-radio-group aria-label="Bạn là" [(ngModel)]="form.roleId" name="roleId" required>
           <mat-radio-button value="2">Giảng viên</mat-radio-button>
           <mat-radio-button value="3">Sinh viên</mat-radio-button>
         </mat-radio-group>
-        
+
           <div class="form-group">
             <!-- <button class="btn btn-primary btn-block" style="margin-right: 1%; margin-top: 2%;">Sign Up</button> -->
             <!-- <button class="btn btn-primary btn-block" style=" margin-top: 2%;" (click)="gotoLogin()">Login</button> -->
@@ -261,14 +261,14 @@
       <div class="overlay">
         <div class="overlay-panel overlay-left">
           <h1 class="title">Xin chào<br> bạn</h1>
-          <p>if You have an account, login here and have fun</p>
+          <p>Nếu bạn có tài khoản, hãy đăng nhập tại đây.</p>
           <button class="ghost" id="login">Đăng nhập
             <i class="lni lni-arrow-left login mt-1"></i>
           </button>
         </div>
         <div class="overlay-panel overlay-right">
-          <h1 class="title">Start yout <br> journy now</h1>
-          <p>if you don't have an account yet, join us and start your journey.</p>
+          <h1 class="title">Hãy bắt đầu <br> cuộc hành trình ngay bây giờ</h1>
+          <p>Nếu bạn chưa có tài khoản, hãy tham gia cùng chúng tôi và bắt đầu hành trình của mình.</p>
           <button class="ghost" id="register">Đăng Ký
             <i class="lni lni-arrow-right register mt-1"></i>
           </button>

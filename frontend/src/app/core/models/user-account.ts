@@ -6,12 +6,13 @@ export class UserAccount {
   firstName!:String
   lastName!:String
   isActive!:Boolean
-  nickName!:String
+  nickName!:string
   userName?:String
   password?:String
   email?:String
   memberId!:String
   resetCode?:String
   isBanned!:Boolean
+  isCreatedByAdmin!:Boolean
   role!:Role
 }
