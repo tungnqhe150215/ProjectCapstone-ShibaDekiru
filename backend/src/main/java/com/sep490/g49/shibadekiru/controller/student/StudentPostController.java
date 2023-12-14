@@ -44,7 +44,7 @@ public class StudentPostController {
 
     @GetMapping()
     public List<PostDto> getAllPosts() {
-        return iPostService.getAllPosts().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+        return iPostService.getAllPostByIsEnable().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
     }
 
 
