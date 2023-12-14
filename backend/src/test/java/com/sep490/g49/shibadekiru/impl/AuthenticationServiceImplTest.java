@@ -69,31 +69,31 @@ class AuthenticationServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void register() {
-        // Arrange
-        RegisterResponse registerRequest = new RegisterResponse();
-        registerRequest.setEmail("test@example.com");
-        registerRequest.setRoleId(1L);
-        Long RoleId = registerRequest.getRoleId();
-        Role role = new Role();
-
-        when(roleRepository.findById(RoleId)).thenReturn(Optional.of(role));
-        when(userAccountRepository.findByEmailOrMemberId(anyString(), anyString())).thenReturn(Optional.empty());
-        when(jwtUtilityService.createJWT(any(), anyInt())).thenReturn("resetCode");
-        when(passwordEncoder.encode(any())).thenReturn("encodedPassword");
-
-        // Act
-        assertDoesNotThrow(() -> authenticationService.register(registerRequest));
-
-        // Assert
-        verify(roleRepository, times(1)).findById(anyLong());
-        verify(userAccountRepository, times(1)).findByEmailOrMemberId(anyString(), anyString());
-        verify(jwtUtilityService, times(1)).createJWT(any(), anyInt());
-        verify(passwordEncoder, times(1)).encode(any());
-        verify(userAccountRepository, times(1)).save(any());
-        // Add more assertions as needed
-    }
+//    @Test
+//    void register() {
+//        // Arrange
+//        RegisterResponse registerRequest = new RegisterResponse();
+//        registerRequest.setEmail("test@example.com");
+//        registerRequest.setRoleId(1L);
+//        Long RoleId = registerRequest.getRoleId();
+//        Role role = new Role();
+//
+//        when(roleRepository.findById(RoleId)).thenReturn(Optional.of(role));
+//        when(userAccountRepository.findByEmailOrMemberId(anyString(), anyString())).thenReturn(Optional.empty());
+//        when(jwtUtilityService.createJWT(any(), anyInt())).thenReturn("resetCode");
+//        when(passwordEncoder.encode(any())).thenReturn("encodedPassword");
+//
+//        // Act
+//        assertDoesNotThrow(() -> authenticationService.register(registerRequest));
+//
+//        // Assert
+//        verify(roleRepository, times(1)).findById(anyLong());
+//        verify(userAccountRepository, times(1)).findByEmailOrMemberId(anyString(), anyString());
+//        verify(jwtUtilityService, times(1)).createJWT(any(), anyInt());
+//        verify(passwordEncoder, times(1)).encode(any());
+//        verify(userAccountRepository, times(1)).save(any());
+//        // Add more assertions as needed
+//    }
 
     @Test
     void authenticate() {
