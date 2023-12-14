@@ -62,11 +62,11 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
       },
       error: err =>{
         console.log(err.status);
-        this.notifiService.openSnackBar('Email hoặc mật khẩu sai!');
+        this.notifiService.openSnackBar('Bạn nhập sai tài khoản hoặc mật khẩu. Vui lòng nhập lại!');
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
         if(err.status === 403){
-          this.notifiService.openSnackBar('Email hoặc mật khẩu sai!')
+          this.notifiService.openSnackBar('Bạn nhập sai khoản hoặc mật khẩu. Vui lòng nhập lại!')
         }
       }
     })
@@ -123,6 +123,9 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         this.isSignUpFailed = true;
         if(err.status === 409){
           this.notifiService.openSnackBar('Email đã tồn tại vui lòng kiểm tra lại!')
+        }
+        if (err.status === 400) {
+          this.notifiService.openSnackBar('Vui lòng nhập email theo đúng định dạng. Ex: abc@gmail.com');
         }
       }
     })

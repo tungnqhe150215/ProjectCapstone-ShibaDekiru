@@ -126,6 +126,9 @@ export class UserProfileComponent implements OnInit {
           if (error1.status == 409) {
             this.notifiService.openSnackBar('Số điện thoại đã tồn tại, vui lòng kiểm tra lại!');
           }
+          if (error1.status === 400) {
+            this.notifiService.openSnackBar('Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.');
+          }
         },
       );
     } else {
@@ -143,6 +146,9 @@ export class UserProfileComponent implements OnInit {
             this.notifiService.openSnackBar('Đã xảy ra lỗi khi cập nhật thông tin người dùng!');
             if (error1.status == 409) {
               this.notifiService.openSnackBar('Số điện thoại đã tồn tại, vui lòng kiểm tra lại!');
+            }
+            if (error1.status === 400) {
+              this.notifiService.openSnackBar('Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.');
             }
           },
         );
@@ -171,6 +177,9 @@ export class UserProfileComponent implements OnInit {
           if (error1.status == 409) {
             this.notifiService.openSnackBar('Số điện thoại đã tồn tại, vui lòng kiểm tra lại!');
           }
+          if (error1.status === 400) {
+            this.notifiService.openSnackBar('Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.');
+          }
         },
       );
     } else {
@@ -188,6 +197,9 @@ export class UserProfileComponent implements OnInit {
             this.notifiService.openSnackBar('Đã xảy ra lỗi khi cập nhật thông tin người dùng!');
             if (error1.status == 409) {
               this.notifiService.openSnackBar('Số điện thoại đã tồn tại, vui lòng kiểm tra lại!');
+            }
+            if (error1.status === 400) {
+              this.notifiService.openSnackBar('Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.');
             }
           },
         );

@@ -59,14 +59,14 @@
               <hr class="border-light m-0">
               <div class="card-body">
                 <div class="form-group">
-                  <label class="form-label">Username</label>
-                  <input type="text" class="form-control mb-1" value="{{currentUser.nickName}}"
+                  <label class="form-label">Nickname</label>
+                  <input type="text" class="form-control mb-1" value="{{userAccount.nickName}}"
                          readonly>
                 </div>
                 <div class="row">
                   <div class="col">
                     <label class="form-label">Mã thành viên</label>
-                    <input type="text" class="form-control mb-1" value="{{currentUser.memberId}}"
+                    <input type="text" class="form-control mb-1" value="{{userAccount.memberId}}"
                            readonly>
                   </div>
                   <div class="col">
@@ -91,7 +91,7 @@
                 <br>
                 <div class="form-group">
                   <label class="form-label">E-mail</label>
-                  <input type="text" class="form-control mb-1" value="{{currentUser.email}}"
+                  <input type="text" class="form-control mb-1" value="{{userAccount.email}}"
                          readonly>
                 </div>
                 <div *ngIf="currentUser.role.roleType === 'LECTURE' || currentUser.role.roleType === 'STUDENT'">
@@ -229,7 +229,7 @@
                       <div class="col">
                         <label class="form-label">Mã thành viên</label>
                         <input type="text" class="form-control mb-1" name="memberId"
-                               id="memberId" value="{{currentUser.memberId}}" readonly>
+                               id="memberId" value="{{userAccount.memberId}}" readonly>
                       </div>
                       <div class="col">
                         <label class="form-label" for="gender">Giới tính</label>
@@ -273,7 +273,7 @@
                     <div class="form-group">
                       <label class="form-label">E-mail</label>
                       <input type="text" class="form-control mb-1" name="email"
-                             value="{{student.email}}" readonly>
+                             value="{{userAccount.email}}" readonly>
                     </div>
                     <div *ngIf="currentUser.role.roleType === 'LECTURE' || currentUser.role.roleType === 'STUDENT'">
                       <div class="form-group">

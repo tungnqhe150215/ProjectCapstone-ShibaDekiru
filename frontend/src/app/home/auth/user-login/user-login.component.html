@@ -140,7 +140,7 @@
             <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
               <div *ngIf="email.errors['required']">Email is required</div>
               <div *ngIf="email.errors['email']">
-                Email không được để trống
+                Email không hợp format Ex. abc@example.com
               </div>
               <div *ngIf="email.errors['invalidEmail']">
                 Email không hợp format Ex. abc@example.com
