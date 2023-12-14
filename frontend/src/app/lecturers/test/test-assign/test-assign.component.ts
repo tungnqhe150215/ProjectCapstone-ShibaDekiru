@@ -22,7 +22,7 @@ import {LectureClassService} from "../../class/lecture-class.service";
 import {MatSelectModule} from "@angular/material/select";
 import {SessionStorageService} from "../../../shared/services/session-storage.service";
 import {data} from "autoprefixer";
-import {NgForOf} from "@angular/common";
+import {DatePipe, NgForOf} from "@angular/common";
 import {LectureManageTestService} from "../lecture-manage-test.service";
 
 @Component({
@@ -30,7 +30,7 @@ import {LectureManageTestService} from "../lecture-manage-test.service";
   templateUrl: './test-assign.component.html',
   styleUrls: ['./test-assign.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, SharedModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, SharedModule, DatePipe],
 })
 export class TestAssignComponent implements OnInit{
   displayedColumns: string[] = ['id','className','expiredDate','action'];
@@ -51,7 +51,6 @@ export class TestAssignComponent implements OnInit{
     private route:ActivatedRoute,
     private sessionStorage: SessionStorageService,
     public dialog: MatDialog) {
-    // Assign the data to the data source for the table to render
   }
 
   ngOnInit(): void {
@@ -79,23 +78,24 @@ export class TestAssignComponent implements OnInit{
       this.dataSource = new MatTableDataSource(this.testAssign);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(data)
+      this.dataSource.filterPredicate = (item: TestAssign, filter: string) => {
+        return (
+          item.assignedClass.className.toLowerCase().includes(filter)
+        );
+      };
     })
-    console.log(this.testAssign)
-    console.log(this.id)
-    // return this.courseService.getCourseList();
   }
 
   openDeleteTestAssignDialog(id:number){
     this.dialog.open(TestAssignDeleteDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getTestAssign());
+    }).afterClosed().subscribe(data => { if (data) this.getTestAssign()});
   }
 
   openCreateTestAssignDialog(id:number){
     this.dialog.open(TestAssignCreateDialog,{
       data: id
-    }).afterClosed().subscribe(() => this.getTestAssign());
+    }).afterClosed().subscribe(data => { if (data) this.getTestAssign()});
   }
 
   openUpdateTestAssignDialog(id:number){
@@ -103,7 +103,7 @@ export class TestAssignComponent implements OnInit{
       {
         data: id
       }
-    ).afterClosed().subscribe(() => this.getTestAssign());
+    ).afterClosed().subscribe(data => { if (data) this.getTestAssign()});
   }
 
   getTestAssignDetail(id:number){
@@ -127,11 +127,12 @@ export class TestAssignDeleteDialog {
   ) {}
   deleteTestAssign(id:number){
     this.manageTestAssignService.deleteTestAssign(id).subscribe(data => {
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Đã xóa thành công!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
   onNoClick(): void {
@@ -167,7 +168,7 @@ export class TestAssignCreateDialog implements OnInit{
 
   ngOnInit() {
     this.user = this.sessionStorageService.getJsonData("auth-user");
-    this.manageClassService.getClassByLecture(1).subscribe(data => {
+    this.manageClassService.getClassByLecture(this.user.userAccountId).subscribe(data => {
       this.classes = data;
     })
     this.test.testId = this.data;
@@ -180,16 +181,22 @@ export class TestAssignCreateDialog implements OnInit{
     console.log(this.chooseClass)
     this.manageTestAssignService.createTestAssign(this.data,this.testAssign,this.extendTime).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('New testAssign part added!!', 'Close', {
+    this._snackBar.open('Lớp học đã được thêm!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration:2000
     });
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onClassSelected(event: any) {
+    this.chooseClass = event.value
+    console.log('Selected class:', event.value);
   }
 }
 @Component({
@@ -214,11 +221,12 @@ export class TestAssignUpdateDialog {
     console.log(this.extendTime)
     this.manageTestAssignService.updateTestAssign(this.data,this.extendTime).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('TestAssign part updated!!', 'Close', {
+    this._snackBar.open('Việc giao bài đã được làm mới!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
 

@@ -32,7 +32,10 @@ import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detai
 import {LClassListComponent} from './class/l-class-list/l-class-list.component';
 import {SharedModule} from "../shared/shared.module";
 import {LectureListTestComponent} from './test/lecture-list-test/lecture-list-test.component';
-import {LectureTestDetailComponent} from './test/lecture-test-detail/lecture-test-detail.component';
+import {
+  LectureTestDetailComponent,
+  QuestionBankCreateDialog, QuestionBankDeleteDialog, QuestionBankUpdateDialog
+} from './test/lecture-test-detail/lecture-test-detail.component';
 import {ClassMemberComponent} from './class/class-member/class-member.component';
 import {TestSectionComponent} from './test/test-section/test-section.component';
 import {ListeningSectionComponent} from './test/test-section/listening-section/listening-section.component';
@@ -65,6 +68,10 @@ import { DeletelecCommentComponent } from './lecturers-post/deletelec-comment/de
     AnswerFieldComponent,
     SubmissionListComponent,
     DeletelecCommentComponent,
+    LectureTestDetailComponent,
+    QuestionBankCreateDialog,
+    QuestionBankUpdateDialog,
+    QuestionBankDeleteDialog
   ],
   exports: [
     ClassworkComponent
@@ -94,7 +101,6 @@ import { DeletelecCommentComponent } from './lecturers-post/deletelec-comment/de
     SharedModule,
     LClassListComponent,
     LectureListTestComponent,
-    LectureTestDetailComponent,
     GrammarVocabSectionComponent,
     ReadingSectionComponent,
     ListeningSectionComponent,

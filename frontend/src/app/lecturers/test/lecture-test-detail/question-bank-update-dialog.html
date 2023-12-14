@@ -1,40 +1,41 @@
 <h2 mat-dialog-title class="text-center border-bottom text-bg-info">Chỉnh sửa câu hỏi</h2>
+<form class="form-dialog" (ngSubmit)="updateQuestionBank()">
 <mat-dialog-content>
-  <form class="form-dialog">
     <mat-form-field>
       <mat-label>Câu hỏi</mat-label>
-      <textarea matInput [(ngModel)]="questionBank.question" [value]="questionBank.question" [ngModelOptions]="{standalone: true}" required></textarea>
+      <textarea matInput name="question" [(ngModel)]="questionBank.question" [value]="questionBank.question"  required></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
       <mat-label>Phương án 1</mat-label>
-      <textarea matInput [(ngModel)]="questionBank.firstChoice" [value]="questionBank.firstChoice" [ngModelOptions]="{standalone: true}" required></textarea>
+      <textarea matInput name="firstChoice" [(ngModel)]="questionBank.firstChoice" [value]="questionBank.firstChoice"  required></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
       <mat-label>Phương án 2</mat-label>
-      <textarea matInput [(ngModel)]="questionBank.secondChoice" [value]="questionBank.secondChoice" [ngModelOptions]="{standalone: true}" required></textarea>
+      <textarea matInput name="secondChoice" [(ngModel)]="questionBank.secondChoice" [value]="questionBank.secondChoice"  required></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
       <mat-label>Phương án 3 (Tùy chọn)</mat-label>
-      <textarea matInput [(ngModel)]="questionBank.thirdChoice" [value]="questionBank.thirdChoice" [ngModelOptions]="{standalone: true}"></textarea>
+      <textarea matInput name="thirdChoice" [(ngModel)]="questionBank.thirdChoice" [value]="questionBank.thirdChoice" ></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
       <mat-label>Phương án 4 (Tùy chọn)</mat-label>
-      <textarea matInput [(ngModel)]="questionBank.fourthChoice" [value]="questionBank.fourthChoice" [ngModelOptions]="{standalone: true}"></textarea>
+      <textarea matInput name="fourthChoice" [(ngModel)]="questionBank.fourthChoice" [value]="questionBank.fourthChoice" ></textarea>
     </mat-form-field>
     <br>
     <mat-form-field >
       <mat-label>Đáp án (hãy sao chép lại đáp án chính xác)</mat-label>
-      <textarea matInput [(ngModel)]="questionBank.correctAnswer" [value]="questionBank.correctAnswer" [ngModelOptions]="{standalone: true}" required></textarea>
+      <textarea matInput name="correctAnswer" [(ngModel)]="questionBank.correctAnswer" [value]="questionBank.correctAnswer" required></textarea>
     </mat-form-field>
-  </form>
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Hủy bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button  (submit)="updateQuestionBank()">Cập nhật</button>
+  <button mat-button  type="submit" >Cập nhật</button>
 </mat-dialog-actions>
 
+</form>
