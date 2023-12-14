@@ -16,6 +16,8 @@ import {LessonService} from "../../../core/services/lesson.service";
 import {data} from "autoprefixer";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SharedModule} from "../../../shared/shared.module";
+import {Drive} from "../../../core/models/drive";
+import {FileService} from "../../../shared/services/file.service";
 @Component({
   selector: 'app-list-kaiwa',
   templateUrl: './list-kaiwa.component.html',
@@ -130,33 +132,51 @@ export class KaiwaDeleteDialog {
   templateUrl: 'kaiwa-create-dialog.html',
   styleUrls: ['./list-kaiwa.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
 })
 export class KaiwaCreateDialog {
 
   kaiwa:Kaiwa =  new Kaiwa;
-
+  file!: File ;
+  drive: Drive = new Drive();
   constructor(
     public dialogRef: MatDialogRef<KaiwaCreateDialog>,
     private manageKaiwaService:AdminManageKaiwaService,
+    private fileService:FileService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
 
   createKaiwa(){
-    console.log(this.kaiwa)
-    this.manageKaiwaService.createKaiwa(this.data,this.kaiwa).subscribe(data => {
+
+    this.fileService.uploadFile(this.file).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.drive = data as Drive
+      this.kaiwa.link = this.drive.fileId
+
+      console.log(this.kaiwa)
+      this.manageKaiwaService.createKaiwa(this.data,this.kaiwa).subscribe(data => {
+        console.log(data)
+        this.dialogRef.close();
+      })
+      this._snackBar.open('Đã thêm học phần kaiwa', 'Đóng', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
     })
-    this._snackBar.open('Đã thêm học phần kaiwa', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if(element != null) {
+      element.value = this.file.name;
+    }
   }
 }
 @Component({
@@ -164,15 +184,18 @@ export class KaiwaCreateDialog {
   templateUrl: 'kaiwa-update-dialog.html',
   styleUrls: ['./list-kaiwa.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
 })
 export class KaiwaUpdateDialog implements OnInit{
 
   kaiwa:Kaiwa =  new Kaiwa;
+  file!: File ;
+  drive: Drive = new Drive();
 
   constructor(
     public dialogRef: MatDialogRef<KaiwaUpdateDialog>,
     private manageKaiwaService:AdminManageKaiwaService,
+    private fileService:FileService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
@@ -185,18 +208,44 @@ export class KaiwaUpdateDialog implements OnInit{
   }
 
   updateKaiwa(){
-    console.log(this.kaiwa)
-    this.manageKaiwaService.updateKaiwa(this.data,this.kaiwa).subscribe(data => {
-      console.log(data)
-      this.dialogRef.close();
-    })
-    this._snackBar.open('Cập nhật học phần thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    if (this.file == null || this.file.size == 0) {
+      this.kaiwa.link = "";
+      console.log(this.kaiwa)
+      this.manageKaiwaService.updateKaiwa(this.data,this.kaiwa).subscribe(data => {
+        console.log(data)
+        this.dialogRef.close();
+      })
+      this._snackBar.open('Cập nhật học phần thành công', 'Đóng', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
+    } else {
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        this.drive = data as Drive
+        this.kaiwa.link = this.drive.fileId
+        console.log(this.kaiwa)
+        this.manageKaiwaService.updateKaiwa(this.data,this.kaiwa).subscribe(data => {
+          console.log(data)
+          this.dialogRef.close();
+        })
+        this._snackBar.open('Cập nhật học phần thành công', 'Đóng', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
+      })
+    }
+
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if(element != null) {
+      element.value = this.file.name;
+    }
   }
 }
