@@ -58,6 +58,12 @@ public class ListeningServiceImpl implements IListeningService {
     @Override
     public void deleteListening(Long id) {
         Listening listening = listeningRepository.findListeningByListeningId(id);
+
+        if (listening.getLink() != null) {
+            googleDriveService.deleteFile(listening.getLink());
+            System.out.println("File đã xóa : " + listening.getLink());
+        }
+
         listeningRepository.delete(listening);
     }
 }
