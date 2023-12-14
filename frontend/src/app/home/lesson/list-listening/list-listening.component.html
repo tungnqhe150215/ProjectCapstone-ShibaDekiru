@@ -2,10 +2,11 @@
   <div class="table-content">
     <div class="container">
       <button appBackButton class="btn btn-infor border mb-1">Trở lại</button>
-      <div class="col-12 mb-3 mb-lg-5">
+      <div class="row">
+      <div class="col-9 mb-3 mb-lg-5">
         <div class="overflow-hidden card table-nowrap table-card">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h4 class="mb-0">Danh sách bài nghe</h4>
+            <h4 class="mb-0">Phần nghe</h4>
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
           <div class="table-responsive">
@@ -45,13 +46,32 @@
                           </a>
                           <!-- <h4>Luyện tập</h4> -->
                           <div class="collapse" id="collapseExampleQuestion{{i+1}}">
-                            <div *ngFor="let listeningQuestion of listeningQuestion; let k=index"> 
-                              <h5>Câu hỏi {{k+1}}:{{listeningQuestion.question}}</h5>
-                              <h5>A: {{listeningQuestion.firstChoice}}</h5>
-                              <h5>B: {{listeningQuestion.secondChoice}}</h5>
-                              <h5>C: {{listeningQuestion.thirdChoice}}</h5>
+                            <!-- <div *ngFor="let listeningQuestion of listeningQuestion; let k=index"> 
+                              <h5>Câu hỏi {{k+1}}: {{listeningQuestion.question}}</h5>
+                              <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.firstChoice}}"  class="fw-bold"> A: {{listeningQuestion.firstChoice}} <br>
+                              <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.secondChoice}}" class="fw-bold"> B: {{listeningQuestion.secondChoice}} <br>
+                              <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.thirdChoice}}" class="fw-bold"> C: {{listeningQuestion.thirdChoice}} <br>
                               <h4 style="color:green">Đáp án đúng: {{listeningQuestion.correctAnswer}}</h4>
-                          </div>
+                              <button class="btn btn-success" (click)="checkAnswer(k)">Kiểm tra</button>
+                              <button  class="btn btn-infor" (click)="resetAnswer(k)">Reset</button>
+                              <div *ngIf="isCheckPressed && results[k] !== null">
+                              <p [style.color]="results[k] ? 'green' : 'red'"> {{ results[k] ? 'Chính xác!' : 'Sai rồi. Hãy thử lại!' }}</p>
+                              </div>
+                            </div> -->
+                    <div *ngFor="let listeningQuestion of listeningQuestion; let k=index"> 
+                        <h5>Câu hỏi {{k+1}}: {{listeningQuestion.question}}</h5>
+                        <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.firstChoice}}" class="fw-bold"> A: {{listeningQuestion.firstChoice}} <br>
+                        <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.secondChoice}}" class="fw-bold"> B: {{listeningQuestion.secondChoice}} <br>
+                        <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.thirdChoice}}" class="fw-bold"> C: {{listeningQuestion.thirdChoice}} <br>
+                        <!-- <h4 style="color:green">Đáp án đúng: {{listeningQuestion.correctAnswer}}</h4> -->
+                      <div *ngIf="isCheckPressed && results[k] !== null">
+                          <p [style.color]="results[k] ? 'green' : 'red'">
+                            {{ results[k] ? 'Chính xác!' : 'Sai rồi. Hãy thử lại!' }}
+                          </p>
+                      </div>
+                    </div>
+                        <button  class="btn btn-success" (click)="checkAllAnswers()">Kiểm tra</button>
+                      <button  class="btn btn-infor" (click)="resetAllAnswers()">Thử lại</button>
                         </div>
                       </div>
                     </div>
@@ -63,6 +83,18 @@
           </div>
         </div>
       </div>
+      <div class="col-3 mb-3 mb-lg-5 lesson-container">
+        <h5 style="color:#11a683">{{Lbook.name}}</h5>
+        <div class="list-lesson">
+          <div class="lesson" *ngFor="let lessonN of lessonN; let i = index">
+            <a style="cursor: pointer; width: 10%;"(click)="LessonDetail(lessonN.bookId,lessonN.lessonId)" >
+              <!-- <p>{{ lesson.lessonId }}</p> -->
+              <p>{{i+1}}</p>
+            </a>
+          </div>
+        </div>
+      </div> 
+    </div>
     </div>
   </div>
 </div>
