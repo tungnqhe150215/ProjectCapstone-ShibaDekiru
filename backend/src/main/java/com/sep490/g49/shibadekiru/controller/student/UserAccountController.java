@@ -84,7 +84,7 @@ public class UserAccountController {
 
             return ResponseEntity.ok().body(studentResponse);
         } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
     }
 
@@ -99,7 +99,7 @@ public class UserAccountController {
 
             return ResponseEntity.ok().body(lectureResponse);
         } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
     }
 
