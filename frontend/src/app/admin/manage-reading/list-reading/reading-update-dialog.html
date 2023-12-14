@@ -12,9 +12,13 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-      <mat-label>Ảnh</mat-label>
-      <input matInput [(ngModel)]="reading.image" [value]="reading.image" [ngModelOptions]="{standalone: true}" type="text">
+      <mat-label>Chọn tệp ảnh</mat-label>
+      <input matInput readonly type="text" id="fakeFileInput" (click)="hiddenInput.click()">
+      <input hidden type="file" accept=".jpg, .jpeg, .png" #hiddenInput (change)="onFileSelected($event)">
+      <mat-icon matSuffix>folder_open</mat-icon>
     </mat-form-field>
+<!--      <input matInput [(ngModel)]="reading.image" [value]="reading.image" [ngModelOptions]="{standalone: true}" type="text">-->
+
   </form>
 
 </mat-dialog-content>
