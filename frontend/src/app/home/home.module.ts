@@ -65,6 +65,7 @@ import { UpdateCommentComponent } from './post/post-detail/list-comment/update-c
 import {MatDialogModule} from '@angular/material/dialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UnthorizationComponent } from './unthorization/unthorization.component';
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -119,29 +120,30 @@ import { UnthorizationComponent } from './unthorization/unthorization.component'
     FooterComponent,
     HeaderComponent,
   ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatCardModule,
-    LessonModule,
-    FontAwesomeModule,
-    MatFormFieldModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatTabsModule,
-    MatListModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatButtonModule,
-    MatDialogModule,
-    NgxPaginationModule,
-  ]
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatCardModule,
+        LessonModule,
+        FontAwesomeModule,
+        MatFormFieldModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatInputModule,
+        MatTabsModule,
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatButtonModule,
+        MatDialogModule,
+        NgxPaginationModule,
+        SharedModule,
+    ]
 })
 export class HomeModule { }
