@@ -58,10 +58,10 @@ public class UserAccountServiceImpl implements IUserAccountService {
         Long roleId = userAccount.getRoleId();
 
         Optional<Role> roleOptional = roleRepository.findById(roleId);
-        Optional<UserAccount> existingUser = userAccountRepository.findByEmailOrMemberId(userAccount.getEmail(), userAccount.getMemberId());
+        Optional<UserAccount> existingUser = userAccountRepository.findByEmail(userAccount.getEmail());
 
         if (existingUser.isPresent()) {
-            throw new IllegalStateException("Email already or member be exists.");
+            throw new IllegalStateException("Email already be exists.");
         }
 
         else if (roleOptional.isPresent()) {
@@ -73,6 +73,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
             userAccount1.setUserName(userAccount.getNickName());
+            userAccount1.setIsCreatedByAdmin(true);
 
             String passWordEncode = passwordEncoder.encode(userAccount.getPassword());
             userAccount1.setPassword(passWordEncode);
@@ -113,13 +114,47 @@ public class UserAccountServiceImpl implements IUserAccountService {
         }
     }
 
+//    @Override
+//    public UserAccount updateUserAccount(Long userAccountId, UserAccount userAccount) {
+//        Optional<UserAccount> existingUserAccount = userAccountRepository.findById(userAccountId);
+//
+//        if (existingUserAccount.isPresent()) {
+//
+//            UserAccount userAccount1 = existingUserAccount.get();
+//
+//            userAccount1.setNickName(userAccount.getNickName());
+//            userAccount1.setMemberId(userAccount.getMemberId());
+//            userAccount1.setUserName(userAccount.getUsername());
+//            userAccount1.setPassword(userAccount.getPassword());
+//            userAccount1.setEmail(userAccount.getEmail());
+//            userAccount1.setResetCode(userAccount.getResetCode());
+//            userAccount1.setIsBanned(userAccount.getIsBanned());
+//            userAccount1.setIsActive(true);
+//            userAccount1.setIsCreatedByAdmin(false);
+//            userAccount1.setRole(userAccount.getRole());
+//
+//            return userAccountRepository.save(userAccount1);
+//        } else {
+//            throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
+//        }
+//
+//    }
+
     @Override
     public UserAccount updateUserAccount(Long userAccountId, UserAccount userAccount) {
         Optional<UserAccount> existingUserAccount = userAccountRepository.findById(userAccountId);
 
         if (existingUserAccount.isPresent()) {
-
             UserAccount userAccount1 = existingUserAccount.get();
+
+
+            String memberIdPrefix = userAccount.getMemberId().substring(0, 4);
+
+            if ("USER".equals(memberIdPrefix)) {
+                userAccount1.setIsCreatedByAdmin(false);
+            } else {
+                userAccount1.setIsCreatedByAdmin(true);
+            }
 
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
@@ -135,7 +170,32 @@ public class UserAccountServiceImpl implements IUserAccountService {
         } else {
             throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
         }
+    }
 
+
+    @Override
+    public UserAccount updateUserAccountByIsCreatedByAdmin(Long userAccountId, UserAccount userAccount) {
+        Optional<UserAccount> existingUserAccount = userAccountRepository.findById(userAccountId);
+
+        if (existingUserAccount.isPresent()) {
+
+            UserAccount userAccount1 = existingUserAccount.get();
+
+            userAccount1.setNickName(userAccount.getNickName());
+            userAccount1.setMemberId(userAccount.getMemberId());
+            userAccount1.setUserName(userAccount.getUsername());
+            userAccount1.setPassword(userAccount.getPassword());
+            userAccount1.setEmail(userAccount.getEmail());
+            userAccount1.setResetCode(userAccount.getResetCode());
+            userAccount1.setIsBanned(userAccount.getIsBanned());
+            userAccount1.setIsActive(true);
+            userAccount1.setIsCreatedByAdmin(true);
+            userAccount1.setRole(userAccount.getRole());
+
+            return userAccountRepository.save(userAccount1);
+        } else {
+            throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
+        }
     }
 
 
@@ -236,7 +296,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
                 if (user != null) {
                     user.setEmail(user.getEmail());
-                    userAccountRepository.save(user);
+
 
                     System.out.println("MemberId: " + user.getMemberId());
                     System.out.println("Role: " + user.getRole());
@@ -260,7 +320,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
                         if (!request.getAvatar().equals(student.getAvatar())) {
                             System.out.println("Khi request khác student");
                             googleDriveService.deleteFile(request.getAvatar());
-                            System.out.println("Check id file bị xóa: " + request.getAvatar());
                             student.setAvatar(student.getAvatar());
                         }
 
@@ -285,8 +344,17 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             student.setGender(request.getGender());
                         }
 
-                        if (request.getPhone() != null) {
-                            student.setPhone(request.getPhone());
+                        if (request.getPhone() != null && request.getPhone().matches("^(((\\+|)84)|0)+(3|5|7|8|9|1[2|6|8|9])+([0-9]{8})$")) {
+
+                            if (!request.getPhone().equals(student.getPhone()) && studentRepository.existsByPhone(request.getPhone())) {
+                                throw new IllegalStateException("Số điện thoại mới đã tồn tại trong cơ sở dữ liệu.");
+                            } else {
+                                student.setPhone(request.getPhone());
+                            }
+
+                            
+                        } else {
+                            throw new IllegalStateException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
                         }
 
                         student.setUserAccount(user);
@@ -310,7 +378,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
                 if (user != null) {
                     user.setEmail(user.getEmail());
-                    userAccountRepository.save(user);
+
 
                     System.out.println("MemberId: " + user.getMemberId());
                     System.out.println("Role: " + user.getRole());
@@ -335,7 +403,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
                         if (!request.getAvatar().equals(lectures.getAvatar())) {
                             System.out.println("Khi request khác lecture");
                             googleDriveService.deleteFile(request.getAvatar());
-                            System.out.println("Check id file bị xóa: " + request.getAvatar());
                             lectures.setAvatar(lectures.getAvatar());
                         }
 
@@ -361,9 +428,19 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             lectures.setGender(request.getGender());
                         }
 
-                        if (request.getPhone() != null) {
-                            lectures.setPhone(request.getPhone());
+
+                        if (request.getPhone() != null && request.getPhone().matches("^(((\\+|)84)|0)+(3|5|7|8|9|1[2|6|8|9])+([0-9]{8})$")) {
+
+                            if (!request.getPhone().equals(lectures.getPhone()) && lecturersRepository.existsByPhone(request.getPhone())) {
+                                throw new IllegalStateException("Số điện thoại mới đã tồn tại trong cơ sở dữ liệu.");
+                            } else {
+                                lectures.setPhone(request.getPhone());
+                            }
+
+                        } else {
+                            throw new IllegalStateException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
                         }
+
 
 
                         lectures.setUserAccount(user);

@@ -55,7 +55,7 @@ public class AdminManageUserAccountController {
     public ResponseEntity<UserAccountDto> updateUserAccount(@PathVariable Long id, @RequestBody UserAccountDto userAccountDto) {
         UserAccount userAccountRequest = modelMapper.map(userAccountDto, UserAccount.class);
 
-        UserAccount userAccount = iUserAccountService.updateUserAccount(id, userAccountRequest);
+        UserAccount userAccount = iUserAccountService.updateUserAccountByIsCreatedByAdmin(id, userAccountRequest);
 
         UserAccountDto userAccountResponse = modelMapper.map(userAccount, UserAccountDto.class);
 

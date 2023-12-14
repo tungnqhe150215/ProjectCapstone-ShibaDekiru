@@ -53,6 +53,9 @@ public class UserAccount implements UserDetails {
     @Column(name = "is_banned", nullable = false)
     private Boolean isBanned;
 
+    @Column(name = "is_created_by_admin", nullable = false)
+    private Boolean isCreatedByAdmin;
+
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
