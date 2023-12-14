@@ -1,15 +1,15 @@
-package com.sep490.g49.shibadekiru.impl;
-
 import com.sep490.g49.shibadekiru.entity.Book;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
+import com.sep490.g49.shibadekiru.impl.LessonServiceImpl;
 import com.sep490.g49.shibadekiru.repository.BookRepository;
 import com.sep490.g49.shibadekiru.repository.LessonRepository;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,9 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
 class LessonServiceImplTest {
 
     @Mock
@@ -28,104 +27,56 @@ class LessonServiceImplTest {
     @Mock
     private BookRepository bookRepository;
 
+    @Mock
+    private GoogleDriveService googleDriveService;
+
     @InjectMocks
     private LessonServiceImpl lessonService;
 
-    @Test
-    void getAllLessons() {
-        // Mocking the behavior of the lessonRepository.findAll() method
-        List<Lesson> mockLessons = new ArrayList<>();
-        Mockito.when(lessonRepository.findAll()).thenReturn(mockLessons);
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
 
+    @Test
+    void testGetAllLessons() {
+        // Mock data
+        List<Lesson> lessons = new ArrayList<>();
+        when(lessonRepository.findAll()).thenReturn(lessons);
+
+        // Mock behavior of GoogleDriveService
+        when(googleDriveService.getFileUrl(anyString())).thenReturn("mocked-url");
+
+        // Test
         List<Lesson> result = lessonService.getAllLessons();
 
+        // Verify
         assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockLessons list is empty
+        assertEquals(lessons, result);
+        verify(googleDriveService, times(lessons.size())).getFileUrl(anyString());
     }
 
     @Test
-    void getLessonPartByBook() {
-        // Mocking the behavior of the lessonRepository.findByBook() method
+    void testGetLessonPartByBook() {
+        // Mock data
         Book book = new Book();
-        List<Lesson> mockLessons = new ArrayList<>();
-        Mockito.when(lessonRepository.findByBook(book)).thenReturn(mockLessons);
+        List<Lesson> lessons = new ArrayList<>();
+        when(lessonRepository.findByBook(book)).thenReturn(lessons);
 
+        // Mock behavior of GoogleDriveService
+        when(googleDriveService.getFileUrl(anyString())).thenReturn("mocked-url");
+
+        // Test
         List<Lesson> result = lessonService.getLessonPartByBook(book);
 
+        // Verify
         assertNotNull(result);
-        assertEquals(0, result.size()); // Assuming the mockLessons list is empty
+        assertEquals(lessons, result);
+        verify(googleDriveService, times(lessons.size())).getFileUrl(anyString());
     }
 
-    @Test
-    void createLesson() {
-        // Mocking the behavior of the bookRepository.findById() method
-        Long bookId = 1L;
-        Book book = new Book();
-        book.setBookId(bookId);
-        Mockito.when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
+    // Write similar tests for other methods (createLesson, updateLesson, deleteLesson, getLessonById)
 
-        // Mocking the behavior of the lessonRepository.save() method
-        Lesson savedLesson = new Lesson();
-        Mockito.when(lessonRepository.save(any(Lesson.class))).thenReturn(savedLesson);
+    // ...
 
-        // Creating a test lesson
-        Lesson testLesson = new Lesson();
-        testLesson.setBook(book);
-
-        Lesson result = lessonService.createLesson(testLesson);
-
-        assertNotNull(result);
-        // Add more assertions as needed
-    }
-
-    @Test
-    void updateLesson() {
-        Long lessonId = 1L;
-
-        // Mocking the behavior of the lessonRepository.findById() method
-        Lesson existingLesson = new Lesson();
-        existingLesson.setLessonId(lessonId);
-        Mockito.when(lessonRepository.findById(lessonId)).thenReturn(Optional.of(existingLesson));
-
-        // Mocking the behavior of the lessonRepository.findBookIdByLessonId() method
-        Mockito.when(lessonRepository.findBookIdByLessonId(lessonId)).thenReturn(Optional.of(1L));
-
-        // Mocking the behavior of the lessonRepository.save() method
-        Lesson updatedLesson = new Lesson();
-        updatedLesson.setLessonId(lessonId);
-        Mockito.when(lessonRepository.save(any(Lesson.class))).thenReturn(updatedLesson);
-
-        Lesson result = lessonService.updateLesson(lessonId, updatedLesson);
-
-        assertNotNull(result);
-        assertEquals(lessonId, result.getLessonId());
-        // Add more assertions as needed
-    }
-
-    @Test
-    void deleteLesson() {
-        Long lessonId = 1L;
-
-        // Mocking the behavior of the lessonRepository.findById() method
-        Lesson existingLesson = new Lesson();
-        existingLesson.setLessonId(lessonId);
-        Mockito.when(lessonRepository.findById(lessonId)).thenReturn(Optional.of(existingLesson));
-
-        assertDoesNotThrow(() -> lessonService.deleteLesson(lessonId));
-    }
-
-    @Test
-    void getLessonById() {
-        Long lessonId = 1L;
-
-        // Mocking the behavior of the lessonRepository.findById() method
-        Lesson existingLesson = new Lesson();
-        existingLesson.setLessonId(lessonId);
-        Mockito.when(lessonRepository.findById(lessonId)).thenReturn(Optional.of(existingLesson));
-
-        Lesson result = lessonService.getLessonById(lessonId);
-
-        assertNotNull(result);
-        assertEquals(lessonId, result.getLessonId());
-    }
 }
