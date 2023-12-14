@@ -8,14 +8,14 @@
             <h6> <span *ngIf="post.isEnabled === false" class="badge rounded-pill text-bg-danger">Khóa</span></h6>
             <h6> <span *ngIf="post.isEnabled=== true" class="badge rounded-pill text-bg-success">Mở</span></h6>
             <h5 class="card-title">Tiêu đề</h5>
-            <p class="card-text">
+            <p class="card-text" style="white-space: pre-line">
                 {{post.postContent}}
             </p>
             <h5 class="card-title">Mô tả</h5>
-            <p class="card-text">
+            <p class="card-text" style="white-space: pre-line">
                 {{post.description}}
             </p>
-            <small class="text-muted">Lần cập nhật cuối {{post.createdAt | date:'dd/MM/yyyy'}}</small> <br> 
+            <small class="text-muted">Lần cập nhật cuối {{post.createdAt | date:'dd/MM/yyyy'}}</small> <br>
             <!-- <small class="text-muted">Trạng thái: {{post.isEnabled}}</small> -->
         </div>
         <!-- <img class="card-img-bottom img-fluid" src="assets/images/samples/water.jpg"
@@ -66,7 +66,7 @@
 
           <!-- <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã bài viết </th>
-            <td mat-cell *matCellDef="let row"> 
+            <td mat-cell *matCellDef="let row">
               <td mat-cell *matCellDef="let row"> {{row.postId}} </td>
           </ng-container> -->
 
@@ -103,7 +103,7 @@
 <!-- <div class="header">
     <h2>{{post.postContent}}</h2>
   </div>
-  
+
   <div class="row">
     <div class="leftcolumn">
       <div class="card">
