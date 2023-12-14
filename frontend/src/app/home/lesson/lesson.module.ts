@@ -18,6 +18,9 @@ import { ListKaiwaComponent } from './list-kaiwa/list-kaiwa.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +45,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatExpansionModule,
     MatTabsModule,
     MatIconModule,
+    NgxPaginationModule,
+    SharedModule,
   ]
 })
 export class LessonModule { }

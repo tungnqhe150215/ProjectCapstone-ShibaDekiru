@@ -8,6 +8,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { Listening } from 'src/app/core/models/listening';
 import { Lesson } from 'src/app/core/models/lesson';
+import { ListeningQuestion } from 'src/app/core/models/listening-question';
 
 @Component({
   selector: 'app-list-listening',
@@ -21,11 +22,11 @@ export class ListListeningComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'lesson','script'];
   slicedItems: string[][] = []; // Khai báo ở đây
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort) sort1!: MatSort;
 
   listening: Listening[] = [];
   lesson: Lesson = new Lesson;
-  
+  listeningQuestion: ListeningQuestion[]=[];
   constructor(
     private router: Router,
     private studentLessonService: StudentLessonService,
@@ -36,8 +37,10 @@ export class ListListeningComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListenByLessonID();
+    this.getLessonById();
   }
 
+  p: number = 1;
   id!:number
   getListenByLessonID() {
     // const idLesson = this.studentLessonService.getLessonID();
@@ -70,4 +73,29 @@ export class ListListeningComponent implements OnInit {
       this.lesson = data
     })
   }
+
+  idLs!:number;
+  getQuestionListeningByLesson(idLs:number){
+    // this.id = this.route.snapshot.params['idL'];
+    // const idLesson = this.studentLessonService.getLessonID();
+    this.listeningQuestion = [];
+    this.studentLessonService.getListeningQuesByListening(idLs)
+    .subscribe({
+      next:data =>{
+        this.listeningQuestion = data;
+        // this.dataSource.paginator = this.paginator;
+        console.log(data)
+      }
+    })
+  }
+
+  //pagging
+  key: string = 'id';
+  reverse: boolean = false;
+  sort(key: string) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+
+  
 }

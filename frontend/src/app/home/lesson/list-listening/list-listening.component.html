@@ -1,63 +1,68 @@
 <div class="courses_area p_120">
-    <div class="table-content">
-        <div class="container">
-            <div class="row">
-              <div class="col-12 mb-3 mb-lg-5">
-                <div class="overflow-hidden card table-nowrap table-card">
-                  <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Danh sách bài nghe</h4>
-                  </div>
-                  <div class="table-responsive">
-                    <table class="table mb-0">
-                      <tbody *ngFor="let listening of listening; let i = index ">
-                        <tr class="align-middle">
-                          <td>{{i+1}}
-                          </td>
-                          <td>
-                            <h4 class="d-inline-block align-middle">Bài nghe: {{listening.title}}</h4>
-                          </td>
-                          <td><br>
-                            <h5>Bài học: {{lesson.name}}</h5>
-                            <h6> 
-                              <a class="text-decoration-none" data-bs-toggle="collapse" href="#collapseExample{{i+1}}"
-                                role="button" aria-expanded="false" aria-controls="collapseExample">
-                                << Xem nội dung bài nghe>>
-                              </a></h6>
-                          </td>
-                        </tr>
-                        <tr  class="collapse" id="collapseExample{{i+1}}">
-                          <td colspan="4">
-                            <div class="card card-body">
-                              <div class="">
-                                <h4 class="mt-2 mb-3">Bài nghe: {{listening.title}}</h4>
-                                <br> 
-                                <audio controls>
-                                  <source src="{{listening.link}}" type="audio/mp3">
-                                  Your browser does not support the audio element.
-                                </audio>
-                              </div>
-                              <!-- Script sẽ để ở đây:> -->
-                              <h6>Câu thoại trong bài:</h6>
-                              <div *ngFor="let subItem of slicedItems[i]; let j = index">
-                                <ul>
-                                  <li>
-                                    <!-- {{ subItem }} -->
-                                    <p style="font-size: 16px;">{{ j % 2 === 0 ? 'A' : 'B' }}: {{ subItem }}。</p>
-                                  </li>
-                                </ul>
-                              </div>
-                              <!-- {{kaiwa.script}} -->
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <div class="table-content">
+    <div class="container">
+      <button appBackButton class="btn btn-infor border mb-1">Trở lại</button>
+      <div class="col-12 mb-3 mb-lg-5">
+        <div class="overflow-hidden card table-nowrap table-card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Danh sách bài nghe</h4>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
+          <div class="table-responsive">
+            <table class="table mb-0">
+              <tbody *ngFor="let listening of listening | paginate: { itemsPerPage: 1, currentPage: p }; let i = index ">
+                <tr class="align-middle">
+                  <td>
+                    <h4 class="d-inline-block align-middle">Bài nghe: {{listening.title}}</h4>
+                  </td>
+                  <td><br>
+                    <h5>Bài học: {{lesson.name}}</h5>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="6">
+                    <div class="card card-body">
+                      <div class="row">
+                      <div class="col-md-6">
+                        <h4 class="mt-2 mb-3">Bài nghe: {{listening.title}}</h4>
+                        <audio controls>
+                          <source src="{{listening.link}}" type="audio/mp3">
+                          Your browser does not support the audio element.
+                        </audio>
+                        <br>
+                        <h6>Câu thoại trong bài:</h6>
+                        <div *ngFor="let subItem of slicedItems[i]; let j = index">
+                          <ul>
+                            <li>
+                              <p style="font-size: 16px;">{{ j % 2 === 0 ? 'A' : 'B' }}: {{ subItem }}。</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                          <a data-bs-toggle="collapse" href="#collapseExampleQuestion{{i+1}}" role="button"
+                            aria-expanded="false" aria-controls="collapseExampleQuestion"> <h4 (click)="getQuestionListeningByLesson(listening.listeningId)">Xem Bài tập</h4>
+                          </a>
+                          <!-- <h4>Luyện tập</h4> -->
+                          <div class="collapse" id="collapseExampleQuestion{{i+1}}">
+                            <div *ngFor="let listeningQuestion of listeningQuestion; let k=index"> 
+                              <h5>Câu hỏi {{k+1}}:{{listeningQuestion.question}}</h5>
+                              <h5>A: {{listeningQuestion.firstChoice}}</h5>
+                              <h5>B: {{listeningQuestion.secondChoice}}</h5>
+                              <h5>C: {{listeningQuestion.thirdChoice}}</h5>
+                              <h4 style="color:green">Đáp án đúng: {{listeningQuestion.correctAnswer}}</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-
-
