@@ -7,6 +7,7 @@ import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.*;
 import com.sep490.g49.shibadekiru.util.JWTUtilityService;
 import com.sep490.g49.shibadekiru.util.MailServiceProvider;
+import com.sep490.g49.shibadekiru.util.RandomStringGeneratorService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,9 @@ public class AuthenticationServiceImpl {
     @Autowired
     private MailServiceProvider mailServiceProvider;
 
+    @Autowired
+    RandomStringGeneratorService randomStringGeneratorService;
+
     public void register(RegisterResponse request) {
 
         Optional<UserAccount> existingUser = userAccountRepository.findByEmailOrMemberId(request.getEmail(), request.getMemberId());
@@ -69,11 +73,22 @@ public class AuthenticationServiceImpl {
 
             userAccount.setNickName(request.getNickName());
             userAccount.setUserName(request.getNickName());
-            userAccount.setMemberId(request.getMemberId());
-            userAccount.setEmail(request.getEmail());
+
+            String memberId;
+            do {
+                memberId = "USER" + randomStringGeneratorService.randomAlphaNumeric(5);
+            } while (userAccountRepository.existsByMemberId(memberId));
+            userAccount.setMemberId(memberId);
+            if (request.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+                userAccount.setEmail(request.getEmail());
+            } else {
+                throw new IllegalStateException("Vui lòng nhập email theo đúng định dạng. Ex: abc@gmail.com");
+            }
+
             userAccount.setPassword(passwordEncoder.encode(request.getPassword()));
             userAccount.setIsActive(false);
             userAccount.setIsBanned(false);
+            userAccount.setIsCreatedByAdmin(false);
 
             Long roleId = request.getRoleId();
 
@@ -224,6 +239,7 @@ public class AuthenticationServiceImpl {
             userAccountDto.setIsBanned(user.getIsBanned());
             userAccountDto.setIsActive(user.getIsActive());
             userAccountDto.setResetCode(user.getResetCode());
+            userAccountDto.setIsCreatedByAdmin(user.getIsCreatedByAdmin());
             userAccountDto.setRole(user.getRole());
 
             return userAccountDto;
