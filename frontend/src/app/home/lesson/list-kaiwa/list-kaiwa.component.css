@@ -1,5 +1,74 @@
 /* @import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Roboto:300,400,500,700"); */
 
+/*Css Table*/
+.detail {
+  width: 90%;
+  color: #11a683;
+  margin: 0px auto 0px;
+}
+
+.list-table{
+  width: 80%;
+}
+.list-lesson {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  gap: 20px;
+}
+
+.lesson {
+  border: 1px solid #140aa7;
+  border-radius: 5px;
+  padding: 20px;
+  width: 40px;
+  height: 30px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.lesson a {
+  text-decoration: none;
+  color: inherit;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  text-decoration: none;
+  font-size: 15px;
+  width: 4%;
+}
+
+
+.lesson:hover {
+  border: #336 solid 1px;
+  font-weight: bold;
+  background-color: #eff;
+  color: #e0583e;
+}
+
+
+.lesson p {
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.lesson:hover a {
+  color: #e0583e;
+}
+
+.lesson-container {
+  flex: 1;
+  width: 20%;
+  box-sizing: border-box;
+}
+/*Css Table*/
+
 /* fix table */
 ul {
   list-style-type: none; /* Loại bỏ dấu chấm của thẻ ul */

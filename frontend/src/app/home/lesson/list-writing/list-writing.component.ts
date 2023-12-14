@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Writing } from 'src/app/core/models/writing';
 import { Lesson } from 'src/app/core/models/lesson';
 import { WritingQuestion } from 'src/app/core/models/writing-question';
+import { Book } from 'src/app/core/models/book';
 
 @Component({
   selector: 'app-list-writing',
@@ -23,7 +24,9 @@ export class ListWritingComponent implements OnInit{
 
   // @ViewChild(MatPaginator) paginator!: MatPaginator;
   // @ViewChild(MatSort) sort!: MatSort;
-  
+  idB!:number;
+  lessonN: Lesson[] = [];
+  Lbook: Book = new Book;
   lesson: Lesson = new Lesson;
   writingQuestion :WritingQuestion[] =[];
   writing: Writing[] = [];
@@ -40,7 +43,8 @@ export class ListWritingComponent implements OnInit{
   ngOnInit(): void {
     this.getWritingByLessonID();
     this.getLessonById();
-    // this.getQuestionWritingByLesson();
+    this.getLessonByBookID();
+    this.getBookById();
   }
 
   getWritingByLessonID(){
@@ -86,4 +90,32 @@ export class ListWritingComponent implements OnInit{
     this.key = key;
     this.reverse = !this.reverse;
   }
+
+  getLessonByBookID() {
+    this.idB = this.route.snapshot.params['id'];
+    const idBook = this.studentLessonService.getBookId();
+    this.lessonN = [];
+    this.studentLessonService.getLessonByBook(this.idB).subscribe({
+      next: (res) => {
+        this.lessonN = res;
+        console.log(res)
+      },
+    })
+  }
+
+  LessonDetail(id:number, idL:number) {
+    this.id = idL;
+    this.studentLessonService.setLessonID(idL);
+    this.router.navigate(['book/'+id+'/lesson/'+idL+'/detail']);
+    this.getLessonById();
+  }
+
+  getBookById()  {
+    this.idB = this.route.snapshot.params['id'];
+    this.Lbook = new Book();
+    this.studentLessonService.getBookById(this.idB).subscribe(res =>{
+    this.Lbook = res
+   })
+  }
+
 }

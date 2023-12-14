@@ -3,14 +3,15 @@
     <div class="container">
       <button appBackButton class="btn btn-infor border mb-1">Trở lại</button>
       <div class="row">
-        <div class="col-12 mb-3 mb-lg-5">
+        <div class="col-9 mb-3 mb-lg-5">
           <div class="overflow-hidden card table-nowrap table-card">
             <div class="card-header d-flex justify-content-between align-items-center">
-              <h4 class="mb-0">Danh sách đối thoại</h4>
+              <h4 class="mb-0">Phần đối thoại</h4>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </div>
             <div class="table-responsive">
               <table class="table mb-0">
-                <tbody *ngFor="let kaiwa of kaiwa; let i = index ">
+                <tbody *ngFor="let kaiwa of kaiwa | paginate: { itemsPerPage: 3, currentPage: p }; let i = index ">
                   <tr class="align-middle">
                     <td>{{i+1}}
                     </td>
@@ -37,7 +38,7 @@
                             Your browser does not support the audio element.
                           </audio> -->
                           <div  class="mb-4 d-flex justify-content-center">
-                          <img style="height:300px; width: 600px;" src="https://cdnmedia.baotintuc.vn/Upload/e9GdNZvHDFi8lZSWc6ubA/files/2021/02/khanh-phan-18221abc.jpg">
+                          <img style="height:300px; width: 600px;" src="{{kaiwa.link}}">
                         </div>
                         </div>
                         <!-- Script sẽ để ở đây:> -->
@@ -61,6 +62,17 @@
             </div>
           </div>
         </div>
+        <div class="col-3 mb-3 mb-lg-5 lesson-container">
+          <h5 style="color:#11a683">{{Lbook.name}}</h5>
+          <div class="list-lesson">
+            <div class="lesson" *ngFor="let lessonN of lessonN; let i = index">
+              <a style="cursor: pointer; width: 10%;"(click)="LessonDetail(lessonN.bookId,lessonN.lessonId)" >
+                <!-- <p>{{ lesson.lessonId }}</p> -->
+                <p>{{i+1}}</p>
+              </a>
+            </div>
+          </div>
+        </div> 
       </div>
     </div>
 </div>

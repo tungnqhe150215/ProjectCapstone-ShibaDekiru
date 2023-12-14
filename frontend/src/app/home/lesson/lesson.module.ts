@@ -20,7 +20,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { FormsModule } from '@angular/forms'; // Import the FormsModule
 
 @NgModule({
   declarations: [
@@ -47,6 +47,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatIconModule,
     NgxPaginationModule,
     SharedModule,
+    FormsModule
   ]
 })
 export class LessonModule { }
