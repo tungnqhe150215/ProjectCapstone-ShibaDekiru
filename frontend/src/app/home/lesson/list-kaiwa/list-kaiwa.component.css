@@ -1,4 +1,104 @@
-@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Roboto:300,400,500,700");
+/* @import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Roboto:300,400,500,700"); */
+
+/*Css Table*/
+.detail {
+  width: 90%;
+  color: #11a683;
+  margin: 0px auto 0px;
+}
+
+.list-table{
+  width: 80%;
+}
+.list-lesson {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  gap: 20px;
+}
+
+.lesson {
+  border: 1px solid #140aa7;
+  border-radius: 5px;
+  padding: 20px;
+  width: 40px;
+  height: 30px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.lesson a {
+  text-decoration: none;
+  color: inherit;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  text-decoration: none;
+  font-size: 15px;
+  width: 4%;
+}
+
+
+.lesson:hover {
+  border: #336 solid 1px;
+  font-weight: bold;
+  background-color: #eff;
+  color: #e0583e;
+}
+
+
+.lesson p {
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.lesson:hover a {
+  color: #e0583e;
+}
+
+.lesson-container {
+  flex: 1;
+  width: 20%;
+  box-sizing: border-box;
+}
+/*Css Table*/
+
+/* fix table */
+ul {
+  list-style-type: none; /* Loại bỏ dấu chấm của thẻ ul */
+}
+
+li {
+  margin-left: 0; /* Loại bỏ khoảng trống bên trái */
+}
+
+body {
+  margin-top: 20px;
+  background: #eee;
+}
+
+.card {
+  box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+
+
+.table-nowrap .table td,
+.table-nowrap .table th {
+  white-space: nowrap;
+}
+
+.table>:not(caption)>*>* {
+  padding: 0.75rem 1.25rem;
+  border-bottom-width: 1px;
+}
+/* fix table */
+
 
 
 .table-content{
@@ -39,13 +139,13 @@ a:hover, a:focus {
 body {
   line-height: 24px;
   font-size: 14px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: normal;
   color: #777777; }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Playfair Display", serif;
-  font-weight: bold; }
+/* h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold; } */
 
 button:focus {
   outline: none;
@@ -79,13 +179,13 @@ button:focus {
   max-width: 680px;
   margin: 0px auto 75px; }
 .main_title h2 {
-  font-family: "Playfair Display", serif;
+  /* font-family: "Playfair Display", serif; */
   font-size: 36px;
   color: #222222;
   margin-bottom: 12px; }
 .main_title p {
   font-size: 14px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   font-weight: normal;
   line-height: 24px;
   color: #777777;
@@ -229,7 +329,7 @@ button:focus {
   display: inline-block;
   font-size: 12px;
   margin-right: 30px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   font-weight: normal;
   color: #777777;
   transition: all 300ms linear 0s; }
@@ -288,19 +388,19 @@ button:focus {
   color: #fff; }
 .home_banner_area .banner_inner .banner_content h5 {
   text-transform: uppercase;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   font-size: 14px;
   font-weight: normal;
   margin-bottom: 15px; }
 .home_banner_area .banner_inner .banner_content h3 {
   font-size: 42px;
-  font-family: "Playfair Display", serif;
+  /* font-family: "Playfair Display", serif; */
   font-weight: 900;
   margin-bottom: 20px; }
 .home_banner_area .banner_inner .banner_content p {
   font-size: 14px;
   line-height: 24px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   font-weight: normal;
   max-width: 620px;
   margin: auto; }
@@ -336,7 +436,7 @@ button:focus {
 .blog_banner .banner_inner .blog_b_text h2 {
   font-size: 60px;
   font-weight: bold;
-  font-family: "Playfair Display", serif;
+  /* font-family: "Playfair Display", serif; */
   line-height: 66px;
   margin-bottom: 15px; }
 .blog_banner .banner_inner .blog_b_text p {
@@ -374,13 +474,13 @@ button:focus {
 .banner_area .banner_inner .banner_content h2 {
   color: #fff;
   font-size: 48px;
-  font-family: "Playfair Display", serif;
+  /* font-family: "Playfair Display", serif; */
   margin-bottom: 0px;
   font-weight: bold; }
 .banner_area .banner_inner .banner_content .page_link a {
   font-size: 14px;
   color: #fff;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   margin-right: 32px;
   position: relative; }
 .banner_area .banner_inner .banner_content .page_link a:before {
@@ -1701,7 +1801,7 @@ h6 {
   background: #11a683;
   padding: 0px 50px;
   color: #fff;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   font-size: 13px;
   font-weight: 500;
   line-height: 50px;
@@ -1721,7 +1821,7 @@ h6 {
   background: #f9f9ff;
   padding: 0px 35px;
   color: #222222;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   font-size: 13px;
   font-weight: 500;
   line-height: 34px;
@@ -1745,7 +1845,7 @@ h6 {
   display: inline-block;
   border-radius: 5px;
   font-size: 13px;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   font-weight: 500;
   transition: all 300ms linear 0s; }
 .black_btn:hover {
@@ -1857,58 +1957,7 @@ h6 {
 /*----------------------------------------------------*/
 
 
-/* End About Area css
-============================================================================================ */
-/*---------------------------------------------------- */
-/*----------------------------------------------------*/
-/*============== footer-area css ===============*/
-.footer-area {
-  background: #04091e; }
 
-.footer_title {
-  font-size: 18px;
-  line-height: 24px;
-  font-weight: bold;
-  font-family: "Playfair Display", serif;
-  color: #fff;
-  margin-bottom: 28px; }
-
-.border_line {
-  width: 100%;
-  height: 1px;
-  background: #333333;
-  margin-top: 30px; }
-
-.footer-bottom {
-  padding-top: 84px; }
-.footer-bottom .footer-text {
-  color: #fff;
-  opacity: .6; }
-.footer-bottom .footer-text i {
-  color: #11a683;
-  opacity: 1; }
-.footer-bottom .footer-text a {
-  color: #11a683;
-  opacity: 1; }
-.footer-bottom .footer-social {
-  text-align: right; }
-.footer-bottom .footer-social a {
-  font-size: 14px;
-  line-height: 30px;
-  color: #fff;
-  margin-left: 6px;
-  transition: all 0.3s linear;
-  background: #1e2235;
-  height: 30px;
-  width: 30px;
-  text-align: center;
-  display: inline-block;
-  transition: all 300ms linear 0s; }
-.footer-bottom .footer-social a:hover {
-  color: #fff;
-  background: #11a683; }
-
-/*---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */
 /*--------------Responsive--------------------------*/
@@ -2116,18 +2165,7 @@ h6 {
   .home_banner_area .banner_inner .banner_content {
     margin-top: 0px;
   }
-  /* Blog Page Area css
-  ============================================================================================ */
-  .blog_banner .banner_inner .blog_b_text h2 {
-    font-size: 40px;
-    line-height: 50px;
-  }
-  .blog_info.text-right{
-    text-align: left !important;
-    margin-bottom: 10px;
-  }
-  /* End Blog Page Area css
-  ============================================================================================ */
+
   .home_banner_area .banner_inner .banner_content h3 {
     font-size: 30px;
   }
@@ -2139,17 +2177,7 @@ h6 {
     padding-bottom: 0px;
     padding-top: 0px;
   }
-  /* Footer Area css
-  ============================================================================================ */
-  .footer-bottom{
-    text-align: center;
-  }
-  .footer-bottom .footer-social {
-    text-align: center;
-    margin-top: 15px;
-  }
-  /* End End Footer Area css
-  ============================================================================================ */
+ 
   .wd55 {
     width: 100%;
   }
@@ -2206,42 +2234,8 @@ h6 {
   .main_title h2 {
     font-size: 25px;
   }
-  /* Elements Area css
-  ============================================================================================ */
-  .sample-text-area {
-    padding: 70px 0 70px 0;
-  }
-  .generic-blockquote {
-    padding: 30px 15px 30px 30px;
-  }
-  /* End Elements Area css
-  ============================================================================================ */
+ 
 
-  /* Blog Page Area css
-  ============================================================================================ */
-  .blog_details h2 {
-    font-size: 20px;
-    line-height: 30px;
-  }
-  .blog_banner .banner_inner .blog_b_text h2 {
-    font-size: 28px;
-    line-height: 38px;
-  }
-  /* End Blog Page Area css
-  ============================================================================================ */
-  /* Footer Area css
-  ============================================================================================ */
-  .footer-area {
-    padding: 70px 0px;
-  }
-  /* End End Footer Area css
-  ============================================================================================ */
-  .pad_top {
-    padding-top: 70px;
-  }
-  .footer-bottom {
-    padding-top: 20px;
-  }
 }
 
 @media (max-width:480px){
@@ -2252,47 +2246,8 @@ h6 {
   }
   /* End Main Menu Area css
   ============================================================================================ */
-
-  /* Home Banner Area css
-  ============================================================================================ */
-  .home_banner_area .banner_inner .banner_content {
-    padding: 30px 15px;
-    margin-top: 0px;
-  }
-  .banner_content .white_btn {
-    display: block;
-  }
-  .home_banner_area .banner_inner .banner_content h3 {
-    font-size: 24px;
-  }
-  /* End Home Banner Area css
-  ============================================================================================ */
-  .banner_area .banner_inner .banner_content h2 {
-    font-size: 32px;
-  }
-  .home_banner_area {
-    min-height: 400px;
-  }
-  .home_banner_area .banner_inner {
-    min-height: 400px;
-  }
-  /* Blog Page Area css
-  ============================================================================================ */
-  .comments-area .thumb {
-    margin-right: 10px;
-  }
-
-  /* End Blog Page Area css
-  ============================================================================================ */
-  .video_area .popup-youtube img {
-    width: 15%;
-  }
-  .course_details_inner .nav.nav-tabs li {
-    margin-right: 15px;
-  }
 }
-
-
+ 
 /* Để tạo expansion panel trong suốt */
 .mat-expansion-panel {
   background: transparent;

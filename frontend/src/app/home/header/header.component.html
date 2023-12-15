@@ -76,7 +76,7 @@
                 <img src="https://vnjpbook.com/wp-content/uploads/2020/09/7008004.jpg" alt="" class="img-fluid">
               </div>
           
-              <div class="menu">
+              <div class="menu border">
                 
                 <ul class="list-profile">
                   <h3>Tài khoản: {{ currentUser.nickName }}</h3>
@@ -93,7 +93,9 @@
                   </li> -->
                   <div *ngIf="currentUser.role.roleType === 'ADMIN'">
                     <li>
-                      <span class="material-icons icons-size">insert_comment</span>
+                      <span class="material-symbols-outlined">
+                        space_dashboard
+                        </span>
                       <a routerLink="./admin/book">Dashboard</a>
                     </li>
                   </div>

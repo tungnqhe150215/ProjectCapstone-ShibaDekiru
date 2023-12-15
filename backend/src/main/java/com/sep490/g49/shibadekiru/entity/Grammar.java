@@ -21,11 +21,13 @@ public class Grammar implements Serializable {
     @Column(name = "grammar_name", nullable = false)
     private String grammarName;
 
-    @Column(name = "grammar_structure", nullable = false)
+    @Column(name = "grammar_structure", nullable = false, columnDefinition = "LONGTEXT")
     private String grammarStructure;
 
+    @Column(name = "description", nullable = false, columnDefinition = "LONGTEXT")
     private String description;
 
+    @Column(name = "example", nullable = false, columnDefinition = "LONGTEXT")
     private String example;
 
     @ManyToOne

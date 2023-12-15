@@ -34,6 +34,7 @@ public class LecturesServiceImpl implements ILecturesService {
             UserAccount userAccount = userAccountRepository.findByMemberId(lectures.getMemberId());
 
             lectures1.setPhone("");
+            lectures1.setGender(false);
             lectures1.setAvatar("");
             lectures1.setUserAccount(userAccount);
 

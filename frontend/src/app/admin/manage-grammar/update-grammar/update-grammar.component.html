@@ -1,8 +1,5 @@
 <div class="col-md-6 offset-md-3" >
-    <button mat-raised-button>
-        <a routerLink="../list-grammar" routerLinkActive="active" class="nav-link">
-            Danh sách ngữ pháp
-        </a>
+    <button mat-raised-button (click)="goToGrammarsList()">Danh sách ngữ pháp
     </button>
     <h3 class="center" style="display: flex;
     justify-content: center;
@@ -22,7 +19,7 @@
         </div>
         <div class="form-group">
             <label for="grammarStructure">Cáu trúc</label>
-            <input type="text" class="form-control" id="onReading" [(ngModel)]="grammar.grammarStructure" name="grammarStructure" />
+            <input type="text" class="form-control" id="grammarStructure" [(ngModel)]="grammar.grammarStructure" name="grammarStructure" />
 
         </div>
         <div class="form-group">
@@ -31,12 +28,12 @@
         </div>
 
         <div class="form-group">
-            <label for="">Ví dụ</label>
+            <label for="example">Ví dụ</label>
             <input type="text" class="form-control" id="example" [(ngModel)]="grammar.example" name="example" />
         </div>
 
         <div class="form-group">
-            <label for="">Bài học</label>
+            <label for="lessonId">Bài học</label>
             <!-- <input type="text" class="form-control" id="lessonId" [(ngModel)]="grammar.lessonId" name="lessonId" /> -->
             <select class="form-control" [(ngModel)]="grammar.lessonId" *ngIf="grammar.lessonId" id="lessonId" name="lessonId">
                 <option *ngFor="let lesson of lesson"  [ngValue]="lesson.lessonId">

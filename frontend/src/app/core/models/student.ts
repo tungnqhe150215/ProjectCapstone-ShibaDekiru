@@ -7,6 +7,7 @@ export class Student {
   lastName!:String
   email!:String
   gender!:String
+  phone!:String
   avatar!:String
   memberId!:String
 }

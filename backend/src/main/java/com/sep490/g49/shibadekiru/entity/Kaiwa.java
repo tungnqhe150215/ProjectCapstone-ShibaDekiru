@@ -22,6 +22,7 @@ public class Kaiwa {
 
     private String link;
 
+    @Column(name = "script", nullable = false, columnDefinition = "LONGTEXT")
     private String script;
 
     @ManyToOne

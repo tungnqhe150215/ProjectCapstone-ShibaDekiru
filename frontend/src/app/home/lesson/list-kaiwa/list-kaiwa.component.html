@@ -1,41 +1,80 @@
 <div class="courses_area p_120">
-    <div class="table-content">
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort>
-
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
-                    <td style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.kaiwaId}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên đối thoại</th>
-                    <mat-expansion-panel *matCellDef="let row" hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <!-- This is the expansion title -->
-                                {{row.title}}
-                            </mat-panel-title>
-                            <!-- <mat-panel-description>
-                                {{row.title}}
-                            </mat-panel-description> -->
-                        </mat-expansion-panel-header>
-                        <p>Script: {{row.script}}</p>
-                    </mat-expansion-panel>
-
-                </ng-container>
-
-                <ng-container matColumnDef="lesson">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Bài học</th>
-                    <td style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.lessonId}} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-            </table>
-
-            <mat-paginator [pageSizeOptions]="[ 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  <div class="table-content">
+    <div class="container">
+      <!-- <button appBackButton class="btn btn-infor border mb-1">Trở lại</button> -->
+      <h2 style="cursor:pointer ;color:#11a683" appBackButton>Phần hội thoại bài {{lesson.name}}: {{lesson.content}}</h2>
+      <div class="row">
+        <div class="col-9 mb-3 mb-lg-5">
+          <div class="overflow-hidden card table-nowrap table-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h4 class="mb-0">Danh sách đối thoại</h4>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <tbody *ngFor="let kaiwa of kaiwa | paginate: { itemsPerPage: 2, currentPage: p }; let i = index ">
+                  <tr class="align-middle">
+                    <td>{{i+1}}
+                    </td>
+                    <td>
+                      <h4 class="d-inline-block align-middle">Bài đối thoại: {{kaiwa.title}}</h4>
+                    </td>
+                    <td><br>
+                      <h5>Bài học: {{lesson.content}}</h5>
+                      <h6> 
+                        <a class="text-decoration-none" data-bs-toggle="collapse" href="#collapseExample{{i+1}}"
+                          role="button" aria-expanded="false" aria-controls="collapseExample">
+                          << Xem nội dung bài đối thoại>>
+                        </a></h6>
+                    </td>
+                  </tr>
+                  <tr  class="collapse" id="collapseExample{{i+1}}">
+                    <td colspan="4">
+                      <div class="card card-body">
+                        <div class="">
+                          <h4 class="mt-2 mb-3">Bài nghe: {{kaiwa.title}}</h4>
+                          <br> 
+                          <!-- <audio controls>
+                            <source src="{{kaiwa.link}}" type="audio/mp3">
+                            Your browser does not support the audio element.
+                          </audio> -->
+                          <div  class="mb-4 d-flex justify-content-center">
+                          <img style="height:300px; width: 600px;" src="{{kaiwa.link}}">
+                        </div>
+                        </div>
+                        <!-- Script sẽ để ở đây:> -->
+                        <h6>Các câu thoại:</h6>
+                        <div *ngFor="let subItem of slicedItems[i]; let j = index">
+                          <ul>
+                            <li>
+                              <!-- {{ subItem }} -->
+                              <p style="font-size: 16px;">{{ j % 2 === 0 ? 'A' : 'B' }}: {{ subItem }}。</p>
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- {{kaiwa.script}} -->
+                        <!-- Some placeholder content for the collapse component. This panel is hidden by default but
+                        revealed when the user activates the relevant trigger. -->
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
+        <div class="col-3 mb-3 mb-lg-5 lesson-container">
+          <h5 style="color:#11a683">{{Lbook.name}}</h5>
+          <div class="list-lesson">
+            <div class="lesson" *ngFor="let lessonN of lessonN; let i = index">
+              <a style="cursor: pointer; width: 10%;"(click)="LessonDetail(lessonN.bookId,lessonN.lessonId)" >
+                <!-- <p>{{ lesson.lessonId }}</p> -->
+                <p>{{i+1}}</p>
+              </a>
+            </div>
+          </div>
+        </div> 
+      </div>
     </div>
+</div>
 </div>

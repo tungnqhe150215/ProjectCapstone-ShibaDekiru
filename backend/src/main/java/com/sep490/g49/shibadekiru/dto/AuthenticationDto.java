@@ -24,6 +24,7 @@ public class AuthenticationDto {
 
     private String email;
     private String memberId;
+    private Boolean isCreatedByAdmin;
 
     private Role role;
 }

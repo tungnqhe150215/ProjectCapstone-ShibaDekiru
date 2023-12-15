@@ -58,10 +58,10 @@ public class UserAccountServiceImpl implements IUserAccountService {
         Long roleId = userAccount.getRoleId();
 
         Optional<Role> roleOptional = roleRepository.findById(roleId);
-        Optional<UserAccount> existingUser = userAccountRepository.findByEmailOrMemberId(userAccount.getEmail(), userAccount.getMemberId());
+        Optional<UserAccount> existingUser = userAccountRepository.findByEmail(userAccount.getEmail());
 
         if (existingUser.isPresent()) {
-            throw new IllegalStateException("Email already or member be exists.");
+            throw new IllegalStateException("Email already be exists.");
         }
 
         else if (roleOptional.isPresent()) {
@@ -73,6 +73,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
             userAccount1.setUserName(userAccount.getNickName());
+            userAccount1.setIsCreatedByAdmin(true);
 
             String passWordEncode = passwordEncoder.encode(userAccount.getPassword());
             userAccount1.setPassword(passWordEncode);
@@ -113,14 +114,38 @@ public class UserAccountServiceImpl implements IUserAccountService {
         }
     }
 
+//    @Override
+//    public UserAccount updateUserAccount(Long userAccountId, UserAccount userAccount) {
+//        Optional<UserAccount> existingUserAccount = userAccountRepository.findById(userAccountId);
+//
+//        if (existingUserAccount.isPresent()) {
+//
+//            UserAccount userAccount1 = existingUserAccount.get();
+//
+//            userAccount1.setNickName(userAccount.getNickName());
+//            userAccount1.setMemberId(userAccount.getMemberId());
+//            userAccount1.setUserName(userAccount.getUsername());
+//            userAccount1.setPassword(userAccount.getPassword());
+//            userAccount1.setEmail(userAccount.getEmail());
+//            userAccount1.setResetCode(userAccount.getResetCode());
+//            userAccount1.setIsBanned(userAccount.getIsBanned());
+//            userAccount1.setIsActive(true);
+//            userAccount1.setIsCreatedByAdmin(false);
+//            userAccount1.setRole(userAccount.getRole());
+//
+//            return userAccountRepository.save(userAccount1);
+//        } else {
+//            throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
+//        }
+//
+//    }
+
     @Override
     public UserAccount updateUserAccount(Long userAccountId, UserAccount userAccount) {
         Optional<UserAccount> existingUserAccount = userAccountRepository.findById(userAccountId);
 
         if (existingUserAccount.isPresent()) {
-
             UserAccount userAccount1 = existingUserAccount.get();
-
             userAccount1.setNickName(userAccount.getNickName());
             userAccount1.setMemberId(userAccount.getMemberId());
             userAccount1.setUserName(userAccount.getUsername());
@@ -135,7 +160,32 @@ public class UserAccountServiceImpl implements IUserAccountService {
         } else {
             throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
         }
+    }
 
+
+    @Override
+    public UserAccount updateUserAccountByIsCreatedByAdmin(Long userAccountId, UserAccount userAccount) {
+        Optional<UserAccount> existingUserAccount = userAccountRepository.findById(userAccountId);
+
+        if (existingUserAccount.isPresent()) {
+
+            UserAccount userAccount1 = existingUserAccount.get();
+
+            userAccount1.setNickName(userAccount.getNickName());
+            userAccount1.setMemberId(userAccount.getMemberId());
+            userAccount1.setUserName(userAccount.getUsername());
+            userAccount1.setPassword(userAccount.getPassword());
+            userAccount1.setEmail(userAccount.getEmail());
+            userAccount1.setResetCode(userAccount.getResetCode());
+            userAccount1.setIsBanned(userAccount.getIsBanned());
+            userAccount1.setIsActive(true);
+            userAccount1.setIsCreatedByAdmin(true);
+            userAccount1.setRole(userAccount.getRole());
+
+            return userAccountRepository.save(userAccount1);
+        } else {
+            throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
+        }
     }
 
 
@@ -236,7 +286,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
                 if (user != null) {
                     user.setEmail(user.getEmail());
-                    userAccountRepository.save(user);
+
 
                     System.out.println("MemberId: " + user.getMemberId());
                     System.out.println("Role: " + user.getRole());
@@ -257,12 +307,18 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             student.setEmail(request.getEmail());
                         }
 
-                        if (request.getAvatar().length() > 0) {
-                            googleDriveService.deleteFile(student.getAvatar());
-                            System.out.println("Check id file bị xóa: " + student.getAvatar());
-                            student.setAvatar(request.getAvatar());
+                        if (!request.getAvatar().equals(student.getAvatar())) {
+                            System.out.println("Khi request khác student");
+                            googleDriveService.deleteFile(request.getAvatar());
+                            student.setAvatar(student.getAvatar());
                         }
+
+                        else if (request.getAvatar().equals("")) {
+                            student.setAvatar("");
+                        }
+
                         else {
+                            System.out.println("Vẫn giữ nguyên link ảnh.");
                             String newFileUrl = googleDriveService.getFileUrl(student.getAvatar());
                             if (newFileUrl != null) {
                                 // Loại bỏ phần &export=download từ đường dẫn mới
@@ -277,6 +333,18 @@ public class UserAccountServiceImpl implements IUserAccountService {
                         if (request.getGender() != null) {
                             student.setGender(request.getGender());
                         }
+
+                        String phoneNumber = request.getPhone();
+                        if (phoneNumber != null && !phoneNumber.isEmpty() && phoneNumber.matches("^(((\\+|)84)|0)+(3|5|7|8|9|1[2|6|8|9])+([0-9]{8})$")) {
+                            if (!phoneNumber.equals(student.getPhone()) && studentRepository.existsByPhone(phoneNumber)) {
+                                throw new IllegalStateException("Số điện thoại mới đã tồn tại trong cơ sở dữ liệu.");
+                            } else {
+                                student.setPhone(phoneNumber);
+                            }
+                        } else {
+                            throw new RuntimeException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
+                        }
+
 
                         student.setUserAccount(user);
                         return studentRepository.save(student);
@@ -299,7 +367,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
                 if (user != null) {
                     user.setEmail(user.getEmail());
-                    userAccountRepository.save(user);
+
 
                     System.out.println("MemberId: " + user.getMemberId());
                     System.out.println("Role: " + user.getRole());
@@ -320,12 +388,20 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             lectures.setEmail(request.getEmail());
                         }
 
-                        if (request.getAvatar().length() > 0) {
-                            googleDriveService.deleteFile(lectures.getAvatar());
-                            System.out.println("Check id file bị xóa: " + lectures.getAvatar());
-                            lectures.setAvatar(request.getAvatar());
+
+                        if (!request.getAvatar().equals(lectures.getAvatar())) {
+                            System.out.println("Khi request khác lecture");
+                            googleDriveService.deleteFile(request.getAvatar());
+                            lectures.setAvatar(lectures.getAvatar());
                         }
+
+                        else if (request.getAvatar().equals("")) {
+                            lectures.setAvatar("");
+                        }
+
                         else {
+
+                            System.out.println("Vẫn giữ nguyên link ảnh.");
                             String newFileUrl = googleDriveService.getFileUrl(lectures.getAvatar());
                             if (newFileUrl != null) {
                                 // Loại bỏ phần &export=download từ đường dẫn mới
@@ -337,9 +413,23 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             }
                         }
 
-                        if (request.getPhone() != null) {
-                            lectures.setPhone(request.getPhone());
+                        if (request.getGender() != null) {
+                            lectures.setGender(request.getGender());
                         }
+
+
+                        String phoneNumber = request.getPhone();
+                        if (phoneNumber != null && !phoneNumber.isEmpty() && phoneNumber.matches("^(((\\+|)84)|0)+(3|5|7|8|9|1[2|6|8|9])+([0-9]{8})$")) {
+                            if (!phoneNumber.equals(lectures.getPhone()) && studentRepository.existsByPhone(phoneNumber)) {
+                                throw new IllegalStateException("Số điện thoại mới đã tồn tại trong cơ sở dữ liệu.");
+                            } else {
+                                lectures.setPhone(phoneNumber);
+                            }
+                        } else {
+                            throw new RuntimeException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
+                        }
+
+
 
                         lectures.setUserAccount(user);
                         return lecturersRepository.save(lectures);
@@ -411,7 +501,12 @@ public class UserAccountServiceImpl implements IUserAccountService {
     private void updateAvatarForStudent(String fileId, UserAccount user) {
         Student student = studentService.getByUserAccount(user);
         if (student != null) {
-            student.setAvatar(fileId);
+            if (!student.getAvatar().equals(fileId)) {
+                googleDriveService.deleteFile(student.getAvatar());
+                System.out.println("Check id file bị xóa trong updateAvatarForStudent: " + student.getAvatar());
+                student.setAvatar(fileId);
+            }
+
             student.setUserAccount(user);
             studentRepository.save(student);
         }
@@ -420,7 +515,12 @@ public class UserAccountServiceImpl implements IUserAccountService {
     private void updateAvatarForLecturer(String fileId, UserAccount user) {
         Lectures lecturer = lecturesService.getByUserAccount(user);
         if (lecturer != null) {
-            lecturer.setAvatar(fileId);
+            if (!lecturer.getAvatar().equals(fileId)) {
+                googleDriveService.deleteFile(lecturer.getAvatar());
+                System.out.println("Check id file bị xóa trong updateAvatarForLecturer: " + lecturer.getAvatar());
+                lecturer.setAvatar(fileId);
+            }
+
             lecturer.setUserAccount(user);
             lecturersRepository.save(lecturer);
         }

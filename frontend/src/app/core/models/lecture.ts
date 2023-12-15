@@ -8,4 +8,6 @@ export class Lecture {
   email!:String
   gender!:String
   avatar!:String
+  phone!:String
+  memberId!:String
 }

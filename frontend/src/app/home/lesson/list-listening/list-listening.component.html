@@ -1,63 +1,100 @@
-<mat-tab-group>
-    <mat-tab label="First"> Content 1 </mat-tab>
-    <mat-tab label="Second"> Content 2 </mat-tab>
-    <mat-tab label="Third"> Content 3 </mat-tab>
-</mat-tab-group>
-
-
 <div class="courses_area p_120">
-    <div class="table-content">
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort>
-
-                <!-- ID Column -->
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
-                    <td style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.listeningId}} </td>
-                </ng-container>
-
-                <!-- Progress Column -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên bài nghe </th>
-                    <!-- <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.title}}  <p style="color: red">{{row.description}}</p> </td> -->
-                    <mat-expansion-panel *matCellDef="let row" hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <!-- This is the expansion title -->
-                                {{row.title}}
-                            </mat-panel-title>
-                            <!-- <mat-panel-description>
-                                {{row.title}}
-                            </mat-panel-description> -->
-                        </mat-expansion-panel-header>
-                        <p>Scrpit: {{row.script}}</p>
-                    </mat-expansion-panel>
-                </ng-container>
-
-                <!-- <ng-container matColumnDef="script">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-                    <td   style="cursor: pointer" mat-cell *matCellDef="let row"> <br> {{row.script}}  <p style="color: red">{{row.description}}</p> </td>
-                  
-                </ng-container> -->
-
-
-                <ng-container matColumnDef="lesson">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Bài học</th>
-                    <td  style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.lessonId}} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-                <!-- Row shown when there is no matching data. -->
-                <!-- <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                </tr> -->
+  <div class="table-content">
+    <div class="container">
+      <h2 style="cursor:pointer ;color:#11a683" appBackButton>Ngữ pháp bài {{lesson.name}}: {{lesson.content}}</h2>
+      <div class="row">
+      <div class="col-9 mb-3 mb-lg-5">
+        <div class="overflow-hidden card table-nowrap table-card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Danh sách phần nghe</h4>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+          <div class="table-responsive">
+            <table class="table mb-0">
+              <tbody *ngFor="let listening of listening | paginate: { itemsPerPage: 1, currentPage: p }; let i = index ">
+                <tr class="align-middle">
+                  <td>
+                    <h4 class="d-inline-block align-middle">Bài nghe: {{listening.title}}</h4>
+                  </td>
+                  <td><br>
+                    <h5>Bài học: {{lesson.name}}</h5>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="6">
+                    <div class="card card-body">
+                      <div class="row">
+                      <div class="col-md-6">
+                        <h4 class="mt-2 mb-3">Bài nghe: {{listening.title}}</h4>
+                        <audio controls>
+                          <source src="{{listening.link}}" type="audio/mp3">
+                          Your browser does not support the audio element.
+                        </audio>
+                        <br>
+                        <h6>Câu thoại trong bài:</h6>
+                        <div *ngFor="let subItem of slicedItems[i]; let j = index">
+                          <ul>
+                            <li>
+                              <p style="font-size: 16px;">{{ j % 2 === 0 ? 'A' : 'B' }}: {{ subItem }}。</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                          <a data-bs-toggle="collapse" href="#collapseExampleQuestion{{i+1}}" role="button"
+                            aria-expanded="false" aria-controls="collapseExampleQuestion"> <h4 (click)="getQuestionListeningByLesson(listening.listeningId)">Xem Bài tập</h4>
+                          </a>
+                          <!-- <h4>Luyện tập</h4> -->
+                          <div class="collapse" id="collapseExampleQuestion{{i+1}}">
+                            <!-- <div *ngFor="let listeningQuestion of listeningQuestion; let k=index"> 
+                              <h5>Câu hỏi {{k+1}}: {{listeningQuestion.question}}</h5>
+                              <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.firstChoice}}"  class="fw-bold"> A: {{listeningQuestion.firstChoice}} <br>
+                              <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.secondChoice}}" class="fw-bold"> B: {{listeningQuestion.secondChoice}} <br>
+                              <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.thirdChoice}}" class="fw-bold"> C: {{listeningQuestion.thirdChoice}} <br>
+                              <h4 style="color:green">Đáp án đúng: {{listeningQuestion.correctAnswer}}</h4>
+                              <button class="btn btn-success" (click)="checkAnswer(k)">Kiểm tra</button>
+                              <button  class="btn btn-infor" (click)="resetAnswer(k)">Reset</button>
+                              <div *ngIf="isCheckPressed && results[k] !== null">
+                              <p [style.color]="results[k] ? 'green' : 'red'"> {{ results[k] ? 'Chính xác!' : 'Sai rồi. Hãy thử lại!' }}</p>
+                              </div>
+                            </div> -->
+                    <div *ngFor="let listeningQuestion of listeningQuestion; let k=index"> 
+                        <h5>Câu hỏi {{k+1}}: {{listeningQuestion.question}}</h5>
+                        <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.firstChoice}}" class="fw-bold"> A: {{listeningQuestion.firstChoice}} <br>
+                        <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.secondChoice}}" class="fw-bold"> B: {{listeningQuestion.secondChoice}} <br>
+                        <input type="radio" name="answer{{k}}" id="as" [(ngModel)]="selectedAnswers[k]" value="{{listeningQuestion.thirdChoice}}" class="fw-bold"> C: {{listeningQuestion.thirdChoice}} <br>
+                        <!-- <h4 style="color:green">Đáp án đúng: {{listeningQuestion.correctAnswer}}</h4> -->
+                      <div *ngIf="isCheckPressed && results[k] !== null">
+                          <p [style.color]="results[k] ? 'green' : 'red'">
+                            {{ results[k] ? 'Chính xác!' : 'Sai rồi. Hãy thử lại!' }}
+                          </p>
+                      </div>
+                    </div>
+                        <button  class="btn btn-success" (click)="checkAllAnswers()">Kiểm tra</button>
+                      <button  class="btn btn-infor" (click)="resetAllAnswers()">Thử lại</button>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
             </table>
-
-            <mat-paginator [pageSizeOptions]="[ 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+          </div>
         </div>
+      </div>
+      <div class="col-3 mb-3 mb-lg-5 lesson-container">
+        <h5 style="color:#11a683">{{Lbook.name}}</h5>
+        <div class="list-lesson">
+          <div class="lesson" *ngFor="let lessonN of lessonN; let i = index">
+            <a style="cursor: pointer; width: 10%;"(click)="LessonDetail(lessonN.bookId,lessonN.lessonId)" >
+              <!-- <p>{{ lesson.lessonId }}</p> -->
+              <p>{{i+1}}</p>
+            </a>
+          </div>
+        </div>
+      </div> 
     </div>
+    </div>
+  </div>
 </div>
-
-

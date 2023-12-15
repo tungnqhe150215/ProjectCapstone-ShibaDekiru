@@ -5,6 +5,7 @@ import com.sep490.g49.shibadekiru.dto.ReadingQuestionDto;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.entity.Reading;
 import com.sep490.g49.shibadekiru.entity.ReadingQuestion;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.ILessonService;
 import com.sep490.g49.shibadekiru.service.IReadingQuestionService;
 import com.sep490.g49.shibadekiru.service.IReadingService;
@@ -35,6 +36,9 @@ public class AdminManageReadingController {
     @Autowired
     private ModelMapper map;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @GetMapping("/{id}/reading")
     public List<ReadingDto> getReadingByLesson(@PathVariable(name = "id") Long lessonId) {
         Lesson lessonResponse = iLessonService.getLessonById(lessonId);
@@ -46,6 +50,7 @@ public class AdminManageReadingController {
     public ResponseEntity<ReadingDto> getReadingById(@PathVariable(name = "id") Long id) {
         Reading reading = iReadingService.getReadingById(id);
 
+        reading.setImage(googleDriveService.getFileUrl(reading.getImage()));
         // convert entity to DTO
         ReadingDto readingResponse = map.map(reading, ReadingDto.class);
 

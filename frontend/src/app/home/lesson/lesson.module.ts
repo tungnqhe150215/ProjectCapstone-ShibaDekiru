@@ -17,6 +17,10 @@ import { ListListeningComponent } from './list-listening/list-listening.componen
 import { ListKaiwaComponent } from './list-kaiwa/list-kaiwa.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule } from '@angular/forms'; // Import the FormsModule
 
 @NgModule({
   declarations: [
@@ -40,6 +44,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatTableModule,
     MatExpansionModule,
     MatTabsModule,
+    MatIconModule,
+    NgxPaginationModule,
+    SharedModule,
+    FormsModule
   ]
 })
 export class LessonModule { }

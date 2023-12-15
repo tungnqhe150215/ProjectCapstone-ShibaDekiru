@@ -29,7 +29,10 @@ public class Lectures implements Serializable {
     @Column(name = "email", nullable = false, unique = true, length = 45)
     private String email;
 
-    @Column(name = "phone", nullable = false, length = 10)
+    @Column(name = "gender", nullable = false)
+    private Boolean gender;
+
+    @Column(name = "phone", nullable = false, length = 10, unique = true)
     private String phone;
 
     @Column(name = "avatar", length = 250)
