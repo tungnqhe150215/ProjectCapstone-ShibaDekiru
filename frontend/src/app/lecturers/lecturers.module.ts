@@ -21,7 +21,7 @@ import {AddClassworkComponent} from './classwork/add-classwork/add-classwork.com
 import {UpdateClassworkComponent} from './classwork/update-classwork/update-classwork.component';
 import {DeleteClassworkComponent} from './classwork/delete-classwork/delete-classwork.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ClassworkDetailComponent} from './classwork/classwork-detail/classwork-detail.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -32,18 +32,26 @@ import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detai
 import {LClassListComponent} from './class/l-class-list/l-class-list.component';
 import {SharedModule} from "../shared/shared.module";
 import {LectureListTestComponent} from './test/lecture-list-test/lecture-list-test.component';
-import {LectureTestDetailComponent} from './test/lecture-test-detail/lecture-test-detail.component';
+import {
+  LectureTestDetailComponent,
+  QuestionBankCreateDialog, QuestionBankDeleteDialog, QuestionBankUpdateDialog
+} from './test/lecture-test-detail/lecture-test-detail.component';
 import {ClassMemberComponent} from './class/class-member/class-member.component';
 import {TestSectionComponent} from './test/test-section/test-section.component';
 import {ListeningSectionComponent} from './test/test-section/listening-section/listening-section.component';
 import {ReadingSectionComponent} from './test/test-section/reading-section/reading-section.component';
 import {GrammarVocabSectionComponent} from './test/test-section/grammar-vocab-section/grammar-vocab-section.component';
-import { TestAssignComponent } from './test/test-assign/test-assign.component';
+import {
+  TestAssignComponent,
+  TestAssignCreateDialog, TestAssignDeleteDialog,
+  TestAssignUpdateDialog
+} from './test/test-assign/test-assign.component';
 import { TestResultComponent } from './test/test-result/test-result.component';
 import { GradeClassworkComponent } from './classwork/grade-classwork/grade-classwork.component';
 import { AnswerFieldComponent } from './classwork/grade-classwork/answer-field/answer-field.component';
 import { SubmissionListComponent } from './classwork/submission-list/submission-list.component';
 import { DeletelecCommentComponent } from './lecturers-post/deletelec-comment/deletelec-comment.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -65,6 +73,14 @@ import { DeletelecCommentComponent } from './lecturers-post/deletelec-comment/de
     AnswerFieldComponent,
     SubmissionListComponent,
     DeletelecCommentComponent,
+    LectureTestDetailComponent,
+    QuestionBankCreateDialog,
+    QuestionBankUpdateDialog,
+    QuestionBankDeleteDialog,
+    TestAssignComponent,
+    TestAssignCreateDialog,
+    TestAssignUpdateDialog,
+    TestAssignDeleteDialog
   ],
   exports: [
     ClassworkComponent
@@ -94,11 +110,11 @@ import { DeletelecCommentComponent } from './lecturers-post/deletelec-comment/de
     SharedModule,
     LClassListComponent,
     LectureListTestComponent,
-    LectureTestDetailComponent,
     GrammarVocabSectionComponent,
     ReadingSectionComponent,
     ListeningSectionComponent,
-    TestAssignComponent,
+    MatOptionModule,
+    MatSelectModule,
   ]
 })
 export class LecturersModule {

@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatError, MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatSort, MatSortModule} from "@angular/material/sort";
@@ -10,7 +10,7 @@ import {Test} from "../../../core/models/test";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {QuestionBank} from "../../../core/models/question-bank";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LectureManageQuestionBankService} from "../lecture-manage-question-bank.service";
@@ -18,13 +18,12 @@ import {LectureManageTestService} from "../lecture-manage-test.service";
 import {SharedModule} from "../../../shared/shared.module";
 import {TestSection} from "../../../core/models/test-section";
 import {LectureTestSectionService} from "../lecture-test-section.service";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-lecture-test-detail',
   templateUrl: './lecture-test-detail.component.html',
   styleUrls: ['./lecture-test-detail.component.css'],
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatCardModule, SharedModule],
 })
 export class LectureTestDetailComponent implements OnInit{
   displayedColumns: string[] = ['id', 'question', 'answer','action'];
@@ -76,13 +75,13 @@ export class LectureTestDetailComponent implements OnInit{
   openDeleteQuestionBankDialog(id:number){
     this.dialog.open(QuestionBankDeleteDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getQuestionBank());
+    }).afterClosed().subscribe(data => { if(data) this.getQuestionBank()});
   }
 
   openCreateQuestionBankDialog(id:number){
     this.dialog.open(QuestionBankCreateDialog,{
       data: id
-    }).afterClosed().subscribe(() => this.getQuestionBank());
+    }).afterClosed().subscribe(data => { if(data) this.getQuestionBank()});
   }
 
   openUpdateQuestionBankDialog(id:number){
@@ -90,7 +89,7 @@ export class LectureTestDetailComponent implements OnInit{
       {
         data: id
       }
-    ).afterClosed().subscribe(() => this.getQuestionBank());
+    ).afterClosed().subscribe(data => { if(data) this.getQuestionBank()});
   }
 }
 //
@@ -101,8 +100,6 @@ export class LectureTestDetailComponent implements OnInit{
   selector: 'app-test-question-delete-dialog',
   templateUrl: 'question-bank-delete-dialog.html',
   styleUrls: ['./lecture-test-detail.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class QuestionBankDeleteDialog {
   constructor(
@@ -113,11 +110,12 @@ export class QuestionBankDeleteDialog {
   ) {}
   deleteQuestionBank(id:number){
     this.manageQuestionBankService.deleteQuestionBank(id).subscribe(data => {
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Xóa thành công!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
   onNoClick(): void {
@@ -132,11 +130,8 @@ export class QuestionBankDeleteDialog {
   selector: 'app-test-question-create-dialog',
   templateUrl: 'question-bank-create-dialog.html',
   styleUrls: ['./lecture-test-detail.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class QuestionBankCreateDialog {
-
   questionBank:QuestionBank =  new QuestionBank();
 
   constructor(
@@ -147,15 +142,14 @@ export class QuestionBankCreateDialog {
   ) {}
 
   createQuestionBank(){
-    console.log(this.questionBank)
-    console.log(this.data)
-    this.manageQuestionBankService.createQuestionBank(this.data,this.questionBank).subscribe(data => {
-      this.dialogRef.close();
-    })
-    this._snackBar.open('Test question added!!', 'Close', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+      this.manageQuestionBankService.createQuestionBank(this.data,this.questionBank).subscribe(data => {
+        this.dialogRef.close(data);
+      })
+      this._snackBar.open('Câu hỏi đã được thêm mới!!', 'Đóng', {
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        duration: 2000
+      });
   }
 
   onNoClick(): void {
@@ -170,8 +164,6 @@ export class QuestionBankCreateDialog {
   selector: 'app-test-question-update-dialog',
   templateUrl: 'question-bank-update-dialog.html',
   styleUrls: ['./lecture-test-detail.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class QuestionBankUpdateDialog implements OnInit {
 
@@ -197,11 +189,12 @@ export class QuestionBankUpdateDialog implements OnInit {
     console.log(this.questionBank)
     console.log(this.data)
     this.manageQuestionBankService.updateQuestionBank(this.data, this.questionBank).subscribe(data => {
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Test question updated!!', 'Close', {
+    this._snackBar.open('Câu hỏi đã được cập nhật!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
 

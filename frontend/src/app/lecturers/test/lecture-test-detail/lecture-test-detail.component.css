@@ -32,14 +32,21 @@ td, th {
 }
 
 .mat-column-id{
-  width: 10%;
+  width: 5%;
 }
 
-.mat-column-title{
-  width: 60%;
+.mat-column-question{
+  width: 45%;
 }
 
-.mat-column-action{}
+.mat-column-answer{
+  width: 30%;
+
+}
+
+.mat-column-action{
+  width: 20%;
+}
 
 .mat-dialog-content{
   width: 500px;
@@ -47,4 +54,9 @@ td, th {
 
 .form-dialog{
   width: 500px;
+}
+
+.text-2{
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

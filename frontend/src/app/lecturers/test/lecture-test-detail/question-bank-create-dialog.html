@@ -1,39 +1,51 @@
-<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm bài kiểm tra</h2>
+<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm câu hỏi mới</h2>
+<form class="form-dialog" #form="ngForm" (ngSubmit)=" createQuestionBank()" >
 <mat-dialog-content>
-<form class="form-dialog">
   <mat-form-field>
     <mat-label>Câu hỏi</mat-label>
-    <textarea matInput [(ngModel)]="questionBank.question" [ngModelOptions]="{standalone: true}" required></textarea>
+    <textarea  matInput name="question"  [(ngModel)]="questionBank.question" required ></textarea>
   </mat-form-field>
+  <mat-error *ngIf="!form.controls['question']?.valid && (form.controls['question']?.dirty || form.controls['question']?.touched)" style="font-size: small">
+    Trường này là bắt buộc
+  </mat-error>
   <br>
   <mat-form-field >
     <mat-label>Phương án 1</mat-label>
-    <textarea matInput [(ngModel)]="questionBank.firstChoice" [ngModelOptions]="{standalone: true}" required></textarea>
+    <textarea matInput name="firstChoice"  [(ngModel)]="questionBank.firstChoice" required></textarea>
   </mat-form-field>
+  <mat-error *ngIf="!form.controls['firstChoice']?.valid && (form.controls['firstChoice']?.dirty || form.controls['firstChoice']?.touched)" style="font-size: small">
+    Trường này là bắt buộc
+  </mat-error>
   <br>
   <mat-form-field >
     <mat-label>Phương án 2</mat-label>
-    <textarea matInput [(ngModel)]="questionBank.secondChoice" [ngModelOptions]="{standalone: true}" required></textarea>
+    <textarea matInput name="secondChoice"  [(ngModel)]="questionBank.secondChoice"  required></textarea>
   </mat-form-field>
+  <mat-error *ngIf="!form.controls['secondChoice']?.valid && (form.controls['secondChoice']?.dirty || form.controls['secondChoice']?.touched)" style="font-size: small">
+    Trường này là bắt buộc
+  </mat-error>
   <br>
   <mat-form-field >
     <mat-label>Phương án 3 (Tùy chọn)</mat-label>
-    <textarea matInput [(ngModel)]="questionBank.thirdChoice" [ngModelOptions]="{standalone: true}"></textarea>
+    <textarea matInput name="thirdChoice" [(ngModel)]="questionBank.thirdChoice" ></textarea>
   </mat-form-field>
   <br>
   <mat-form-field >
     <mat-label>Phương án 4 (Tùy chọn)</mat-label>
-    <textarea matInput [(ngModel)]="questionBank.fourthChoice" [ngModelOptions]="{standalone: true}"></textarea>
+    <textarea matInput name="fourth choice" [(ngModel)]="questionBank.fourthChoice" ></textarea>
   </mat-form-field>
   <br>
   <mat-form-field >
     <mat-label>Đáp án (hãy sao chép lại đáp án chính xác)</mat-label>
-    <textarea matInput [(ngModel)]="questionBank.correctAnswer" [ngModelOptions]="{standalone: true}" required></textarea>
+    <textarea matInput name="answer"  [(ngModel)]="questionBank.correctAnswer" required></textarea>
   </mat-form-field>
-</form>
+  <mat-error *ngIf="form.form.controls['answer']?.hasError('required') && (form.controls['answer']?.dirty || form.controls['answer']?.touched)" style="font-size: small">
+    Trường này là bắt buộc
+  </mat-error>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Hủy bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="createQuestionBank()">Create</button>
+  <button mat-button type="submit" [disabled]="form.form.invalid">Tạo mới</button>
 </mat-dialog-actions>
+</form>
