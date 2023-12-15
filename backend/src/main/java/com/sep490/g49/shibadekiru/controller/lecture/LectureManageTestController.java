@@ -97,7 +97,6 @@ public class LectureManageTestController {
     @GetMapping("/test/{id}/test-result")
     public List<TestResultDto> getAllTestResultByTest(@PathVariable(name = "id") Long testId) {
         Test test = iTestService.getTestById(testId);
-        TestSection testSection = iTestSectionService.getTestSectionById(testId);
 
         return iTestResultService.getTestResultByTest(test).stream().map(testResult -> modelMapper.map(testResult, TestResultDto.class)).collect(Collectors.toList());
     }

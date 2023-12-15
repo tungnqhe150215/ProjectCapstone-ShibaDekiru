@@ -19,18 +19,16 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {Test} from "../../../core/models/test";
 import {Class} from "../../../core/models/class";
 import {LectureClassService} from "../../class/lecture-class.service";
-import {MatSelectModule} from "@angular/material/select";
+import {MatSelectChange, MatSelectModule} from "@angular/material/select";
 import {SessionStorageService} from "../../../shared/services/session-storage.service";
 import {data} from "autoprefixer";
-import {DatePipe, NgForOf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {LectureManageTestService} from "../lecture-manage-test.service";
 
 @Component({
   selector: 'app-test-assign',
   templateUrl: './test-assign.component.html',
   styleUrls: ['./test-assign.component.css'],
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, SharedModule, DatePipe],
 })
 export class TestAssignComponent implements OnInit{
   displayedColumns: string[] = ['id','className','expiredDate','action'];
@@ -115,8 +113,6 @@ export class TestAssignComponent implements OnInit{
   selector: 'app-test-assign-delete-dialog',
   templateUrl: 'test-assign-delete-dialog.html',
   styleUrls: ['./test-assign.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class TestAssignDeleteDialog {
   constructor(
@@ -144,8 +140,6 @@ export class TestAssignDeleteDialog {
   selector: 'app-test-assign-create-dialog',
   templateUrl: 'test-assign-create-dialog.html',
   styleUrls: ['./test-assign.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatSlideToggleModule, MatSelectModule, NgForOf],
 })
 export class TestAssignCreateDialog implements OnInit{
 
@@ -177,6 +171,7 @@ export class TestAssignCreateDialog implements OnInit{
   createTestAssign(){
     this.chooseClass.classId = this.classId
     this.testAssign.test = this.test
+    this.testAssign.assignedClass = this.chooseClass
     console.log(this.testAssign)
     console.log(this.chooseClass)
     this.manageTestAssignService.createTestAssign(this.data,this.testAssign,this.extendTime).subscribe(data => {
@@ -198,13 +193,15 @@ export class TestAssignCreateDialog implements OnInit{
     this.chooseClass = event.value
     console.log('Selected class:', event.value);
   }
+
+  modelChanged(event: any) {
+    this.classId = event.value
+  }
 }
 @Component({
   selector: 'app-test-assign-update-dialog',
   templateUrl: 'test-assign-update-dialog.html',
   styleUrls: ['./test-assign.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatSlideToggleModule],
 })
 export class TestAssignUpdateDialog {
 
