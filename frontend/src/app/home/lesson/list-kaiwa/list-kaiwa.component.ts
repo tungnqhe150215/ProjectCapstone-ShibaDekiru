@@ -23,8 +23,6 @@ export class ListKaiwaComponent implements OnInit{
 
   displayedColumns: string[] = ['id', 'name', 'lesson','script' ];
 
-  // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  // @ViewChild(MatSort) sort!: MatSort;
 
   p: number = 1;
   idB!:number;
@@ -32,7 +30,7 @@ export class ListKaiwaComponent implements OnInit{
   Lbook: Book = new Book;
   kaiwa: Kaiwa[]=[];
   lesson: Lesson = new Lesson;
-  slicedItems: string[][] = []; // Khai báo ở đây
+  slicedItems: string[][] = [];
   constructor(
     private router: Router,
     private studentLessonService: StudentLessonService,
@@ -51,13 +49,11 @@ export class ListKaiwaComponent implements OnInit{
   id!:number
   getKaiwaByLessonID(){
     this.id = this.route.snapshot.params['idL'];
-    // this.kaiwa = [];
     this.studentLessonService.getKaiwaByLesson(this.id)
     .subscribe({
       next:data =>{
         this.kaiwa = data;
         this.dataSource = new MatTableDataSource(data);
-        // this.dataSource.paginator = this.paginator;
         this.slicedItems = this.getSlicedItems(this.kaiwa, 'script');
         console.log(data)
       }
@@ -65,10 +61,7 @@ export class ListKaiwaComponent implements OnInit{
   }
 
   getSlicedItems(data: any[], propertyName: string): string[][] {
-    return data.map(item => item[propertyName]
-      .split('。')
-      .filter((subItem: string) => subItem.trim() !== '')
-    );
+    return data.map(item => item[propertyName].split('。').filter((subItem: string)  => subItem.trim() !== ''));
   }
 
 
@@ -82,7 +75,6 @@ export class ListKaiwaComponent implements OnInit{
 
   getLessonByBookID() {
     this.idB = this.route.snapshot.params['id'];
-    const idBook = this.studentLessonService.getBookId();
     this.lessonN = [];
     this.studentLessonService.getLessonByBook(this.idB).subscribe({
       next: (res) => {
