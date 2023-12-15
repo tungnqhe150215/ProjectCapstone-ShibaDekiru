@@ -12,9 +12,9 @@
             </div>
             <div class="table-responsive">
               <table class="table mb-0">
-                <tbody *ngFor="let kaiwa of kaiwa | paginate: { itemsPerPage: 2, currentPage: p }; let i = index ">
+                <tbody *ngFor="let kaiwa of kaiwa | paginate: { itemsPerPage: 2, currentPage: p }; let i = index;  ">
                   <tr class="align-middle">
-                    <td>{{i+1}}
+                    <td>{{(i + (p - 1) * 2) + 1 }}
                     </td>
                     <td>
                       <h4 class="d-inline-block align-middle">Bài đối thoại: {{kaiwa.title}}</h4>
@@ -22,39 +22,30 @@
                     <td><br>
                       <h5>Bài học: {{lesson.content}}</h5>
                       <h6> 
-                        <a class="text-decoration-none" data-bs-toggle="collapse" href="#collapseExample{{i+1}}"
+                        <a class="text-decoration-none" data-bs-toggle="collapse" href="#collapseExample{{(i + (p - 1) * 2) + 1 }}"
                           role="button" aria-expanded="false" aria-controls="collapseExample">
                           << Xem nội dung bài đối thoại>>
                         </a></h6>
                     </td>
                   </tr>
-                  <tr  class="collapse" id="collapseExample{{i+1}}">
+                  <tr  class="collapse" id="collapseExample{{(i + (p - 1) * 2) + 1 }}">
                     <td colspan="4">
                       <div class="card card-body">
                         <div class="">
                           <h4 class="mt-2 mb-3">Bài nghe: {{kaiwa.title}}</h4>
                           <br> 
-                          <!-- <audio controls>
-                            <source src="{{kaiwa.link}}" type="audio/mp3">
-                            Your browser does not support the audio element.
-                          </audio> -->
                           <div  class="mb-4 d-flex justify-content-center">
                           <img style="height:300px; width: 600px;" src="{{kaiwa.link}}">
                         </div>
                         </div>
-                        <!-- Script sẽ để ở đây:> -->
                         <h6>Các câu thoại:</h6>
-                        <div *ngFor="let subItem of slicedItems[i]; let j = index">
+                        <div *ngFor="let subItem of slicedItems[i + (p - 1) * 2]; let j = index">
                           <ul>
                             <li>
-                              <!-- {{ subItem }} -->
                               <p style="font-size: 16px;">{{ j % 2 === 0 ? 'A' : 'B' }}: {{ subItem }}。</p>
                             </li>
                           </ul>
                         </div>
-                        <!-- {{kaiwa.script}} -->
-                        <!-- Some placeholder content for the collapse component. This panel is hidden by default but
-                        revealed when the user activates the relevant trigger. -->
                       </div>
                     </td>
                   </tr>
