@@ -19,10 +19,10 @@ public class WritingExerciseAnswer implements Serializable {
     @Column(name = "writing_exercise_answer_id")
     private Long writingExerciseAnswerId;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "TEXT")
     private String answer;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "TEXT")
     private String comment;
 
     private double mark;

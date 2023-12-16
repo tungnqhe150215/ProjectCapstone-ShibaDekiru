@@ -21,7 +21,7 @@ public class Reading implements Serializable {
 
     private String title;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     private String image;

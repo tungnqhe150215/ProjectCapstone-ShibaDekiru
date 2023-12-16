@@ -31,7 +31,7 @@ public class Kanji implements Serializable {
     @Column(name = "chinese_mean")
     private String chineseMean;
 
-    @Column(name = "example", columnDefinition = "LONGTEXT")
+    @Column(name = "example", columnDefinition = "TEXT")
     private String example;
 
     @ManyToOne
