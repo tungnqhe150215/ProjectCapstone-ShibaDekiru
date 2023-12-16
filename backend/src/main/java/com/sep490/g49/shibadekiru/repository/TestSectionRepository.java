@@ -11,7 +11,7 @@ public interface TestSectionRepository extends JpaRepository<TestSection,Long> {
 
     TestSection findBySectionId(Long sectionId);
 
-    List<TestSection> findTestSectionsByTest(Test test);
+    List<TestSection> findTestSectionsByTestAndIsDeletedFalse(Test test);
 
-    List<TestSection> findTestSectionsBySectionTypeAndAndTest(SectionType sectionType, Test test);
+    List<TestSection> findTestSectionsBySectionTypeAndAndTestAndIsDeletedFalse(SectionType sectionType, Test test);
 }

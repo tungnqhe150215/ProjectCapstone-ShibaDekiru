@@ -72,7 +72,7 @@ public class StudentClassWorkServiceImpl implements IStudentClassWorkService {
     public List<StudentClassWork> getStudentClassWorkByClassAndStudent(Long classId, Long studentId) {
         Class aClass = classRepository.findById(classId).orElseThrow(null);
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
-        List<ClassWork> classWorks = classWorkRepository.findByMyC(aClass);
+        List<ClassWork> classWorks = classWorkRepository.findByMyCAndIsDeletedFalse(aClass);
         List<StudentClassWork> studentClassWorks = new ArrayList<>();
         classWorks.forEach(classWork -> {
             if (studentClassWorkRepository.findByStudentAndClassWork(student,classWork) != null)

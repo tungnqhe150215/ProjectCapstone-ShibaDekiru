@@ -12,5 +12,5 @@ public interface WritingExerciseRepository extends JpaRepository<WritingExercise
 
     WritingExercise findWritingExerciseByWritingQuizId(Long id);
 
-    List<WritingExercise> findWritingExerciseByExercise(Exercise exercise);
+    List<WritingExercise> findWritingExerciseByExerciseAndIsDeletedFalse(Exercise exercise);
 }

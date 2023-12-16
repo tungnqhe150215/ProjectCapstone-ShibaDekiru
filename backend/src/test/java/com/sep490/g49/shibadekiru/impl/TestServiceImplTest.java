@@ -41,7 +41,7 @@ class TestServiceImplTest {
         // Arrange
         Lectures lecture = new Lectures();
         List<Test> mockTests = new ArrayList<>();
-        when(testRepository.findAllByLecture(lecture)).thenReturn(mockTests);
+        when(testRepository.findAllByLectureAndIsDeletedFalse(lecture)).thenReturn(mockTests);
 
         // Act
         List<Test> result = testService.getAllTestByLecture(lecture);

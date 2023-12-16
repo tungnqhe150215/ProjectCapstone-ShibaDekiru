@@ -11,5 +11,5 @@ import java.util.List;
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
     Exercise findByExerciseId (Long id);
 
-    List<Exercise> findExercisesByClassWork(ClassWork classWork);
+    List<Exercise> findExercisesByClassWorkAndIsDeletedFalse(ClassWork classWork);
 }

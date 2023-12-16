@@ -28,6 +28,9 @@ public class Class implements Serializable {
     @Column(name = "is_locked", nullable = false)
     private Boolean isLocked;
 
+    @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false")
+    private Boolean isDeleted;
+    
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "lecture_id", referencedColumnName = "lecture_id")

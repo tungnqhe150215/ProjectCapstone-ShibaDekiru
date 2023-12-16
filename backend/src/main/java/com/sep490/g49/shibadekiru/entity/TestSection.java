@@ -26,14 +26,15 @@ public class TestSection {
     @Enumerated(EnumType.STRING)
     private SectionType sectionType;
 
+    @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false")
+    private Boolean isDeleted;
+
     @Column(columnDefinition = "TEXT")
     private String sectionAttach;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id",referencedColumnName = "test_id")
     private Test test;
-
 
     @OneToMany(mappedBy = "section",cascade = CascadeType.ALL)
     @JsonBackReference

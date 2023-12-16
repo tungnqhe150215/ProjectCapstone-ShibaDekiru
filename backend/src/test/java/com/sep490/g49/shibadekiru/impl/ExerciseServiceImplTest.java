@@ -37,7 +37,7 @@ class ExerciseServiceImplTest {
         List<Exercise> exerciseList = Arrays.asList(exercise1, exercise2);
 
         // Mock behavior
-        when(exerciseRepository.findExercisesByClassWork(classWork)).thenReturn(exerciseList);
+        when(exerciseRepository.findExercisesByClassWorkAndIsDeletedFalse(classWork)).thenReturn(exerciseList);
 
         // Call the method
         List<Exercise> result = exerciseService.getExercisePartByClasswork(classWork);
@@ -46,7 +46,7 @@ class ExerciseServiceImplTest {
         assertEquals(exerciseList.size(), result.size());
 
         // Verify interactions
-        verify(exerciseRepository, times(1)).findExercisesByClassWork(classWork);
+        verify(exerciseRepository, times(1)).findExercisesByClassWorkAndIsDeletedFalse(classWork);
     }
 
     @Test

@@ -12,7 +12,7 @@ public interface ClassRepository extends JpaRepository<Class, Long> {
 
     Class findByClassCode(String code);
 
-    List<Class> findByLecture(Lectures lecture);
+    List<Class> findByLectureAndIsDeletedFalse(Lectures lecture);
 
     boolean existsByClassCode(String code);
 

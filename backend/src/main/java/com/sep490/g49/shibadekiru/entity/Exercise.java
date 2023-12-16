@@ -19,7 +19,11 @@ public class Exercise implements Serializable{
     @Column(name = "exercise_id")
     private Long exerciseId;
 
+    @Column(columnDefinition = "TINY TEXT")
     private String title;
+
+    @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false")
+    private Boolean isDeleted;
 
     @OneToMany(mappedBy = "exercise")
     @JsonBackReference

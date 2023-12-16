@@ -32,7 +32,7 @@ public class ClassServiceImpl implements IClassService {
 
     @Override
     public List<Class> getAllClassByLecture(Lectures lecture) {
-        return classRepository.findByLecture(lecture);
+        return classRepository.findByLectureAndIsDeletedFalse(lecture);
     }
 
     @Override

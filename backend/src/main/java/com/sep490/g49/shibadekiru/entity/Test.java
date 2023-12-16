@@ -31,6 +31,8 @@ public class Test implements Serializable {
     @Column(name = "is_locked", nullable = false)
     private Boolean isLocked;
 
+    @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false")
+    private Boolean isDeleted;
 
     @OneToMany(mappedBy = "test")
     @JsonBackReference

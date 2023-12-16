@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ClassWorkRepository extends JpaRepository<ClassWork, Long> {
-    List<ClassWork> findByMyC(Class myC);
+    List<ClassWork> findByMyCAndIsDeletedFalse(Class myC);
 }

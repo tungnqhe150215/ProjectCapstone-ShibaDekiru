@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class WritingExercise implements Serializable {
     private Long writingQuizId;
 
     private String question;
+
+    private Double mark;
+
+    @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false")
+    private Boolean isDeleted;
 
     @OneToMany(mappedBy = "writingExercise")
     @JsonBackReference

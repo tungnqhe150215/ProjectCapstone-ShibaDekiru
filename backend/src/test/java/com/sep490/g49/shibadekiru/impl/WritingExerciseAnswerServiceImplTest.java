@@ -81,7 +81,7 @@ class WritingExerciseAnswerServiceImplTest {
         Student student = new Student();
         when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
         when(exerciseRepository.findByExerciseId(exerciseId)).thenReturn(exercise);
-        when(writingExerciseRepository.findWritingExerciseByExercise(exercise)).thenReturn(new ArrayList<>());
+        when(writingExerciseRepository.findWritingExerciseByExerciseAndIsDeletedFalse(exercise)).thenReturn(new ArrayList<>());
 
         // Test
         var result = writingExerciseAnswerService.getWritingExerciseAnswerByExerciseAndStudent(exerciseId, studentId);
@@ -100,7 +100,7 @@ class WritingExerciseAnswerServiceImplTest {
         Student student = new Student();
         when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
         when(classWorkRepository.findById(classworkId)).thenReturn(Optional.of(classWork));
-        when(exerciseRepository.findExercisesByClassWork(classWork)).thenReturn(new ArrayList<>());
+        when(exerciseRepository.findExercisesByClassWorkAndIsDeletedFalse(classWork)).thenReturn(new ArrayList<>());
 
         // Test
         var result = writingExerciseAnswerService.getWritingExerciseAnswerByClassworkAndStudent(classworkId, studentId);

@@ -41,7 +41,7 @@ class WritingExerciseServiceImplTest {
     void getWritingExerciseByExercise() {
         // Mock data
         Exercise exercise = new Exercise();
-        when(writingExerciseRepository.findWritingExerciseByExercise(exercise)).thenReturn(new ArrayList<>());
+        when(writingExerciseRepository.findWritingExerciseByExerciseAndIsDeletedFalse(exercise)).thenReturn(new ArrayList<>());
 
         // Test
         var result = writingExerciseService.getWritingExerciseByExercise(exercise);
@@ -142,8 +142,8 @@ class WritingExerciseServiceImplTest {
     void getWritingExerciseByClasswork() {
         // Mock data
         ClassWork classWork = new ClassWork();
-        when(exerciseRepository.findExercisesByClassWork(classWork)).thenReturn(new ArrayList<>());
-        when(writingExerciseRepository.findWritingExerciseByExercise(any())).thenReturn(new ArrayList<>());
+        when(exerciseRepository.findExercisesByClassWorkAndIsDeletedFalse(classWork)).thenReturn(new ArrayList<>());
+        when(writingExerciseRepository.findWritingExerciseByExerciseAndIsDeletedFalse(any())).thenReturn(new ArrayList<>());
 
         // Test
         var result = writingExerciseService.getWritingExerciseByClasswork(classWork);

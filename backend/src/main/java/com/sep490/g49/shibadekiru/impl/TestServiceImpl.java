@@ -27,7 +27,7 @@ public class TestServiceImpl implements ITestService {
 
     @Override
     public List<Test> getAllTestByLecture(Lectures lecture) {
-        return testRepository.findAllByLecture(lecture);
+        return testRepository.findAllByLectureAndIsDeletedFalse(lecture);
     }
 
 
@@ -80,7 +80,8 @@ public class TestServiceImpl implements ITestService {
     public void deleteTest(Long testId) {
         Test testDelete = testRepository.findById(testId)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
-        testRepository.delete(testDelete);
+        testDelete.setIsDeleted(true);
+        testRepository.save(testDelete);
     }
 
 }
