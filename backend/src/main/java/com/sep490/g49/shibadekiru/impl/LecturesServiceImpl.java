@@ -27,22 +27,14 @@ public class LecturesServiceImpl implements ILecturesService {
     @Autowired
     private GoogleDriveService googleDriveService;
 
-    public LecturesDto createLecturerFromUserAccount(LecturesDto lectures) {
+    public void createLecturerFromUserAccount(Lectures lectures) {
 
-            Lectures  lectures1 = modelMapper.map(lectures, Lectures.class);
+            lectures.setPhone("");
+            lectures.setGender(false);
+            lectures.setAvatar("");
+            lectures.setUserAccount(lectures.getUserAccount());
 
-            UserAccount userAccount = userAccountRepository.findByMemberId(lectures.getMemberId());
-
-            lectures1.setPhone("");
-            lectures1.setGender(false);
-            lectures1.setAvatar("");
-            lectures1.setUserAccount(userAccount);
-
-            Lectures saveLecture = lecturersRepository.save(lectures1);
-
-            LecturesDto lecturesDto = modelMapper.map(saveLecture, LecturesDto.class);
-
-            return lecturesDto;
+            lecturersRepository.save(lectures);
 
     }
 
