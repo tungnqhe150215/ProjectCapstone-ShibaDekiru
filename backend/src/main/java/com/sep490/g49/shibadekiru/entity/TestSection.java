@@ -26,15 +26,15 @@ public class TestSection {
     @Enumerated(EnumType.STRING)
     private SectionType sectionType;
 
-    @Column(columnDefinition = "LONGTEXT")
-    private String sectionAttach; // URL cho tệp đính kèm
+    @Column(columnDefinition = "TEXT")
+    private String sectionAttach;
 
-    // Mô hình quan hệ với bảng Test (Một phần thuộc về một bài test)
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "test_id",referencedColumnName = "test_id")
     private Test test;
 
-    // Mô hình quan hệ với bảng QuestionBank (Nhiều câu hỏi trong một phần)
+
     @OneToMany(mappedBy = "section",cascade = CascadeType.ALL)
     @JsonBackReference
     private List<QuestionBank> questions;
