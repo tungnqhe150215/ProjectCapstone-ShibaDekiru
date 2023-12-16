@@ -62,6 +62,7 @@ public class ClassServiceImpl implements IClassService {
             code = randomStringGeneratorService.randomAlphaNumeric(7);
         } while (classRepository.existsByClassCode(code));
         classRequest.setClassCode(code);
+        classRequest.setIsDeleted(false);
         return classRepository.save(classRequest);
     }
 

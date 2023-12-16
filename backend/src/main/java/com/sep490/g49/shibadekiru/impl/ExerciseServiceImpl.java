@@ -27,6 +27,7 @@ public class ExerciseServiceImpl implements IExerciseService {
 
     @Override
     public Exercise createExercise(Exercise exercise) {
+        exercise.setIsDeleted(false);
         return exerciseRepository.save(exercise);
     }
 

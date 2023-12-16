@@ -49,6 +49,7 @@ public class ClassWorkServiceImpl implements IClassWorkService {
         classWork.setName(classWorkDto.getName());
         classWork.setDeadline(classWorkDto.getDeadline());
         classWork.setIsLocked(classWork.getIsLocked());
+        classWork.setIsDeleted(false);
         //classWorkDto.setClassId(aclass.getClassId());
         classWork.setMyC(aclass);
 

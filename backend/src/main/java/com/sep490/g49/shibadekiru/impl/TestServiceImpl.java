@@ -51,6 +51,7 @@ public class TestServiceImpl implements ITestService {
         Lectures lecture = test.getLecture();
 
         Test testCreate = new Test();
+        testCreate.setIsDeleted(false);
         testCreate.setTitle(title);
         testCreate.setCreatedAt(currentDateTime);
         testCreate.setDuration(duration);
