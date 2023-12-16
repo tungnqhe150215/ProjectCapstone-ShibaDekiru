@@ -54,5 +54,10 @@ export class RoleClassGuard implements CanActivate {
 
     
   }
+
+
+  // CanLecturerActive(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
+
+  // }
   
 }

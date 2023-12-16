@@ -23,6 +23,7 @@ import { GradeClassworkComponent } from "./lecturers/classwork/grade-classwork/g
 import { SubmissionListComponent } from "./lecturers/classwork/submission-list/submission-list.component";
 import { RoleClassGuard } from './guard/role-class.guard';
 import { UnthorizationComponent } from './home/unthorization/unthorization.component';
+import { ActiveGuard } from './guard/active.guard';
 
 
 const routes: Routes = [
@@ -50,11 +51,11 @@ const routes: Routes = [
     children: [
       // {path: 'post' ,component: ListPostComponent},
       // {path: '', redirectTo: 'post', pathMatch: 'full'},
-      { path: 'post/post-detail/:id', component: ViewPostComponent },
+      { path: 'post/post-detail/:id', component: ViewPostComponent, canActivate: [ActiveGuard] },
       // {path: ':id/post', component:CreatePostComponent},
-      { path: 'post/update-post/:id', component: UpdatePostComponent },
+      { path: 'post/update-post/:id', component: UpdatePostComponent, canActivate: [ActiveGuard] },
       { path: 'class-work', component: ClassworkComponent },
-      { path: ':id/post', component: ListPostComponent },
+      { path: ':id/post', component: ListPostComponent, canActivate: [ActiveGuard] },
       // {path: 'class',component:ClassworkComponent},
       { path: 'class/:id/class-work', component: ClassworkComponent },
       { path: 'class/class-work/:id', component: UpdateClassworkComponent },
