@@ -31,7 +31,7 @@ public class ClassWorkServiceImpl implements IClassWorkService {
 
     @Override
     public List<ClassWork> getClassWorkByClass(Class myC) {
-        return classWorkRepository.findByMyC(myC);
+        return classWorkRepository.findByMyCAndIsDeletedFalse(myC);
     }
 
     @Override
@@ -78,7 +78,8 @@ public class ClassWorkServiceImpl implements IClassWorkService {
     @Override
     public void deleteClassWork(Long classWorkId) {
         ClassWork classWork = classWorkRepository.findById(classWorkId).orElseThrow(() -> new ResourceNotFoundException("Class work not exist with id:" + classWorkId));
-        classWorkRepository.delete(classWork);
+        classWork.setIsDeleted(true);
+        classWorkRepository.save(classWork);
     }
 
     @Override

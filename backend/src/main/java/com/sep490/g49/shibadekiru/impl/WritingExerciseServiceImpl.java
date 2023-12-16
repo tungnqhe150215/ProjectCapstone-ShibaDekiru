@@ -24,7 +24,7 @@ public class WritingExerciseServiceImpl implements IWritingExerciseService {
 
     @Override
     public List<WritingExercise> getWritingExerciseByExercise(Exercise exercise) {
-        return writingExerciseRepository.findWritingExerciseByExercise(exercise);
+        return writingExerciseRepository.findWritingExerciseByExerciseAndIsDeletedFalse(exercise);
     }
 
     @Override
@@ -51,15 +51,16 @@ public class WritingExerciseServiceImpl implements IWritingExerciseService {
     public void deleteWritingExercise(Long id) {
         WritingExercise writingExercise = writingExerciseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
-        writingExerciseRepository.delete(writingExercise);
+        writingExercise.setIsDeleted(true);
+        writingExerciseRepository.save(writingExercise);
     }
 
     @Override
     public List<WritingExercise> getWritingExerciseByClasswork(ClassWork classWork) {
-        List<Exercise> exerciseList = exerciseRepository.findExercisesByClassWork(classWork);
+        List<Exercise> exerciseList = exerciseRepository.findExercisesByClassWorkAndIsDeletedFalse(classWork);
         List<WritingExercise> writingExerciseList = new ArrayList<>();
         exerciseList.forEach(exercise -> {
-            List<WritingExercise> draftWritingExerciseList = writingExerciseRepository.findWritingExerciseByExercise(exercise);
+            List<WritingExercise> draftWritingExerciseList = writingExerciseRepository.findWritingExerciseByExerciseAndIsDeletedFalse(exercise);
             writingExerciseList.addAll(draftWritingExerciseList);
         });
         return writingExerciseList;

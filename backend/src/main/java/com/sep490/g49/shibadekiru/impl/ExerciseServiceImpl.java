@@ -17,7 +17,7 @@ public class ExerciseServiceImpl implements IExerciseService {
 
     @Override
     public List<Exercise> getExercisePartByClasswork(ClassWork classWork) {
-        return exerciseRepository.findExercisesByClassWork(classWork);
+        return exerciseRepository.findExercisesByClassWorkAndIsDeletedFalse(classWork);
     }
 
     @Override
@@ -40,6 +40,7 @@ public class ExerciseServiceImpl implements IExerciseService {
     @Override
     public void deleteExercise(Long id) {
         Exercise exercise = exerciseRepository.findByExerciseId(id);
-        exerciseRepository.delete(exercise);
+        exercise.setIsDeleted(true);
+        exerciseRepository.save(exercise);
     }
 }

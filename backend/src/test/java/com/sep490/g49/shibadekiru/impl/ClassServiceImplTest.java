@@ -46,7 +46,7 @@ class ClassServiceImplTest {
         List<Class> expectedClasses = new ArrayList<>();
         expectedClasses.add(new Class());
         expectedClasses.add(new Class());
-        when(classRepository.findByLecture(any())).thenReturn(expectedClasses);
+        when(classRepository.findByLectureAndIsDeletedFalse(any())).thenReturn(expectedClasses);
 
         // Act
         List<Class> actualClasses = classService.getAllClassByLecture(lecture);

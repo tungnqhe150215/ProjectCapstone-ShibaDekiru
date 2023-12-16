@@ -46,7 +46,7 @@ public class QuestionBankServiceImpl implements IQuestionBankService {
     public List<QuestionBank> getQuestionByTest(Test test) {
         List<QuestionBank> questionBankList = new ArrayList<>();
 
-        List<TestSection> testSections = testSectionRepository.findTestSectionsByTest(test);
+        List<TestSection> testSections = testSectionRepository.findTestSectionsByTestAndIsDeletedFalse(test);
         testSections.forEach(testSection -> {
             List<QuestionBank> draftList = questionBankRepository.findBySection(testSection);
             questionBankList.addAll(draftList);

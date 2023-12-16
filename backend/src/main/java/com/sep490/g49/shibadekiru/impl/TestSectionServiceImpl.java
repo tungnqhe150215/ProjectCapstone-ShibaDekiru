@@ -24,7 +24,7 @@ public class TestSectionServiceImpl implements ITestSectionService {
 
     @Override
     public List<TestSection> getTestSectionByTypeAndTest(SectionType sectionType,Test test) {
-        List<TestSection> testSections = testSectionRepository.findTestSectionsBySectionTypeAndAndTest(sectionType, test);
+        List<TestSection> testSections = testSectionRepository.findTestSectionsBySectionTypeAndAndTestAndIsDeletedFalse(sectionType, test);
 
         return testSections.stream()
                 .peek(data -> {
@@ -37,7 +37,7 @@ public class TestSectionServiceImpl implements ITestSectionService {
 
     @Override
     public List<TestSection> getTestSectionByTest(Test test) {
-        List<TestSection> testSections = testSectionRepository.findTestSectionsByTest(test);
+        List<TestSection> testSections = testSectionRepository.findTestSectionsByTestAndIsDeletedFalse(test);
         return testSections.stream()
                 .peek(data -> {
                     if (data.getSectionType().equals(SectionType.LISTENING) && data.getSectionAttach() != null && data.getSectionAttach().length() > 0) {

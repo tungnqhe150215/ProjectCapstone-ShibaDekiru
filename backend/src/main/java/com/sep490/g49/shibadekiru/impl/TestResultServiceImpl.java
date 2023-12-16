@@ -34,7 +34,7 @@ public class TestResultServiceImpl implements ITestResultService {
     @Override
     public List<TestResult> getTestResultByTest(Test test) {
         List<TestResult> testResults = new ArrayList<>();
-        List<TestSection> testSection = testSectionRepository.findTestSectionsByTest(test);
+        List<TestSection> testSection = testSectionRepository.findTestSectionsByTestAndIsDeletedFalse(test);
         for (TestSection section: testSection){
             List<TestResult> results = testResultRepository.findTestResultsByTestSection(section);
             for (TestResult result : results){
@@ -79,12 +79,15 @@ public class TestResultServiceImpl implements ITestResultService {
     public List<TestResult> getTestResultByTestAndStudent(Long testId, Long studentId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
         Test test = testRepository.findTestByTestId(testId);
-        List<TestSection> testSections = testSectionRepository.findTestSectionsByTest(test);
+        List<TestSection> testSections = testSectionRepository.findTestSectionsByTestAndIsDeletedFalse(test);
         List<TestResult> testResults= new ArrayList<>();
         testSections.forEach(testSection -> {
-            TestResult testResult = testResultRepository.findTestResultsByStudentAndTestSection(student,testSection);
-            testResults.add(testResult);
+            if (testResultRepository.findTestResultsByStudentAndTestSection(student,testSection) != null) {
+                TestResult testResult = testResultRepository.findTestResultsByStudentAndTestSection(student, testSection);
+                testResults.add(testResult);
+            }
         });
+        System.out.println(testResults.size());
         return testResults;
     }
 

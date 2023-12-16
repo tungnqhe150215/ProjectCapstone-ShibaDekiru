@@ -48,7 +48,7 @@ class ClassWorkServiceImplTest {
         List<ClassWork> classWorkList = new ArrayList<>();
 
         // Mock behavior
-        when(classWorkRepository.findByMyC(myC)).thenReturn(classWorkList);
+        when(classWorkRepository.findByMyCAndIsDeletedFalse(myC)).thenReturn(classWorkList);
 
         // Call the method
         List<ClassWork> result = classWorkService.getClassWorkByClass(myC);
@@ -57,7 +57,7 @@ class ClassWorkServiceImplTest {
         assertEquals(classWorkList, result);
 
         // Verify interactions
-        verify(classWorkRepository, times(1)).findByMyC(myC);
+        verify(classWorkRepository, times(1)).findByMyCAndIsDeletedFalse(myC);
     }
 
 //    @Test

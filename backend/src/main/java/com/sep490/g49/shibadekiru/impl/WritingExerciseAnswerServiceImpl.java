@@ -61,7 +61,7 @@ public class WritingExerciseAnswerServiceImpl implements IWritingExerciseAnswerS
     public List<WritingExerciseAnswer> getWritingExerciseAnswerByExerciseAndStudent(Long exerciseId, Long studentId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
         Exercise exercise = exerciseRepository.findByExerciseId(exerciseId);
-        List<WritingExercise> writingExercises = writingExerciseRepository.findWritingExerciseByExercise(exercise);
+        List<WritingExercise> writingExercises = writingExerciseRepository.findWritingExerciseByExerciseAndIsDeletedFalse(exercise);
         List<WritingExerciseAnswer> writingExerciseAnswers = new ArrayList<>();
         writingExercises.forEach(writingExercise -> {
             if (writingExerciseAnswerRepository.findByStudentAndAndWritingExercise(student, writingExercise) != null) {
@@ -77,10 +77,10 @@ public class WritingExerciseAnswerServiceImpl implements IWritingExerciseAnswerS
         List<WritingExerciseAnswer> writingExerciseAnswers = new ArrayList<>();
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
         ClassWork classWork = classWorkRepository.findById(classworkId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
-        List<Exercise> exerciseList = exerciseRepository.findExercisesByClassWork(classWork);
+        List<Exercise> exerciseList = exerciseRepository.findExercisesByClassWorkAndIsDeletedFalse(classWork);
         exerciseList.forEach(exercise -> {
-            if (!writingExerciseRepository.findWritingExerciseByExercise(exercise).isEmpty()) {
-                List<WritingExercise> writingExercises = writingExerciseRepository.findWritingExerciseByExercise(exercise);
+            if (!writingExerciseRepository.findWritingExerciseByExerciseAndIsDeletedFalse(exercise).isEmpty()) {
+                List<WritingExercise> writingExercises = writingExerciseRepository.findWritingExerciseByExerciseAndIsDeletedFalse(exercise);
                 writingExercises.forEach(writingExercise -> {
                     if (writingExerciseAnswerRepository.findByStudentAndAndWritingExercise(student, writingExercise) != null) {
                         WritingExerciseAnswer writingExerciseAnswer = writingExerciseAnswerRepository.findByStudentAndAndWritingExercise(student, writingExercise);

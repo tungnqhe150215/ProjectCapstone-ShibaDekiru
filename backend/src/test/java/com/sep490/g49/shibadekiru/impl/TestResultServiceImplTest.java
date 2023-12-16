@@ -46,7 +46,7 @@ class TestResultServiceImplTest {
         // Mock data
         com.sep490.g49.shibadekiru.entity.Test test = new com.sep490.g49.shibadekiru.entity.Test();
         List<TestSection> testSections = new ArrayList<>();
-        when(testSectionRepository.findTestSectionsByTest(test)).thenReturn(testSections);
+        when(testSectionRepository.findTestSectionsByTestAndIsDeletedFalse(test)).thenReturn(testSections);
         when(testResultRepository.findTestResultsByTestSection(any(TestSection.class))).thenReturn(new ArrayList<>());
 
         // Test
