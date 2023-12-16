@@ -23,7 +23,7 @@ public class Listening implements Serializable {
 
     private String link;
 
-    @Column(name = "script", nullable = false, columnDefinition = "LONGTEXT")
+    @Column(name = "script", nullable = false, columnDefinition = "TEXT")
     private String script;
 
     @OneToMany(mappedBy = "listening")

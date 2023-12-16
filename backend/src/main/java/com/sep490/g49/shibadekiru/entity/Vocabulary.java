@@ -27,7 +27,7 @@ public class Vocabulary implements Serializable {
     @Column(name = "meaning", nullable = false)
     private String meaning;
 
-    @Column(name = "example", nullable = false , columnDefinition = "LONGTEXT")
+    @Column(name = "example", nullable = false , columnDefinition = "TEXT")
     private String example;
 
     @ManyToOne

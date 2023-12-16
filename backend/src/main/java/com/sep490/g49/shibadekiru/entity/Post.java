@@ -30,6 +30,9 @@ public class Post implements Serializable {
     @Column(nullable = true)
     private LocalDateTime createdAt;
 
+    @Column(name = "image", nullable = true)
+    private String image;
+
     @Column(name = "is_enabled", nullable = false)
     private Boolean isEnabled;
 
