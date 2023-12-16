@@ -114,11 +114,11 @@ public class AuthenticationServiceImpl {
                         student.setUserAccount(savedUser);
                         studentService.createStudentFromUserAccount(student);
                     } else if (roleType == RoleType.LECTURE) {
-                        LecturesDto lectures = new LecturesDto();
+                        Lectures lectures = new Lectures();
                         lectures.setFirstName(request.getFirstName());
                         lectures.setLastName(request.getLastName());
                         lectures.setEmail(request.getEmail());
-                        lectures.setMemberId(request.getMemberId());
+                        lectures.setUserAccount(savedUser);
                         lecturesService.createLecturerFromUserAccount(lectures);
                     }
                     break;

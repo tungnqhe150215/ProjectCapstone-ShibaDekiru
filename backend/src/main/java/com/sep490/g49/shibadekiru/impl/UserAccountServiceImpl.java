@@ -98,11 +98,11 @@ public class UserAccountServiceImpl implements IUserAccountService {
                         student.setUserAccount(savedUser);
                         studentService.createStudentFromUserAccount(student);
                     } else if (roleType == RoleType.LECTURE) {
-                        LecturesDto lectures = new LecturesDto();
+                        Lectures lectures = new Lectures();
                         lectures.setFirstName(userAccount.getFirstName());
                         lectures.setLastName(userAccount.getLastName());
                         lectures.setEmail(userAccount.getEmail());
-                        lectures.setMemberId(userAccount.getMemberId());
+                        lectures.setUserAccount(savedUser);
                         lecturesService.createLecturerFromUserAccount(lectures);
                     }
                     break;
