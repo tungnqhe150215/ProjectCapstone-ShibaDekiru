@@ -59,6 +59,7 @@ public class TestSectionServiceImpl implements ITestSectionService {
 
     @Override
     public TestSection createTestSection(TestSection testSectionRequest) {
+        testSectionRequest.setIsDeleted(false);
         return testSectionRepository.save(testSectionRequest);
     }
 

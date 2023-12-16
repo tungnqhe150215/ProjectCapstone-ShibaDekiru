@@ -36,6 +36,7 @@ public class WritingExerciseServiceImpl implements IWritingExerciseService {
 
     @Override
     public WritingExercise createWritingExercise(WritingExercise writingExerciseRequest) {
+        writingExerciseRequest.setIsDeleted(false);
         return writingExerciseRepository.save(writingExerciseRequest);
     }
 
