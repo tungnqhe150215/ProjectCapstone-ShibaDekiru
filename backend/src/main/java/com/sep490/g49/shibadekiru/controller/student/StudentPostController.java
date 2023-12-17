@@ -42,6 +42,9 @@ public class StudentPostController {
     @Autowired
     private ICommentService iCommentService;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @GetMapping()
     public List<PostDto> getAllPosts() {
         return iPostService.getAllPostByIsEnable().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
@@ -51,6 +54,8 @@ public class StudentPostController {
     @GetMapping("/{id}")
     public ResponseEntity<PostDto> getPostById(@PathVariable (name = "id") Long postId){
         Post post = iPostService.getPostById(postId);
+
+        post.setImage(googleDriveService.getFileUrl(post.getImage()));
 
         // convert entity to DTO
         PostDto postResponse = modelMapper.map(post, PostDto.class);

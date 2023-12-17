@@ -3,6 +3,7 @@ package com.sep490.g49.shibadekiru.controller.lecture;
 import com.sep490.g49.shibadekiru.dto.PostDto;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.entity.Post;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.ILecturesService;
 import com.sep490.g49.shibadekiru.service.IPostService;
 import org.modelmapper.ModelMapper;
@@ -29,6 +30,9 @@ public class LectureManagePostController {
     @Autowired
     private ILecturesService iLecturesService;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
 
     @GetMapping("/{id}/post")
     public List<PostDto> getAllPostsByLecture(@PathVariable (name = "id") Long lectureId) {
@@ -40,7 +44,7 @@ public class LectureManagePostController {
     @GetMapping("/post/{id}")
     public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") Long postId) {
         Post post = iPostService.getPostById(postId);
-
+        post.setImage(googleDriveService.getFileUrl(post.getImage()));
         // convert entity to DTO
         PostDto postResponse = modelMapper.map(post, PostDto.class);
 
