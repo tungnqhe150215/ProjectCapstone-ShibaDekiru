@@ -8,16 +8,16 @@
                     <!-- <div class="col-lg-8 posts-list"> -->
                     <div class="single-post row">
                         <div class="col-lg-12">
-                            <div class="feature-img">
-                                <img class="img-fluid" src="https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/86/f5/aa/86f5aa0f-9a2e-bc6e-fac5-016a4c90c9e6/iMessage_App_Icon-1x_U007emarketing-3-85-181.png/1200x630wb.png" alt="">
+                            <div class="feature-img" style="text-align: center">
+                                <img class="img-fluid" src="{{post.image}}" alt="">
                             </div>
                         </div>
                         <div class="col-lg-3  col-md-3">
                             <div class="blog_info text-right">
-                                <ul class="blog_meta list">
+                                <ul class="blog_meta list" >
                                     <!-- <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li> -->
-                                    <li><a >Ngày đăng:{{post.createdAt | date:'dd/MM/yyyy'}}<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <li><a >Giảng viên: <i class="lnr lnr-eye"></i></a></li>
+                                    <li><a style="font-size: 16px; font-weight: lighter">Ngày đăng: {{post.createdAt | date:'dd/MM/yyyy'}}<i class="lnr lnr-calendar-full"></i></a></li>
+                                    <li><a style="font-size: 16px; font-weight: lighter">Giảng viên: {{lecture.firstName}} {{lecture.lastName}}<i class="lnr lnr-eye"></i></a></li>
                                     <!-- <li><a >Comments<i class="lnr lnr-bubble"></i></a></li> -->
                                 </ul>
                             </div>
