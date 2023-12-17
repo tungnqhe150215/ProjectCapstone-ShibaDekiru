@@ -6,6 +6,7 @@ import com.sep490.g49.shibadekiru.entity.Post;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.LecturersRepository;
 import com.sep490.g49.shibadekiru.repository.PostRepository;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IPostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class PostServiceImpl implements IPostService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @Override
     public List<Post> getAllPosts() {
 
@@ -49,7 +53,9 @@ public class PostServiceImpl implements IPostService {
                 .collect(Collectors.toList());
 
         if (!openPosts.isEmpty()) {
-            return openPosts;
+            return openPosts.stream().peek(data ->
+                    data.setImage(googleDriveService.getFileUrl(data.getImage()))
+            ).collect(Collectors.toList());
         } else {
             throw new ResourceNotFoundException("No open posts found.");
         }
@@ -68,7 +74,20 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public List<Post> findTop4ByOrderByCreatedAtDesc() {
-        return postRepository.findTop4ByOrderByCreatedAtDesc().stream().filter(post -> post.getIsEnabled().equals(true)).collect(Collectors.toList());
+        List<Post> postList = postRepository.findTop4ByOrderByCreatedAtDesc();
+
+        List<Post> openPosts = postList.stream()
+                .filter(post -> post.getIsEnabled().equals(true))
+                .collect(Collectors.toList());
+
+        if (!openPosts.isEmpty()) {
+            return openPosts.stream().peek(data ->
+                    data.setImage(googleDriveService.getFileUrl(data.getImage()))
+            ).collect(Collectors.toList());
+        } else {
+            throw new ResourceNotFoundException("No open posts found.");
+        }
+
     }
 
     @Override
@@ -80,6 +99,7 @@ public class PostServiceImpl implements IPostService {
                 .orElseThrow(() -> new ResourceNotFoundException("Lecture not found"));
 
         post.setLecture(lecture);
+        post.setImage(postDTO.getImage());
         post.setIsEnabled(postDTO.getIsEnabled());
         post.setCreatedAt(LocalDateTime.now());
 
@@ -104,6 +124,19 @@ public class PostServiceImpl implements IPostService {
             post.setDescription(updatedPostDto.getDescription());
             post.setCreatedAt(LocalDateTime.now());
             post.setIsEnabled(updatedPostDto.getIsEnabled());
+
+            if (updatedPostDto.getImage().length() > 0) {
+
+                googleDriveService.deleteFile(post.getImage());
+                System.out.println("File đã xóa : " + post.getImage());
+                post.setImage(updatedPostDto.getImage());
+            }
+            else  {
+
+                post.setImage(post.getImage());
+
+            }
+
             Post updated = postRepository.save(post);
 
             return modelMapper.map(updated, PostDto.class);
@@ -116,6 +149,12 @@ public class PostServiceImpl implements IPostService {
     @Override
     public void deletePost(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + id));
+
+        if (post.getImage() != null) {
+            googleDriveService.deleteFile(post.getImage());
+            System.out.println("Đã vào đây.");
+        }
+
         postRepository.delete(post);
 
     }

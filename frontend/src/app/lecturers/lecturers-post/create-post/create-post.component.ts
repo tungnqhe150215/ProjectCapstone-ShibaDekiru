@@ -8,6 +8,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { LecPostService } from '../lec-post.service';
 import { StorageService } from 'src/app/home/auth/user-login/storage.service';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {Drive} from "../../../core/models/drive";
+import {FileService} from "../../../shared/services/file.service";
+import {FilePreviewService} from "../../../shared/services/file-preview.service";
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -16,29 +19,41 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 export class CreatePostComponent implements OnInit{
 
   post: Post = new Post();
-  myID: number = 1;
   currentUser: any;
+  file!: File ;
+  drive: Drive = new Drive();
+
   constructor(
     public dialogRef: MatDialogRef<CreatePostComponent>,
     private postService: PostService,
     private lecpostServive: LecPostService,
+    private fileService: FileService,
+    private filePreviewService: FilePreviewService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: number,
     private nofiService: NotificationService,
     private storageService: StorageService,
   ){}
   ngOnInit(): void {
-    
+
   }
 
 
 
   addPost(){
-    this.currentUser = this.storageService.getUser();
-    this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data =>{
-      console.log(data);
-      this.dialogRef.close();
-    })
+
+    if (this.file) {
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        this.drive = data as Drive
+          this.post.image = this.drive.fileId
+          this.currentUser = this.storageService.getUser();
+          this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data =>{
+              console.log(data);
+              this.dialogRef.close();
+          })
+      })
+    }
+
   }
 
 
@@ -51,4 +66,26 @@ export class CreatePostComponent implements OnInit{
   }
 
 
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
+    if (element != null) {
+      element.value = this.file.name;
+    }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
+  }
 }

@@ -19,7 +19,7 @@
                        </div>
                         <div class="col-md-9">
                             <div class="blog_post">
-                                <img  (click)="PostDetail(post.postId)" style="cursor: pointer" src="https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/86/f5/aa/86f5aa0f-9a2e-bc6e-fac5-016a4c90c9e6/iMessage_App_Icon-1x_U007emarketing-3-85-181.png/1200x630wb.png" alt="Image title">
+                                <img  (click)="PostDetail(post.postId)" style="cursor: pointer" src="{{post.image}}" alt="Image title">
                                 <div class="blog_details">
                                     <a (click)="PostDetail(post.postId)" style="cursor: pointer"><h2>{{post.postContent}}</h2></a>
                                     <p>Bấm vào xem thêm để có thể xem chi tiết bài viết</p>
@@ -86,7 +86,7 @@
                                     <!-- <p><button (click)="PostDetail(post.postId)">{{post.postContent}}</button></p> -->
                                     <!-- <p>44</p> -->
                                 </a>
-                            </li>															
+                            </li>
                         </ul>
                         <div class="br"></div>
                     </aside>

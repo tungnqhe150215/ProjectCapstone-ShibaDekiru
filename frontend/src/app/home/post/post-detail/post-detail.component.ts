@@ -9,6 +9,9 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteCommentComponent } from './list-comment/delete-comment/delete-comment.component';
 import { UpdateCommentComponent } from './list-comment/update-comment/update-comment.component';
+import {UserAccount} from "../../../core/models/user-account";
+import {UseServiceService} from "../../auth/use-service.service";
+import {Lecture} from "../../../core/models/lecture";
 
 @Component({
   selector: 'app-post-detail',
@@ -23,8 +26,10 @@ export class PostDetailComponent implements OnInit {
   isLoggedIn = false;
   nickName!: string;
   userId !:number;
+  lecture: Lecture = new Lecture();
   constructor(
     private userPostService: UserPostService,
+    private userService: UseServiceService,
     private router: Router,
     private route: ActivatedRoute,
     private studentLessonService: StudentLessonService,
@@ -37,6 +42,7 @@ export class PostDetailComponent implements OnInit {
     this.getPostDetailByID();
      this.getAllComment();
      this.getAllPost();
+
   }
 
   getPostDetailByID(){
@@ -44,6 +50,11 @@ export class PostDetailComponent implements OnInit {
     this.post = new Post();
     this.userPostService.getPostByID(this.id).subscribe(data => {
       this.post = data;
+      console.log(this.post.lectureId)
+      this.userService.getLectureByUserId(this.post.lectureId).subscribe(data => {
+            this.lecture = data
+      }
+      )
       console.log(data);
     })
   }

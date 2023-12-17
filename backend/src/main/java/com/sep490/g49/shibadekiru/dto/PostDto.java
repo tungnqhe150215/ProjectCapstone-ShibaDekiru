@@ -17,5 +17,6 @@ public class PostDto {
     private String description;
     private LocalDateTime createdAt;
     private Boolean isEnabled;
+    private String image;
     private Long lectureId;
 }

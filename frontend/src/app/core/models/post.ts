@@ -6,6 +6,7 @@ export class Post {
   postContent?:String
   description?:String
   createdAt?:Date
+  image?:String
   isEnabled?:boolean
   lectureId?:number
 }

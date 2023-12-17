@@ -4,6 +4,7 @@ import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.impl.*;
+import com.sep490.g49.shibadekiru.repository.LecturersRepository;
 import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
 import com.sep490.g49.shibadekiru.service.ILecturesService;
 import com.sep490.g49.shibadekiru.service.IStudentService;
@@ -49,6 +50,9 @@ public class AuthenticationController {
 
     @Autowired
     private UserAccountRepository userAccountRepository;
+
+    @Autowired
+    private LecturersRepository lecturersRepository;
 
     @Autowired
     private JWTUtilityService jwtUtilityService;
@@ -122,6 +126,18 @@ public class AuthenticationController {
         return ResponseEntity.ok().body(userAccountDto);
 
     }
+
+    @GetMapping("/user-account/lecture")
+    public ResponseEntity<LecturesDto> getLectureById(@RequestParam (name = "lectureId") Long lectureId){
+
+        Lectures lecturesRequest =  lecturersRepository.findById(lectureId).orElseThrow();
+
+        LecturesDto lecturesDto = modelMapper.map(lecturesRequest, LecturesDto.class);
+
+        return ResponseEntity.ok().body(lecturesDto);
+
+    }
+
 
     @PutMapping("/user-account")
     public ResponseEntity<UserAccountDto> updateUserAccountByNickname(@RequestParam (name = "nickName") String nickName, @RequestParam (name = "userId") Long userAccountId){

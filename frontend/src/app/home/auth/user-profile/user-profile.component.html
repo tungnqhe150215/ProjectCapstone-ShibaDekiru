@@ -29,7 +29,7 @@
                 <label class="form-label">Avatar</label>
                 <div *ngIf="student.avatar === null || student.avatar === '' ">
                   <img src="https://dogily.vn/wp-content/uploads/2022/12/hinh-nen-cho-shiba-8.jpg"
-                       alt="Avatar Mặc Định" class="d-block ui-w-80" readonly>
+                       alt="Avatar Mặc Định" style="width: 150px; height: 150px" readonly>
 
                   <!-- <div class="media-body ml-4　mt-2">
                       <label class="btn btn-outline-primary">
@@ -43,7 +43,7 @@
                 </div>
                 <div *ngIf="student.avatar !== null && student.avatar !== '' ">
                   <img src="{{student.avatar}}"
-                       alt="Đang load ảnh..." class="d-block ui-w-80" readonly>
+                       alt="Đang load ảnh..." style="width: 150px; height: 150px" readonly>
 
                   <!-- <div class="media-body ml-4　mt-2">
                       <label class="btn btn-outline-primary">
@@ -185,16 +185,18 @@
                     <label class="form-label">Avatar</label>
                     <div *ngIf="student.avatar === null || student.avatar === '' ">
                       <div class="media-body ml-4 mt-2">
-<!--                        <div *ngIf="this.file">-->
-<!--                          <h6>Xem trước</h6>-->
-<!--                          <app-file-preview></app-file-preview>-->
-<!--                        </div>-->
-                        <label class="btn btn-outline-primary">
-                          Upload new photo
-                          <input type="file" name="avatar"  id="fakeFileInput" accept=".jpg, .jpeg, .png" (change)="onFileSelected($event)"
-                                 class="account-settings-fileinput"
-                                  ngDefaultControl>
-                        </label> &nbsp;
+                        <div *ngIf="this.file">
+                          <h6>Xem trước</h6>
+                          <app-file-preview></app-file-preview>
+                        </div>
+                        <br>
+                          <mat-form-field>
+                            <mat-label>Chọn tệp ảnh</mat-label>
+                            <input matInput readonly type="text" id="fakeFileInput" (click)="hiddenInput.click()">
+                            <input hidden type="file" accept=".jpg, .jpeg, .png" #hiddenInput (change)="onFileSelected($event)">
+                            <mat-icon matSuffix>folder_open</mat-icon>
+                          </mat-form-field>
+                        &nbsp;
 
                         <div class="text-light small mt-1">Allowed JPG, JPEG or PNG. Max size of
                           800K
@@ -203,19 +205,21 @@
                     </div>
 
                     <div *ngIf="student.avatar !== null && student.avatar !== '' ">
-<!--                      <div *ngIf="this.file">-->
-<!--                        <h6>Xem trước</h6>-->
-<!--                        <app-file-preview></app-file-preview>-->
-<!--                      </div>-->
-                      <img src="{{student.avatar}}"
-                           alt="Đang load ảnh..." class="d-block ui-w-80">
+                      <div *ngIf="this.file">
+                        <h6>Xem trước</h6>
+                        <app-file-preview></app-file-preview>
+                      </div>
+
+                      <img *ngIf="!this.file" src="{{student.avatar}}"
+                           alt="Đang load ảnh..."  style="width: 150px; height: 150px">
                       <div class="media-body ml-4 mt-2 items-center">
-                        <label class="btn btn-outline-primary">
-                          Upload new photo
-                          <input type="file" name="avatar" id="fakeFileInput" accept=".jpg, .jpeg, .png" (change)="onFileSelected($event)"
-                                 class="account-settings-fileinput"
-                                 ngDefaultControl>
-                        </label> &nbsp;
+                        <br>
+                          <mat-form-field>
+                            <mat-label>Chọn tệp ảnh</mat-label>
+                            <input matInput readonly type="text" id="fakeFileInput" (click)="hiddenInput.click()">
+                            <input hidden type="file" accept=".jpg, .jpeg, .png" #hiddenInput (change)="onFileSelected($event)">
+                            <mat-icon matSuffix>folder_open</mat-icon>
+                          </mat-form-field>
 
                         <div class="text-light small mt-1">Allowed JPG, JPEG or PNG. Max size of
                           800K
