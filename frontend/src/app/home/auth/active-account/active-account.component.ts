@@ -19,9 +19,9 @@ export class ActiveAccountComponent implements OnInit{
     private route:ActivatedRoute,
   ){}
   ngOnInit(): void {
-    
+
   }
-  
+
   activationMessage ='';
   countdown: number = 5; // 5second
   isButtonClicked: boolean = false;
@@ -33,22 +33,18 @@ export class ActiveAccountComponent implements OnInit{
         this.userService.verifyEmail(resetCode).subscribe(
           response => {
             this.userService = response;
-            
+            this.activationMessage = 'Kích hoạt tài khoản thành công !!';
+            console.log('Kích hoạt tài khoản thành Công');
+            this.startCountdown();
           },
           Done => {
-            this.activationMessage = 'Kích hoạt tài khoản thành công !!';
-           console.log('Kích hoạt tài khoản thành Công');
-           this.startCountdown();
-          //  this.router.navigate(['/login']);
           }
         );
-      }  else {
-        this.activationMessage = 'Mã kích hoạt đã hết hạn ';
-      } 
+      }
     });
   }
 
- 
+
 
   activateAccount() {
     this.route.params.subscribe(params => {

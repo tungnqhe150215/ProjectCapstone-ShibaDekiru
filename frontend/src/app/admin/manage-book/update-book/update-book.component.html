@@ -12,14 +12,21 @@
              [value]="book.description" [ngModelOptions]="{standalone: true}">
 
     </div>
-<!--    <div class="form-group">-->
-<!--      <label>Ảnh</label>-->
+    <div *ngIf="this.file">
+      <h6>Xem trước</h6>
+      <app-file-preview></app-file-preview>
+    </div>
+    <br>
+    <img *ngIf="!this.file" src="{{book.image}}"
+         alt="Đang load ảnh..."  style="width: 150px; height: 150px">
+    <div class="form-group">
       <mat-form-field>
         <mat-label>Chọn tệp ảnh</mat-label>
         <input matInput readonly type="text" id="fakeFileInput" (click)="hiddenInput.click()">
         <input hidden type="file" accept=".jpg, .jpeg, .png" #hiddenInput (change)="onFileSelected($event)">
         <mat-icon matSuffix>folder_open</mat-icon>
       </mat-form-field>
+    </div>
     <br>
 <!--      <input type="text" class="form-control" id="image" name="image" [(ngModel)]="book.image" [value]="book.image"-->
 <!--             [ngModelOptions]="{standalone: true}">-->

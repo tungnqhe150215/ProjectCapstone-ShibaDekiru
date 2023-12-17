@@ -102,9 +102,9 @@ public class AuthenticationServiceImpl {
 
                 userAccount.setRole(role);
 
-                int minus = 10;
+                int minus = 10080;
 
-                String resetCode = jwtUtilityService.createJWT(userAccount, minus);
+                String resetCode = jwtService.generateToken(userAccount);
                 System.out.println("Reset code trong register: " + resetCode);
                 userAccount.setResetCode(resetCode);
 
@@ -137,11 +137,8 @@ public class AuthenticationServiceImpl {
                 //saveUserToken(savedUser, jwtToken);
             }
 
-//            if (request.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
-//
-//            }
             else {
-                throw new RuntimeException("Vui lòng dạng. Ex: abc@gmail.com");
+                throw new RuntimeException("Vui lòng nhập đúng dạng email. Ex: abc@gmail.com");
             }
 
 
@@ -158,8 +155,7 @@ public class AuthenticationServiceImpl {
                 + "<p>You have requested to activate your account.</p>"
                 + "<p>Click the link below to activate your account:</p>"
                 + "<p><a href='"+ resetLink +"'>Active Now</a></p>"
-                + "<br>"
-                + "<p> This link will expire <strong style=\"color: red; font-size: 18px;\"> "+minus+" </strong> minutes after the email is sent. </p>";
+                + "<br>";
         mailServiceProvider.sendEmail(recipientEmail, subject, content);
     }
 

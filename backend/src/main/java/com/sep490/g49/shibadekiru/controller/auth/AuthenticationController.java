@@ -168,12 +168,6 @@ public class AuthenticationController {
     public ResponseEntity<?> registerVerification(@PathVariable (name = "resetCode") String resetCode) throws Exception {
 
         UserAccount userAccountRequest = userAccountService.getByResetCode(resetCode);
-        System.out.println("Reset code register on: " + userAccountRequest.getResetCode());
-
-        if (jwtUtilityService.isTokenExpired(resetCode)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
 
         userAccountRequest.setIsActive(true);
 
@@ -185,7 +179,7 @@ public class AuthenticationController {
         UserAccountDto userAccountDto = modelMapper.map(userAccount, UserAccountDto.class);
 
 
-        return ResponseEntity.ok("Active account successfully!");
+        return ResponseEntity.status(HttpStatus.CREATED).body("");
     }
 
     @PostMapping("/forgot-password")
@@ -197,7 +191,7 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        String resetCode = jwtUtilityService.createJWT(userAccount, 1440);
+        String resetCode = jwtUtilityService.createJWT(userAccount, 10080);
         System.out.println("Reset code : " + resetCode);
 
         userAccountService.updateResetCode(resetCode, userAccount.getEmail());

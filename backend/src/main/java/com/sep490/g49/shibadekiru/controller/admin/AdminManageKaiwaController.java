@@ -3,6 +3,7 @@ package com.sep490.g49.shibadekiru.controller.admin;
 import com.sep490.g49.shibadekiru.dto.KaiwaDto;
 import com.sep490.g49.shibadekiru.entity.Lesson;
 import com.sep490.g49.shibadekiru.entity.Kaiwa;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IKaiwaService;
 import com.sep490.g49.shibadekiru.service.ILessonService;
 import org.modelmapper.ModelMapper;
@@ -30,6 +31,9 @@ public class AdminManageKaiwaController {
     @Autowired
     private ModelMapper map;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @GetMapping("/{id}/kaiwa")
     public List<KaiwaDto> getKaiwaByLesson(@PathVariable(name = "id") Long lessonId) {
         Lesson lessonResponse = iLessonService.getLessonById(lessonId);
@@ -40,7 +44,7 @@ public class AdminManageKaiwaController {
     @GetMapping("/kaiwa/{id}")
     public ResponseEntity<KaiwaDto> getKaiwaById(@PathVariable(name = "id") Long id) {
         Kaiwa kaiwa = iKaiwaService.getKaiwaById(id);
-
+        kaiwa.setLink(googleDriveService.getFileUrl(kaiwa.getLink()));
         // convert entity to DTO
         KaiwaDto kaiwaResponse = map.map(kaiwa, KaiwaDto.class);
 

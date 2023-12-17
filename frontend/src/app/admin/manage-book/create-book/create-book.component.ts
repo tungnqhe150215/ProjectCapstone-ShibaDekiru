@@ -6,6 +6,7 @@ import { Book } from 'src/app/core/models/book';
 import { ManageBookService } from '../manage-book.service';
 import {Drive} from "../../../core/models/drive";
 import {FileService} from "../../../shared/services/file.service";
+import {FilePreviewService} from "../../../shared/services/file-preview.service";
 
 
 @Component({
@@ -23,6 +24,7 @@ export class CreateBookComponent implements OnInit{
     private bookService: ManageBookService,
     private nofiService: NotificationService,
     private fileService:FileService,
+    private filePreviewService: FilePreviewService,
     private router:Router,
     private route:ActivatedRoute,
     public dialog: MatDialog,
@@ -66,8 +68,23 @@ export class CreateBookComponent implements OnInit{
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
-    if(element != null) {
+    if (element != null) {
       element.value = this.file.name;
     }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 }

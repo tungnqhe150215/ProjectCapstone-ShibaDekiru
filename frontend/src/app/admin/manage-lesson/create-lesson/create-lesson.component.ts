@@ -6,6 +6,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angula
 import { NotificationService } from 'src/app/core/services/notification.service';
 import {Drive} from "../../../core/models/drive";
 import {FileService} from "../../../shared/services/file.service";
+import {FilePreviewService} from "../../../shared/services/file-preview.service";
 
 @Component({
   selector: 'app-create-lesson',
@@ -23,6 +24,7 @@ export class CreateLessonComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateLessonComponent>,
     private lessonService: LessonService,
     private fileService:FileService,
+    private filePreviewService: FilePreviewService,
     private router:Router,
     @Inject(MAT_DIALOG_DATA) public data: number,
     private nofiService: NotificationService,
@@ -70,9 +72,24 @@ createLesson() {
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
-    if(element != null) {
+    if (element != null) {
       element.value = this.file.name;
     }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 
 }

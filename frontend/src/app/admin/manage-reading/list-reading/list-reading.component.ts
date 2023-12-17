@@ -18,6 +18,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {SharedModule} from "../../../shared/shared.module";
 import {Drive} from "../../../core/models/drive";
 import {FileService} from "../../../shared/services/file.service";
+import {NgIf} from "@angular/common";
+import {FilePreviewService} from "../../../shared/services/file-preview.service";
 @Component({
   selector: 'app-list-reading',
   templateUrl: './list-reading.component.html',
@@ -136,7 +138,7 @@ export class ReadingDeleteDialog {
   templateUrl: 'reading-create-dialog.html',
   styleUrls: ['./list-reading.component.css'],
   standalone: true,
-    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
+    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule, NgIf, SharedModule],
 })
 export class ReadingCreateDialog {
 
@@ -148,6 +150,7 @@ export class ReadingCreateDialog {
     public dialogRef: MatDialogRef<ReadingCreateDialog>,
     private manageReadingService:AdminManageReadingService,
     private fileService:FileService,
+    private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
@@ -178,9 +181,24 @@ export class ReadingCreateDialog {
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
-    if(element != null) {
+    if (element != null) {
       element.value = this.file.name;
     }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 }
 @Component({
@@ -188,7 +206,7 @@ export class ReadingCreateDialog {
   templateUrl: 'reading-update-dialog.html',
   styleUrls: ['./list-reading.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule, NgIf, SharedModule],
 })
 export class ReadingUpdateDialog implements OnInit{
 
@@ -200,6 +218,7 @@ export class ReadingUpdateDialog implements OnInit{
     public dialogRef: MatDialogRef<ReadingUpdateDialog>,
     private manageReadingService:AdminManageReadingService,
     private fileService:FileService,
+    private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
@@ -249,8 +268,23 @@ export class ReadingUpdateDialog implements OnInit{
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
-    if(element != null) {
+    if (element != null) {
       element.value = this.file.name;
     }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 }

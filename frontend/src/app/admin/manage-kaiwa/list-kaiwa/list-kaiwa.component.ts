@@ -18,6 +18,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {SharedModule} from "../../../shared/shared.module";
 import {Drive} from "../../../core/models/drive";
 import {FileService} from "../../../shared/services/file.service";
+import {NgIf} from "@angular/common";
+import {FilePreviewService} from "../../../shared/services/file-preview.service";
 @Component({
   selector: 'app-list-kaiwa',
   templateUrl: './list-kaiwa.component.html',
@@ -132,7 +134,7 @@ export class KaiwaDeleteDialog {
   templateUrl: 'kaiwa-create-dialog.html',
   styleUrls: ['./list-kaiwa.component.css'],
   standalone: true,
-    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
+    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule, NgIf, SharedModule],
 })
 export class KaiwaCreateDialog {
 
@@ -143,6 +145,7 @@ export class KaiwaCreateDialog {
     public dialogRef: MatDialogRef<KaiwaCreateDialog>,
     private manageKaiwaService:AdminManageKaiwaService,
     private fileService:FileService,
+    private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
@@ -174,9 +177,24 @@ export class KaiwaCreateDialog {
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
-    if(element != null) {
+    if (element != null) {
       element.value = this.file.name;
     }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 }
 @Component({
@@ -184,7 +202,7 @@ export class KaiwaCreateDialog {
   templateUrl: 'kaiwa-update-dialog.html',
   styleUrls: ['./list-kaiwa.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule, SharedModule, NgIf],
 })
 export class KaiwaUpdateDialog implements OnInit{
 
@@ -196,6 +214,7 @@ export class KaiwaUpdateDialog implements OnInit{
     public dialogRef: MatDialogRef<KaiwaUpdateDialog>,
     private manageKaiwaService:AdminManageKaiwaService,
     private fileService:FileService,
+    private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) {}
@@ -244,8 +263,23 @@ export class KaiwaUpdateDialog implements OnInit{
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;
-    if(element != null) {
+    if (element != null) {
       element.value = this.file.name;
     }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
+  }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
   }
 }

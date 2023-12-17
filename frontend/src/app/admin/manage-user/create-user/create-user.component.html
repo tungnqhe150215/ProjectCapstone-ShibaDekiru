@@ -37,11 +37,11 @@
       <input type="text" class="form-control" id="emai" name="email" [(ngModel)]="userAccount.email"
         [ngModelOptions]="{standalone: true}">
       <label>Password</label>
-      <input type="text" class="form-control" id="password" name="password" [(ngModel)]="userAccount.password"
+      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="userAccount.password"
         [ngModelOptions]="{standalone: true}">
     </div>
-    <label for="Active" class="m-2">Trạng thái kích hoạt tài khoản:
-      <input type="radio" [(ngModel)]="userAccount.isActive" value="true" name="active"
+    <label for="active" class="m-2">Trạng thái kích hoạt tài khoản:
+      <input type="radio" [(ngModel)]="userAccount.isActive" value="true" name="active" id="active"
         [ngModelOptions]="{standalone: true}"> Đã kích hoạt
       <input type="radio" [(ngModel)]="userAccount.isActive" value="false" name="deactive"
         [ngModelOptions]="{standalone: true}"> Chưa kích hoạt
@@ -100,7 +100,7 @@
                 <option value="1" [(ngModel)] = "userAccount.roleId"[ngModelOptions]="{standalone: true}" >Student</option>
                 <option value="2"  [(ngModel)] = "userAccount.roleId" [ngModelOptions]="{standalone: true}">Lecturers</option>
                 <option value="3"  [(ngModel)] = "userAccount.roleId"[ngModelOptions]="{standalone: true}" >Admin</option>
-              
+
               </select>
         </div>
         <div class="form-group">
@@ -108,9 +108,9 @@
             <input type="radio" [(ngModel)] = "userAccount.isBanned" value="true" name="Banned" [ngModelOptions]="{standalone: true}" > Active
             <input type="radio" [(ngModel)] = "userAccount.isBanned" value="false" name="Banned"  [ngModelOptions]="{standalone: true}"> Disable
         </div>
-        
 
-        
+
+
         <br>
         <button class="btn btn-success" style="margin-left: 50%;" type="submit" (click)="createUser()">Submit</button>
     </form>
