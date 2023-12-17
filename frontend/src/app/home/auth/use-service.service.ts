@@ -79,6 +79,12 @@ export class UseServiceService {
     return this.httpClient.get<UserAccount>(AUTH_API + 'user-account',{params:params});
   }
 
+    getLectureByUserId(id: number | undefined): Observable<Lecture> {
+        // @ts-ignore
+        const params = new HttpParams().set("lectureId",id);
+        return this.httpClient.get<Lecture>(AUTH_API + 'user-account/lecture',{params:params});
+    }
+
   updateUserAccount(id: number, nickName: string): Observable<Object> {
     const params = new HttpParams().set("userId",id).set("nickName", nickName);
     return this.httpClient.put(AUTH_API + 'user-account', {}, {params:params});

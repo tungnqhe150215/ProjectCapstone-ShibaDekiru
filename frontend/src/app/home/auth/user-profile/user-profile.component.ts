@@ -245,6 +245,22 @@ export class UserProfileComponent implements OnInit {
     if (element != null) {
       element.value = this.file.name;
     }
+    if (this.file) {
+      this.previewFile(this.file);
+    }
   }
+
+  previewFile(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const preview = reader.result as string;
+      this.filePreviewService.changePreview(preview);
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
+  }
+
 
 }
