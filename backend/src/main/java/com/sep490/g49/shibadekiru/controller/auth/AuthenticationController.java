@@ -5,6 +5,7 @@ import com.sep490.g49.shibadekiru.entity.Lectures;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.impl.*;
 import com.sep490.g49.shibadekiru.repository.LecturersRepository;
+import com.sep490.g49.shibadekiru.repository.TokenRepository;
 import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
 import com.sep490.g49.shibadekiru.service.ILecturesService;
 import com.sep490.g49.shibadekiru.service.IStudentService;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -55,6 +57,12 @@ public class AuthenticationController {
     private LecturersRepository lecturersRepository;
 
     @Autowired
+    private TokenRepository tokenRepository;
+
+    @Autowired
+    private JWTServiceImpl jwtService;
+
+    @Autowired
     private JWTUtilityService jwtUtilityService;
 
     @Autowired
@@ -70,7 +78,7 @@ public class AuthenticationController {
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         } catch (RuntimeException r) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(r.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(r.getMessage());
         }
 
     }
@@ -189,7 +197,7 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        String resetCode = jwtUtilityService.createJWT(userAccount, 5);
+        String resetCode = jwtUtilityService.createJWT(userAccount, 1440);
         System.out.println("Reset code : " + resetCode);
 
         userAccountService.updateResetCode(resetCode, userAccount.getEmail());
@@ -248,8 +256,7 @@ public class AuthenticationController {
                 + "<p><a href='"+ resetLink +"'>Change my password</a></p>"
                 + "<br>"
                 + "<p>Ignore this email if you do remember your password, "
-                + "or you have not made the request.</p>"
-                + "<p> This link will expire <strong style=\"color: red; font-size: 18px;\"> 5 </strong> minutes after the email is sent. </p>";
+                + "or you have not made the request.</p>";
         mailServiceProvider.sendEmail(recipientEmail, subject, content);
     }
 

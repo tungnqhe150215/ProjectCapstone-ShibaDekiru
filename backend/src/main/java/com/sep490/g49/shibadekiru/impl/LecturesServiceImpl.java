@@ -29,7 +29,7 @@ public class LecturesServiceImpl implements ILecturesService {
 
     public void createLecturerFromUserAccount(Lectures lectures) {
 
-            lectures.setPhone("");
+            lectures.setPhone(null);
             lectures.setGender(false);
             lectures.setAvatar("");
             lectures.setUserAccount(lectures.getUserAccount());

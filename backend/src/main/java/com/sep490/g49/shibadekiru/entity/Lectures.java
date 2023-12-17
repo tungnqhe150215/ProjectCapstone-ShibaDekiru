@@ -32,7 +32,7 @@ public class Lectures implements Serializable {
     @Column(name = "gender", nullable = false)
     private Boolean gender;
 
-    @Column(name = "phone", nullable = false, length = 10, unique = true)
+    @Column(name = "phone", nullable = true, length = 10, unique = true)
     private String phone;
 
     @Column(name = "avatar", length = 250)
