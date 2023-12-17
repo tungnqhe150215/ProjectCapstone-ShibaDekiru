@@ -11,6 +11,7 @@ import {Drive} from "../../../core/models/drive";
 import {FileService} from "../../../shared/services/file.service";
 import {FilePreviewService} from "../../../shared/services/file-preview.service";
 import {UserAccount} from "../../../core/models/user-account";
+import {data} from "autoprefixer";
 
 
 @Component({
@@ -34,6 +35,7 @@ export class UserProfileComponent implements OnInit {
 
   currentUser: any;
   isLoggedIn = false;
+  isExpired: boolean = false;
   eventBusSub?: Subscription;
   student: any;
   file!: File;
@@ -75,6 +77,7 @@ export class UserProfileComponent implements OnInit {
 
 
   }
+
 
   getLecturerByID() {
     this.currentUser = this.storageService.getUser();

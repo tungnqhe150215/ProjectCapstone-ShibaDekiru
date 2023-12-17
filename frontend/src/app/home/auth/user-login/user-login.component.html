@@ -204,7 +204,7 @@
     </div>
 
     <div class="form-container login-container">
-      <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmitLogin()" #f="ngForm" novalidate>
+      <form  name="form" (ngSubmit)="f.form.valid && onSubmitLogin()" #f="ngForm" novalidate>
         <h1>Đăng nhập</h1>
         <!-- <input type="email" placeholder="Email"> -->
         <div class="form-group">

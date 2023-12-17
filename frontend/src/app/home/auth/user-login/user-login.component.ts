@@ -124,7 +124,7 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
         if(err.status === 409){
           this.notifiService.openSnackBar('Email đã tồn tại vui lòng kiểm tra lại!')
         }
-        if (err.status === 400) {
+        if (err.status === 404) {
           this.notifiService.openSnackBar('Vui lòng nhập email theo đúng định dạng. Ex: abc@gmail.com');
         }
       }
