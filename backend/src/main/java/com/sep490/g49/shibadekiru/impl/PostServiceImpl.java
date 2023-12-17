@@ -81,9 +81,12 @@ public class PostServiceImpl implements IPostService {
                 .collect(Collectors.toList());
 
         if (!openPosts.isEmpty()) {
-            return openPosts.stream().peek(data ->
-                    data.setImage(googleDriveService.getFileUrl(data.getImage()))
-            ).collect(Collectors.toList());
+            return openPosts.stream().peek(data -> {
+                if (data.getImage().length() > 0 && data.getImage() != null) {
+                    data.setImage(googleDriveService.getFileUrl(data.getImage()));
+                }
+            }).collect(Collectors.toList());
+
         } else {
             throw new ResourceNotFoundException("No open posts found.");
         }
@@ -130,8 +133,7 @@ public class PostServiceImpl implements IPostService {
                 googleDriveService.deleteFile(post.getImage());
                 System.out.println("File đã xóa : " + post.getImage());
                 post.setImage(updatedPostDto.getImage());
-            }
-            else  {
+            } else {
 
                 post.setImage(post.getImage());
 
@@ -170,8 +172,6 @@ public class PostServiceImpl implements IPostService {
 
         return post;
     }
-
-
 
 
 }
