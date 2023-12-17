@@ -21,7 +21,7 @@ public class StudentServiceImpl implements IStudentService {
     public void createStudentFromUserAccount(Student student) {
 
         student.setGender(false);
-        student.setPhone("");
+        student.setPhone(null);
         student.setAvatar("");
         student.setUserAccount(student.getUserAccount());
 

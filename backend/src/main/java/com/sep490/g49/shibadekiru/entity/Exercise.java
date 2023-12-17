@@ -19,7 +19,7 @@ public class Exercise implements Serializable{
     @Column(name = "exercise_id")
     private Long exerciseId;
 
-    @Column(columnDefinition = "TINY TEXT")
+    @Column(columnDefinition = "TINYTEXT")
     private String title;
 
     @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false")

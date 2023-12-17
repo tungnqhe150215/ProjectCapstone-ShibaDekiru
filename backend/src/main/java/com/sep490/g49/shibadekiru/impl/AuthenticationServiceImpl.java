@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class AuthenticationServiceImpl {
@@ -79,57 +81,69 @@ public class AuthenticationServiceImpl {
                 memberId = "USER" + randomStringGeneratorService.randomAlphaNumeric(5);
             } while (userAccountRepository.existsByMemberId(memberId));
             userAccount.setMemberId(memberId);
-            if (request.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+
+            String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+            Pattern pattern = Pattern.compile(emailPattern);
+            Matcher matcher = pattern.matcher(request.getEmail());
+
+            if (matcher.matches()) {
+                System.out.println("Email hợp lệ");
                 userAccount.setEmail(request.getEmail());
-            } else {
-                throw new RuntimeException("Vui lòng nhập email theo đúng định dạng. Ex: abc@gmail.com");
-            }
 
-            userAccount.setPassword(passwordEncoder.encode(request.getPassword()));
-            userAccount.setIsActive(false);
-            userAccount.setIsBanned(false);
-            userAccount.setIsCreatedByAdmin(false);
+                userAccount.setPassword(passwordEncoder.encode(request.getPassword()));
+                userAccount.setIsActive(false);
+                userAccount.setIsBanned(false);
+                userAccount.setIsCreatedByAdmin(false);
 
-            Long roleId = request.getRoleId();
+                Long roleId = request.getRoleId();
 
-            Role role = roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + roleId));
+                Role role = roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + roleId));
 
-            userAccount.setRole(role);
+                userAccount.setRole(role);
 
-            int minus = 10;
+                int minus = 10;
 
-            String resetCode = jwtUtilityService.createJWT(userAccount, minus);
-            System.out.println("Reset code trong register: " + resetCode);
-            userAccount.setResetCode(resetCode);
+                String resetCode = jwtUtilityService.createJWT(userAccount, minus);
+                System.out.println("Reset code trong register: " + resetCode);
+                userAccount.setResetCode(resetCode);
 
-            UserAccount savedUser = userAccountRepository.save(userAccount);
+                UserAccount savedUser = userAccountRepository.save(userAccount);
 
-            for (RoleType roleType : RoleType.values()) {
-                if (roleType.getId() == role.getRoleId()) {
-                    if (roleType == RoleType.STUDENT) {
-                        Student student = new Student();
-                        student.setFirstName(request.getFirstName());
-                        student.setLastName(request.getLastName());
-                        student.setEmail(request.getEmail());
-                        student.setUserAccount(savedUser);
-                        studentService.createStudentFromUserAccount(student);
-                    } else if (roleType == RoleType.LECTURE) {
-                        Lectures lectures = new Lectures();
-                        lectures.setFirstName(request.getFirstName());
-                        lectures.setLastName(request.getLastName());
-                        lectures.setEmail(request.getEmail());
-                        lectures.setUserAccount(savedUser);
-                        lecturesService.createLecturerFromUserAccount(lectures);
+                for (RoleType roleType : RoleType.values()) {
+                    if (roleType.getId() == role.getRoleId()) {
+                        if (roleType == RoleType.STUDENT) {
+                            Student student = new Student();
+                            student.setFirstName(request.getFirstName());
+                            student.setLastName(request.getLastName());
+                            student.setEmail(request.getEmail());
+                            student.setUserAccount(savedUser);
+                            studentService.createStudentFromUserAccount(student);
+                        } else if (roleType == RoleType.LECTURE) {
+                            Lectures lectures = new Lectures();
+                            lectures.setFirstName(request.getFirstName());
+                            lectures.setLastName(request.getLastName());
+                            lectures.setEmail(request.getEmail());
+                            lectures.setUserAccount(savedUser);
+                            lecturesService.createLecturerFromUserAccount(lectures);
+                        }
+                        break;
                     }
-                    break;
                 }
+
+                //var jwtToken = jwtService.generateToken(userAccount);
+                //var refreshToken = jwtService.generateRefreshToken(user);
+                sendEmail(userAccount.getEmail(), resetCode, minus);
+                //saveUserToken(savedUser, jwtToken);
             }
 
+//            if (request.getEmail().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")) {
+//
+//            }
+            else {
+                throw new RuntimeException("Vui lòng dạng. Ex: abc@gmail.com");
+            }
 
-            //var jwtToken = jwtService.generateToken(userAccount);
-            //var refreshToken = jwtService.generateRefreshToken(user);
-            sendEmail(userAccount.getEmail(), resetCode, minus);
-            //saveUserToken(savedUser, jwtToken);
 
         }
 
