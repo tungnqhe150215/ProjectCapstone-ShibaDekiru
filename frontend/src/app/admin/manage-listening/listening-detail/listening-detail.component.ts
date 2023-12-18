@@ -17,6 +17,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SharedModule} from "../../../shared/shared.module";
 import {NgIf} from "@angular/common";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-listening-detail',
@@ -109,15 +110,17 @@ export class ListeningQuestionDeleteDialog {
       private manageListeningQuestionService: AdminManageListeningQuestionService,
       private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
+      private nofiService: NotificationService 
   ) {}
   deleteListeningQuestion(id:number){
     this.manageListeningQuestionService.deleteListeningQuestion(id).subscribe(data => {
       this.dialogRef.close();
     })
-      this._snackBar.open('Xóa câu hỏi học phần nghe thành công', 'Đóng', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-      });
+    this.nofiService.openSnackBar('Xóa câu hỏi học phần nghe thành công');
+      // this._snackBar.open('Xóa câu hỏi học phần nghe thành công', 'Đóng', {
+      //     horizontalPosition: 'center',
+      //     verticalPosition: 'top',
+      // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -143,6 +146,7 @@ export class ListeningQuestionCreateDialog {
       private manageListeningQuestionService: AdminManageListeningQuestionService,
       private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
+      private nofiService: NotificationService 
   ) {}
 
   createListeningQuestion(){
@@ -150,10 +154,11 @@ export class ListeningQuestionCreateDialog {
     this.manageListeningQuestionService.createListeningQuestion(this.data,this.listeningQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-      this._snackBar.open('Thêm câu hỏi cho học phần nghe thành công', 'Đóng', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-      });
+    this.nofiService.openSnackBar('Thêm câu hỏi cho học phần nghe thành công');
+      // this._snackBar.open('Thêm câu hỏi cho học phần nghe thành công', 'Đóng', {
+      //     horizontalPosition: 'center',
+      //     verticalPosition: 'top',
+      // });
   }
 
   onNoClick(): void {
@@ -180,6 +185,7 @@ export class ListeningQuestionUpdateDialog implements OnInit {
       private manageListeningQuestionService: AdminManageListeningQuestionService,
       private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
+      private nofiService: NotificationService 
   ) {
   }
 
@@ -196,10 +202,11 @@ export class ListeningQuestionUpdateDialog implements OnInit {
     this.manageListeningQuestionService.updateListeningQuestion(this.data, this.listeningQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-      this._snackBar.open('Cập nhật câu hỏi học phần nghe thành công', 'Đóng', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-      });
+    this.nofiService.openSnackBar('Cập nhật câu hỏi học phần nghe thành công');
+      // this._snackBar.open('Cập nhật câu hỏi học phần nghe thành công', 'Đóng', {
+      //     horizontalPosition: 'center',
+      //     verticalPosition: 'top',
+      // });
   }
 
   onNoClick(): void {

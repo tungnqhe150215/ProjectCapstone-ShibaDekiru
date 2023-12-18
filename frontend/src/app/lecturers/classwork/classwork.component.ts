@@ -98,7 +98,7 @@ export class ClassworkComponent implements OnInit{
   deleteClassWork(id:number){
     this.classWorkService.deleteClassWork(id).subscribe({
       next: (res) => {
-        this.notifiService.openSnackBar('Đã xóa bài học');
+        this.notifiService.openSnackBar('Đã xóa bài học trên lớp');
         this.getClassWorkList();
       },
       error: console.log,

@@ -15,6 +15,7 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatSortModule} from "@angular/material/sort";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 
 @Component({
@@ -107,16 +108,18 @@ export class ReadingSectionDeleteDialog {
     private testSectionService:LectureTestSectionService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
   deleteReadingSection(id:number){
     this.testSectionService.deleteTestSection(id).subscribe(data => {
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Phần đọc đã bị xóa!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Phần đọc đã bị xóa!!');
+    // this._snackBar.open('Phần đọc đã bị xóa!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration: 2000
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -139,6 +142,7 @@ export class ReadingSectionCreateDialog {
     private testSectionService:LectureTestSectionService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   createReadingSection(){
@@ -148,11 +152,12 @@ export class ReadingSectionCreateDialog {
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Phần đọc mới đã được thêm !!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Phần đọc mới đã được thêm !!')
+    // this._snackBar.open('Phần đọc mới đã được thêm !!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration: 2000
+    // });
   }
 
   onNoClick(): void {
@@ -175,6 +180,7 @@ export class ReadingSectionUpdateDialog implements OnInit{
     private testSectionService:LectureTestSectionService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -189,11 +195,12 @@ export class ReadingSectionUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Phần đọc đã được cập nhật!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Phần đọc đã được cập nhật!!');
+    // this._snackBar.open('Phần đọc đã được cập nhật!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration: 2000
+    // });
   }
 
   onNoClick(): void {

@@ -66,6 +66,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UnthorizationComponent } from './unthorization/unthorization.component';
 import {SharedModule} from "../shared/shared.module";
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -114,7 +115,8 @@ import {SharedModule} from "../shared/shared.module";
     ClassTestResultComponent,
     DeleteCommentComponent,
     UpdateCommentComponent,
-    UnthorizationComponent
+    UnthorizationComponent,
+    NotFoundComponent
   ],
   exports: [
     FooterComponent,

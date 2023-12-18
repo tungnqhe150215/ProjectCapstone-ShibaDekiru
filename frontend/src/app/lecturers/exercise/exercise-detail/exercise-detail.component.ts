@@ -20,6 +20,7 @@ import {WritingExercise} from "../../../core/models/writing-exercise";
 import {LecturerManageWritingExerciseService} from "../lecturer-manage-writing-exercise.service";
 import {SharedModule} from "../../../shared/shared.module";
 import {NgIf} from "@angular/common";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -108,16 +109,17 @@ export class ExerciseQuestionDeleteDialog {
     private manageWritingExerciseService:LecturerManageWritingExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
   deleteWritingExercise(id:number){
     this.manageWritingExerciseService.deleteWritingExercise(id).subscribe(data => {
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Đã xóa câu hỏi!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Đã xóa câu hỏi');
+    // this._snackBar.open('Deleted!!', 'Close', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -138,6 +140,7 @@ export class ExerciseQuestionCreateDialog {
     private manageWritingExerciseService:LecturerManageWritingExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   createWritingExercise(){
@@ -146,11 +149,11 @@ export class ExerciseQuestionCreateDialog {
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Câu hỏi mới đã được thêm!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Đã thêm câu hỏi')
+    // this._snackBar.open('New exercise part added!!', 'Close', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {
@@ -171,6 +174,7 @@ export class ExerciseQuestionUpdateDialog implements OnInit{
     private manageWritingExerciseService:LecturerManageWritingExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -186,11 +190,11 @@ export class ExerciseQuestionUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Câu hỏi đã được cập nhật!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Đã cập nhật câu hỏi')
+    // this._snackBar.open('Exercise part updated!!', 'Close', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {

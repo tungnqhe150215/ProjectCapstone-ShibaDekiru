@@ -16,6 +16,7 @@ import {LessonService} from "../../../core/services/lesson.service";
 import {data} from "autoprefixer";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SharedModule} from "../../../shared/shared.module";
+import { NotificationService } from 'src/app/core/services/notification.service';
 @Component({
   selector: 'app-list-writing',
   templateUrl: './list-writing.component.html',
@@ -114,15 +115,17 @@ export class WritingDeleteDialog {
       private manageWritingService:AdminManageWritingService,
       private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
+      private nofiService: NotificationService 
   ) {}
   deleteWriting(id:number){
     this.manageWritingService.deleteWriting(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Đã xóa bài tập viết', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Đã xóa bài tập viết');
+    // this._snackBar.open('Đã xóa bài tập viết', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -145,6 +148,7 @@ export class WritingCreateDialog {
       private manageWritingService:AdminManageWritingService,
       private _snackBar: MatSnackBar,
       @Inject(MAT_DIALOG_DATA) public data: number,
+      private nofiService: NotificationService 
   ) {}
 
   createWriting(){
@@ -153,10 +157,11 @@ export class WritingCreateDialog {
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('Tạo học viết thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Tạo học viết thành công');
+    // this._snackBar.open('Tạo học viết thành công', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {
@@ -179,6 +184,7 @@ export class WritingUpdateDialog implements OnInit{
     private manageWritingService:AdminManageWritingService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
 
   ngOnInit(): void {
@@ -194,10 +200,11 @@ export class WritingUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('Cập nhật học phần viết thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Cập nhật học phần viết thành công');
+    // this._snackBar.open('Cập nhật học phần viết thành công', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {

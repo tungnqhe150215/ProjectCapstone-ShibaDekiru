@@ -19,6 +19,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { StorageService } from 'src/app/home/auth/user-login/storage.service';
 import {data} from "autoprefixer";
 import {NgIf} from "@angular/common";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-lecture-list-test',
@@ -116,16 +117,18 @@ export class TestDeleteDialog {
     private manageTestService:LectureManageTestService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
   deleteTest(id:number){
     this.manageTestService.deleteTest(id).subscribe(data => {
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Đã xóa bài kiểm tra!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration:2000,
-    });
+    this.nofiService.openSnackBar('Đã xóa bài kiểm tra!!');
+    // this._snackBar.open('Đã xóa bài kiểm tra!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration:2000,
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -149,6 +152,7 @@ export class TestCreateDialog implements OnInit{
     private manageTestService:LectureManageTestService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   createTest(){
@@ -159,11 +163,12 @@ export class TestCreateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Đã thêm bài kiểm tra mới!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration:2000,
-    });
+    this.nofiService.openSnackBar('Đã thêm bài kiểm tra mới!!');
+    // this._snackBar.open('Đã thêm bài kiểm tra mới!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration:2000,
+    // });
   }
 
   onNoClick(): void {
@@ -190,6 +195,7 @@ export class TestUpdateDialog implements OnInit{
     private manageTestService:LectureManageTestService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -205,11 +211,12 @@ export class TestUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Thông tin bài kiểm tra đã được cập nhật!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration:2000,
-    });
+    this.nofiService.openSnackBar('Thông tin bài kiểm tra đã được cập nhật!!');
+    // this._snackBar.open('Thông tin bài kiểm tra đã được cập nhật!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration:2000,
+    // });
   }
 
   onNoClick(): void {

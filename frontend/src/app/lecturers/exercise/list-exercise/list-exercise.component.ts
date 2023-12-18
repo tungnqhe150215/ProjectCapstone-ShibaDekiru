@@ -18,6 +18,7 @@ import {ClassWork} from "../../../core/models/class-work";
 import {MatTabsModule} from "@angular/material/tabs";
 import {SharedModule} from "../../../shared/shared.module";
 import {NgIf} from "@angular/common";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-list-exercise',
@@ -113,16 +114,17 @@ export class ExerciseDeleteDialog {
     private manageExerciseService:LectureManageExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
   deleteExercise(id:number){
     this.manageExerciseService.deleteExercise(id).subscribe(data => {
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Đã xóa!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Bạn đã bài tập');
+    // this._snackBar.open('Deleted!!', 'Close', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -143,6 +145,7 @@ export class ExerciseCreateDialog {
     private manageExerciseService:LectureManageExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   createExercise(){
@@ -151,11 +154,11 @@ export class ExerciseCreateDialog {
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Bài tập mới đã được thêm!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Đã thêm bài tập')
+    // this._snackBar.open('New exercise part added!!', 'Close', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {
@@ -176,6 +179,7 @@ export class ExerciseUpdateDialog implements OnInit{
     private manageExerciseService:LectureManageExerciseService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -191,11 +195,11 @@ export class ExerciseUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Cập nhật bài tập thành công!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Đã cập nhật bài tập');
+    // this._snackBar.open('Exercise part updated!!', 'Close', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {

@@ -19,6 +19,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {Lecture} from "../../../core/models/lecture";
 import {SharedModule} from "../../../shared/shared.module";
 import { StorageService } from 'src/app/home/auth/user-login/storage.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-l-class-list',
@@ -118,6 +119,7 @@ export class ClassCreateDialog {
     private _snackBar: MatSnackBar,
     private storageService: StorageService,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {
   }
   currentUser: any;
@@ -128,10 +130,11 @@ export class ClassCreateDialog {
     this.manageClassService.createClass(this.currentUser.userAccountId , this.iClass).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Class added!!', 'Close', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Tạo lớp học mới thành công');
+    // this._snackBar.open('Class added!!', 'Close', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {
@@ -159,6 +162,7 @@ export class ClassUpdateDialog implements OnInit {
     private manageClassService: LectureClassService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {
   }
 
@@ -175,10 +179,11 @@ export class ClassUpdateDialog implements OnInit {
     this.manageClassService.updateClass(this.data, this.iClass).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Class updated!!', 'Close', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Cập nhật lớp học thành công');
+    // this._snackBar.open('Class updated!!', 'Close', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {

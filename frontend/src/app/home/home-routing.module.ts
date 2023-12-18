@@ -37,6 +37,7 @@ import { ActiveAccountComponent } from './auth/active-account/active-account.com
 import {TestResultComponent} from "./student-test/test-result/test-result.component";
 import {StudentClassworkComponent} from "./student-classwork/student-classwork.component";
 import {ClassworkCompleteComponent} from "./student-classwork/classwork-complete/classwork-complete.component";
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const routes: Routes = [
@@ -86,6 +87,7 @@ const routes: Routes = [
   {path: 'check-mail', component:WaitingForgotPasswordComponent},
   {path: 'active-account', component:WaitingRegisterComponent},
   {path: 'verify/:resetCode', component:ActiveAccountComponent},
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
