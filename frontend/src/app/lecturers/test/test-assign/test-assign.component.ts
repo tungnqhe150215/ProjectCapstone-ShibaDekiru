@@ -24,6 +24,7 @@ import {SessionStorageService} from "../../../shared/services/session-storage.se
 import {data} from "autoprefixer";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {LectureManageTestService} from "../lecture-manage-test.service";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-test-assign',
@@ -120,16 +121,18 @@ export class TestAssignDeleteDialog {
     private manageTestAssignService:LectureManageTestAssignService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
   deleteTestAssign(id:number){
     this.manageTestAssignService.deleteTestAssign(id).subscribe(data => {
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Đã xóa thành công!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Đã xóa thành công!!')
+    // this._snackBar.open('Đã xóa thành công!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration: 2000
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -158,6 +161,8 @@ export class TestAssignCreateDialog implements OnInit{
     private sessionStorageService:SessionStorageService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
+
   ) {}
 
   ngOnInit() {
@@ -178,11 +183,12 @@ export class TestAssignCreateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Lớp học đã được thêm!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration:2000
-    });
+    this.nofiService.openSnackBar('Lớp học đã được thêm!!');
+    // this._snackBar.open('Lớp học đã được thêm!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration:2000
+    // });
   }
 
   onNoClick(): void {
@@ -212,6 +218,7 @@ export class TestAssignUpdateDialog {
     private manageTestAssignService:LectureManageTestAssignService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   updateTestAssign(){
@@ -220,11 +227,12 @@ export class TestAssignUpdateDialog {
       console.log(data)
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Việc giao bài đã được làm mới!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Việc giao bài đã được làm mới!!');
+    // this._snackBar.open('Việc giao bài đã được làm mới!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration: 2000
+    // });
   }
 
   onNoClick(): void {
