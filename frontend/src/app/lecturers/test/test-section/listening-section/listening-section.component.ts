@@ -21,6 +21,7 @@ import {Drive} from "../../../../core/models/drive";
 import {FilePreviewService} from "../../../../shared/services/file-preview.service";
 import {SharedModule} from "../../../../shared/shared.module";
 import {debounceTime, finalize, firstValueFrom, switchMap, tap, timer} from "rxjs";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 
 @Component({
@@ -113,6 +114,7 @@ export class ListeningSectionDeleteDialog {
     private testSectionService: LectureTestSectionService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {
   }
 
@@ -120,10 +122,11 @@ export class ListeningSectionDeleteDialog {
     this.testSectionService.deleteTestSection(id).subscribe(data => {
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Đã xóa phần nghe!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Đã xóa phần nghe!!');
+    // this._snackBar.open('Đã xóa phần nghe!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {
@@ -151,6 +154,7 @@ export class ListeningSectionCreateDialog {
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {
   }
 
@@ -174,10 +178,11 @@ export class ListeningSectionCreateDialog {
         this.dialogRef.close(data);
       })
     }
-    this._snackBar.open('Phần nghe mới đã được thêm!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Phần nghe mới đã được thêm!!');
+    // this._snackBar.open('Phần nghe mới đã được thêm!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {
@@ -228,6 +233,7 @@ export class ListeningSectionUpdateDialog implements OnInit {
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {
   }
 
@@ -256,11 +262,11 @@ export class ListeningSectionUpdateDialog implements OnInit {
         this.dialogRef.close(data);
       })
     }
-
-    this._snackBar.open('Phần nghe đã được cập nhật!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Phần nghe đã được cập nhật!!');
+    // this._snackBar.open('Phần nghe đã được cập nhật!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {

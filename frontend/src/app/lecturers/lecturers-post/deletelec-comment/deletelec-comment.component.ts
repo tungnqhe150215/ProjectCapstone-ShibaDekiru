@@ -30,7 +30,7 @@ export class DeletelecCommentComponent implements OnInit{
     this.postLecService.deleteComment(this.id, this.data.userId, this.data.commentId)
     .subscribe({
       next: (res) => {
-        this.nofiService.openSnackBar('Comment đã xóa!', 'Ok');
+        this.nofiService.openSnackBar('Comment đã xóa!');
       },
       error: console.log,
     })

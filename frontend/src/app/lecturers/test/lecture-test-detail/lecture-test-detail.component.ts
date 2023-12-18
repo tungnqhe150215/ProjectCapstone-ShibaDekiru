@@ -19,6 +19,7 @@ import {SharedModule} from "../../../shared/shared.module";
 import {TestSection} from "../../../core/models/test-section";
 import {LectureTestSectionService} from "../lecture-test-section.service";
 import {NgIf} from "@angular/common";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-lecture-test-detail',
@@ -107,16 +108,18 @@ export class QuestionBankDeleteDialog {
     private manageQuestionBankService: LectureManageQuestionBankService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
   deleteQuestionBank(id:number){
     this.manageQuestionBankService.deleteQuestionBank(id).subscribe(data => {
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Xóa thành công!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Xóa thành công!!');
+    // this._snackBar.open('Xóa thành công!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration: 2000
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -139,17 +142,19 @@ export class QuestionBankCreateDialog {
     private manageQuestionBankService: LectureManageQuestionBankService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   createQuestionBank(){
       this.manageQuestionBankService.createQuestionBank(this.data,this.questionBank).subscribe(data => {
         this.dialogRef.close(data);
       })
-      this._snackBar.open('Câu hỏi đã được thêm mới!!', 'Đóng', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 2000
-      });
+      this.nofiService.openSnackBar('Câu hỏi đã được thêm mới!!');
+      // this._snackBar.open('Câu hỏi đã được thêm mới!!', 'Đóng', {
+      //   horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      //   duration: 2000
+      // });
   }
 
   onNoClick(): void {
@@ -174,6 +179,7 @@ export class QuestionBankUpdateDialog implements OnInit {
     private manageQuestionBankService: LectureManageQuestionBankService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {
   }
 
@@ -191,11 +197,12 @@ export class QuestionBankUpdateDialog implements OnInit {
     this.manageQuestionBankService.updateQuestionBank(this.data, this.questionBank).subscribe(data => {
       this.dialogRef.close(data);
     })
-    this._snackBar.open('Câu hỏi đã được cập nhật!!', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 2000
-    });
+    this.nofiService.openSnackBar('Câu hỏi đã được cập nhật!!');
+    // this._snackBar.open('Câu hỏi đã được cập nhật!!', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   duration: 2000
+    // });
   }
 
   onNoClick(): void {

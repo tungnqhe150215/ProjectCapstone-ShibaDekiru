@@ -18,6 +18,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Lecture} from "../../../core/models/lecture";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {interval, Subscription} from "rxjs";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-list-class',
@@ -107,16 +108,18 @@ export class ClassDeleteDialog {
     private manageClassService:AdminManageClassService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
   deleteClass(id:number){
     this.manageClassService.deleteClass(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Đã xóa lớp học!!', 'Close', {
-      duration: 2000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Đã xóa lớp học!!');
+    // this._snackBar.open('Đã xóa lớp học!!', 'Close', {
+    //   duration: 2000,
+    //   horizontalPosition: 'right',
+    //   verticalPosition: 'top',
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -139,6 +142,7 @@ export class ClassCreateDialog {
     private manageClassService:AdminManageClassService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
 
   createClass(){
@@ -148,11 +152,12 @@ export class ClassCreateDialog {
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('Tạo lớp học thành công', 'Đóng', {
-      duration: 2000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Tạo lớp học thành công');
+    // this._snackBar.open('Tạo lớp học thành công', 'Đóng', {
+    //   duration: 2000,
+    //   horizontalPosition: 'right',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {
@@ -176,6 +181,7 @@ export class ClassUpdateDialog implements OnInit{
     private manageClassService:AdminManageClassService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
 
   ngOnInit(): void {
@@ -192,11 +198,12 @@ export class ClassUpdateDialog implements OnInit{
       console.log(data)
       this.dialogRef.close();
     })
-    this._snackBar.open('Cập nhật lớp học thành công', 'Đóng', {
-      duration: 2000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Cập nhật lớp học thành công');
+    // this._snackBar.open('Cập nhật lớp học thành công', 'Đóng', {
+    //   duration: 2000,
+    //   horizontalPosition: 'right',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {

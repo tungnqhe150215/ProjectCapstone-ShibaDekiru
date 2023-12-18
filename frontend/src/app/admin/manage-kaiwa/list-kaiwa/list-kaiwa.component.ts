@@ -20,6 +20,7 @@ import {Drive} from "../../../core/models/drive";
 import {FileService} from "../../../shared/services/file.service";
 import {NgIf} from "@angular/common";
 import {FilePreviewService} from "../../../shared/services/file-preview.service";
+import { NotificationService } from 'src/app/core/services/notification.service';
 @Component({
   selector: 'app-list-kaiwa',
   templateUrl: './list-kaiwa.component.html',
@@ -114,15 +115,17 @@ export class KaiwaDeleteDialog {
     private manageKaiwaService:AdminManageKaiwaService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
   deleteKaiwa(id:number){
     this.manageKaiwaService.deleteKaiwa(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Xóa học phần thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Xóa học phần thành công');
+    // this._snackBar.open('Xóa học phần thành công', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -148,6 +151,7 @@ export class KaiwaCreateDialog {
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
 
   createKaiwa(){
@@ -162,10 +166,11 @@ export class KaiwaCreateDialog {
         console.log(data)
         this.dialogRef.close();
       })
-      this._snackBar.open('Đã thêm học phần kaiwa', 'Đóng', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
+      this.nofiService.openSnackBar('Đã thêm học phần kaiwa');
+      // this._snackBar.open('Đã thêm học phần kaiwa', 'Đóng', {
+      //   horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      // });
     })
 
   }
@@ -217,6 +222,7 @@ export class KaiwaUpdateDialog implements OnInit{
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
 
   ngOnInit(): void {
@@ -234,10 +240,11 @@ export class KaiwaUpdateDialog implements OnInit{
         console.log(data)
         this.dialogRef.close();
       })
-      this._snackBar.open('Cập nhật học phần thành công', 'Đóng', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
+      this.nofiService.openSnackBar('Cập nhật học phần thành công');
+      // this._snackBar.open('Cập nhật học phần thành công', 'Đóng', {
+      //   horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      // });
     } else {
       this.fileService.uploadFile(this.file).subscribe(data => {
         this.drive = data as Drive
@@ -247,10 +254,11 @@ export class KaiwaUpdateDialog implements OnInit{
           console.log(data)
           this.dialogRef.close();
         })
-        this._snackBar.open('Cập nhật học phần thành công', 'Đóng', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
+        this.nofiService.openSnackBar('Cập nhật học phần thành công');
+        // this._snackBar.open('Cập nhật học phần thành công', 'Đóng', {
+        //   horizontalPosition: 'center',
+        //   verticalPosition: 'top',
+        // });
       })
     }
 

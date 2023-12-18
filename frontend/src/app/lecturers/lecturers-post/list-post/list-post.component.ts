@@ -130,7 +130,9 @@ export class ListPostComponent implements OnInit {
         this.nofiService.openSnackBar('Đã xóa bài viết');
         this.getPostbyUser();
       },
-      error: console.log,
+      error: () =>{
+        this.nofiService.openSnackBar('Có lỗi xảy ra khi xóa bài viết');
+      }
     })
   }
 }
