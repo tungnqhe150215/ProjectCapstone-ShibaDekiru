@@ -20,6 +20,7 @@ import {Drive} from "../../../core/models/drive";
 import {FileService} from "../../../shared/services/file.service";
 import {NgIf} from "@angular/common";
 import {FilePreviewService} from "../../../shared/services/file-preview.service";
+import { NotificationService } from 'src/app/core/services/notification.service';
 @Component({
   selector: 'app-list-reading',
   templateUrl: './list-reading.component.html',
@@ -118,15 +119,17 @@ export class ReadingDeleteDialog {
     private manageReadingService:AdminManageReadingService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
   deleteReading(id:number){
     this.manageReadingService.deleteReading(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Deleted!!', 'Close', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Học phần đọc đã xóa');
+    // this._snackBar.open('Deleted!!', 'Close', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -153,6 +156,7 @@ export class ReadingCreateDialog {
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   createReading(){
@@ -166,10 +170,11 @@ export class ReadingCreateDialog {
         console.log(data)
         this.dialogRef.close();
       })
-      this._snackBar.open('New reading part added!!', 'Close', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
+      this.nofiService.openSnackBar('Học phần đọc đã được thêm');
+      // this._snackBar.open('Học phần đọc đã thêm', 'Close', {
+      //   horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      // });
     })
 
   }
@@ -221,6 +226,7 @@ export class ReadingUpdateDialog implements OnInit{
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -238,10 +244,12 @@ export class ReadingUpdateDialog implements OnInit{
         console.log(data)
         this.dialogRef.close();
       })
-      this._snackBar.open('Reading part updated!!', 'Close', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
+      this.nofiService.openSnackBar('Học phần đọc đã được cập nhật');
+      // this._snackBar.open('Reading part updated!!', 'Close', {
+      //   horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      // });
+
     } else {
       this.fileService.uploadFile(this.file).subscribe(data => {
         this.drive = data as Drive
@@ -251,10 +259,11 @@ export class ReadingUpdateDialog implements OnInit{
           console.log(data)
           this.dialogRef.close();
         })
-        this._snackBar.open('Reading part updated!!', 'Close', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
+        this.nofiService.openSnackBar('Học phần đọc đã được cập nhật');
+        // this._snackBar.open('Reading part updated!!', 'Close', {
+        //   horizontalPosition: 'center',
+        //   verticalPosition: 'top',
+        // });
       })
 
     }
