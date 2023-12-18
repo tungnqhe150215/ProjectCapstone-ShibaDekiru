@@ -1,0 +1,357 @@
+body{
+    background: #d45c5e;
+}
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    position: relative;
+    width: 31%;
+  }
+  
+  .image {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    left: 118%;
+    animation: Shake 3s ease-in-out alternate-reverse infinite;
+  }
+  
+  .image-bird {
+    position: absolute;
+    top: 37%;
+    left: 11%;
+  }
+  .image-bird img {
+    width: 50%;
+    transform: scale(0.3) rotate(3deg) rotateY(180deg);
+  }
+  
+  .image-crane {
+    display: flex;
+    position: relative;
+    left: 7%;
+    margin-top: -2%;
+  }
+  .image-crane img {
+    width: 80%;
+  }
+  
+  .image-plaint {
+    display: flex;
+    position: absolute;
+    top: 60%;
+    left: 20%;
+    width: 70%;
+  }
+  .image-plaint span {
+    width: 25%;
+    font-size: 116px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #febe52;
+  }
+  .image-plaint img {
+    width: 37%;
+    height: 0%;
+  }
+  
+  @-webkit-keyframes Shake {
+    from {
+      transform: rotate(15deg);
+      transform-origin: center top;
+    }
+    to {
+      transform: rotate(-16deg);
+      transform-origin: center top;
+    }
+  }
+  
+  @keyframes Shake {
+    from {
+      transform: rotate(15deg);
+      transform-origin: center top;
+    }
+    to {
+      transform: rotate(-16deg);
+      transform-origin: center top;
+    }
+  }
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30%;
+    position: relative;
+  }
+
+  .footer h3 {
+    font-size: 36px;
+    color: #fff;
+  }
+  .footer h4 {
+    font-size: 16px;
+    color: #fff;
+    padding: 2%;
+  }
+  .footer button {
+    background-color: #febe52;
+    border: none;
+    padding: 0.5%;
+  }
+  .footer button a {
+    text-decoration: none;
+    color: #fff;
+  }
+  .footer button:hover {
+    background: greenyellow;
+  }
+  
+  @media only screen and (max-width: 1024px) {
+    .container {
+      position: absolute;
+      width: 100%;
+    }
+  
+    .image {
+      position: relative;
+      padding-left: 3%;
+      left: 0;
+      animation: Shake 3s ease-in-out alternate-reverse infinite;
+    }
+  
+    .image-bird {
+      top: 39%;
+      left: 27%;
+      width: 50%;
+    }
+  
+    .image-crane {
+      margin-top: -3%;
+      left: 7%;
+      width: 70%;
+    }
+  
+    .image-plaint {
+      display: flex;
+      width: 42%;
+      top: 63.5%;
+      left: 34%;
+    }
+    .image-plaint span {
+      font-size: 154px;
+    }
+  
+    .footer {
+      position: relative;
+      padding-top: 80%;
+    }
+    .footer h3 {
+      font-size: 56px;
+      color: #fff;
+    }
+    .footer h4 {
+      font-size: 30px;
+      color: #fff;
+      padding: 5%;
+    }
+    .footer button {
+      background-color: #febe52;
+      border: none;
+      padding: 2.5%;
+    }
+    .footer button a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .footer button:hover {
+      background: greenyellow;
+    }
+  }
+  @media only screen and (max-width: 821px) {
+    .container {
+      position: absolute;
+      width: 100%;
+    }
+  
+    .image {
+      position: relative;
+      padding-left: 4.6%;
+      left: 0;
+      animation: Shake 3s ease-in-out alternate-reverse infinite;
+    }
+  
+    .image-bird {
+      top: 39%;
+      left: 27%;
+      width: 50%;
+    }
+  
+    .image-crane {
+      margin-top: -3%;
+      left: 7%;
+      width: 70%;
+    }
+  
+    .image-plaint {
+      display: flex;
+      width: 42%;
+      top: 62.5%;
+      left: 34%;
+    }
+    .image-plaint span {
+      font-size: 126px;
+    }
+  
+    .footer {
+      position: relative;
+      padding-top: 80%;
+    }
+    .footer h3 {
+      font-size: 56px;
+      color: #fff;
+    }
+    .footer h4 {
+      font-size: 30px;
+      color: #fff;
+      padding: 5%;
+    }
+    .footer button {
+      background-color: #febe52;
+      border: none;
+      padding: 2.5%;
+    }
+    .footer button a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .footer button:hover {
+      background: greenyellow;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .container {
+      position: absolute;
+      width: 100%;
+    }
+  
+    .image {
+      position: relative;
+      padding-left: 3%;
+      left: 0;
+      animation: Shake 3s ease-in-out alternate-reverse infinite;
+    }
+  
+    .image-bird {
+      top: 40%;
+      left: 27.5%;
+      width: 50%;
+    }
+  
+    .image-crane {
+      margin-top: -3%;
+      left: 7%;
+      width: 70%;
+    }
+  
+    .image-plaint {
+      width: 42%;
+      top: 63%;
+      left: 33%;
+    }
+    .image-plaint span {
+      font-size: 66px;
+    }
+  
+    .footer {
+      position: relative;
+      padding-top: 80%;
+    }
+    .footer h3 {
+      font-size: 30px;
+      color: #fff;
+    }
+    .footer h4 {
+      font-size: 16px;
+      color: #fff;
+      padding: 5%;
+    }
+    .footer button {
+      background-color: #febe52;
+      border: none;
+      padding: 2.5%;
+    }
+    .footer button a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .footer button:hover {
+      background: greenyellow;
+    }
+  }
+  @media only screen and (max-width: 376px) {
+    .container {
+      position: absolute;
+      width: 100%;
+    }
+  
+    .image {
+      position: relative;
+      padding-left: 3%;
+      left: 0;
+      animation: Shake 3s ease-in-out alternate-reverse infinite;
+    }
+  
+    .image-bird {
+      top: 40%;
+      left: 27%;
+      width: 50%;
+    }
+  
+    .image-crane {
+      margin-top: -3%;
+      left: 7%;
+      width: 70%;
+    }
+  
+    .image-plaint {
+      width: 45%;
+      top: 63.5%;
+      left: 33%;
+    }
+    .image-plaint span {
+      font-size: 63px;
+    }
+  
+    .footer {
+      position: relative;
+      padding-top: 80%;
+    }
+    .footer h3 {
+      font-size: 30px;
+      color: #fff;
+    }
+    .footer h4 {
+      font-size: 16px;
+      color: #fff;
+      padding: 5%;
+    }
+    .footer button {
+      background-color: #febe52;
+      border: none;
+      padding: 2.5%;
+    }
+    .footer button a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .footer button:hover {
+      background: greenyellow;
+    }
+  }/*# sourceMappingURL=style.css.map */
