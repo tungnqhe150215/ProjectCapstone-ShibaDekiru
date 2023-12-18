@@ -13,10 +13,12 @@ export class ListPostComponent implements OnInit{
   id!:number;
   post: Post[] = [];
   posts: Post[]=[];
-  // Thêm biến cho phân trang
-  p: number = 1;
-  itemsPerPage: number = 5;
-  collectionSize: number = 0;
+  totalPages: number[] = [];
+
+  currentPage = 0;
+  pageSize = 3;
+  // itemsPerPage: number = 5;
+  // collectionSize: number = 0;
   constructor(
     private userPostService: UserPostService,
     private router: Router,
@@ -29,47 +31,41 @@ export class ListPostComponent implements OnInit{
   }
 
   getAllPost(){
-    this.userPostService.getAllPost()
-    .subscribe(data =>{
-      this.post = data;
-      this.collectionSize = this.post.length;
-      console.log(data);
+    this.userPostService.getAllPost(this.currentPage, this.pageSize)
+    .subscribe((page) =>{
+      this.post = page.content;
+      this.totalPages = Array.from({ length: page.totalPages }, (_, index) => index);
+
     })
   }
 
-  get totalPages(): number {
-    return Math.ceil(this.collectionSize / this.itemsPerPage);
+  onPageChange(newPage: number) {
+    if (newPage >= 0 && newPage < this.totalPages.length) {
+      this.currentPage = newPage;
+      this.getAllPost();
+    }
   }
 
-  get pages(): number[] {
-    const totalPages = this.totalPages;
-    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  onNextPage() {
+    if (this.currentPage < this.totalPages.length - 1) {
+        this.onPageChange(this.currentPage + 1);
+    }
   }
+
+  onPreviousPage() {
+    if (this.currentPage > 0) {
+        this.onPageChange(this.currentPage - 1);
+    }
+  }
+
 
   PostDetail(id:number){
     this.userPostService.setPostID(id);
     this.router.navigate(['./post/post-detail',id]);
   }
 
-  previousPage(event: Event) {
-    event.preventDefault();
-    if (this.p > 1) {
-      this.p--;
-    }
-  }
-  
-  nextPage(event: Event) {
-    event.preventDefault();
-    if (this.p < this.totalPages) {
-      this.p++;
-    }
-  }
-  
-  goToPage(page: number, event: Event) {
-    event.preventDefault();
-    this.p = page;
-  }
-  
+
+
 
   getLatestPost(){
     this.userPostService.getLatestPost()
@@ -78,4 +74,5 @@ export class ListPostComponent implements OnInit{
       console.log(data);
     })
    }
+
 }

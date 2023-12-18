@@ -62,6 +62,10 @@ export class PostDetailComponent implements OnInit {
   currentUser: any;
   uComment: Comment = new Comment;
   post1: Post[] = [];
+  totalPages: number[] = [];
+
+  currentPage = 0;
+  pageSize = 3;
   idPost!:number;
 
   // AddComment() {
@@ -166,9 +170,9 @@ export class PostDetailComponent implements OnInit {
   }
 
 
-
   p: number = 1;
   itemsPerPage: number = 5; // Số lượng bình luận trên mỗi trang
+
   getAllComment() {
     this.id = this.route.snapshot.params['id'];
     this.currentUser  = this.storageService.getUser();
@@ -182,11 +186,31 @@ export class PostDetailComponent implements OnInit {
   }
 
   getAllPost(){
-    this.userPostService.getAllPost()
-    .subscribe(data =>{
-      this.post1 = data;
-      console.log(data);
-    })
+    this.userPostService.getAllPost(this.currentPage, this.pageSize)
+      .subscribe((page) =>{
+        this.post1 = page.content;
+        this.totalPages = Array.from({ length: page.totalPages }, (_, index) => index);
+
+      })
+  }
+
+  onPageChange(newPage: number) {
+    if (newPage >= 0 && newPage < this.totalPages.length) {
+      this.currentPage = newPage;
+      this.getAllPost();
+    }
+  }
+
+  onNextPage() {
+    if (this.currentPage < this.totalPages.length - 1) {
+      this.onPageChange(this.currentPage + 1);
+    }
+  }
+
+  onPreviousPage() {
+    if (this.currentPage > 0) {
+      this.onPageChange(this.currentPage - 1);
+    }
   }
 
 

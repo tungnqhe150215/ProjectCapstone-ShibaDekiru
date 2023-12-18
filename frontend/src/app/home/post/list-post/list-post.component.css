@@ -4,6 +4,31 @@
   color: #333; /* Màu chữ của số trang hiện tại */
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  background-color: #4285f4;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 4px;
+  cursor: pointer;
+}
+
+.pagination-button:hover {
+  background-color: #3367d6;
+}
+
+.custom-current-page {
+  font-weight: bold;
+  margin: 0 10px;
+}
+
 .blog_right_sidebar {
     border: 1px solid #eeeeee;
     background: #fafaff;
@@ -175,29 +200,29 @@ li {
     color: #f8b600;
     font-weight: 500;
     line-height: 1.82em !important; }
-  
+
   .ordered-list li span {
     font-weight: 300;
     color: #777777; }
-  
+
   .ordered-list-alpha li {
     margin-left: 30px;
     list-style-type: lower-alpha;
     color: #f8b600;
     font-weight: 500;
     line-height: 1.82em !important; }
-  
+
   .ordered-list-alpha li span {
     font-weight: 300;
     color: #777777; }
-  
+
   .ordered-list-roman li {
     margin-left: 30px;
     list-style-type: lower-roman;
     color: #f8b600;
     font-weight: 500;
     line-height: 1.82em !important; }
-  
+
   .ordered-list-roman li span {
     font-weight: 300;
     color: #777777; }
@@ -243,10 +268,10 @@ a {
     margin-top: 10%;
  }
 
-    
+
 .latest_blog_inner {
     margin-bottom: -30px; }
-  
+
   .l_blog_item {
     margin-bottom: 30px; }
     .l_blog_item .date {
@@ -269,7 +294,7 @@ a {
       margin-bottom: 0px; }
     .l_blog_item:hover h4 {
       color: #11a683; }
-  
+
   /* End Latest Blog Area css
   ============================================================================================ */
   /*================= latest_blog_area css =============*/
@@ -293,7 +318,7 @@ a {
       font-weight: 400; }
     .single-recent-blog-post:hover img {
       transform: scale(1.23) rotate(10deg); }
-  
+
   .tags .tag_btn {
     font-size: 12px;
     font-weight: 500;
@@ -307,12 +332,12 @@ a {
       background: #11a683; }
     .tags .tag_btn + .tag_btn {
       margin-left: 2px; }
-  
+
   /*========= blog_categorie_area css ===========*/
   .blog_categorie_area {
     padding-top: 80px;
     padding-bottom: 80px; }
-  
+
   .categories_post {
     position: relative;
     text-align: center;
@@ -350,11 +375,11 @@ a {
         height: 1px; }
     .categories_post:hover .categories_details {
       background: rgba(77, 191, 28, 0.85); }
-  
+
   /*============ blog_left_sidebar css ==============*/
   .blog_item {
     margin-bottom: 40px; }
-  
+
   .blog_info {
     padding-top: 30px; }
     .blog_info .post_tag {
@@ -381,10 +406,10 @@ a {
         vertical-align: middle; }
       .blog_info .blog_meta li a:hover {
         color: #11a683; }
-  
+
   .blog_post img {
     max-width: 100%; }
-  
+
   .blog_details {
     padding-top: 20px; }
     .blog_details h2 {
@@ -397,7 +422,7 @@ a {
         color: #11a683; }
     .blog_details p {
       margin-bottom: 26px; }
-  
+
   .view_btn {
     font-size: 14px;
     line-height: 36px;
@@ -406,7 +431,7 @@ a {
     font-weight: 500;
     padding: 0px 30px;
     background: #fff; }
-  
+
   .blog_right_sidebar {
     border: 1px solid #eeeeee;
     background: #fafaff;
@@ -569,7 +594,7 @@ a {
       height: 1px;
       background: #eeeeee;
       margin: 30px 0px; }
-  
+
   .blog-pagination {
     padding-top: 25px;
     padding-bottom: 95px; }
@@ -577,16 +602,16 @@ a {
       border-radius: 0; }
     .blog-pagination .page-item {
       border: none; }
-  
+
   .page-link {
     background: transparent;
     font-weight: 400; }
-  
+
   .blog-pagination .page-item.active .page-link {
     background-color: #11a683;
     border-color: transparent;
     color: #fff; }
-  
+
   .blog-pagination .page-link {
     position: relative;
     display: block;
@@ -595,14 +620,14 @@ a {
     line-height: 1.25;
     color: #8a8a8a;
     border: none; }
-  
+
   .blog-pagination .page-link .lnr {
     font-weight: 600; }
-  
+
   .blog-pagination .page-item:last-child .page-link,
   .blog-pagination .page-item:first-child .page-link {
     border-radius: 0; }
-  
+
   .blog-pagination .page-link:hover {
     color: #fff;
     text-decoration: none;
