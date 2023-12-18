@@ -112,8 +112,9 @@ export class ClassDeleteDialog {
     this.manageClassService.deleteClass(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Deleted!!', 'Close', {
-      horizontalPosition: 'center',
+    this._snackBar.open('Đã xóa lớp học!!', 'Close', {
+      duration: 2000,
+      horizontalPosition: 'right',
       verticalPosition: 'top',
     });
   }
@@ -148,7 +149,8 @@ export class ClassCreateDialog {
       this.dialogRef.close();
     })
     this._snackBar.open('Tạo lớp học thành công', 'Đóng', {
-      horizontalPosition: 'center',
+      duration: 2000,
+      horizontalPosition: 'right',
       verticalPosition: 'top',
     });
   }
@@ -191,7 +193,8 @@ export class ClassUpdateDialog implements OnInit{
       this.dialogRef.close();
     })
     this._snackBar.open('Cập nhật lớp học thành công', 'Đóng', {
-      horizontalPosition: 'center',
+      duration: 2000,
+      horizontalPosition: 'right',
       verticalPosition: 'top',
     });
   }
