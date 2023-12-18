@@ -1,16 +1,22 @@
 <h2 mat-dialog-title class="text-center border-bottom text-bg-info">Thay đổi nội dung bài tập</h2>
+<form class="form-dialog" #form="ngForm" (ngSubmit)="updateWritingExercise()">
 <mat-dialog-content>
-  <form class="form-dialog">
   <mat-form-field>
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="writingExercise.question" [value]="writingExercise.question" [ngModelOptions]="{standalone: true}" type="text" required>
+    <input matInput [(ngModel)]="writingExercise.question" name="question" [value]="writingExercise.question"  type="text" required>
+    <mat-error *ngIf="form.controls['question'].errors?.['required'] && (form.controls['question']?.dirty || form.controls['question']?.touched)" style="font-size: small" required >Trường này là bắt buộc</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Điểm tối đa câu hỏi này</mat-label>
+    <input matInput [(ngModel)]="writingExercise.mark" name="mark" required type="text" pattern="[0-9.]*">
+    <mat-error *ngIf="form.controls['mark'].errors?.['required'] && (form.controls['mark']?.dirty || form.controls['mark']?.touched)" style="font-size: small" >Trường này là bắt buộc</mat-error>
+    <mat-error *ngIf="form.controls['mark'].errors?.['pattern']" style="font-size: small" >Sai định dạng. Với số thập phân thì là 1.5 ,... </mat-error>
   </mat-form-field>
   <br>
-  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Hủy bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="updateWritingExercise()">Cập nhật</button>
+  <button mat-button type="submit" [disabled]="form.form.invalid">Cập nhật</button>
 </mat-dialog-actions>
-
+</form>

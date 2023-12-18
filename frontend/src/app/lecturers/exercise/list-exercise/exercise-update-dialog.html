@@ -1,16 +1,21 @@
-<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Thay đổi nội dung bài tập</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Cập nhật bài tập</h2>
+<form class="form-dialog" #form=ngForm (ngSubmit)="updateExercise()">
 <mat-dialog-content>
-  <form class="form-dialog">
+
   <mat-form-field>
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="exercise.title" [value]="exercise.title" [ngModelOptions]="{standalone: true}" type="text" required>
+    <input matInput [(ngModel)]="exercise.title" name="title" [value]="exercise.title" type="text" required>
+    <mat-error
+      *ngIf="form.controls['title'].errors?.['required'] && (form.controls['title']?.dirty || form.controls['title']?.touched)"
+      style="font-size: small" >Trường này là bắt buộc
+    </mat-error>
   </mat-form-field>
   <br>
-  </form>
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Hủy bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="updateExercise()">Cập nhật</button>
+  <button mat-button type="submit" [disabled]="form.form.invalid">Cập nhật</button>
 </mat-dialog-actions>
-
+</form>

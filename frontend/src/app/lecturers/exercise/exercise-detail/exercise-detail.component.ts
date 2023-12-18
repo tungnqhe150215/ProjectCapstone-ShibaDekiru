@@ -19,17 +19,16 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {WritingExercise} from "../../../core/models/writing-exercise";
 import {LecturerManageWritingExerciseService} from "../lecturer-manage-writing-exercise.service";
 import {SharedModule} from "../../../shared/shared.module";
+import {NgIf} from "@angular/common";
 import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-exercise-detail',
   templateUrl: './exercise-detail.component.html',
   styleUrls: ['./exercise-detail.component.css'],
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, SharedModule],
 })
 export class ExerciseDetailComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'question','action'];
+  displayedColumns: string[] = ['id', 'question','mark','action'];
   dataSource!: MatTableDataSource<WritingExercise> ;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -81,13 +80,13 @@ export class ExerciseDetailComponent implements OnInit{
   openDeleteExerciseQuestionDialog(id:number){
     this.dialog.open(ExerciseQuestionDeleteDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getWritingExercise());
+    }).afterClosed().subscribe(data => { if (data)this.getWritingExercise() });
   }
 
   openCreateExerciseQuestionDialog(id:number){
     this.dialog.open(ExerciseQuestionCreateDialog,{
       data: id
-    }).afterClosed().subscribe(() => this.getWritingExercise());
+    }).afterClosed().subscribe(data => { if (data)this.getWritingExercise() });
   }
 
   openUpdateExerciseQuestionDialog(id:number){
@@ -95,7 +94,7 @@ export class ExerciseDetailComponent implements OnInit{
       {
         data: id
       }
-    ).afterClosed().subscribe(() => this.getWritingExercise());
+    ).afterClosed().subscribe(data => { if (data)this.getWritingExercise() });
   }
 }
 
@@ -103,8 +102,6 @@ export class ExerciseDetailComponent implements OnInit{
   selector: 'lecturer-exercise-question-delete-dialog',
   templateUrl: 'exercise-question-delete-dialog.html',
   styleUrls: ['./exercise-detail.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class ExerciseQuestionDeleteDialog {
   constructor(
@@ -116,9 +113,9 @@ export class ExerciseQuestionDeleteDialog {
   ) {}
   deleteWritingExercise(id:number){
     this.manageWritingExerciseService.deleteWritingExercise(id).subscribe(data => {
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this.nofiService.openSnackBar('Đã xóa bài luyện tập');
+    this.nofiService.openSnackBar('Đã xóa câu hỏi');
     // this._snackBar.open('Deleted!!', 'Close', {
     //   horizontalPosition: 'center',
     //   verticalPosition: 'top',
@@ -133,8 +130,6 @@ export class ExerciseQuestionDeleteDialog {
   selector: 'lecturer-exercise-question-create-dialog',
   templateUrl: 'exercise-question-create-dialog.html',
   styleUrls: ['./exercise-detail.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class ExerciseQuestionCreateDialog {
 
@@ -152,9 +147,9 @@ export class ExerciseQuestionCreateDialog {
     console.log(this.writingExercise)
     this.manageWritingExerciseService.createWritingExercise(this.data,this.writingExercise).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this.nofiService.openSnackBar('Đã thêm phần luyện tập')
+    this.nofiService.openSnackBar('Đã thêm câu hỏi')
     // this._snackBar.open('New exercise part added!!', 'Close', {
     //   horizontalPosition: 'center',
     //   verticalPosition: 'top',
@@ -169,8 +164,6 @@ export class ExerciseQuestionCreateDialog {
   selector: 'lecturer-exercise-question-update-dialog',
   templateUrl: 'exercise-question-update-dialog.html',
   styleUrls: ['./exercise-detail.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class ExerciseQuestionUpdateDialog implements OnInit{
 
@@ -195,9 +188,9 @@ export class ExerciseQuestionUpdateDialog implements OnInit{
     console.log(this.writingExercise)
     this.manageWritingExerciseService.updateWritingExercise(this.data,this.writingExercise).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this.nofiService.openSnackBar('Đã cập nhật phần luyện tập')
+    this.nofiService.openSnackBar('Đã cập nhật câu hỏi')
     // this._snackBar.open('Exercise part updated!!', 'Close', {
     //   horizontalPosition: 'center',
     //   verticalPosition: 'top',

@@ -44,6 +44,7 @@ public class WritingExerciseServiceImpl implements IWritingExerciseService {
     public WritingExercise updateWritingExercise(Long id, WritingExercise writingExerciseRequest) {
         WritingExercise writingExercise = writingExerciseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        writingExercise.setMark(writingExerciseRequest.getMark());
         writingExercise.setQuestion(writingExerciseRequest.getQuestion());
         return writingExerciseRepository.save(writingExercise);
     }

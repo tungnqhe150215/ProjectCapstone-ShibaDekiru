@@ -17,7 +17,11 @@ td, th {
 }
 
 .mat-column-question{
-  width: 60%;
+  width: 50%;
+}
+
+.mat-column-mark{
+  width: 25%;
 }
 
 .mat-column-action{}

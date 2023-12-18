@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12 col-md-6 order-md-1 order-last">
         <h3>Bài tập</h3>
-        <p class="text-subtitle text-muted">Quản lí bài tập của công việc trên lớp</p>
+        <p class="text-subtitle text-muted">Quản lí bài tập của hoạt động lớp</p>
       </div>
       <div class="col-12 col-md-6 order-md-2 order-first">
         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -31,7 +31,7 @@
           </div>
         </div>
         <mat-form-field>
-          <mat-label>Bộ lọc</mat-label>
+          <mat-label>Tìm kiếm bài tập</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
         </mat-form-field>
         <div class="mb-2">
@@ -72,7 +72,7 @@
 
             <!-- Row shown when there is no matching data. -->
             <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="4">Không có dữ liệu"{{input.value}}"</td>
+              <td class="mat-cell" colspan="4">Không có dữ liệu liên quan tới "{{input.value}}"</td>
             </tr>
           </table>
 

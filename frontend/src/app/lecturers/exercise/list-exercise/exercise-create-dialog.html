@@ -1,15 +1,19 @@
-<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm bài tập</h2>
-<mat-dialog-content>
-<form class="form-dialog">
-  <mat-form-field>
-    <mat-label>Tiêu đề bài tập</mat-label>
-    <input matInput [(ngModel)]="exercise.title" [ngModelOptions]="{standalone: true}" required type="text">
-  </mat-form-field>
-  <br>
+<h2 class="text-center border-bottom text-bg-info" mat-dialog-title>Thêm bài tập cho hoạt động lớp</h2>
+<form class="form-dialog" #form=ngForm (ngSubmit)="createExercise()">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Tiêu đề bài tập(Đề bài)</mat-label>
+      <input matInput [(ngModel)]="exercise.title" name="title" required type="text">
+      <mat-error
+        *ngIf="form.controls['title'].errors?.['required'] && (form.controls['title']?.dirty || form.controls['title']?.touched)"
+        style="font-size: small" >Trường này là bắt buộc
+      </mat-error>
+    </mat-form-field>
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Hủy bỏ</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button type="submit" [disabled]="form.form.invalid">Tạo mới</button>
+  </mat-dialog-actions>
 </form>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="createExercise()">Create</button>
-</mat-dialog-actions>

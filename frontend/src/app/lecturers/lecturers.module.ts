@@ -27,8 +27,15 @@ import {ClassworkDetailComponent} from './classwork/classwork-detail/classwork-d
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import {ListExerciseComponent} from './exercise/list-exercise/list-exercise.component';
-import {ExerciseDetailComponent} from './exercise/exercise-detail/exercise-detail.component';
+import {
+  ExerciseCreateDialog,
+  ExerciseDeleteDialog, ExerciseUpdateDialog,
+  ListExerciseComponent
+} from './exercise/list-exercise/list-exercise.component';
+import {
+  ExerciseDetailComponent,
+  ExerciseQuestionCreateDialog, ExerciseQuestionDeleteDialog, ExerciseQuestionUpdateDialog
+} from './exercise/exercise-detail/exercise-detail.component';
 import {LClassListComponent} from './class/l-class-list/l-class-list.component';
 import {SharedModule} from "../shared/shared.module";
 import {LectureListTestComponent} from './test/lecture-list-test/lecture-list-test.component';
@@ -80,7 +87,15 @@ import {MatSelectModule} from "@angular/material/select";
     TestAssignComponent,
     TestAssignCreateDialog,
     TestAssignUpdateDialog,
-    TestAssignDeleteDialog
+    TestAssignDeleteDialog,
+    ExerciseDetailComponent,
+    ExerciseQuestionCreateDialog,
+    ExerciseQuestionDeleteDialog,
+    ExerciseQuestionUpdateDialog,
+    ListExerciseComponent,
+    ExerciseCreateDialog,
+    ExerciseDeleteDialog,
+    ExerciseUpdateDialog,
   ],
   exports: [
     ClassworkComponent
@@ -105,8 +120,6 @@ import {MatSelectModule} from "@angular/material/select";
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    ListExerciseComponent,
-    ExerciseDetailComponent,
     SharedModule,
     LClassListComponent,
     LectureListTestComponent,
