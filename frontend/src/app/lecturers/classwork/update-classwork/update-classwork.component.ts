@@ -32,7 +32,7 @@ export class UpdateClassworkComponent implements OnInit{
     this.classWorkService.updateClassWork(this.data, this.classWork).subscribe(data =>{
       console.log(data)
       this.dialogRef.close();
-      this.notifiService.openSnackBar('Update successful !','Cancel');
+      this.notifiService.openSnackBar('Cập nhật bài học thành công!');
     })
   }
 
