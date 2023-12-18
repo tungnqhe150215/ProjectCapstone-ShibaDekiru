@@ -1,15 +1,16 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Comment } from 'src/app/core/models/comment';
 import { Post } from 'src/app/core/models/post';
 import { UserAccount } from 'src/app/core/models/user-account';
+import {Page} from "../../core/models/page";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserPostService {
-  
+
 
   private idPost !:number;
 
@@ -21,17 +22,18 @@ export class UserPostService {
     return this.idPost;
   }
 
-  
+
 
   post: Post[]=[];
   comment: Comment[] =[];
   private baseURL = "http://localhost:8080/api/post";
   constructor(private httpClient: HttpClient) { }
 
-  getAllPost(): Observable<Post[]>{
-    return this.httpClient.get<Post[]>(`${this.baseURL}`);
+  getAllPost(page: number, size: number): Observable<Page<Post>>{
+    const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+    return this.httpClient.get<Page<Post>>(this.baseURL, {params});
   }
-  
+
   getPostByID(id:number): Observable<Post>{
     return this.httpClient.get<Post>(`${this.baseURL}/${id}`);
   }
@@ -39,7 +41,7 @@ export class UserPostService {
   getAllComment(id:number ): Observable<Comment[]>{
     return this.httpClient.get<Comment[]>(`${this.baseURL}/${id}/comment`);
   }
-  
+
   createComment(id:number , userID:number, comment:Comment): Observable<Object>{
     return this.httpClient.post(`${this.baseURL}/${id}/comment/${userID}`,comment);
   }

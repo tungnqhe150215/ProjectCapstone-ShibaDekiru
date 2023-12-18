@@ -10,6 +10,10 @@ import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IPostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -42,6 +46,22 @@ public class PostServiceImpl implements IPostService {
             throw new ResourceNotFoundException("List Post is blank.");
         }
 
+    }
+
+//    public Page<Post> getPaginatedItems(int page, int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        return postRepository.findByIsEnabled(true, pageable);
+//    }
+
+    public Page<Post> getPaginatedItems(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Post> postPage = postRepository.findByIsEnabled(true, pageable);
+
+        List<Post> modifiedPosts = postPage.getContent().stream()
+                .peek(data -> data.setImage(googleDriveService.getFileUrl(data.getImage())))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(modifiedPosts, pageable, postPage.getTotalElements());
     }
 
     @Override

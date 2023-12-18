@@ -8,12 +8,14 @@ import com.sep490.g49.shibadekiru.entity.Comment;
 import com.sep490.g49.shibadekiru.entity.Post;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.impl.AuthenticationServiceImpl;
+import com.sep490.g49.shibadekiru.impl.PostServiceImpl;
 import com.sep490.g49.shibadekiru.service.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +39,9 @@ public class StudentPostController {
     private IPostService iPostService;
 
     @Autowired
+    private PostServiceImpl postService;
+
+    @Autowired
     private IUserAccountService iUserAccountService;
 
     @Autowired
@@ -46,8 +51,10 @@ public class StudentPostController {
     private GoogleDriveService googleDriveService;
 
     @GetMapping()
-    public List<PostDto> getAllPosts() {
-        return iPostService.getAllPostByIsEnable().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+    public ResponseEntity<Page<PostDto>> getAllPosts(@RequestParam int page, @RequestParam int size) {
+        Page<PostDto> items = postService.getPaginatedItems(page, size)
+                .map(post -> modelMapper.map(post, PostDto.class));
+        return ResponseEntity.ok(items);
     }
 
 

@@ -8,27 +8,54 @@
             <div class="col-lg-8">
                 <div class="blog_left_sidebar">
 
-                    <article class="row blog_item" *ngFor="let post of post | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
-                       <div class="col-md-3">
-                           <div class="blog_info text-right">
-                                <ul class="blog_meta list">
-                                    <li>Mã bài viết: {{post.postId}}<i class="lnr lnr-user"></i></li>
-                                    <li>Ngày cập nhật: {{post.createdAt | date:'dd/MM/yyyy'}}<i class="lnr lnr-calendar-full"></i></li>
-                                </ul>
-                            </div>
-                       </div>
-                        <div class="col-md-9">
-                            <div class="blog_post">
-                                <img  (click)="PostDetail(post.postId)" style="cursor: pointer" src="{{post.image}}" alt="Image title">
-                                <div class="blog_details">
-                                    <a (click)="PostDetail(post.postId)" style="cursor: pointer"><h2>{{post.postContent}}</h2></a>
-                                    <p>Bấm vào xem thêm để có thể xem chi tiết bài viết</p>
-                                    <a style="cursor: pointer" class="white_bg_btn" (click)="PostDetail(post.postId)">Xem thêm</a>
-                                </div>
-                            </div>
+                    <article class="row blog_item" *ngFor="let post of post| paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="blog_info text-right">
+                            <ul class="blog_meta list">
+                              <li>Mã bài viết: {{post.postId}}<i class="lnr lnr-user"></i></li>
+                              <li>Ngày cập nhật: {{post.createdAt | date:'dd/MM/yyyy'}}<i class="lnr lnr-calendar-full"></i></li>
+                            </ul>
+                          </div>
                         </div>
+
+                        <div class="col-md-9">
+                          <div class="blog_post">
+                            <div class="row">
+                              <img  class="col-md-3" (click)="PostDetail(post.postId)" style="cursor: pointer; max-width: 200px; max-height: 200px" src="{{post.image}}" alt="Image title">
+
+                              <div class="blog_details col-md-9">
+                                <a (click)="PostDetail(post.postId)" style="cursor: pointer"><h2>{{post.postContent}}</h2></a>
+                                <p>Bấm vào xem thêm để có thể xem chi tiết bài viết</p>
+                                <a style="cursor: pointer" class="white_bg_btn" (click)="PostDetail(post.postId)">Xem thêm</a>
+                              </div>
+                            </div>
+                            <br>
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <hr>
                     </article>
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+                  <div class="pagination">
+                    <button (click)="onPreviousPage()" [disabled]="currentPage === 0" class="pagination-button">
+                      Trước
+                    </button>
+                    <p class="custom-current-page">
+                      <!-- Your custom styling for current page -->
+                      Trang {{ currentPage + 1 }} của {{ totalPages.length }}
+                    </p>
+                    <button (click)="onNextPage()" [disabled]="currentPage === totalPages.length - 1" class="pagination-button">
+                      Sau
+                    </button>
+                  </div>
+                  <hr>
+
+
+
+<!--                    <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
                     <!-- <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
                           <li class="page-item" *ngIf="p > 1">
