@@ -19,6 +19,7 @@ import {FormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SharedModule} from "../../../shared/shared.module";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-writing-detail',
@@ -111,15 +112,17 @@ export class WritingQuestionDeleteDialog {
     private manageWritingQuestionService: AdminManageWritingQuestionService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
   deleteWritingQuestion(id:number){
     this.manageWritingQuestionService.deleteWritingQuestion(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Xóa câu hỏi viết thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Xóa câu hỏi viết thành công');
+    // this._snackBar.open('Xóa câu hỏi viết thành công', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -145,6 +148,7 @@ export class WritingQuestionCreateDialog {
     private manageWritingQuestionService: AdminManageWritingQuestionService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   createWritingQuestion(){
@@ -152,10 +156,11 @@ export class WritingQuestionCreateDialog {
     this.manageWritingQuestionService.createWritingQuestion(this.data,this.writingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Tạo câu hỏi viết thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Tạo câu hỏi viết thành công');
+    // this._snackBar.open('Tạo câu hỏi viết thành công', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {
@@ -182,6 +187,7 @@ export class WritingQuestionUpdateDialog implements OnInit{
     private manageWritingQuestionService: AdminManageWritingQuestionService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -197,10 +203,11 @@ export class WritingQuestionUpdateDialog implements OnInit{
     this.manageWritingQuestionService.updateWritingQuestion(this.data,this.writingQuestion).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Cập nhật câu hỏi viết thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Cập nhật câu hỏi viết thành công');
+    // this._snackBar.open('Cập nhật câu hỏi viết thành công', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
 
   onNoClick(): void {
