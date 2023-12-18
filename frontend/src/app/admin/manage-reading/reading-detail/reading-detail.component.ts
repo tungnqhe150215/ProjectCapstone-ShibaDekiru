@@ -114,7 +114,8 @@ export class ReadingQuestionDeleteDialog {
       this.dialogRef.close();
     })
     this._snackBar.open('Xóa câu hỏi đọc thành công', 'Đóng', {
-      horizontalPosition: 'center',
+      duration: 2000,
+      horizontalPosition: 'right',
       verticalPosition: 'top',
     });
   }
@@ -150,7 +151,8 @@ export class ReadingQuestionCreateDialog {
       this.dialogRef.close();
     })
     this._snackBar.open('Tạo câu hỏi cho phần đọc thành công', 'Đóng', {
-      horizontalPosition: 'center',
+      duration: 2000,
+      horizontalPosition: 'right',
       verticalPosition: 'top',
     });
   }
@@ -195,7 +197,8 @@ export class ReadingQuestionUpdateDialog implements OnInit{
       this.dialogRef.close();
     })
     this._snackBar.open('Cập nhật câu hỏi phần đọc thành công', 'Đóng', {
-      horizontalPosition: 'center',
+      duration: 2000,
+      horizontalPosition: 'right',
       verticalPosition: 'top',
     });
   }
