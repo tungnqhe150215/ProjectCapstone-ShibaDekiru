@@ -12,5 +12,6 @@ import java.util.List;
 public class WritingExerciseDto {
     private Long writingQuizId;
     private String question;
+    private Double mark;
     private ExerciseDto exercise;
 }

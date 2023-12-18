@@ -5,7 +5,7 @@
     <mat-form-field>
       <mat-label> Gia hạn thời gian(phút) </mat-label>
       <input matInput [(ngModel)]="extendTime" name="extendTime" required type="text" pattern="[0-9]*" >
-      <mat-error *ngIf="form.controls['extendTime'].errors?.['required'] && (form.controls['extendTime']?.dirty || form.controls['extendTime']?.touched)" style="font-size: small" required pattern="[0-9]*">Trường này là bắt buộc</mat-error>
+      <mat-error *ngIf="form.controls['extendTime'].errors?.['required'] && (form.controls['extendTime']?.dirty || form.controls['extendTime']?.touched)" style="font-size: small" required >Trường này là bắt buộc</mat-error>
       <mat-error *ngIf="form.controls['extendTime'].errors?.['pattern']">Sai định dạng. Hãy nhập số phút </mat-error>
     </mat-form-field>
 

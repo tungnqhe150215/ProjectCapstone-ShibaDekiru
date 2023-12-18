@@ -1,7 +1,8 @@
 import {Exercise} from "./exercise";
 
 export class WritingExercise {
-    writingQuizId!:number
-    exercise!:Exercise
-    question!:string
+  writingQuizId!: number
+  exercise!: Exercise
+  mark!: number
+  question!: string
 }

@@ -17,13 +17,12 @@ import {ClassworkService} from "../../classwork/classwork.service";
 import {ClassWork} from "../../../core/models/class-work";
 import {MatTabsModule} from "@angular/material/tabs";
 import {SharedModule} from "../../../shared/shared.module";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-list-exercise',
   templateUrl: './list-exercise.component.html',
   styleUrls: ['./list-exercise.component.css'],
-  standalone: true,
-    imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatTabsModule, SharedModule],
 })
 export class ListExerciseComponent implements OnInit{
   displayedColumns: string[] = ['id', 'title','action'];
@@ -81,13 +80,13 @@ export class ListExerciseComponent implements OnInit{
   openDeleteExerciseDialog(id:number){
     this.dialog.open(ExerciseDeleteDialog, {
       data: id
-    }).afterClosed().subscribe(() => this.getExercise());
+    }).afterClosed().subscribe(data => {if(data) this.getExercise()});
   }
 
   openCreateExerciseDialog(id:number){
     this.dialog.open(ExerciseCreateDialog,{
       data: id
-    }).afterClosed().subscribe(() => this.getExercise());
+    }).afterClosed().subscribe(data => {if(data) this.getExercise()});
   }
 
   openUpdateExerciseDialog(id:number){
@@ -95,7 +94,7 @@ export class ListExerciseComponent implements OnInit{
       {
         data: id
       }
-    ).afterClosed().subscribe(() => this.getExercise());
+    ).afterClosed().subscribe(data => {if(data) this.getExercise()});
   }
 
   getExerciseDetail(id:number){
@@ -107,8 +106,6 @@ export class ListExerciseComponent implements OnInit{
   selector: 'app-exercise-delete-dialog',
   templateUrl: 'exercise-delete-dialog.html',
   styleUrls: ['./list-exercise.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class ExerciseDeleteDialog {
   constructor(
@@ -119,11 +116,12 @@ export class ExerciseDeleteDialog {
   ) {}
   deleteExercise(id:number){
     this.manageExerciseService.deleteExercise(id).subscribe(data => {
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Deleted!!', 'Close', {
+    this._snackBar.open('Đã xóa!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
   onNoClick(): void {
@@ -135,8 +133,6 @@ export class ExerciseDeleteDialog {
   selector: 'app-exercise-create-dialog',
   templateUrl: 'exercise-create-dialog.html',
   styleUrls: ['./list-exercise.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class ExerciseCreateDialog {
 
@@ -153,11 +149,12 @@ export class ExerciseCreateDialog {
     console.log(this.exercise)
     this.manageExerciseService.createExercise(this.data,this.exercise).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('New exercise part added!!', 'Close', {
+    this._snackBar.open('Bài tập mới đã được thêm!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
 
@@ -169,8 +166,6 @@ export class ExerciseCreateDialog {
   selector: 'app-exercise-update-dialog',
   templateUrl: 'exercise-update-dialog.html',
   styleUrls: ['./list-exercise.component.css'],
-  standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
 })
 export class ExerciseUpdateDialog implements OnInit{
 
@@ -194,11 +189,12 @@ export class ExerciseUpdateDialog implements OnInit{
     console.log(this.exercise)
     this.manageExerciseService.updateExercise(this.data,this.exercise).subscribe(data => {
       console.log(data)
-      this.dialogRef.close();
+      this.dialogRef.close(data);
     })
-    this._snackBar.open('Exercise part updated!!', 'Close', {
+    this._snackBar.open('Cập nhật bài tập thành công!!', 'Đóng', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      duration: 2000
     });
   }
 
