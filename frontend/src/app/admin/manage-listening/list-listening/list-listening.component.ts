@@ -20,6 +20,7 @@ import {NgIf} from "@angular/common";
 import {Drive} from "../../../core/models/drive";
 import {FileService} from "../../../shared/services/file.service";
 import {FilePreviewService} from "../../../shared/services/file-preview.service";
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-list-listening',
@@ -119,15 +120,17 @@ export class ListeningDeleteDialog {
     private manageListeningService:AdminManageListeningService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
   deleteListening(id:number){
     this.manageListeningService.deleteListening(id).subscribe(data => {
       this.dialogRef.close();
     })
-    this._snackBar.open('Xóa bài nghe thành công', 'Đóng', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+    this.nofiService.openSnackBar('Xóa bài nghe thành công');
+    // this._snackBar.open('Xóa bài nghe thành công', 'Đóng', {
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    // });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -154,6 +157,7 @@ export class ListeningCreateDialog {
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
 
   createListening(){
@@ -166,10 +170,11 @@ export class ListeningCreateDialog {
           console.log(data)
           this.dialogRef.close();
         })
-        this._snackBar.open('Tạo bài nghe thành công', 'Đóng', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
+        this.nofiService.openSnackBar('Tạo bài nghe thành công');
+        // this._snackBar.open('Tạo bài nghe thành công', 'Đóng', {
+        //   horizontalPosition: 'center',
+        //   verticalPosition: 'top',
+        // });
       })
     }
 
@@ -222,6 +227,7 @@ export class ListeningUpdateDialog implements OnInit{
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
+    private nofiService: NotificationService 
   ) {}
 
   ngOnInit(): void {
@@ -239,10 +245,11 @@ export class ListeningUpdateDialog implements OnInit{
         console.log(data)
         this.dialogRef.close();
       })
-      this._snackBar.open('Cập nhật bài nghe thành công', 'Đóng', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
+      this.nofiService.openSnackBar('Cập nhật bài nghe thành công');
+      // this._snackBar.open('Cập nhật bài nghe thành công', 'Đóng', {
+      //   horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      // });
     } else {
 
       this.fileService.uploadFile(this.file).subscribe(data => {
@@ -252,10 +259,11 @@ export class ListeningUpdateDialog implements OnInit{
           console.log(data)
           this.dialogRef.close();
         })
-        this._snackBar.open('Cập nhật bài nghe thành công', 'Đóng', {
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
+        this.nofiService.openSnackBar('Cập nhật bài nghe thành công');
+        // this._snackBar.open('Cập nhật bài nghe thành công', 'Đóng', {
+        //   horizontalPosition: 'center',
+        //   verticalPosition: 'top',
+        // });
       })
     }
 
