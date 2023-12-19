@@ -34,9 +34,7 @@ export class AnswerFieldComponent implements OnInit, OnChanges{
   }
 
   getWritingExerciseAnswer(){
-    console.log(this.exercise)
     this.studentId = this.route.snapshot.params['studentId']
-    console.log(this.studentId)
     this.classwork.getWritingExerciseAnswerByExerciseAndStudent(this.studentId,this.exercise.exerciseId).subscribe(data => {
       this.writingExerciseAnswer = data
       console.log(this.writingExerciseAnswer)
@@ -57,9 +55,10 @@ export class AnswerFieldComponent implements OnInit, OnChanges{
   }
 
   onResultChange(newResult: number, writingAnswerId: number): void {
-    const answer = this.answer.getAnswer(writingAnswerId) ;
-    answer.mark = newResult;
+    let answer = this.answer.getAnswer(writingAnswerId) ;
+    answer.mark = newResult as number;
     this.setAnswer(writingAnswerId, answer);
+    console.log(answer)
     // Thực hiện các hành động khác nếu cần
   }
 

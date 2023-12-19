@@ -25,7 +25,6 @@ export class TokenInterceptor implements HttpInterceptor {
       if (user.access_token) {
         // Lấy giá trị của trường 'token'
         const token = user.access_token;
-        console.log(`Token: ${token}`);
         if (token) {
           // Sao chép yêu cầu và thêm token vào tiêu đề Authorization
           const modifiedReq = req.clone({
