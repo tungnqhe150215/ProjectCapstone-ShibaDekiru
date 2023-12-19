@@ -6,6 +6,9 @@ import { Subscription } from 'rxjs';
 import { StudentLessonService } from '../lesson/student-lesson.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/core/models/book';
+import {Lecture} from "../../core/models/lecture";
+import {data} from "autoprefixer";
+import {Student} from "../../core/models/student";
 
 @Component({
   selector: 'home-header',
@@ -24,6 +27,8 @@ export class HeaderComponent implements AfterViewInit,OnInit{
   userName?:string;
   eventBusSub?: Subscription;
   book: Book[]= [];
+  lecture: Lecture = new Lecture();
+  student: Student = new Student();
   constructor(
     private userService: UseServiceService,
     private storageService: StorageService,
@@ -41,6 +46,19 @@ export class HeaderComponent implements AfterViewInit,OnInit{
   }
   currentUser: any;
 
+  getImageByLectureId(){
+    this.currentUser = this.storageService.getUser();
+    this.userService.getImageLectureByUserId(this.currentUser.userAccountId).subscribe(data => {
+      this.lecture = data
+    })
+  }
+
+  getImageByStudentId(){
+    this.currentUser = this.storageService.getUser();
+    this.userService.getImageStudentByd(this.currentUser.userAccountId).subscribe(data => {
+      this.student = data
+    })
+  }
 
   ngOnInit(): void {
     this.getAllBook();
@@ -52,7 +70,8 @@ export class HeaderComponent implements AfterViewInit,OnInit{
       this.userAccountId = user.userAccountId;
       this.roleId = user.roleId;
       this.userName = user.userName;
-
+      this.getImageByLectureId();
+      this.getImageByStudentId();
     }
     this.eventBusSub = this.eventBusService.on('logout', () => {
       this.logout();
@@ -93,13 +112,15 @@ export class HeaderComponent implements AfterViewInit,OnInit{
     }
   }
 
+
+
   getAllBook(){
    this.studentLessonService.getAllBook()
    .subscribe( data =>{
     this.book = data;
     console.log(data);
 
-   })  
+   })
   }
 
   LessonByBook(id:number){

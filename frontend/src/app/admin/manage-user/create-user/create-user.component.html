@@ -36,9 +36,9 @@
       <label>Email</label>
       <input type="text" class="form-control" id="emai" name="email" [(ngModel)]="userAccount.email"
         [ngModelOptions]="{standalone: true}">
-      <label>Password</label>
-      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="userAccount.password"
-        [ngModelOptions]="{standalone: true}">
+<!--      <label>Password</label>-->
+<!--      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="userAccount.password"-->
+<!--        [ngModelOptions]="{standalone: true}">-->
     </div>
     <label for="active" class="m-2">Trạng thái kích hoạt tài khoản:
       <input type="radio" [(ngModel)]="userAccount.isActive" value="true" name="active" id="active"
@@ -48,10 +48,11 @@
     </label>
     <div class="form-group mb-3"> Loại người dùng
       <select class="form-control" name="roleId" id="roleId" [(ngModel)]="userAccount.roleId">
-        <option value="1" id="roleId" name="roleId">Admin</option>
+        <option value="1" id="roleId" name="roleId" >Admin</option>
         <option value="2" id="roleId" name="roleId"> Giảng viên</option>
         <option value="3" id="roleId" name="roleId">Học sinh</option>
       </select>
+
 
       <!-- <input type="radio" [(ngModel)]="userAccount.roleId" value="1"  id="role" name="role" [ngModelOptions]="{standalone: true}"> Học sinh
             <input type="radio" [(ngModel)]="userAccount.roleId" value="2"  id="role" name="role"  [ngModelOptions]="{standalone: true}"> Giảng viên

@@ -62,7 +62,7 @@ public class AuthenticationServiceImpl {
     private MailServiceProvider mailServiceProvider;
 
     @Autowired
-    RandomStringGeneratorService randomStringGeneratorService;
+    private RandomStringGeneratorService randomStringGeneratorService;
 
     public void register(RegisterResponse request) {
 
@@ -150,11 +150,11 @@ public class AuthenticationServiceImpl {
 
         String resetLink = "http://localhost:4200/verify/" + resetCode;
 
-        String subject = "Here's the link to activate your account";
-        String content = "<p>Hello,</p>"
-                + "<p>You have requested to activate your account.</p>"
-                + "<p>Click the link below to activate your account:</p>"
-                + "<p><a href='"+ resetLink +"'>Active Now</a></p>"
+        String subject = "Đây là liên kết để kích hoạt tài khoản của bạn";
+        String content = "<p>Xin chào,</p>"
+                + "<p>Bạn đã yêu cầu kích hoạt tài khoản của mình.</p>"
+                + "<p>Nhấp vào liên kết bên dưới để kích hoạt tài khoản của bạn:</p>"
+                + "<p><a href='"+ resetLink +"'>Kích hoạt</a></p>"
                 + "<br>";
         mailServiceProvider.sendEmail(recipientEmail, subject, content);
     }
