@@ -97,11 +97,13 @@
       </div> -->
       <div class="col-lg-3 col-md-6" *ngFor="let post of post">
         <div class="l_blog_item">
+          <div *ngIf="post.image !== null && post.image !== ''">
           <img class="img-fluid"  style="width: 150px; height: 150px" src="{{post.image}}" alt="">
+          </div>
           <br>
           <a class="date" style="cursor: pointer;" (click)="PostDetail(post.postId)">Ngày đăng: {{post.createdAt | date:'dd/MM/yyyy'}} </a>
           <a (click)="PostDetail(post.postId)" style="cursor: pointer;">
-            <h4>{{post.postContent}}</h4>
+            <h5>{{post.postContent}}</h5>
           </a>
           <p>Bấm vào để xem thêm</p>
         </div>

@@ -1,125 +1,130 @@
 <div class="courses_area p_120">
-<!--================Blog Categorie Area =================-->
+  <!--================Blog Categorie Area =================-->
 
-<!--================Blog Area =================-->
-<section class="blog_area">
+  <!--================Blog Area =================-->
+  <section class="blog_area">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="blog_left_sidebar">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="blog_left_sidebar">
 
-                    <article class="row blog_item" *ngFor="let post of post| paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
-                      <div class="row">
-                        <div class="col-md-3">
-                          <div class="blog_info text-right">
-                            <ul class="blog_meta list">
-                              <li>Mã bài viết: {{post.postId}}<i class="lnr lnr-user"></i></li>
-                              <li>Ngày cập nhật: {{post.createdAt | date:'dd/MM/yyyy'}}<i class="lnr lnr-calendar-full"></i></li>
-                            </ul>
-                          </div>
-                        </div>
-
-                        <div class="col-md-9">
-                          <div class="blog_post">
-                            <div class="row">
-                              <img  class="col-md-3" (click)="PostDetail(post.postId)" style="cursor: pointer; max-width: 200px; max-height: 200px" src="{{post.image}}" alt="Image title">
-
-                              <div class="blog_details col-md-9">
-                                <a (click)="PostDetail(post.postId)" style="cursor: pointer"><h2>{{post.postContent}}</h2></a>
-                                <p>Bấm vào xem thêm để có thể xem chi tiết bài viết</p>
-                                <a style="cursor: pointer" class="white_bg_btn" (click)="PostDetail(post.postId)">Xem thêm</a>
-                              </div>
-                            </div>
-                            <br>
-                          </div>
-                        </div>
-
-
-                      </div>
-                      <hr>
-                    </article>
-
-                  <div class="pagination">
-                    <button (click)="onPreviousPage()" [disabled]="currentPage === 0" class="pagination-button">
-                      Trước
-                    </button>
-                    <p class="custom-current-page">
-                      <!-- Your custom styling for current page -->
-                      Trang {{ currentPage + 1 }} của {{ totalPages.length }}
-                    </p>
-                    <button (click)="onNextPage()" [disabled]="currentPage === totalPages.length - 1" class="pagination-button">
-                      Sau
-                    </button>
+            <article class="row blog_item"
+                     *ngFor="let post of post| paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="blog_info text-right">
+                    <ul class="blog_meta list">
+                      <li>Mã bài viết: {{post.postId}}<i class="lnr lnr-user"></i></li>
+                      <li>Ngày cập nhật: {{post.createdAt | date:'dd/MM/yyyy'}}<i class="lnr lnr-calendar-full"></i>
+                      </li>
+                    </ul>
                   </div>
-                  <hr>
+                </div>
+
+                <div class="col-md-9">
+                  <div class="blog_post">
+                    <div class="row">
+                      <div *ngIf="post.image !== null">
+                        <img class="col-md-3" (click)="PostDetail(post.postId)"
+                             style="cursor: pointer; max-width: 200px; max-height: 200px" src="{{post.image}}"
+                             alt="Image title">
+                      </div>
+                      <div class="blog_details col-md-9">
+                        <a (click)="PostDetail(post.postId)" style="cursor: pointer"><h2>{{post.postContent}}</h2></a>
+                        <p>Bấm vào xem thêm để có thể xem chi tiết bài viết</p>
+                        <a style="cursor: pointer" class="white_bg_btn" (click)="PostDetail(post.postId)">Xem thêm</a>
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                </div>
 
 
+              </div>
+              <hr>
+            </article>
 
-<!--                    <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
-                    <!-- <nav class="blog-pagination justify-content-center d-flex">
-                        <ul class="pagination">
-                          <li class="page-item" *ngIf="p > 1">
-                            <a href="#" class="page-link" aria-label="Previous" (click)="previousPage($event)">
-                              <span aria-hidden="true">
+            <div class="pagination">
+              <button (click)="onPreviousPage()" [disabled]="currentPage === 0" class="pagination-button">
+                Trước
+              </button>
+              <p class="custom-current-page">
+                <!-- Your custom styling for current page -->
+                Trang {{ currentPage + 1 }} / {{ totalPages.length }}
+              </p>
+              <button (click)="onNextPage()" [disabled]="currentPage === totalPages.length - 1"
+                      class="pagination-button">
+                Sau
+              </button>
+            </div>
+            <hr>
+
+
+            <!--                    <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+            <!-- <nav class="blog-pagination justify-content-center d-flex">
+                <ul class="pagination">
+                  <li class="page-item" *ngIf="p > 1">
+                    <a href="#" class="page-link" aria-label="Previous" (click)="previousPage($event)">
+                      <span aria-hidden="true">
+                        <span class="lnr lnr-chevron-left"></span>
+                      </span>
+                    </a>
+                  </li>
+                  <li class="page-item" *ngFor="let page of pages" [class.active]="page === p">
+                    <a href="#" class="page-link" (click)="goToPage(page, $event)">{{ page }}</a>
+                  </li>
+                  <li class="page-item" *ngIf="p < totalPages">
+                    <a href="#" class="page-link" aria-label="Next" (click)="nextPage($event)">
+                      <span aria-hidden="true">
+                        <span class="lnr lnr-chevron-right"></span>
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </nav> -->
+            <!-- <nav class="blog-pagination justify-content-center d-flex">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a href="#" class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">
                                 <span class="lnr lnr-chevron-left"></span>
-                              </span>
-                            </a>
-                          </li>
-                          <li class="page-item" *ngFor="let page of pages" [class.active]="page === p">
-                            <a href="#" class="page-link" (click)="goToPage(page, $event)">{{ page }}</a>
-                          </li>
-                          <li class="page-item" *ngIf="p < totalPages">
-                            <a href="#" class="page-link" aria-label="Next" (click)="nextPage($event)">
-                              <span aria-hidden="true">
+                            </span>
+                        </a>
+                    </li>
+                    <li class="page-item active"><a href="#" class="page-link">01</a></li>
+                    <li class="page-item"><a href="#" class="page-link">02</a></li>
+                    <li class="page-item"><a href="#" class="page-link">03</a></li>
+                    <li class="page-item"><a href="#" class="page-link">04</a></li>
+                    <li class="page-item"><a href="#" class="page-link">09</a></li>
+                    <li class="page-item">
+                        <a href="#" class="page-link" aria-label="Next">
+                            <span aria-hidden="true">
                                 <span class="lnr lnr-chevron-right"></span>
-                              </span>
-                            </a>
-                          </li>
-                        </ul>
-                      </nav> -->
-                    <!-- <nav class="blog-pagination justify-content-center d-flex">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">
-                                        <span class="lnr lnr-chevron-left"></span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="page-item active"><a href="#" class="page-link">01</a></li>
-                            <li class="page-item"><a href="#" class="page-link">02</a></li>
-                            <li class="page-item"><a href="#" class="page-link">03</a></li>
-                            <li class="page-item"><a href="#" class="page-link">04</a></li>
-                            <li class="page-item"><a href="#" class="page-link">09</a></li>
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">
-                                        <span class="lnr lnr-chevron-right"></span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav> -->
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="blog_right_sidebar">
-                    <aside class="single_sidebar_widget post_category_widget">
-                        <h4 class="widget_title">Các bài viết liên quan</h4>
-                        <ul class="list cat-list"  *ngFor="let posts of posts">
-                            <li>
-                                <a  style="cursor: pointer" (click)="PostDetail(posts.postId)"class="d-flex justify-content-between">
-                                    <p>{{posts.postContent}}</p>
-                                    <!-- <p><button (click)="PostDetail(post.postId)">{{post.postContent}}</button></p> -->
-                                    <!-- <p>44</p> -->
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="br"></div>
-                    </aside>
-                </div>
-            </div>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </nav> -->
+          </div>
         </div>
+        <div class="col-lg-4">
+          <div class="blog_right_sidebar">
+            <aside class="single_sidebar_widget post_category_widget">
+              <h4 class="widget_title">Các bài viết liên quan</h4>
+              <ul class="list cat-list" *ngFor="let posts of posts">
+                <li>
+                  <a style="cursor: pointer" (click)="PostDetail(posts.postId)" class="d-flex justify-content-between">
+                    <p>{{posts.postContent}}</p>
+                    <!-- <p><button (click)="PostDetail(post.postId)">{{post.postContent}}</button></p> -->
+                    <!-- <p>44</p> -->
+                  </a>
+                </li>
+              </ul>
+              <div class="br"></div>
+            </aside>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 </div>

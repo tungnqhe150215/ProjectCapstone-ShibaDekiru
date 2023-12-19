@@ -161,21 +161,32 @@ export class ReadingCreateDialog {
 
   createReading(){
 
-    this.fileService.uploadFile(this.file).subscribe(data => {
-      console.log(data)
-      this.drive = data as Drive
-      this.reading.image =  this.drive.fileId
-      console.log(this.reading)
+    if (this.file == null || this.file.size == 0) {
+      this.reading.image = "";
       this.manageReadingService.createReading(this.data,this.reading).subscribe(data => {
         console.log(data)
+
         this.dialogRef.close();
       })
       this.nofiService.openSnackBar('Học phần đọc đã được thêm');
-      // this._snackBar.open('Học phần đọc đã thêm', 'Close', {
-      //   horizontalPosition: 'center',
-      //   verticalPosition: 'top',
-      // });
-    })
+    } else {
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        console.log(data)
+        this.drive = data as Drive
+        this.reading.image =  this.drive.fileId
+        console.log(this.reading)
+        this.manageReadingService.createReading(this.data,this.reading).subscribe(data => {
+          console.log(data)
+          this.dialogRef.close();
+        })
+        this.nofiService.openSnackBar('Học phần đọc đã được thêm');
+        // this._snackBar.open('Học phần đọc đã thêm', 'Close', {
+        //   horizontalPosition: 'center',
+        //   verticalPosition: 'top',
+        // });
+      })
+    }
+
 
   }
 

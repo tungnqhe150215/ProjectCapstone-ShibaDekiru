@@ -102,8 +102,10 @@ public class PostServiceImpl implements IPostService {
 
         if (!openPosts.isEmpty()) {
             return openPosts.stream().peek(data -> {
-                if (data.getImage().length() > 0 && data.getImage() != null) {
+                if (data.getImage().length() > 0 && !data.getImage().equals("")) {
                     data.setImage(googleDriveService.getFileUrl(data.getImage()));
+                } else {
+                    data.setImage(data.getImage());
                 }
             }).collect(Collectors.toList());
 

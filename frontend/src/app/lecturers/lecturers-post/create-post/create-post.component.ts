@@ -42,13 +42,24 @@ export class CreatePostComponent implements OnInit{
 
   addPost(){
 
-    if (this.file) {
+    if (this.file == null || this.file.size == 0) {
+      this.post.image = "";
+      this.currentUser = this.storageService.getUser();
+      this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data =>{
+        console.log(data);
+        this.nofiService.openSnackBar('Tạo bài viết thành công');
+        this.dialogRef.close();
+      })
+    }
+
+    else {
       this.fileService.uploadFile(this.file).subscribe(data => {
         this.drive = data as Drive
           this.post.image = this.drive.fileId
           this.currentUser = this.storageService.getUser();
           this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data =>{
               console.log(data);
+              this.nofiService.openSnackBar('Tạo bài viết thành công');
               this.dialogRef.close();
           })
       })

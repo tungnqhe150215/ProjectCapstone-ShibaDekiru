@@ -11,8 +11,12 @@
             <p class="card-text" style="white-space: pre-line">
                 {{post.postContent}}
             </p>
-            <h5 class="card-title">Ảnh</h5>
-            <img style="width: 150px; height: 150px" src="{{post.image}}" >
+
+            <div *ngIf="post.image !== null">
+              <h5 class="card-title">Ảnh</h5>
+              <img style="width: 150px; height: 150px" src="{{post.image}}" >
+            </div>
+
             <h5 class="card-title">Mô tả</h5>
             <p class="card-text" style="white-space: pre-line">
                 {{post.description}}
