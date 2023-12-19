@@ -5,7 +5,9 @@
   <mat-card-header>
     <mat-card-title-group>
       <mat-card-title ><h3>{{reading.title}}</h3></mat-card-title>
+      <div *ngIf="reading.image !== null && reading.image !== ''">
       <img mat-card-md-image src="{{reading.image}}"  >
+      </div>
     </mat-card-title-group>
   </mat-card-header>
   <mat-card-content>

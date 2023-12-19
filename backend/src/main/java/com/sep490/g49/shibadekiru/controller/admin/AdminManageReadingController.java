@@ -49,8 +49,12 @@ public class AdminManageReadingController {
     @GetMapping("/reading/{id}")
     public ResponseEntity<ReadingDto> getReadingById(@PathVariable(name = "id") Long id) {
         Reading reading = iReadingService.getReadingById(id);
+        if (reading.getImage().length() > 0 && !reading.getImage().equals("")) {
+            reading.setImage(googleDriveService.getFileUrl(reading.getImage()));
+        } else {
+            reading.setImage(reading.getImage());
+        }
 
-        reading.setImage(googleDriveService.getFileUrl(reading.getImage()));
         // convert entity to DTO
         ReadingDto readingResponse = map.map(reading, ReadingDto.class);
 

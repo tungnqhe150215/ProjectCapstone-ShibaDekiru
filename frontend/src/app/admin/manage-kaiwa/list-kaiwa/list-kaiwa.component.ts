@@ -115,7 +115,7 @@ export class KaiwaDeleteDialog {
     private manageKaiwaService:AdminManageKaiwaService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
-    private nofiService: NotificationService 
+    private nofiService: NotificationService
   ) {}
   deleteKaiwa(id:number){
     this.manageKaiwaService.deleteKaiwa(id).subscribe(data => {
@@ -151,27 +151,37 @@ export class KaiwaCreateDialog {
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
-    private nofiService: NotificationService 
+    private nofiService: NotificationService
   ) {}
 
   createKaiwa(){
 
-    this.fileService.uploadFile(this.file).subscribe(data => {
-      console.log(data)
-      this.drive = data as Drive
-      this.kaiwa.link = this.drive.fileId
-
-      console.log(this.kaiwa)
+    if (this.file == null || this.file.size == 0) {
+      this.kaiwa.link = "";
       this.manageKaiwaService.createKaiwa(this.data,this.kaiwa).subscribe(data => {
         console.log(data)
+        this.nofiService.openSnackBar('Đã thêm học phần kaiwa');
         this.dialogRef.close();
       })
-      this.nofiService.openSnackBar('Đã thêm học phần kaiwa');
-      // this._snackBar.open('Đã thêm học phần kaiwa', 'Đóng', {
-      //   horizontalPosition: 'center',
-      //   verticalPosition: 'top',
-      // });
-    })
+
+    } else {
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        console.log(data)
+        this.drive = data as Drive
+        this.kaiwa.link = this.drive.fileId
+
+        console.log(this.kaiwa)
+        this.manageKaiwaService.createKaiwa(this.data,this.kaiwa).subscribe(data => {
+          console.log(data)
+          this.dialogRef.close();
+        })
+        this.nofiService.openSnackBar('Đã thêm học phần kaiwa');
+        // this._snackBar.open('Đã thêm học phần kaiwa', 'Đóng', {
+        //   horizontalPosition: 'center',
+        //   verticalPosition: 'top',
+        // });
+      })
+    }
 
   }
 
@@ -222,7 +232,7 @@ export class KaiwaUpdateDialog implements OnInit{
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
-    private nofiService: NotificationService 
+    private nofiService: NotificationService
   ) {}
 
   ngOnInit(): void {
