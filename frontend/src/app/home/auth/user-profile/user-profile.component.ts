@@ -222,7 +222,16 @@ export class UserProfileComponent implements OnInit {
       this.notifiService.openSnackBar('Đổi mật khẩu thành công, bạn cần đăng nhập lại');
       this.logout();
 
-    })
+    }, error1 => {
+      if (error1.status == 404) {
+        this.notifiService.openSnackBar('Mật khẩu hiện tại không đúng. Vui lòng kiểm tra lại!');
+      }
+      if (error1.status === 400) {
+        this.notifiService.openSnackBar('Mật khẩu mới không giống nhau. Vui lòng kiểm tra lại!');
+      }
+      }
+
+    )
 
   }
 

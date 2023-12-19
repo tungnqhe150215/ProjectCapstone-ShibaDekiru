@@ -6,6 +6,8 @@ import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.*;
 import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IUserAccountService;
+import com.sep490.g49.shibadekiru.util.MailServiceProvider;
+import com.sep490.g49.shibadekiru.util.RandomStringGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,6 +50,12 @@ public class UserAccountServiceImpl implements IUserAccountService {
     @Autowired
     private GoogleDriveService googleDriveService;
 
+    @Autowired
+    private MailServiceProvider mailServiceProvider;
+
+    @Autowired
+    private RandomStringGeneratorService randomStringGeneratorService;
+
     @Override
     public List<UserAccount> getAllUserAccounts() {
         return userAccountRepository.findAll();
@@ -58,10 +66,11 @@ public class UserAccountServiceImpl implements IUserAccountService {
         Long roleId = userAccount.getRoleId();
 
         Optional<Role> roleOptional = roleRepository.findById(roleId);
-        Optional<UserAccount> existingUser = userAccountRepository.findByEmail(userAccount.getEmail());
+        Optional<UserAccount> existingEmail = userAccountRepository.findByEmail(userAccount.getEmail());
+        UserAccount existingMemberId = userAccountRepository.findByMemberId(userAccount.getMemberId());
 
-        if (existingUser.isPresent()) {
-            throw new IllegalStateException("Email already be exists.");
+        if (existingEmail.isPresent() || existingMemberId != null) {
+            throw new IllegalStateException("Email already or memberId be exists.");
         }
 
         else if (roleOptional.isPresent()) {
@@ -71,12 +80,17 @@ public class UserAccountServiceImpl implements IUserAccountService {
             UserAccount userAccount1 = new UserAccount();
 
             userAccount1.setNickName(userAccount.getNickName());
+
             userAccount1.setMemberId(userAccount.getMemberId());
             userAccount1.setUserName(userAccount.getNickName());
             userAccount1.setIsCreatedByAdmin(true);
 
-            String passWordEncode = passwordEncoder.encode(userAccount.getPassword());
-            userAccount1.setPassword(passWordEncode);
+
+            String passWordEncode = randomStringGeneratorService.randomAlphaNumeric(8);
+
+            String passWord = passwordEncoder.encode(passWordEncode);
+
+            userAccount1.setPassword(passWord);
 
             userAccount1.setEmail(userAccount.getEmail());
             userAccount1.setResetCode(null);
@@ -86,7 +100,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             UserAccount savedUser = userAccountRepository.save(userAccount1);
 
-            //return userAccountRepository.save(userAccount1);
 
             for (RoleType roleType : RoleType.values()) {
                 if (roleType.getId() == role.getRoleId()) {
@@ -109,36 +122,25 @@ public class UserAccountServiceImpl implements IUserAccountService {
                 }
             }
 
+            sendEmail(userAccount1.getEmail(), userAccount1.getEmail(), passWordEncode);
+
         } else {
             throw new ResourceNotFoundException("User Account can't be added.");
         }
     }
 
-//    @Override
-//    public UserAccount updateUserAccount(Long userAccountId, UserAccount userAccount) {
-//        Optional<UserAccount> existingUserAccount = userAccountRepository.findById(userAccountId);
-//
-//        if (existingUserAccount.isPresent()) {
-//
-//            UserAccount userAccount1 = existingUserAccount.get();
-//
-//            userAccount1.setNickName(userAccount.getNickName());
-//            userAccount1.setMemberId(userAccount.getMemberId());
-//            userAccount1.setUserName(userAccount.getUsername());
-//            userAccount1.setPassword(userAccount.getPassword());
-//            userAccount1.setEmail(userAccount.getEmail());
-//            userAccount1.setResetCode(userAccount.getResetCode());
-//            userAccount1.setIsBanned(userAccount.getIsBanned());
-//            userAccount1.setIsActive(true);
-//            userAccount1.setIsCreatedByAdmin(false);
-//            userAccount1.setRole(userAccount.getRole());
-//
-//            return userAccountRepository.save(userAccount1);
-//        } else {
-//            throw new ResourceNotFoundException("User account not found with id: " + userAccountId);
-//        }
-//
-//    }
+
+    private void sendEmail(String recipientEmail, String email, String password) {
+
+        String subject = "Đây là tài khoản đăng nhập của bạn";
+        String content = "<p>Xin chào,</p>"
+                + "<p>Đây là tài khoản đăng nhập của bạn</p>"
+                + "<p>Xin vui lòng không chia sẻ cho bất kỳ ai.</p>"
+                + "<p>Tài khoản: "+ email + "</p>"
+                + "<p>Mật khẩu: "+ password +"</p>"
+                + "<br>";
+        mailServiceProvider.sendEmail(recipientEmail, subject, content);
+    }
 
     @Override
     public UserAccount updateUserAccount(Long userAccountId, UserAccount userAccount) {
@@ -240,7 +242,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
 
             if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-                throw new IllegalStateException("Mật khẩu hiện tại không chính xác");
+                throw new RuntimeException("Mật khẩu hiện tại không chính xác");
             }
 
 

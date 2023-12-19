@@ -49,7 +49,9 @@ public class UserAccountController {
             userAccountService.changePassword(request, connectedUser);
             return ResponseEntity.ok().build();
         } catch (IllegalStateException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (RuntimeException r) {
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(r.getMessage());
         }
     }
 

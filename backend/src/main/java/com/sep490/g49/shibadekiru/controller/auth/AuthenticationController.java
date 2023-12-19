@@ -2,11 +2,14 @@ package com.sep490.g49.shibadekiru.controller.auth;
 
 import com.sep490.g49.shibadekiru.dto.*;
 import com.sep490.g49.shibadekiru.entity.Lectures;
+import com.sep490.g49.shibadekiru.entity.Student;
 import com.sep490.g49.shibadekiru.entity.UserAccount;
 import com.sep490.g49.shibadekiru.impl.*;
 import com.sep490.g49.shibadekiru.repository.LecturersRepository;
+import com.sep490.g49.shibadekiru.repository.StudentRepository;
 import com.sep490.g49.shibadekiru.repository.TokenRepository;
 import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.ILecturesService;
 import com.sep490.g49.shibadekiru.service.IStudentService;
 import com.sep490.g49.shibadekiru.service.IUserAccountService;
@@ -57,6 +60,9 @@ public class AuthenticationController {
     private LecturersRepository lecturersRepository;
 
     @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
     private TokenRepository tokenRepository;
 
     @Autowired
@@ -67,6 +73,9 @@ public class AuthenticationController {
 
     @Autowired
     private MailServiceProvider mailServiceProvider;
+
+    @Autowired
+    private GoogleDriveService googleDriveService;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
@@ -136,9 +145,37 @@ public class AuthenticationController {
     }
 
     @GetMapping("/user-account/lecture")
-    public ResponseEntity<LecturesDto> getLectureById(@RequestParam (name = "lectureId") Long lectureId){
+    public ResponseEntity<LecturesDto> getLectureById(@RequestParam (name = "userAccountId") Long userAccountId){
 
-        Lectures lecturesRequest =  lecturersRepository.findById(lectureId).orElseThrow();
+        Lectures lecturesRequest =  lecturersRepository.findById(userAccountId).orElseThrow();
+
+        LecturesDto lecturesDto = modelMapper.map(lecturesRequest, LecturesDto.class);
+
+        return ResponseEntity.ok().body(lecturesDto);
+
+    }
+
+    @GetMapping("/user-account/student/{userAccountId}")
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable (name = "userAccountId") Long userAccountId){
+
+        Student studentRequest =  studentRepository.findById(userAccountId).orElseThrow();
+        if (studentRequest.getAvatar().length() > 0) {
+            studentRequest.setAvatar(googleDriveService.getFileUrl(studentRequest.getAvatar()));
+        }
+
+        StudentDto studentDto = modelMapper.map(studentRequest, StudentDto.class);
+
+        return ResponseEntity.ok().body(studentDto);
+
+    }
+
+    @GetMapping("/user-account/lecture/{userAccountId}")
+    public ResponseEntity<LecturesDto> getLectureImageById(@PathVariable (name = "userAccountId") Long userAccountId){
+
+        Lectures lecturesRequest =  lecturersRepository.findById(userAccountId).orElseThrow();
+        if (lecturesRequest.getAvatar().length() > 0)  {
+            lecturesRequest.setAvatar(googleDriveService.getFileUrl(lecturesRequest.getAvatar()));
+        }
 
         LecturesDto lecturesDto = modelMapper.map(lecturesRequest, LecturesDto.class);
 
@@ -243,14 +280,14 @@ public class AuthenticationController {
 
         String resetLink = "http://localhost:4200/reset-password/" + resetCode;
 
-        String subject = "Here's the link to reset your password";
-        String content = "<p>Hello,</p>"
-                + "<p>You have requested to reset your password.</p>"
-                + "<p>Click the link below to change your password:</p>"
-                + "<p><a href='"+ resetLink +"'>Change my password</a></p>"
+        String subject = "Đây là liên kết để đặt lại mật khẩu của bạn";
+        String content = "<p>Xin chào,</p>"
+                + "<p>Bạn đã yêu cầu đặt lại mật khẩu của mình.</p>"
+                + "<p>Nhấp vào liên kết bên dưới để thay đổi mật khẩu của bạn:</p>"
+                + "<p><a href='"+ resetLink +"'>Thay đổi mật khẩu</a></p>"
                 + "<br>"
-                + "<p>Ignore this email if you do remember your password, "
-                + "or you have not made the request.</p>";
+                + "<p>Bỏ qua email này nếu bạn nhớ mật khẩu của mình, "
+                + "hoặc bạn chưa thực hiện yêu cầu.</p>";
         mailServiceProvider.sendEmail(recipientEmail, subject, content);
     }
 

@@ -84,8 +84,16 @@ export class UseServiceService {
 
   getLectureByUserId(id: number | undefined): Observable<Lecture> {
     // @ts-ignore
-    const params = new HttpParams().set("lectureId", id);
+    const params = new HttpParams().set("userAccountId", id);
     return this.httpClient.get<Lecture>(AUTH_API + 'user-account/lecture', {params: params});
+  }
+
+  getImageStudentByd(id: number): Observable<Student> {
+    return this.httpClient.get<Student>(AUTH_API + 'user-account/student/' + id);
+  }
+
+  getImageLectureByUserId(id: number): Observable<Lecture> {
+    return this.httpClient.get<Lecture>(AUTH_API + 'user-account/lecture/' + id);
   }
 
   updateUserAccount(id: number, nickName: string): Observable<Object> {

@@ -1,6 +1,6 @@
 <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
 <link rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
 <header class="header_area" #header>
   <div class="main_menu">
     <nav class="navbar navbar-expand-lg navbar-light ">
@@ -8,7 +8,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <a class="navbar-brand logo_h" routerLink="./home"><img class="logo" src="assets/logoShiba.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -20,47 +20,53 @@
             <!-- <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>  -->
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">Bảng chữ cái</a>
+                 aria-expanded="false">Bảng chữ cái</a>
               <ul class="dropdown-menu">
                 <li class="nav-item"><a class="nav-link" routerLink="./hiragana">Bảng Hiragana</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="./katakana">Bảng Katakana</a></li>
               </ul>
             </li>
-            <li class="nav-item submenu dropdown" >
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bài học</a>
+            <li class="nav-item submenu dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                 aria-expanded="false">Bài học</a>
               <ul class="dropdown-menu">
-                <li class="nav-item" *ngFor="let book of book"><a class="nav-link" style="cursor: pointer;" (click)="LessonByBook(book.bookId)">{{book.name}}</a></li>
+                <li class="nav-item" *ngFor="let book of book"><a class="nav-link" style="cursor: pointer;"
+                                                                  (click)="LessonByBook(book.bookId)">{{book.name}}</a>
+                </li>
                 <!-- <li class="nav-item"><a class="nav-link" routerLink="./lesson">Dekiru Nihongo Sơ trung</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="./lesson">Dekiru Nihongo Trung cấp</a></li> -->
               </ul>
             </li>
             <li class="nav-item submenu dropdown">
 
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tổng hợp kiến thức</a>
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                 aria-expanded="false">Tổng hợp kiến thức</a>
               <ul class="dropdown-menu">
                 <li class="nav-item"><a class="nav-link" style="cursor: pointer;" routerLink="./kanji">Chữ Hán</a></li>
-                <li class="nav-item"><a class="nav-link" style="cursor: pointer;" routerLink="./grammar">Ngữ pháp</a></li>
-                <li class="nav-item"><a class="nav-link" style="cursor: pointer;" routerLink="./vocabulary">Từ vựng</a></li>
+                <li class="nav-item"><a class="nav-link" style="cursor: pointer;" routerLink="./grammar">Ngữ pháp</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" style="cursor: pointer;" routerLink="./vocabulary">Từ vựng</a>
+                </li>
               </ul>
             </li>
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">Bài viết</a>
+                 aria-expanded="false">Bài viết</a>
               <ul class="dropdown-menu">
-                <li class="nav-item"><a class="nav-link"  routerLink="/post">Danh sách bài viết</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/post">Danh sách bài viết</a></li>
                 <!-- <li class="nav-item"><a class="nav-link" href="blog_detail.html">Blog Details</a></li> -->
               </ul>
             </li>
             <div *ngIf="isLoggedIn">
-            <li class="nav-item submenu dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">Lớp học</a>
-              <ul class="dropdown-menu">
-                <!-- <li class="nav-item"><a class="nav-link" href="elements.html">Tham gia lớp học</a></li> -->
-                <li class="nav-item"><a class="nav-link" routerLink="./class">Lớp học của tôi</a></li>
-              </ul>
-            </li>
-          </div>
+              <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false">Lớp học</a>
+                <ul class="dropdown-menu">
+                  <!-- <li class="nav-item"><a class="nav-link" href="elements.html">Tham gia lớp học</a></li> -->
+                  <li class="nav-item"><a class="nav-link" routerLink="./class">Lớp học của tôi</a></li>
+                </ul>
+              </li>
+            </div>
             <!-- <li class="nav-item"><a class="nav-link main_btn2 rounded-pill px-3 text-light" routerLink="./login">Đăng nhập<i class="fa fa-arrow-right ms-3"></i></a> </li> -->
             <!-- <li class="nav-item"><a href class="nav-link main_btn2 rounded-pill px-3 text-light" (click)="logout()">LogOut</a></li> -->
           </ul>
@@ -72,21 +78,57 @@
               </a>
             </div>
             <div *ngIf="isLoggedIn">
-              <div class="profile" (click)="menuToggle()">
-                <img src="https://vnjpbook.com/wp-content/uploads/2020/09/7008004.jpg" alt="" class="img-fluid">
+              <div *ngIf="currentUser.role.roleType === 'LECTURE'">
+                <div class="profile" (click)="menuToggle()">
+                  <div *ngIf="lecture.avatar === null || lecture.avatar === '' ">
+                    <img src="assets/user.png" alt="Ảnh" class="img-fluid">
+                  </div>
+
+                  <div *ngIf="lecture.avatar !== null || lecture.avatar !== '' ">
+                    <img src="{{lecture.avatar}}" alt="{{lecture.avatar}}" class="img-fluid">
+                  </div>
+
+                </div>
               </div>
-          
+
+              <div *ngIf="currentUser.role.roleType === 'STUDENT'">
+                <div class="profile" (click)="menuToggle()">
+
+                  <div *ngIf="student.avatar === null || student.avatar === '' ">
+                    <img src="assets/user.png" class="img-fluid">
+                  </div>
+
+                  <div *ngIf="student.avatar !== null || student.avatar !== '' ">
+                    <img src="{{student.avatar}}" alt="" class="img-fluid">
+                  </div>
+
+                </div>
+              </div>
+
+              <div *ngIf="currentUser.role.roleType === 'ADMIN'">
+                <div class="profile" (click)="menuToggle()">
+
+                  <div>
+                    <img src="assets/user.png" class="img-fluid">
+                  </div>
+
+
+                </div>
+              </div>
+
+
               <div class="menu border">
-                
+
                 <ul class="list-profile">
                   <h3>Tài khoản: {{ currentUser.nickName }}</h3>
-                
-                  <li>
+                  <div *ngIf="currentUser.role.roleType === 'LECTURE' || currentUser.role.roleType === 'STUDENT'">
+                    <li>
                     <span class="material-symbols-outlined">
                       person
                       </span>
-                    <a routerLink="./user-profile">Thông tin cá nhân</a>
-                  </li>
+                      <a routerLink="./user-profile">Thông tin cá nhân</a>
+                    </li>
+                  </div>
                   <!-- <li>
                     <span class="material-symbols-outlined">password</span>
                     <a routerLink="./change-password">Change Password</a>

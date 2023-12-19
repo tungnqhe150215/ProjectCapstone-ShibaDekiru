@@ -29,19 +29,23 @@ export class CreateUserComponent implements OnInit {
     private nofiService: NotificationService
   ){}
   ngOnInit(): void {
-    
+
   }
-  
+
   createUser(){
     this.userAccountService.createUser(this.userAccount).subscribe(
      data =>{
         console.log(data);
         this.dialogRef.close();
         this.nofiService.openSnackBar("Tạo ngươì dùng thành công!");
+      }, error => {
+       if (error.status === 409) {
+         this.nofiService.openSnackBar("Email hoặc mã thành viên đã tồn tại. Vui lòng nhập lại!");
+       }
       }
     )
   }
 
-  
+
 
 }
