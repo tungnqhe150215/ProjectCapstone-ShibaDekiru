@@ -1,7 +1,18 @@
 <div class="container-fluid p_120">
+  <div class="row ">
+    <h3 class="text-center">Chấm điểm hoạt động lớp</h3>
+  </div>
+  <div class="title-classwork mb-2">
+    <div class="row" *ngIf="gradeStudent">
+      <div class="col-md-9">
+        <h5>Bài làm của: {{gradeStudent.firstName + ' ' + gradeStudent.lastName}}</h5>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
   <div class="card work-field">
     <div class="card-header">
-      <h2>{{classwork.name}}</h2>
+      <h3>{{classwork.name}}</h3>
     </div>
     <div class="card-body">
       <div>

@@ -15,9 +15,9 @@
     <div class="col-md-3 rounded-1">
       <mat-form-field class="result-field">
         <mat-label>Điểm của câu</mat-label>
-        <input matInput type="text" placeholder=" Ví dụ 0.5,1 " [ngModel]="getAnswerByAnswerId(answer.writingExerciseAnswerId).mark"  (ngModelChange)="onResultChange($event, answer.writingExerciseAnswerId)">
+        <input matInput type="number" placeholder=" Ví dụ 0.5,1 " [ngModel]="getAnswerByAnswerId(answer.writingExerciseAnswerId).mark"  (ngModelChange)="onResultChange($event, answer.writingExerciseAnswerId)">
       </mat-form-field>
-      <p class="hint-field">Nên để giới hạn từ 0 đến 1</p>
+      <p class="hint-field">Điểm tối đa của câu: {{answer.writingExercise.mark}}</p>
     </div>
     <hr>
   </div>

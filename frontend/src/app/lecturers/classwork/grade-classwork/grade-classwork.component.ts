@@ -11,6 +11,7 @@ import {ClassworkAnswerService} from "../../../home/student-classwork/classwork-
 import {SessionStorageService} from "../../../shared/services/session-storage.service";
 import {GradeCommentService} from "../grade-comment.service";
 import {StudentGradeClassworkService} from "../student-grade-classwork.service";
+import {data} from "autoprefixer";
 
 @Component({
   selector: 'app-grade-classwork',
@@ -27,6 +28,7 @@ export class GradeClassworkComponent implements OnInit,OnDestroy{
   writingExercise: WritingExercise[] = []
   answerList:WritingExerciseAnswer[] = []
   draftAnswer!: WritingExerciseAnswer;
+  gradeStudent: Student = new Student();
   studentId!:number;
   student:Student = new Student();
   draftStudentClassWork: StudentClassWork = new StudentClassWork();
@@ -61,6 +63,10 @@ export class GradeClassworkComponent implements OnInit,OnDestroy{
     })
     this.classworkService.getWritingExerciseAnswerByClassworkAndStudent(this.studentId,this.classworkId).subscribe(data =>{
       this.answerList = data
+      if (this.answerList.length > 0){
+        // @ts-ignore
+        this.gradeStudent = this.answerList.at(0).student as Student
+      }
       this.answer.initializeAnswers(data)
       console.log(this.answer.getAllAnswers())
     })
@@ -89,10 +95,25 @@ export class GradeClassworkComponent implements OnInit,OnDestroy{
     this.draftStudentClassWork = new StudentClassWork();
     this.draftStudentClassWork.classWork = this.classwork
     this.draftStudentClassWork.student = this.student
-    this.draftStudentClassWork.result = 6
+    this.draftStudentClassWork.result = this.getClassworkTotalMark()
     this.classworkService.updateStudentClasswork(this.draftStudentClassWork).subscribe(data => {
       console.log(data)
     })
+  }
+
+  getClassworkTotalMark(){
+    let sum = 0
+    let grade = 0
+    this.answerList.forEach(data => {
+        sum += data.writingExercise.mark
+    })
+    this.answer.getAllAnswers().forEach(data => {
+      grade += data.mark as number
+      console.log(grade)
+    })
+    console.log(sum)
+    console.log(grade)
+    return Math.round((grade/sum)*100)/10
   }
 
   submitComment(){
@@ -105,6 +126,7 @@ export class GradeClassworkComponent implements OnInit,OnDestroy{
   }
 
   private goToCompletionPage() {
+    this.answer.clearAllAnswers()
     this.router.navigate(['lecturer/class',this.classId,'cw',this.classworkId,'s'])
   }
 }
