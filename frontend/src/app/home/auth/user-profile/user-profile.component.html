@@ -22,47 +22,34 @@
       </div>
       <div class="col-md-9">
         <div class="tab-content">
-          <!-- Các tab-pane còn lại giữ nguyên -->
           <div class="tab-content">
             <div class="tab-pane fade active show" id="account-general">
               <div class="card-body media align-items-center">
                 <label class="form-label">Avatar</label>
                 <div *ngIf="student.avatar === null || student.avatar === '' ">
                   <img src="assets/user.png"
-                       alt="Avatar Mặc Định" style="width: 150px; height: 150px" readonly>
+                       alt="Avatar Mặc Định" style="width: 90px; height: 90px" readonly>
 
-                  <!-- <div class="media-body ml-4　mt-2">
-                      <label class="btn btn-outline-primary">
-                          Upload new photo
-                          <input type="file" class="account-settings-fileinput">
-                      </label> &nbsp;
-                      <button type="button" class="btn btn-default md-btn-flat">Reset</button>
-                      <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K
-                      </div>
-                  </div> -->
                 </div>
                 <div *ngIf="student.avatar !== null && student.avatar !== '' ">
                   <img src="{{student.avatar}}"
-                       alt="Đang load ảnh..." style="width: 150px; height: 150px" readonly>
-
-                  <!-- <div class="media-body ml-4　mt-2">
-                      <label class="btn btn-outline-primary">
-                          Upload new photo
-                          <input type="file" class="account-settings-fileinput">
-                      </label> &nbsp;
-                      <button type="button" class="btn btn-default md-btn-flat">Reset</button>
-                      <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K
-                      </div>
-                  </div> -->
+                       alt="Đang load ảnh..." style="width: 90px; height: 90px" readonly>
                 </div>
               </div>
               <hr class="border-light m-0">
               <div class="card-body">
-                <div class="form-group">
+                <div class="form-group row">
+                <div class="col">
                   <label class="form-label">Nickname</label>
                   <input type="text" class="form-control mb-1" value="{{userAccount.nickName}}"
                          readonly>
                 </div>
+                <div class="col">
+                  <label class="form-label">Role</label>
+                  <input type="text" class="form-control" value="{{currentUser.role.roleType}}"
+                         readonly>
+                </div>
+              </div>
                 <div class="row">
                   <div class="col">
                     <label class="form-label">Mã thành viên</label>
@@ -88,23 +75,17 @@
                            readonly>
                   </div>
                 </div>
-                <br>
-                <div class="form-group">
-                  <label class="form-label">E-mail</label>
-                  <input type="text" class="form-control mb-1" value="{{userAccount.email}}"
-                         readonly>
-                </div>
-                <div *ngIf="currentUser.role.roleType === 'LECTURE' || currentUser.role.roleType === 'STUDENT'">
-                  <div class="form-group">
-                    <label class="form-label">Số điện thoại</label>
-                    <input type="text" class="form-control mb-1" name="phone"
-                           value="{{student.phone}}" readonly>
+                <div class="form-group row">
+                  <div class="col">
+                    <label class="form-label">E-mail</label>
+                    <input type="text" class="form-control" value="{{ student.email }}"
+                           readonly>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Role</label>
-                  <input type="text" class="form-control" value="{{currentUser.role.roleType}}"
-                         readonly>
+                  <div class="col" *ngIf="currentUser.role.roleType === 'LECTURE' || currentUser.role.roleType === 'STUDENT'">
+                    <label class="form-label">Số điện thoại</label>
+                    <input type="text" class="form-control" value="{{ student.phone }}"
+                           readonly>
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,6 +119,7 @@
                   </button>
                   <mat-error *ngIf="newpassword.hasError('required')">Mật khẩu mới không đợi để trống</mat-error>
                   <mat-error *ngIf="newpassword.hasError('minlength')">Mật khẩu phải ít nhất 6 ký tự</mat-error>
+                  
                 </mat-form-field>
                 <br>
                 <mat-form-field appearance="outline" style="width: 350px;">
@@ -159,23 +141,6 @@
                 <button class="btn btn-success" (click)="changePassword()">Đổi mật khẩu
                   <!-- <mat-icon matListItemIcon matSuffix>change_circle</mat-icon> -->
                 </button>
-                <!-- <div class="card-body pb-2">
-                    <div class="form-group">
-                        <label class="form-label">Current password</label>
-                        <input type="password" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">New password</label>
-                        <input type="password" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Repeat new password</label>
-                        <input type="password" class="form-control">
-                    </div>
-                </div>
-                <div class="text-end mt-3 mb-3 mr-4">
-                    <button type="button" class="btn btn-success">Save changes</button>&nbsp;
-                </div> -->
               </form>
             </div>
             <div class="tab-pane fade" id="account-info">
@@ -197,13 +162,9 @@
                             <mat-icon matSuffix>folder_open</mat-icon>
                           </mat-form-field>
                         &nbsp;
-
-                        <div class="text-light small mt-1">Allowed JPG, JPEG or PNG. Max size of
-                          800K
-                        </div>
+                        <div class="text-light small mt-1">Chấp nhận JPG, JPEG or PNG. Dung lượng tối đa 800K</div>
                       </div>
                     </div>
-
                     <div *ngIf="student.avatar !== null && student.avatar !== '' ">
                       <div *ngIf="this.file">
                         <h6>Xem trước</h6>
@@ -211,7 +172,7 @@
                       </div>
 
                       <img *ngIf="!this.file" src="{{student.avatar}}"
-                           alt="Đang load ảnh..."  style="width: 150px; height: 150px">
+                           alt="Đang load ảnh..."  style="width: 90px; height: 90px">
                       <div class="media-body ml-4 mt-2 items-center">
                         <br>
                           <mat-form-field>
@@ -227,7 +188,7 @@
                       </div>
                     </div>
                   </div>
-                  <hr class="border-light m-0">
+                  <!-- <hr class="border-light m-0"> -->
                   <div class="card-body">
                     <div class="form-group row">
                       <div class="col">
@@ -236,34 +197,39 @@
                                id="memberId" value="{{userAccount.memberId}}" readonly>
                       </div>
                       <div class="col">
-                        <label class="form-label" for="gender">Giới tính</label>
-                        <!-- //To display gender remove ngDefaultControl -->
-                        <select class="form-control" id="gender"
-                                [(ngModel)]="student.gender" name="gender">
-                          <option [(ngModel)]="student.gender" value="true"
-                                  [ngModelOptions]="{standalone: true}">Nam
-                          </option>
-                          <option [(ngModel)]="student.gender" value="false"
-                                  [ngModelOptions]="{standalone: true}">Nữ
-                          </option>
-                        </select>
-                      </div>
-
-                    </div>
-                    <div class="form-group row">
-                      <div class="col">
-                        <label class="form-label">Tên</label>
-                        <input type="text" class="form-control" name="firstName"
-                               id="firstName" [(ngModel)]="student.firstName"
-                               [ngModelOptions]="{standalone: true}" ngDefaultControl>
-                      </div>
-                      <div class="col">
-                        <label class="form-label">Họ</label>
-                        <input type="text" class="form-control" name="lastName"
-                               id="lastName" [(ngModel)]="student.lastName"
-                               [ngModelOptions]="{standalone: true}" ngDefaultControl>
+                        <label class="form-label">E-mail</label>
+                        <input type="text" class="form-control mb-1" name="email"
+                               value="{{userAccount.email}}" readonly>
                       </div>
                     </div>
+                      <div class="form-group row">
+                        <div class="col">
+                          <label class="form-label">Tên</label>
+                          <input type="text" class="form-control" name="firstName"
+                                 id="firstName" [(ngModel)]="student.firstName"
+                                 [ngModelOptions]="{standalone: true}" ngDefaultControl>
+                        </div>
+                        <div class="col">
+                          <label class="form-label">Họ</label>
+                          <input type="text" class="form-control" name="lastName"
+                                 id="lastName" [(ngModel)]="student.lastName"
+                                 [ngModelOptions]="{standalone: true}" ngDefaultControl>
+                        </div>
+                        <div class="col">
+                          <label class="form-label" for="gender">Giới tính</label>
+                          <!-- //To display gender remove ngDefaultControl -->
+                          <select class="form-control" id="gender"
+                                  [(ngModel)]="student.gender" name="gender">
+                            <option [(ngModel)]="student.gender" value="true"
+                                    [ngModelOptions]="{standalone: true}">Nam
+                            </option>
+                            <option [(ngModel)]="student.gender" value="false"
+                                    [ngModelOptions]="{standalone: true}">Nữ
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                   
 
                     <div class="form-group row">
                       <div class="col">
@@ -272,30 +238,21 @@
                                id="nickName" [(ngModel)]="userAccount.nickName" value="{{userAccount.nickName}}"
                                [ngModelOptions]="{standalone: true}" ngDefaultControl >
                       </div>
-
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">E-mail</label>
-                      <input type="text" class="form-control mb-1" name="email"
-                             value="{{userAccount.email}}" readonly>
-                    </div>
-                    <div *ngIf="currentUser.role.roleType === 'LECTURE' || currentUser.role.roleType === 'STUDENT'">
-                      <div class="form-group">
-                        <label class="form-label">Số điện thoại</label>
-                        <input type="text" class="form-control mb-1" name="phone"
-                               [(ngModel)]="student.phone" ngDefaultControl>
+                      <div class="col" *ngIf="currentUser.role.roleType === 'LECTURE' || currentUser.role.roleType === 'STUDENT'">
+                          <label class="form-label">Số điện thoại</label>
+                          <input type="text" class="form-control mb-1" name="phone"
+                                 [(ngModel)]="student.phone" ngDefaultControl>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="text-end mt-3 mb-3 mr-4">
-                  <div *ngIf="currentUser.role.roleType === 'LECTURE' ">
-                    <button type="button" class="btn btn-success" (click)="updateLecturersProfile()">Cập nhật</button>&nbsp;
+                  <div class="text-end mt-3 mb-3 mr-4">
+                    <div *ngIf="currentUser.role.roleType === 'LECTURE' ">
+                      <button type="button" class="btn btn-success" (click)="updateLecturersProfile()">Cập nhật</button>&nbsp;
+                    </div>
+                    <div *ngIf="currentUser.role.roleType === 'STUDENT' ">
+                      <button type="button" class="btn btn-success" (click)="updateUserProfile()">Cập nhật</button>&nbsp;
+                    </div>
                   </div>
-                  <div *ngIf="currentUser.role.roleType === 'STUDENT' ">
-                    <button type="button" class="btn btn-success" (click)="updateUserProfile()">Cập nhật</button>&nbsp;
-                  </div>
-
                 </div>
               </form>
             </div>

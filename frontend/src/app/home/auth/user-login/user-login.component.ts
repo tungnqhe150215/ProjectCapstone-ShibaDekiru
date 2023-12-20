@@ -1,4 +1,4 @@
-import { Component, OnInit , AfterViewInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UseServiceService } from '../use-service.service';
 import { StorageService } from './storage.service';
 import { Router } from '@angular/router';
@@ -10,9 +10,15 @@ import { RoleInte } from 'src/app/core/models/role';
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css']
 })
-export class UserLoginComponent implements OnInit, AfterViewInit{
+export class UserLoginComponent implements OnInit, AfterViewInit {
 
 
+  hide = true;
+  showPassword = false;
+  checked = false;
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   //Login
   formlogin: any = {
@@ -28,11 +34,11 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
     private userService: UseServiceService,
     private storageService: StorageService,
     private router: Router,
-  ){}
+  ) { }
 
 
   ngOnInit(): void {
-    if(this.storageService.isLoggedIn()){
+    if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roleId = this.storageService.getUser().roleId;
     }
@@ -40,32 +46,32 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
 
 
 
-  onSubmitLogin(): void{
+  onSubmitLogin(): void {
     const { email, password } = this.formlogin;
     this.userService.login(email, password).subscribe({
-      next: data =>{
+      next: data => {
         this.storageService.saveUser(data);
-        this.isLoginFailed=false;
+        this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roleId = this.storageService.getUser().roleId;
         this.notifiService.openSnackBar('Đăng nhập thành công');
 
-        if(this.storageService.getUser().role.roleType === 'ADMIN'){
+        if (this.storageService.getUser().role.roleType === 'ADMIN') {
           this.router.navigateByUrl('/admin/book');
-        }else if(this.storageService.getUser().role.roleType === 'LECTURE'){
+        } else if (this.storageService.getUser().role.roleType === 'LECTURE') {
           this.router.navigateByUrl('/lecturer/class');
-        }else{
+        } else {
           this.router.navigateByUrl('/home');
         }
         // this.reloadPage();
 
       },
-      error: err =>{
+      error: err => {
         console.log(err.status);
         this.notifiService.openSnackBar('Bạn nhập sai tài khoản hoặc mật khẩu. Vui lòng nhập lại!');
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
-        if(err.status === 403){
+        if (err.status === 403) {
           this.notifiService.openSnackBar('Bạn nhập sai khoản hoặc mật khẩu. Vui lòng nhập lại!')
         }
       }
@@ -75,22 +81,24 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
 
   //Register
   form: any = {
-    nickName :null,
-    firstName :null,
-    lastName :null,
-    memberId :null,
+    nickName: null,
+    firstName: null,
+    lastName: null,
+    memberId: null,
     // userName :null,
-    email :null,
-    password :null,
+    email: null,
+    password: null,
+    rePassword: null,
     roleId: null
     // role: { roleId: null }
   };
   isSuccessful = false;
   isSignUpFailed = false;
   // errorMessage = '';
-
+  // passwordMatch: boolean = true;
+  passwordMatchError: boolean = false;
   onSubmit(): void {
-    const {nickName,
+    const { nickName,
       firstName,
       lastName,
       memberId,
@@ -99,7 +107,13 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
       password,
       roleId
     } = this.form;
-    console.log('Role:',roleId);
+    if (password !== this.form.rePassword) {
+      this.passwordMatchError = true;
+      return;
+    } else {
+      this.passwordMatchError = false;
+    }
+    console.log('Role:', roleId);
     this.userService.register1(nickName,
       firstName,
       lastName,
@@ -109,26 +123,26 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
       password,
       roleId)
       .subscribe({
-      next: data =>{
-        console.log(data);
-        this.isSuccessful = true;
-        this.isSignUpFailed = false;
-        // this.reloadPage();
-        // this.notifiService.openSnackBar('Đăng ký thành công');
-        this.router.navigateByUrl('/active-account');
-      },
-      error: err =>{
-        this.notifiService.openSnackBar('Có lỗi xáy ra trong khi đăng ký vui lòng kiểm tra lại');
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
-        if(err.status === 409){
-          this.notifiService.openSnackBar('Email đã tồn tại vui lòng kiểm tra lại!')
+        next: data => {
+          console.log(data);
+          this.isSuccessful = true;
+          this.isSignUpFailed = false;
+          // this.reloadPage();
+          // this.notifiService.openSnackBar('Đăng ký thành công');
+          this.router.navigateByUrl('/active-account');
+        },
+        error: err => {
+          this.notifiService.openSnackBar('Có lỗi xáy ra trong khi đăng ký vui lòng kiểm tra lại');
+          this.errorMessage = err.error.message;
+          this.isSignUpFailed = true;
+          if (err.status === 409) {
+            this.notifiService.openSnackBar('Email đã tồn tại vui lòng kiểm tra lại!')
+          }
+          if (err.status === 404) {
+            this.notifiService.openSnackBar('Vui lòng nhập email theo đúng định dạng. Ex: abc@gmail.com');
+          }
         }
-        if (err.status === 404) {
-          this.notifiService.openSnackBar('Vui lòng nhập email theo đúng định dạng. Ex: abc@gmail.com');
-        }
-      }
-    })
+      })
   }
 
 
@@ -153,11 +167,11 @@ export class UserLoginComponent implements OnInit, AfterViewInit{
       });
     }
   }
-  gotoRegister(){
+  gotoRegister() {
     this.router.navigate(['register']);
   }
 
-  forgotPassword(){
+  forgotPassword() {
     this.router.navigate(['forgot-password']);
   }
 
