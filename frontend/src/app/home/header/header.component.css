@@ -7,6 +7,10 @@
     padding: 0;
     
 } */
+.active {
+    color: #11a683; /* Set your desired active text color */
+  }
+
 .icons-size{
     color: #333;
     font-size: 9px;

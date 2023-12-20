@@ -12,6 +12,7 @@ import { LecPostService } from '../lec-post.service';
 import { UserService } from 'src/app/admin/manage-user/user.service';
 import { UserAccount } from 'src/app/core/models/user-account';
 import { StorageService } from 'src/app/home/auth/user-login/storage.service';
+import { DeletePostComponent } from '../delete-post/delete-post.component';
 
 @Component({
   selector: 'app-list-post',
@@ -76,23 +77,6 @@ export class ListPostComponent implements OnInit {
       },
       error: console.log,
     })
-    // this.id = this.route.snapshot.params['id'];
-    // this.user = new UserAccount;
-    // this.userService.getUserByID(this.idU).subscribe(data => {
-    //   this.user = data;
-    //   console.log(data);
-    // });
-    // this.post = []
-    // this.lecpostService.getlistByUser(this.idU).subscribe(data => {
-    //   this.post = data;
-    //   this.dataSource = new MatTableDataSource(this.post);
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    //   console.log(data)
-    // })
-    // console.log(this.post)
-    // console.log(this.idU)
-
   }
 
   // private GetPost() {
@@ -110,6 +94,18 @@ export class ListPostComponent implements OnInit {
 
   // }
 
+  // openDeletePostDialog(id:number){
+  //   this.dialog.open(DeletePostComponent,{
+  //     data:id
+  //   }).afterClosed().subscribe(() => this.getPostbyUser())
+  // }
+
+  //not loading when delete
+  openDeletePostDialog(id:number){
+    this.dialog.open(DeletePostComponent,{
+      data:id
+    }).afterClosed().subscribe( () => this.getPostbyUser())
+  }
 
   addData() {
     this.dialog.open(CreatePostComponent, {
@@ -124,15 +120,15 @@ export class ListPostComponent implements OnInit {
   updatePost(id: number) {
     this.router.navigate(['/lecturer/post/update-post', id]);
   }
-  deletePost(id: number) {
-    this.lecpostService.deletePost(id).subscribe({
-      next: () => {
-        this.nofiService.openSnackBar('Đã xóa bài viết');
-        this.getPostbyUser();
-      },
-      error: () =>{
-        this.nofiService.openSnackBar('Có lỗi xảy ra khi xóa bài viết');
-      }
-    })
-  }
+  // deletePost(id: number) {
+  //   this.lecpostService.deletePost(id).subscribe({
+  //     next: () => {
+  //       this.nofiService.openSnackBar('Đã xóa bài viết');
+  //       this.getPostbyUser();
+  //     },
+  //     error: () =>{
+  //       this.nofiService.openSnackBar('Có lỗi xảy ra khi xóa bài viết');
+  //     }
+  //   })
+  // }
 }

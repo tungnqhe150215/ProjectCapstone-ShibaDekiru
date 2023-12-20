@@ -1,5 +1,5 @@
 
-<div class="container">
+<!-- <div class="container">
     <h3 class="text-center">Thông tin bài học</h3>
     <form class="form-dialog">
         <div class="form-group">
@@ -19,8 +19,39 @@
 
             </div>
             <br>
-            <!-- <button mat-button mat-dialog-close class="text-bg-danger">Bỏ</button> -->
             <button mat-button (click)="openExercise(classWork.classWorkId)" mat-dialog-close class="text-bg-success ml-3">Xem bài tập đi kèm</button>
-      <!-- <button class="btn btn-success" type="submit"  (click)="updateClassWork()">Submit</button> -->
     </form>
-</div>
+</div> -->
+<section class="form-dialog" style="background-color: whitesmoke;">
+    <div class="container py-5">
+      <div class="row justify-content-center align-items-center">
+        <div class="col col-xl-10">
+          <div class="card rounded">
+            <div class="card-body p-4">
+              <h3 class="mb-3">{{classWork.name}}</h3>
+              <h4 class="small mb-0">
+                <strong style="color:green">Thời gian giao:</strong> {{classWork.createdAt | date:'dd/MM/yyyy'}}
+              </h4>
+              <br>
+              <h4 class="small mb-0">
+                 <strong style="color:red">Thời hạn: </strong>{{classWork.deadline | date:'dd/MM/yyyy'}}
+              </h4>
+              <hr class="my-4">
+              <div class="d-flex justify-content-start align-items-center">
+                <h6 class="mb-0 text-uppercase"><span class="text-muted small">Trạng thái: </span> <span class="mx-2"></span></h6>
+                <p class="mb-0 text-uppercase"> <span [class.bg-danger]="classWork.isLocked === false" [class.bg-success]="classWork.isLocked === true" class="badge rounded-pill text-white">
+                    {{ classWork.isLocked ? 'Mở' : 'Đóng' }}
+                </span></p>
+                
+              </div>
+              <br>
+              <h6 class="mb-0 text-uppercase"><span
+                class="text-muted small"><button mat-button (click)="openExercise(classWork.classWorkId)" mat-dialog-close class="text-bg-success ml-3">Xem bài tập đi kèm</button></span>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

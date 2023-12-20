@@ -73,7 +73,7 @@
               <td mat-cell *matCellDef="let row">
                 <button (click)="updatePost(row.postId)" mat-icon-button> <mat-icon>edit</mat-icon> </button>
                 <button (click)="postDetail(row.postId)" mat-icon-button><mat-icon>remove_red_eye</mat-icon></button>
-                <button mat-icon-button color="warn" (click)="deletePost(row.postId)"><mat-icon>remove_circle
+                <button mat-icon-button color="warn" (click)="openDeletePostDialog(row.postId)"><mat-icon>remove_circle
                   </mat-icon></button>
               </td>
             </ng-container>

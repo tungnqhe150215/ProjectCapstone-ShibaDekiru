@@ -17,6 +17,7 @@ import {Class} from "../../core/models/class";
 import {LectureClassService} from "../class/lecture-class.service";
 import {data} from "autoprefixer";
 import { StorageService } from 'src/app/home/auth/user-login/storage.service';
+import { DeleteClassworkComponent } from './delete-classwork/delete-classwork.component';
 
 
 
@@ -48,6 +49,7 @@ export class ClassworkComponent implements OnInit{
     private route:ActivatedRoute,
     public dialog: MatDialog,
     private storageService: StorageService,
+    
   ){}
 
 
@@ -95,14 +97,19 @@ export class ClassworkComponent implements OnInit{
   }
 
 
-  deleteClassWork(id:number){
-    this.classWorkService.deleteClassWork(id).subscribe({
-      next: (res) => {
-        this.notifiService.openSnackBar('Đã xóa bài học trên lớp');
-        this.getClassWorkList();
-      },
-      error: console.log,
-    })
+  // deleteClassWork(id:number){
+  //   this.classWorkService.deleteClassWork(id).subscribe({
+  //     next: (res) => {
+  //       this.notifiService.openSnackBar('Đã xóa bài học trên lớp');
+  //       this.getClassWorkList();
+  //     },
+  //     error: console.log,
+  //   })
+  // }
+  openDeleteClassWorkDialog(id:number){
+    this.dialog.open(DeleteClassworkComponent,{
+      data:id
+    }).afterClosed().subscribe( () => this.getClassWorkList())
   }
 
   openUpdateClassWorkDialog(id:number){
