@@ -159,8 +159,10 @@ public class AuthenticationController {
     public ResponseEntity<StudentDto> getStudentById(@PathVariable (name = "userAccountId") Long userAccountId){
 
         Student studentRequest =  studentRepository.findById(userAccountId).orElseThrow();
-        if (studentRequest.getAvatar().length() > 0) {
+        if (studentRequest.getAvatar().length() > 0 && !studentRequest.getAvatar().equals("")) {
             studentRequest.setAvatar(googleDriveService.getFileUrl(studentRequest.getAvatar()));
+        } else {
+            studentRequest.setAvatar(studentRequest.getAvatar());
         }
 
         StudentDto studentDto = modelMapper.map(studentRequest, StudentDto.class);
@@ -173,8 +175,10 @@ public class AuthenticationController {
     public ResponseEntity<LecturesDto> getLectureImageById(@PathVariable (name = "userAccountId") Long userAccountId){
 
         Lectures lecturesRequest =  lecturersRepository.findById(userAccountId).orElseThrow();
-        if (lecturesRequest.getAvatar().length() > 0)  {
+        if (lecturesRequest.getAvatar().length() > 0 && !lecturesRequest.getAvatar().equals(""))  {
             lecturesRequest.setAvatar(googleDriveService.getFileUrl(lecturesRequest.getAvatar()));
+        } else {
+            lecturesRequest.setAvatar(lecturesRequest.getAvatar());
         }
 
         LecturesDto lecturesDto = modelMapper.map(lecturesRequest, LecturesDto.class);
@@ -225,19 +229,20 @@ public class AuthenticationController {
         UserAccount userAccount = userAccountService.getUserAccountByEmail(forgotPasswordDto.getEmail());
 
         if (userAccount == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        } else {
+            String resetCode = jwtUtilityService.createJWT(userAccount, 10080);
+            System.out.println("Reset code : " + resetCode);
+
+            userAccountService.updateResetCode(resetCode, userAccount.getEmail());
+
+            sendEmail(userAccount.getEmail(), resetCode);
+
+            ForgotPasswordDto forgotPasswordResponse = modelMapper.map(userAccount, ForgotPasswordDto.class);
+
+            return ResponseEntity.ok().body(forgotPasswordResponse);
         }
 
-        String resetCode = jwtUtilityService.createJWT(userAccount, 10080);
-        System.out.println("Reset code : " + resetCode);
-
-        userAccountService.updateResetCode(resetCode, userAccount.getEmail());
-
-        sendEmail(userAccount.getEmail(), resetCode);
-
-        ForgotPasswordDto forgotPasswordResponse = modelMapper.map(userAccount, ForgotPasswordDto.class);
-
-        return ResponseEntity.ok().body(forgotPasswordResponse);
     }
 
     @GetMapping("/reset-password/{resetCode}")
@@ -266,13 +271,15 @@ public class AuthenticationController {
         String confirmNewPassword = newPasswordDto.getConfirmNewPassword();
 
         if (!newPassword.equals(confirmNewPassword)) {
-            throw new IllegalStateException("New password not same confirm new password!");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        } else {
+            userAccountService.updateResetCode(null, userAccount.getEmail());
+            userAccountService.updatePassword(userAccount, newPassword);
+
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
         }
 
-        userAccountService.updateResetCode(null, userAccount.getEmail());
-        userAccountService.updatePassword(userAccount, newPassword);
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
 
     }
 

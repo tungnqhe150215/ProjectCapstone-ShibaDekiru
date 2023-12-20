@@ -12,7 +12,7 @@ import { ForgotPassword } from 'src/app/core/models/forgot-password';
 })
 export class ForgotPasswordComponent implements OnInit{
 
-  
+
   forgotPassword!: ForgotPassword;
   isLoggedIn = false;
   formlogin: any = {
@@ -25,8 +25,8 @@ export class ForgotPasswordComponent implements OnInit{
     private router: Router,
   ){}
   ngOnInit(): void {
-    
-    
+
+
   }
   onSubmitEmail(){
     this.forgotPassword = new ForgotPassword(this.formlogin.email);
@@ -36,6 +36,11 @@ export class ForgotPasswordComponent implements OnInit{
         console.log(data);
         this.router.navigate(['/check-mail']);
         this.notifiService.openSnackBar('Xin vui lòng kiểm tra Email');
+      }
+      , error => {
+        if (error.status === 403) {
+          this.notifiService.openSnackBar('Email không tìm thấy. Xin vui lòng kiểm tra lại email.');
+        }
       }
     )
   }

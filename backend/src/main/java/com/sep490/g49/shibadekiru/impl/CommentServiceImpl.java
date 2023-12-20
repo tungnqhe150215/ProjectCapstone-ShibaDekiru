@@ -12,6 +12,9 @@ import com.sep490.g49.shibadekiru.repository.UserAccountRepository;
 import com.sep490.g49.shibadekiru.service.ICommentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -39,9 +42,12 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public List<Comment> getCommentPartByPost(Post post) {
-        return commentRepository.findByPost(post);
+    public Page<Comment> getCommentPartByPost(Post post, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Comment> commentPage = commentRepository.findByPost(post, pageable);
+        return commentPage;
     }
+
 
     @Override
     public List<Comment> getCommentByUserAccount(UserAccount userAccount) {

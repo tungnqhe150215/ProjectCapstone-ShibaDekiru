@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NotificationService } from 'src/app/core/services/notification.service';
-import { UseServiceService } from '../use-service.service';
-import { StorageService } from '../user-login/storage.service';
-import { ChangePassword } from 'src/app/core/models/change-password';
-import { Subscription } from 'rxjs';
-import { EventBusService } from '../event-bus.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {NotificationService} from 'src/app/core/services/notification.service';
+import {UseServiceService} from '../use-service.service';
+import {StorageService} from '../user-login/storage.service';
+import {ChangePassword} from 'src/app/core/models/change-password';
+import {Subscription} from 'rxjs';
+import {EventBusService} from '../event-bus.service';
 
 @Component({
   selector: 'app-user-change-password',
@@ -23,7 +23,8 @@ export class UserChangePasswordComponent implements OnInit {
     private storageService: StorageService,
     private router: Router,
     private eventBusService: EventBusService,
-  ){}
+  ) {
+  }
 
   error: any = {
     message: 'no'
@@ -42,14 +43,24 @@ export class UserChangePasswordComponent implements OnInit {
   changePassword() {
     // @ts-ignore
     this.updatePassword = new ChangePassword(this.form.password, this.form.newpassword, this.form.confirmpassword);
-    
+
     this.userService.changePassword(this.updatePassword).subscribe(data => {
-      console.log('dataPassword----->',data);
-      
-      this.notifiService.openSnackBar('Đổi mật khẩu thành công, bạn cần đăng nhập lại');
-      this.logout();
-      
-    })
+        console.log('dataPassword----->', data);
+
+        this.notifiService.openSnackBar('Đổi mật khẩu thành công, bạn cần đăng nhập lại');
+        this.logout();
+
+      },
+      error1 => {
+        if (error1.status === 404) {
+          this.notifiService.openSnackBar('Mật khẩu hiện tại của bạn không đúng. Vui lòng kiểm tra lại!');
+        }
+
+        if (error1.status === 400) {
+          this.notifiService.openSnackBar('Mật khẩu mới không giống nhau. Vui lòng kiểm tra lại!');
+        }
+      }
+    )
 
   }
 

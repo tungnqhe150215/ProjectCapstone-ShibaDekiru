@@ -53,16 +53,34 @@ public class PostServiceImpl implements IPostService {
 //        return postRepository.findByIsEnabled(true, pageable);
 //    }
 
-    public Page<Post> getPaginatedItems(int page, int size) {
+//    public Page<Post> getPaginatedItems(int page, int size, String keyword) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<Post> postPage = postRepository.findByIsEnabled(true, pageable);
+//
+//        List<Post> modifiedPosts = postPage.getContent().stream().filter(data -> data.getPostContent().contains(keyword))
+//                .peek(data -> data.setImage(googleDriveService.getFileUrl(data.getImage())))
+//                .collect(Collectors.toList());
+//
+//        return new PageImpl<>(modifiedPosts, pageable, postPage.getTotalElements());
+//    }
+
+    public Page<Post> getPaginatedItems(int page, int size, String keyword) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Post> postPage = postRepository.findByIsEnabled(true, pageable);
+        Page<Post> postPage = postRepository.findByIsEnabledAndPostContentContainingIgnoreCase(true, pageable, keyword);
 
         List<Post> modifiedPosts = postPage.getContent().stream()
-                .peek(data -> data.setImage(googleDriveService.getFileUrl(data.getImage())))
+
+                .peek(data -> {
+                    if (data.getImage().length() > 0) {
+                        data.setImage(googleDriveService.getFileUrl(data.getImage()));
+                    }
+
+                })
                 .collect(Collectors.toList());
 
         return new PageImpl<>(modifiedPosts, pageable, postPage.getTotalElements());
     }
+
 
     @Override
     public List<Post> getAllPostByIsEnable() {

@@ -1,4 +1,37 @@
+.pagination .page-item.active .page-link {
+  font-weight: bold; /* Đặt trọng số chữ đậm cho số trang hiện tại */
+  color: #333; /* Màu chữ của số trang hiện tại */
+}
 
+.pagination-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  background-color: #4285f4;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 4px;
+  cursor: pointer;
+}
+
+.pagination-button:hover {
+  background-color: #3367d6;
+}
+
+.custom-current-page {
+  font-weight: bold;
+  margin: 0 10px;
+}
 
 /*============ Start Blog Single Styles  =============*/
 .single-post-area .social-links {
@@ -80,7 +113,7 @@
   @media (max-width: 991px) {
     .single-post-area .sidebar-widgets {
       padding-bottom: 0px; } }
-  
+
   .comments-area {
     background: #fafaff;
     border: 1px solid #eee;
@@ -133,7 +166,7 @@
       .comments-area .btn-reply:hover {
         background-color: #11a683;
         color: #fff; }
-  
+
   .comment-form {
     background: #fafaff;
     text-align: center;
@@ -189,7 +222,7 @@
       /* Firefox 18- */
       font-size: 13px;
       color: #777; }
-  
+
   /*============ End Blog Single Styles  =============*/
 
 

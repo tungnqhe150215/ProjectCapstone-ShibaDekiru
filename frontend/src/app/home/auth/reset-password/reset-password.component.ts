@@ -27,7 +27,7 @@ export class ResetPasswordComponent implements OnInit{
     private route: ActivatedRoute,
   ){}
 
-  
+
   ngOnInit(): void {
     // this.resetCode = this.route.snapshot.queryParams.resetCode;
     this.route.paramMap.subscribe((parameters: ParamMap) => {
@@ -44,7 +44,12 @@ export class ResetPasswordComponent implements OnInit{
         console.log(data);
         this.notifiService.openSnackBar('Cập nhật mật khẩu thành công! Vui lòng đăng nhập lại');
         this.router.navigate(['/login']);
-      }
+      },
+        error => {
+        if (error.status === 409) {
+          this.notifiService.openSnackBar('Mật khẩu mới không giống nhau. Vui lòng kiểm tra lại!');
+        }
+        }
     )
   }
 

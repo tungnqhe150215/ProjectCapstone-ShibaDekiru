@@ -29,8 +29,8 @@ export class UserPostService {
   private baseURL = "http://localhost:8080/api/post";
   constructor(private httpClient: HttpClient) { }
 
-  getAllPost(page: number, size: number): Observable<Page<Post>>{
-    const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+  getAllPost(page: number, size: number, keyword: string): Observable<Page<Post>>{
+    const params = new HttpParams().set('page', page.toString()).set('size', size.toString()).set('keyword', keyword.toString());
     return this.httpClient.get<Page<Post>>(this.baseURL, {params});
   }
 
@@ -38,8 +38,9 @@ export class UserPostService {
     return this.httpClient.get<Post>(`${this.baseURL}/${id}`);
   }
 
-  getAllComment(id:number ): Observable<Comment[]>{
-    return this.httpClient.get<Comment[]>(`${this.baseURL}/${id}/comment`);
+  getAllComment(id:number, page: number, size: number): Observable<Page<Comment>>{
+    const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+    return this.httpClient.get<Page<Comment>>(`${this.baseURL}/${id}/comment`, {params});
   }
 
   createComment(id:number , userID:number, comment:Comment): Observable<Object>{
