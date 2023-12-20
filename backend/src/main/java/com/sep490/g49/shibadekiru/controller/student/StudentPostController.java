@@ -51,8 +51,8 @@ public class StudentPostController {
     private GoogleDriveService googleDriveService;
 
     @GetMapping()
-    public ResponseEntity<Page<PostDto>> getAllPosts(@RequestParam int page, @RequestParam int size) {
-        Page<PostDto> items = postService.getPaginatedItems(page, size)
+    public ResponseEntity<Page<PostDto>> getAllPosts(@RequestParam int page, @RequestParam int size, @RequestParam String keyword) {
+        Page<PostDto> items = postService.getPaginatedItems(page, size, keyword)
                 .map(post -> modelMapper.map(post, PostDto.class));
         return ResponseEntity.ok(items);
     }
@@ -70,13 +70,18 @@ public class StudentPostController {
         return  ResponseEntity.ok().body(postResponse);
     }
 
+
     @GetMapping("/{id}/comment")
-    public List<CommentDto> getAllCommentByPost(@PathVariable(name = "id") Long postId) {
+    public ResponseEntity<Page<CommentDto>> getAllCommentByPost(@PathVariable(name = "id") Long postId, @RequestParam int page, @RequestParam int size) {
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
         Post post = iPostService.getPostById(postId);
-        System.out.println("Comment từ post nè : " +  postId);
-        return iCommentService.getCommentPartByPost(post).stream().map(comment -> modelMapper.map(comment, CommentDto.class)).collect(Collectors.toList());
+        Page<Comment> commentPage = iCommentService.getCommentPartByPost(post, page, size);
+
+        Page<CommentDto> commentDtoPage = commentPage.map(comment -> modelMapper.map(comment, CommentDto.class));
+
+        return ResponseEntity.ok(commentDtoPage);
     }
+
 
     @GetMapping("/{id}/comment/{userId}")
     public List<CommentDto> getAllCommentByUserAccount(@PathVariable(name = "id") Long postId, @PathVariable(name = "userId") Long userId) {

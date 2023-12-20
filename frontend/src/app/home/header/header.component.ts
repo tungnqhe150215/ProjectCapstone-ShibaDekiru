@@ -48,16 +48,23 @@ export class HeaderComponent implements AfterViewInit,OnInit{
 
   getImageByLectureId(){
     this.currentUser = this.storageService.getUser();
-    this.userService.getImageLectureByUserId(this.currentUser.userAccountId).subscribe(data => {
-      this.lecture = data
-    })
+    if (this.currentUser.role.roleType === 'LECTURE') {
+      this.userService.getImageLectureByUserId(this.currentUser.userAccountId).subscribe(data => {
+        this.lecture = data
+      })
+    }
+
   }
 
   getImageByStudentId(){
+
     this.currentUser = this.storageService.getUser();
-    this.userService.getImageStudentByd(this.currentUser.userAccountId).subscribe(data => {
-      this.student = data
-    })
+    if (this.currentUser.role.roleType === 'STUDENT') {
+      this.userService.getImageStudentByd(this.currentUser.userAccountId).subscribe(data => {
+        this.student = data
+      })
+    }
+
   }
 
   ngOnInit(): void {

@@ -14,5 +14,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByLecture(Lectures lectures);
     List<Post> findTop4ByOrderByCreatedAtDesc();
 
-    Page<Post> findByIsEnabled(boolean isEnabled, Pageable pageable);
+
+    Page<Post> findByIsEnabledAndPostContentContainingIgnoreCase(boolean isEnabled, Pageable pageable, String keyword);
 }

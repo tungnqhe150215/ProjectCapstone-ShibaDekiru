@@ -7,9 +7,11 @@
       <div class="row">
         <div class="col-lg-8">
           <div class="blog_left_sidebar">
-
+            <div class="center" *ngIf="post.length === 0 && searchPerformed">
+              <h5 style="text-align: center">Không có bài biết nào trùng với "{{this.keyword}}"</h5>
+            </div>
             <article class="row blog_item"
-                     *ngFor="let post of post| paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
+                     *ngFor="let post of post">
               <div class="row">
                 <div class="col-md-3">
                   <div class="blog_info text-right">
@@ -24,10 +26,11 @@
                 <div class="col-md-9">
                   <div class="blog_post">
                     <div class="row">
-                      <div *ngIf="post.image !== null">
-                        <img class="col-md-3" (click)="PostDetail(post.postId)"
-                             style="cursor: pointer; max-width: 200px; max-height: 200px" src="{{post.image}}"
-                             alt="Image title">
+                      <div *ngIf="post.image" class="col-md-3">
+                        <img (click)="PostDetail(post.postId)"
+                             style="cursor: pointer; width: 150px; height: 150px" src="{{post.image}}"
+                             alt="Image title" loading="eager">
+
                       </div>
                       <div class="blog_details col-md-9">
                         <a (click)="PostDetail(post.postId)" style="cursor: pointer"><h2>{{post.postContent}}</h2></a>
@@ -44,15 +47,16 @@
               <hr>
             </article>
 
+
             <div class="pagination">
-              <button (click)="onPreviousPage()" [disabled]="currentPage === 0" class="pagination-button">
+              <button (click)="onPreviousPage()" [disabled]="currentPage === 0 || totalPages.length === 1" class="pagination-button">
                 Trước
               </button>
               <p class="custom-current-page">
                 <!-- Your custom styling for current page -->
                 Trang {{ currentPage + 1 }} / {{ totalPages.length }}
               </p>
-              <button (click)="onNextPage()" [disabled]="currentPage === totalPages.length - 1"
+              <button *ngIf="totalPages.length > 1" (click)="onNextPage()" [disabled]="currentPage === totalPages.length - 1 || totalPages.length === 1 " [hidden]="totalPages.length === 1"
                       class="pagination-button">
                 Sau
               </button>
@@ -108,7 +112,12 @@
           </div>
         </div>
         <div class="col-lg-4">
+          <mat-form-field>
+          <mat-label>Tìm kiếm theo tiêu đề</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ví dụ : Bài viết..." #input >
+        </mat-form-field>
           <div class="blog_right_sidebar">
+
             <aside class="single_sidebar_widget post_category_widget">
               <h4 class="widget_title">Các bài viết liên quan</h4>
               <ul class="list cat-list" *ngFor="let posts of posts">

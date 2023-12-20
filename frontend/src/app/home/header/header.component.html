@@ -95,11 +95,11 @@
                 <div class="profile" (click)="menuToggle()">
 
                   <div *ngIf="student.avatar === null || student.avatar === '' ">
-                    <img src="assets/user.png" class="img-fluid">
+                    <img src="assets/user.png"  class="img-fluid">
                   </div>
 
                   <div *ngIf="student.avatar !== null || student.avatar !== '' ">
-                    <img src="{{student.avatar}}" alt="" class="img-fluid">
+                    <img  src="{{student.avatar}}" alt="" class="img-fluid">
                   </div>
 
                 </div>

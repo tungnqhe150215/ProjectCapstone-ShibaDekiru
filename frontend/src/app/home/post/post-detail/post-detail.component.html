@@ -71,11 +71,11 @@
                     <div class="comments-area">
                         <h4> Bình luận </h4>
 
-                        <div class="comment-list" *ngFor="let comment of comment | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+                        <div class="comment-list" *ngFor="let comment of comment">
                             <div class="single-comment justify-content-between d-flex">
                                 <div class="user justify-content-between d-flex">
                                     <div class="thumb">
-                                        <img height="60px" width="60px" src="https://dogily.vn/wp-content/uploads/2022/12/Anh-avatar-cho-Shiba-4.jpg" alt="">
+                                      <mat-icon> comment</mat-icon>
                                     </div>
 
                                     <div class="desc">
@@ -84,7 +84,7 @@
                                             <div *ngIf="!isLoggedIn"> <h6 style="text-decoration: none;">Người dùng bình luận</h6></div>
                                         </h5>
                                         <p class="date">{{comment.createdAt | date:'dd/MM/yyyy'}} </p>
-                                        <p class="comment">
+                                        <p class="comment" style="white-space: pre-line">
                                             {{comment.content}}
                                         </p>
                                     </div>
@@ -105,7 +105,19 @@
                             <h5 class="text-center">Chưa có bình luận nào.</h5>
                         </div>
                         <div *ngIf="comment.length > 0">
-                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                          <div class="pagination">
+                            <button (click)="onPreviousPage()" [disabled]="currentPage === 0 || totalPages.length === 1" class="pagination-button">
+                              Trước
+                            </button>
+                            <p class="custom-current-page">
+                              Trang {{ currentPage + 1 }}
+                            </p>
+                            <button *ngIf="totalPages.length > 1" (click)="onNextPage()" [disabled]="currentPage === totalPages.length - 1 || totalPages.length === 1 " [hidden]="totalPages.length === 1"
+                                    class="pagination-button">
+                              Sau
+                            </button>
+                          </div>
+
                         </div>
                          <!-- <app-list-comment></app-list-comment> -->
                          <div *ngIf="isLoggedIn">
