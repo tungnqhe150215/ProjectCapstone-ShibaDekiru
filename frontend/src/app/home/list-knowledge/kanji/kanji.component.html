@@ -31,7 +31,7 @@
 
                 <ng-container matColumnDef="lesson">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Ví dụ</th>
-                    <td (click)="kanjiDetail(row.kanjiId)" style="cursor: pointer" mat-cell *matCellDef="let row"> Bài {{row.example}} </td>
+                    <td (click)="kanjiDetail(row.kanjiId)" style="cursor: pointer" mat-cell *matCellDef="let row">{{row.example}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

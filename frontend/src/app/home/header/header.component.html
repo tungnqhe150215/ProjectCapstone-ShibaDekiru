@@ -16,9 +16,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse offset-1 float-right" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto">
-            <li class="nav-item active"><a class="nav-link" routerLink="./home">Home</a></li>
+            <li class="nav-item" [routerLinkActive]="'active'"><a class="nav-link" routerLink="./home">Home</a></li>
             <!-- <li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>  -->
-            <li class="nav-item submenu dropdown">
+            <li class="nav-item submenu dropdown" [routerLinkActive]="'active'">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false">Bảng chữ cái</a>
               <ul class="dropdown-menu">
@@ -26,18 +26,18 @@
                 <li class="nav-item"><a class="nav-link" routerLink="./katakana">Bảng Katakana</a></li>
               </ul>
             </li>
-            <li class="nav-item submenu dropdown">
+            <li class="nav-item submenu dropdown" [routerLinkActive]="'active'">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false">Bài học</a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" [routerLinkActive]="'active'">
                 <li class="nav-item" *ngFor="let book of book"><a class="nav-link" style="cursor: pointer;"
-                                                                  (click)="LessonByBook(book.bookId)">{{book.name}}</a>
+                  routerLink="book/{{book.bookId}}/lesson"            >{{book.name}}</a>
                 </li>
                 <!-- <li class="nav-item"><a class="nav-link" routerLink="./lesson">Dekiru Nihongo Sơ trung</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="./lesson">Dekiru Nihongo Trung cấp</a></li> -->
               </ul>
             </li>
-            <li class="nav-item submenu dropdown">
+            <li class="nav-item submenu dropdown" [routerLinkActive]="'active'">
 
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false">Tổng hợp kiến thức</a>
@@ -49,7 +49,7 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item submenu dropdown">
+            <li class="nav-item submenu dropdown" [routerLinkActive]="'active'">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                  aria-expanded="false">Bài viết</a>
               <ul class="dropdown-menu">
@@ -58,7 +58,7 @@
               </ul>
             </li>
             <div *ngIf="isLoggedIn">
-              <li class="nav-item submenu dropdown">
+              <li class="nav-item submenu dropdown" [routerLinkActive]="'active'">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">Lớp học</a>
                 <ul class="dropdown-menu">

@@ -59,6 +59,7 @@ import { AnswerFieldComponent } from './classwork/grade-classwork/answer-field/a
 import { SubmissionListComponent } from './classwork/submission-list/submission-list.component';
 import { DeletelecCommentComponent } from './lecturers-post/deletelec-comment/deletelec-comment.component';
 import {MatSelectModule} from "@angular/material/select";
+import { DeletePostComponent } from './lecturers-post/delete-post/delete-post.component';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import {MatSelectModule} from "@angular/material/select";
     ExerciseCreateDialog,
     ExerciseDeleteDialog,
     ExerciseUpdateDialog,
+    DeletePostComponent,
   ],
   exports: [
     ClassworkComponent

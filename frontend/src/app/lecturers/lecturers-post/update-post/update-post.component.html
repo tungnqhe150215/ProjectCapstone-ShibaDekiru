@@ -6,7 +6,7 @@
             <h3 class="text-center">Thông tin bài đăng</h3>
             <form (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label>Nội dung bài đăng</label>
+                    <label>Tiêu đề bài đăng</label>
                     <input type="text" class="form-control" id="content" name="content" [(ngModel)]="post.postContent">
                     <label class="m-2">Trạng thái</label>
                     <input type="radio" [value]="true" name="isEnabled" id="status" [checked]="post.isEnabled"

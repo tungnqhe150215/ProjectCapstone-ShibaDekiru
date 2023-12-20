@@ -66,7 +66,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { UnthorizationComponent } from './unthorization/unthorization.component';
 import {SharedModule} from "../shared/shared.module";
 import { NotFoundComponent } from './not-found/not-found.component';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -144,6 +144,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
         MatDialogModule,
         NgxPaginationModule,
         SharedModule,
+        MatCheckboxModule
     ]
 })
 export class HomeModule { }
