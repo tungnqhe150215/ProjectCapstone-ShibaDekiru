@@ -12,10 +12,14 @@
           <table mat-table [dataSource]="dataSource" matSort>
 
               <!-- ID Column -->
-              <ng-container matColumnDef="id">
+              <!-- <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
                   <td  (click)="vocabDetail(row.vocabularyId)" style="cursor: pointer" mat-cell *matCellDef="let row"> {{row.vocabularyId}} </td>
-              </ng-container>
+              </ng-container> -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
+                <td  mat-cell *matCellDef="let i =index"> {{i+1}} </td>
+            </ng-container>
 
               <!-- Progress Column -->
               <ng-container matColumnDef="name">
