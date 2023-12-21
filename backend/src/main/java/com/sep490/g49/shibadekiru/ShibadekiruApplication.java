@@ -50,7 +50,7 @@ public class ShibadekiruApplication {
             if (count == 0) {
                 jdbcTemplate.update("INSERT INTO user_account (`email`, `is_active`, `is_banned`, `is_created_by_admin`, `member_id`, `nick_name`, `password`, `username`, `role_id`) " +
                                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                        "shibadekiru.system@gmail.com", 1, 0, 1, "Admin", "Admin", ("123456"), "Admin", 1);
+                        "shibadekiru.system@gmail.com", 1, 0, 1, "Admin", "Admin", ("$2a$10$qKycHPxDfqRvg0tt45Y4UuvG8jvRB5wYKl8xOsqzNa3BJUwheyJnW"), "Admin", 1);
 
             }
         };
