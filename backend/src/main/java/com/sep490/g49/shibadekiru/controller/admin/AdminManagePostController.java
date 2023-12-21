@@ -3,6 +3,7 @@ package com.sep490.g49.shibadekiru.controller.admin;
 import com.sep490.g49.shibadekiru.dto.LecturesDto;
 import com.sep490.g49.shibadekiru.dto.PostDto;
 import com.sep490.g49.shibadekiru.entity.Post;
+import com.sep490.g49.shibadekiru.service.GoogleDriveService;
 import com.sep490.g49.shibadekiru.service.IPostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class AdminManagePostController {
     @Autowired
     private IPostService iPostService;
 
+    @Autowired
+    private GoogleDriveService googleDriveService;
+
     @GetMapping("/post")
     public List<PostDto> getAllPosts() {
         return iPostService.getAllPosts().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
@@ -38,7 +42,9 @@ public class AdminManagePostController {
     @GetMapping("/post/{id}")
     public ResponseEntity<PostDto> getPostById(@PathVariable (name = "id") Long postId) {
         Post post = iPostService.getPostById(postId);
-
+        if (post.getImage().length() > 0 && !post.getImage().equals("")) {
+            post.setImage(googleDriveService.getFileUrl(post.getImage()));
+        }
         // convert entity to DTO
         PostDto postResponse = modelMapper.map(post, PostDto.class);
 

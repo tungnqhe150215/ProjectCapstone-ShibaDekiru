@@ -31,13 +31,13 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef mat-sort-header > Action </th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="success" (click)="getListeningDetail(row.listeningId)">
+        <button mat-icon-button color="success" (click)="getListeningDetail(row.listeningId)" title="Cập nhật">
           <mat-icon>remove_red_eye</mat-icon>
         </button>
-        <button mat-icon-button color="primary" (click)="openUpdateListeningDialog(row.listeningId)">
+        <button mat-icon-button color="primary" (click)="openUpdateListeningDialog(row.listeningId)" title="Xem thông tin">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="openDeleteListeningDialog(row.listeningId)">
+        <button mat-icon-button color="warn" (click)="openDeleteListeningDialog(row.listeningId)" title="Xóa bài nghe">
           <mat-icon>remove_circle</mat-icon>
         </button>
       </td>

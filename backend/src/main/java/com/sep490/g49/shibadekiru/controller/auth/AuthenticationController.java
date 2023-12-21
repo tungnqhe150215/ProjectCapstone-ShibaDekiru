@@ -124,11 +124,10 @@ public class AuthenticationController {
             authResult.setUserId(userAccount.getUserAccountId());
             authResult.setIsCreatedByAdmin(userAccount.getIsCreatedByAdmin());
             authResult.setRole(userAccountDto.getRole());
-            authResult.setEmail(userAccountDto.getEmail());
             authResult.setNickName(userAccountDto.getNickName());
-            authResult.setMemberId(userAccount.getMemberId());
             return ResponseEntity.ok(authResult);
-        } else {
+        }
+        else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
@@ -161,8 +160,6 @@ public class AuthenticationController {
         Student studentRequest =  studentRepository.findById(userAccountId).orElseThrow();
         if (studentRequest.getAvatar().length() > 0 && !studentRequest.getAvatar().equals("")) {
             studentRequest.setAvatar(googleDriveService.getFileUrl(studentRequest.getAvatar()));
-        } else {
-            studentRequest.setAvatar(studentRequest.getAvatar());
         }
 
         StudentDto studentDto = modelMapper.map(studentRequest, StudentDto.class);
@@ -177,8 +174,6 @@ public class AuthenticationController {
         Lectures lecturesRequest =  lecturersRepository.findById(userAccountId).orElseThrow();
         if (lecturesRequest.getAvatar().length() > 0 && !lecturesRequest.getAvatar().equals(""))  {
             lecturesRequest.setAvatar(googleDriveService.getFileUrl(lecturesRequest.getAvatar()));
-        } else {
-            lecturesRequest.setAvatar(lecturesRequest.getAvatar());
         }
 
         LecturesDto lecturesDto = modelMapper.map(lecturesRequest, LecturesDto.class);

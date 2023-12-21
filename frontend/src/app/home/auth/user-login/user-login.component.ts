@@ -71,9 +71,10 @@ export class UserLoginComponent implements OnInit, AfterViewInit {
         this.notifiService.openSnackBar('Bạn nhập sai tài khoản hoặc mật khẩu. Vui lòng nhập lại!');
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
-        if (err.status === 403) {
-          this.notifiService.openSnackBar('Bạn nhập sai khoản hoặc mật khẩu. Vui lòng nhập lại!')
+        if (err.status === 401) {
+          this.notifiService.openSnackBar('Bạn nhập sai tài khoản hoặc mật khẩu. Vui lòng nhập lại!')
         }
+
       }
     })
   }

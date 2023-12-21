@@ -11,7 +11,7 @@
       <app-file-preview></app-file-preview>
     </div>
     <br>
-    <img *ngIf="!this.file && kaiwa.link !== '' && kaiwa.link !== null" src="{{kaiwa.link}}"
+    <img *ngIf="!this.file && kaiwa.link" src="{{kaiwa.link}}"
          alt="Đang load ảnh..."  style="width: 150px; height: 150px">
     <div class="form-group">
     <mat-form-field>

@@ -21,6 +21,7 @@ import {Drive} from "../../../core/models/drive";
 import {FileService} from "../../../shared/services/file.service";
 import {FilePreviewService} from "../../../shared/services/file-preview.service";
 import { NotificationService } from 'src/app/core/services/notification.service';
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
   selector: 'app-list-listening',
@@ -120,7 +121,7 @@ export class ListeningDeleteDialog {
     private manageListeningService:AdminManageListeningService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
-    private nofiService: NotificationService 
+    private nofiService: NotificationService
   ) {}
   deleteListening(id:number){
     this.manageListeningService.deleteListening(id).subscribe(data => {
@@ -157,7 +158,7 @@ export class ListeningCreateDialog {
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
-    private nofiService: NotificationService 
+    private nofiService: NotificationService
   ) {}
 
   createListening(){
@@ -212,7 +213,7 @@ export class ListeningCreateDialog {
   templateUrl: 'listening-update-dialog.html',
   styleUrls: ['./list-listening.component.css'],
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, SharedModule, NgIf],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, SharedModule, NgIf, MatCardModule],
 })
 export class ListeningUpdateDialog implements OnInit{
 
@@ -227,7 +228,7 @@ export class ListeningUpdateDialog implements OnInit{
     private filePreviewService: FilePreviewService,
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
-    private nofiService: NotificationService 
+    private nofiService: NotificationService
   ) {}
 
   ngOnInit(): void {

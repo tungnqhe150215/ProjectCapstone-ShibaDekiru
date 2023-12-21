@@ -71,7 +71,7 @@ public class PostServiceImpl implements IPostService {
         List<Post> modifiedPosts = postPage.getContent().stream()
 
                 .peek(data -> {
-                    if (data.getImage().length() > 0) {
+                    if (data.getImage().length() > 0 && !data.getImage().equals("")) {
                         data.setImage(googleDriveService.getFileUrl(data.getImage()));
                     }
 
@@ -91,8 +91,12 @@ public class PostServiceImpl implements IPostService {
                 .collect(Collectors.toList());
 
         if (!openPosts.isEmpty()) {
-            return openPosts.stream().peek(data ->
-                    data.setImage(googleDriveService.getFileUrl(data.getImage()))
+            return openPosts.stream().peek(data -> {
+                       if (data.getImage().length() > 0 && !data.getImage().equals("")) {
+                           data.setImage(googleDriveService.getFileUrl(data.getImage()));
+                       }
+                    }
+
             ).collect(Collectors.toList());
         } else {
             throw new ResourceNotFoundException("No open posts found.");
@@ -122,8 +126,6 @@ public class PostServiceImpl implements IPostService {
             return openPosts.stream().peek(data -> {
                 if (data.getImage().length() > 0 && !data.getImage().equals("")) {
                     data.setImage(googleDriveService.getFileUrl(data.getImage()));
-                } else {
-                    data.setImage(data.getImage());
                 }
             }).collect(Collectors.toList());
 
@@ -194,10 +196,9 @@ public class PostServiceImpl implements IPostService {
 
         if (post.getImage() != null) {
             googleDriveService.deleteFile(post.getImage());
+            postRepository.delete(post);
             System.out.println("Đã vào đây.");
         }
-
-        postRepository.delete(post);
 
     }
 

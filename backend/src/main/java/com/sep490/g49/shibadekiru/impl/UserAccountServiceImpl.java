@@ -135,10 +135,10 @@ public class UserAccountServiceImpl implements IUserAccountService {
         String subject = "Đây là tài khoản đăng nhập của bạn";
         String content = "<p>Xin chào,</p>"
                 + "<p>Đây là tài khoản đăng nhập của bạn</p>"
-                + "<p>Xin vui lòng không chia sẻ cho bất kỳ ai.</p>"
                 + "<p>Tài khoản: "+ email + "</p>"
                 + "<p>Mật khẩu: "+ password +"</p>"
-                + "<br>";
+                + "<br>"
+                + "<p>Xin vui lòng không chia sẻ thông tin này cho bất kỳ ai.</p>";
         mailServiceProvider.sendEmail(recipientEmail, subject, content);
     }
 
@@ -182,7 +182,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
             userAccount1.setIsBanned(userAccount.getIsBanned());
             userAccount1.setIsActive(true);
             userAccount1.setIsCreatedByAdmin(true);
-            userAccount1.setRole(userAccount.getRole());
+
 
             return userAccountRepository.save(userAccount1);
         } else {

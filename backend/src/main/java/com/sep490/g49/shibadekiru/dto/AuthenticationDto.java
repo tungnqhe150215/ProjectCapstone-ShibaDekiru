@@ -16,15 +16,9 @@ public class AuthenticationDto {
     private String accessToken;
     @JsonProperty("refresh_token")
     private String refreshToken;
-
     private Long userAccountId;
     private Long userId;
-
     private String nickName;
-
-    private String email;
-    private String memberId;
     private Boolean isCreatedByAdmin;
-
     private Role role;
 }

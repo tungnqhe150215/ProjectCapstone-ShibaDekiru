@@ -3,8 +3,8 @@
 <div class="container w-80">
     <form (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label>User Name</label>
-            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="userAccount.userName"
+            <label>Nick Name</label>
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="userAccount.nickName"
                 [ngModelOptions]="{standalone: true}">
             <label class="m-2">Trạng thái: </label>
             <input type="radio" [(ngModel)]="userAccount.isBanned" [value]="true" name="banned"
@@ -32,14 +32,14 @@
             [ngModelOptions]="{standalone: true}"> -->
         </div>
 
-        <div class="form-group">
-            <label>Nick Name</label>
-            <input type="text" class="form-control" id="nickname" name="nickname" [(ngModel)]="userAccount.nickName"
-                [ngModelOptions]="{standalone: true}">
-            <!-- <label>Reset Code</label>
-        <input type="text" class="form-control" id="resetcode" name="resetcode" [(ngModel)]="userAccount.resetCode"
-            [ngModelOptions]="{standalone: true}"> -->
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label>Nick Name</label>-->
+<!--            <input type="text" class="form-control" id="nickname" name="nickname" [(ngModel)]="userAccount.nickName"-->
+<!--                [ngModelOptions]="{standalone: true}">-->
+<!--            &lt;!&ndash; <label>Reset Code</label>-->
+<!--        <input type="text" class="form-control" id="resetcode" name="resetcode" [(ngModel)]="userAccount.resetCode"-->
+<!--            [ngModelOptions]="{standalone: true}"> &ndash;&gt;-->
+<!--        </div>-->
         <div class="form-group mt-2 mb-2">
             <label>Role</label>
             <select name="role" id="role" class="form-control" [(ngModel)]="userAccount.role.roleId" readonly>

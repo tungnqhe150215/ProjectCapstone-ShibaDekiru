@@ -43,11 +43,11 @@ public class AdminManageBookController {
     @GetMapping("/book/{id}")
     public ResponseEntity<BookDto> getBookById(@PathVariable (name = "id") Long bookId) {
         Book book = iBookService.getBookById(bookId);
-
-        book.setImage(googleDriveService.getFileUrl(book.getImage()));
+        if (book.getImage().length() > 0 && !book.getImage().equals("")) {
+            book.setImage(googleDriveService.getFileUrl(book.getImage()));
+        }
 
         BookDto bookResponse = modelMapper.map(book, BookDto.class);
-
 
         return ResponseEntity.ok().body(bookResponse);
     }

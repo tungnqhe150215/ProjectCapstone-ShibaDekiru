@@ -2,3 +2,8 @@
     width: 700px;
     height: 450px;
   }
+
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -25,7 +25,11 @@ public class BookServiceImpl implements IBookService {
     public List<Book> getAllBooks() {
 
         return bookRepository.findAll().stream().peek(data ->
-                data.setImage(googleDriveService.getFileUrl(data.getImage()))
+                {
+                    if (data.getImage().length() > 0 && !data.getImage().equals("")) {
+                        data.setImage(googleDriveService.getFileUrl(data.getImage()));
+                    }
+                }
         ).collect(Collectors.toList());
     }
 

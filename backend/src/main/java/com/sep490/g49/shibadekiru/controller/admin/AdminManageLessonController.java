@@ -51,8 +51,9 @@ public class AdminManageLessonController {
     @GetMapping("/book/lesson/{lessonId}")
     public ResponseEntity<LessonDto> getLessonById(@PathVariable (name = "lessonId") Long lessonId) {
         Lesson lesson = iLessonService.getLessonById(lessonId);
-
-        lesson.setImage(googleDriveService.getFileUrl(lesson.getImage()));
+        if (lesson.getImage().length() > 0 && ! lesson.getImage().equals("")) {
+            lesson.setImage(googleDriveService.getFileUrl(lesson.getImage()));
+        }
 
         // convert entity to DTO
         LessonDto lessonResponse = modelMapper.map(lesson, LessonDto.class);

@@ -44,7 +44,9 @@ public class AdminManageKaiwaController {
     @GetMapping("/kaiwa/{id}")
     public ResponseEntity<KaiwaDto> getKaiwaById(@PathVariable(name = "id") Long id) {
         Kaiwa kaiwa = iKaiwaService.getKaiwaById(id);
-        kaiwa.setLink(googleDriveService.getFileUrl(kaiwa.getLink()));
+        if (kaiwa.getLink().length() > 0 && !kaiwa.getLink().equals("")) {
+            kaiwa.setLink(googleDriveService.getFileUrl(kaiwa.getLink()));
+        }
         // convert entity to DTO
         KaiwaDto kaiwaResponse = map.map(kaiwa, KaiwaDto.class);
 

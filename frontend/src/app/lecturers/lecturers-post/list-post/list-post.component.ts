@@ -51,7 +51,7 @@ export class ListPostComponent implements OnInit {
    nickName!:string;
   ngOnInit(): void {
     // this.GetPost();
-    
+
     this.getPostbyUser();
 
   }
@@ -65,7 +65,7 @@ export class ListPostComponent implements OnInit {
     }
   }
 
- 
+
   getPostbyUser() {
     this.currentUser = this.storageService.getUser();
     this.nickName = this.currentUser.nickName;
@@ -104,7 +104,9 @@ export class ListPostComponent implements OnInit {
   openDeletePostDialog(id:number){
     this.dialog.open(DeletePostComponent,{
       data:id
-    }).afterClosed().subscribe( () => this.getPostbyUser())
+    }).afterClosed().subscribe( () => {
+      this.getPostbyUser();
+    } )
   }
 
   addData() {
@@ -116,6 +118,7 @@ export class ListPostComponent implements OnInit {
   postDetail(id: number) {
     this.router.navigate(['/lecturer/post/post-detail', id]);
   }
+
 
   updatePost(id: number) {
     this.router.navigate(['/lecturer/post/update-post', id]);

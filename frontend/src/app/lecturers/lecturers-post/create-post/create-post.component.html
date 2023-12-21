@@ -20,9 +20,6 @@
 
     <br>
     <div class="form-group">
-      <!-- <label class="mr-2" >Lecture</label> -->
-      <!-- Lỗi ở đây không lấy được ID của Lecturers -->
-      <!-- <input type="text" class="form-control" id="lectureId" name="lectureId" [(ngModel)] = "post.LecturesDto" [ngModelOptions]="{standalone: true}" > -->
       <mat-form-field>
         <mat-label>Chọn tệp ảnh</mat-label>
         <input matInput readonly type="text" id="fakeFileInput" (click)="hiddenInput.click()">
@@ -32,12 +29,9 @@
     </div>
     <div class="form-group">
       <label for="description">Nội dung bài đăng</label>
-      <!-- <input type="text" class="form-control" id="description" name="description" [(ngModel)] = "post.description" [ngModelOptions]="{standalone: true}" required>  -->
       <textarea class="form-control" id="description" rows="10" name="description" [(ngModel)]="post.description"
                 [ngModelOptions]="{standalone: true}" placeholder="Nhập nội dung bài đăng"> </textarea>
-      <!-- <label>Content</label>
-      <input type="text" class="form-control" id="content" name="content" [(ngModel)] = "post.content" [ngModelOptions]="{standalone: true}"> -->
     </div>
-    <button class="btn btn-success mt-3" type="submit" (click)="addPost()">Lưu</button>
+    <button class="btn btn-success mt-3 mb-3 text-center" type="submit" (click)="addPost()" [disabled]="saveInProgress">Lưu</button>
   </form>
 </div>

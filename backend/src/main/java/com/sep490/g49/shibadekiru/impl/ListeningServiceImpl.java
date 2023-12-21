@@ -23,7 +23,12 @@ public class ListeningServiceImpl implements IListeningService {
     @Override
     public List<Listening> getListeningPartByLesson(Lesson lesson) {
         return listeningRepository.findListeningsByLesson(lesson).stream().peek(data ->
-                data.setLink(googleDriveService.getFileUrl(data.getLink()))
+                {
+                    if (data.getLink().length() > 0 && !data.getLink().equals("")){
+                        data.setLink(googleDriveService.getFileUrl(data.getLink()));
+                    }
+                }
+
         ).collect(Collectors.toList());
     }
 
