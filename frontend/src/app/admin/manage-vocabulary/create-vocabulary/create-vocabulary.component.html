@@ -35,7 +35,7 @@
             <!-- <input type="text" class="form-control" id="lessonId" [(ngModel)]="vocabulary.lessonId" name="lessonId" /> -->
             <select class="form-control" [(ngModel)]="vocabulary.lessonId"  id="lessonId" name="lessonId">
                 <option *ngFor="let lesson of lesson" [ngValue]="lesson.lessonId">
-                    {{lesson.name}}
+                    {{lesson.name}}-{{lesson.content}}
                 </option>
             </select>
         </div>
