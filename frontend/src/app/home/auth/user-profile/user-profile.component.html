@@ -31,7 +31,7 @@
                        alt="Avatar Mặc Định" style="width: 90px; height: 90px" readonly>
 
                 </div>
-                <div *ngIf="student.avatar !== null && student.avatar !== '' ">
+                <div *ngIf="student.avatar">
                   <img src="{{student.avatar}}"
                        alt="Đang load ảnh..." style="width: 90px; height: 90px" readonly>
                 </div>
@@ -119,7 +119,7 @@
                   </button>
                   <mat-error *ngIf="newpassword.hasError('required')">Mật khẩu mới không đợi để trống</mat-error>
                   <mat-error *ngIf="newpassword.hasError('minlength')">Mật khẩu phải ít nhất 6 ký tự</mat-error>
-                  
+
                 </mat-form-field>
                 <br>
                 <mat-form-field appearance="outline" style="width: 350px;">
@@ -165,13 +165,13 @@
                         <div class="text-light small mt-1">Chấp nhận JPG, JPEG or PNG. Dung lượng tối đa 800K</div>
                       </div>
                     </div>
-                    <div *ngIf="student.avatar !== null && student.avatar !== '' ">
+                    <div *ngIf="student.avatar">
                       <div *ngIf="this.file">
                         <h6>Xem trước</h6>
                         <app-file-preview></app-file-preview>
                       </div>
 
-                      <img *ngIf="!this.file" src="{{student.avatar}}"
+                      <img *ngIf="!this.file && student.avatar" src="{{student.avatar}}"
                            alt="Đang load ảnh..."  style="width: 90px; height: 90px">
                       <div class="media-body ml-4 mt-2 items-center">
                         <br>
@@ -229,7 +229,7 @@
                           </select>
                         </div>
                       </div>
-                   
+
 
                     <div class="form-group row">
                       <div class="col">
@@ -247,6 +247,7 @@
                   </div>
                   <div class="text-end mt-3 mb-3 mr-4">
                     <div *ngIf="currentUser.role.roleType === 'LECTURE' ">
+
                       <button type="button" class="btn btn-success" (click)="updateLecturersProfile()">Cập nhật</button>&nbsp;
                     </div>
                     <div *ngIf="currentUser.role.roleType === 'STUDENT' ">

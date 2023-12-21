@@ -13,8 +13,8 @@
                     style="width: 180px; border-radius: 10px;">
                 </div> -->
                 <div class="flex-grow-1 ms-3">
-                  <h5 class="mb-1">User name: {{userAccount.userName}}</h5>
-                  <p class="mb-2 pb-1" style="color: #2b2a2a;">Nick name: {{userAccount.nickName}}</p>
+                  <h5 class="mb-1">Nick name: {{userAccount.nickName}}</h5>
+<!--                  <p class="mb-2 pb-1" style="color: #2b2a2a;">Nick name: {{userAccount.nickName}}</p>-->
                   <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
                     style="background-color: #efefef;">
                     <div>
@@ -28,7 +28,7 @@
                     <div>
                       <p class="small text-muted mb-1 px-3">email</p>
                       <p class="mb-0 px-3">{{userAccount.email}}</p>
-                    </div>  
+                    </div>
                     <div>
                       <p class="small text-muted mb-1 px-3">memberId</p>
                       <p class="mb-0 px-3">{{userAccount.memberId}}</p>
@@ -39,7 +39,7 @@
                       <h6> <span *ngIf="userAccount.isBanned=== false" class="badge rounded-pill text-bg-success">Hoạt động</span></h6>
                       <h6> <span *ngIf="userAccount.isBanned === true" class="badge rounded-pill text-bg-danger">Banned</span></h6>
                     </div>
-                    
+
                   </div>
                   <!-- <div class="d-flex pt-1">
                     <button type="button" class="btn btn-outline-primary me-1 flex-grow-1">Chat</button>

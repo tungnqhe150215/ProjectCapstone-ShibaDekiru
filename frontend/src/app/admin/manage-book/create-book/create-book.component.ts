@@ -43,12 +43,8 @@ export class CreateBookComponent implements OnInit{
   // }
 
   createBook() {
-
-    this.fileService.uploadFile(this.file).subscribe(data => {
-      console.log(data)
-      this.drive = data as Drive
-      this.book.image = this.drive.fileId
-
+    if (this.file == null || this.file.size == 0) {
+      this.book.image = "";
       this.bookService.createBook(this.book).subscribe({
         next: (data) => {
           console.log(data);
@@ -59,8 +55,27 @@ export class CreateBookComponent implements OnInit{
           console.error(err);
           this.nofiService.openSnackBar('Tạo sách thất bại vui lòng kiểm tra lại!');
         },
-      });
-    })
+      })
+    } else {
+      this.fileService.uploadFile(this.file).subscribe(data => {
+        console.log(data)
+        this.drive = data as Drive
+        this.book.image = this.drive.fileId
+
+        this.bookService.createBook(this.book).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.nofiService.openSnackBar('Tạo sách thành công');
+            this.dialogRef.close();
+          },
+          error: (err) => {
+            console.error(err);
+            this.nofiService.openSnackBar('Tạo sách thất bại vui lòng kiểm tra lại!');
+          },
+        })
+      })
+    }
+
 
   }
 

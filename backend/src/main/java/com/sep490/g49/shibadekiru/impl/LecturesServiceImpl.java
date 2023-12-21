@@ -59,11 +59,9 @@ public class LecturesServiceImpl implements ILecturesService {
             throw new ResourceNotFoundException("Lecture not found with id: " +  lectureId);
         }
 
-        if (lectures.getAvatar().length() >0) {
+        if (lectures.getAvatar().length() >0 && !lectures.getAvatar().equals("")) {
             lectures.setAvatar(googleDriveService.getFileUrl(lectures.getAvatar()));
             System.out.println("Đây là ảnh trong lecture: " + lectures.getAvatar());
-        } else {
-            lectures.setAvatar("");
         }
         return lectures;
     }

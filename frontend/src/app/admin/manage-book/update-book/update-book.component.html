@@ -17,7 +17,7 @@
       <app-file-preview></app-file-preview>
     </div>
     <br>
-    <img *ngIf="!this.file" src="{{book.image}}"
+    <img *ngIf="!this.file && book.image" src="{{book.image}}"
          alt="Đang load ảnh..."  style="width: 150px; height: 150px">
     <div class="form-group">
       <mat-form-field>

@@ -251,6 +251,7 @@ export class UserProfileComponent implements OnInit {
   }
 
 
+
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     var element = document.getElementById("fakeFileInput") as HTMLInputElement | null;

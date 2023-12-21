@@ -44,7 +44,9 @@ public class LectureManagePostController {
     @GetMapping("/post/{id}")
     public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") Long postId) {
         Post post = iPostService.getPostById(postId);
-        post.setImage(googleDriveService.getFileUrl(post.getImage()));
+        if (post.getImage().length() > 0 && !post.getImage().equals("")) {
+            post.setImage(googleDriveService.getFileUrl(post.getImage()));
+        }
         // convert entity to DTO
         PostDto postResponse = modelMapper.map(post, PostDto.class);
 

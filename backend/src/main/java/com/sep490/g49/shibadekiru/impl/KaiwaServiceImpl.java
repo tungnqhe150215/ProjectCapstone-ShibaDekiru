@@ -23,7 +23,12 @@ public class KaiwaServiceImpl implements IKaiwaService {
     @Override
     public List<Kaiwa> getKaiwaPartByLesson(Lesson lesson) {
         return kaiwaRepository.findKaiwasByLesson(lesson).stream().peek(data ->
-                data.setLink(googleDriveService.getFileUrl(data.getLink()))
+                {
+                    if (data.getLink().length() > 0 && !data.getLink().equals("")) {
+                        data.setLink(googleDriveService.getFileUrl(data.getLink()));
+                    }
+                }
+
         ).collect(Collectors.toList());
     }
 

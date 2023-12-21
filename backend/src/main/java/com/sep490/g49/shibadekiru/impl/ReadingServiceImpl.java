@@ -25,7 +25,11 @@ public class ReadingServiceImpl implements IReadingService {
     @Override
     public List<Reading> getReadingPartByLesson(Lesson lesson) {
         return readingRepository.findReadingsByLesson(lesson).stream().peek(data ->
-                data.setImage(googleDriveService.getFileUrl(data.getImage()))
+                {
+                    if (data.getImage().length() > 0 && !data.getImage().equals("")) {
+                        data.setImage(googleDriveService.getFileUrl(data.getImage()));
+                    }
+                }
         ).collect(Collectors.toList());
     }
 
@@ -73,7 +77,12 @@ public class ReadingServiceImpl implements IReadingService {
     @Override
     public List<Reading> getAllReadingByLesson(Lesson lesson) {
         return readingRepository.findReadingByLesson(lesson).stream().peek(data ->
-                data.setImage(googleDriveService.getFileUrl(data.getImage()))
+                {
+                    if (data.getImage().length() > 0 && !data.getImage().equals("")){
+                        data.setImage(googleDriveService.getFileUrl(data.getImage()));
+                    }
+                }
+
         ).collect(Collectors.toList());
     }
 }

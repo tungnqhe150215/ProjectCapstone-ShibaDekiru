@@ -23,8 +23,7 @@
                 <label>Ảnh</label>
                 <div class="form-group">
 
-                    <!-- Sử dụng *ngIf để kiểm tra xem có ảnh mới hay không -->
-                    <img *ngIf="!this.file" style="width: 150px; height: 150px" src="{{post.image}}">
+                    <img *ngIf="!this.file && post.image" style="width: 150px; height: 150px" src="{{post.image}}">
 
                 </div>
 
@@ -43,7 +42,8 @@
                     <textarea type="text" class="form-control" rows="8" id="description" name="description"
                         [(ngModel)]="post.description"></textarea>
                 </div>
-                <button class="btn btn-success mt-2" style="margin-left:40%;" type="submit">Cập nhật</button>
+                <button class="btn btn-info mt-2" style="margin-left:30%;" type="button" (click)="gotoPostList()">Cancel</button>
+                <button class="btn btn-success mt-2" style="" type="submit">Cập nhật</button>
             </form>
         </div>
     </div>

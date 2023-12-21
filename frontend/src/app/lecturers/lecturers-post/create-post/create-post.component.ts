@@ -22,6 +22,7 @@ export class CreatePostComponent implements OnInit{
   currentUser: any;
   file!: File ;
   drive: Drive = new Drive();
+  saveInProgress: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<CreatePostComponent>,
@@ -42,29 +43,70 @@ export class CreatePostComponent implements OnInit{
 
   addPost(){
 
-    if (this.file == null || this.file.size == 0) {
-      this.post.image = "";
+    // if (!this.file || this.file.size == 0) {
+    //   this.post.image = "";
+    //   this.currentUser = this.storageService.getUser();
+    //   this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data =>{
+    //     console.log(data);
+    //     this.dialogRef.close();
+    //     this.nofiService.openSnackBar('Tạo bài viết thành công');
+    //   })
+    // }
+    //
+    // else {
+    //   this.fileService.uploadFile(this.file).subscribe(data => {
+    //     this.drive = data as Drive
+    //       this.post.image = this.drive.fileId
+    //       this.currentUser = this.storageService.getUser();
+    //       this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data =>{
+    //           console.log(data);
+    //           this.dialogRef.close();
+    //           this.nofiService.openSnackBar('Tạo bài viết thành công');
+    //       })
+    //   })
+    // }
+
+    if (this.saveInProgress) {
+      return;
+    }
+
+    this.saveInProgress = true;
+
+    if (!this.file || this.file.size === 0) {
+      this.handleNoImagePost();
+    } else {
+      this.handlePostWithImage();
+    }
+
+  }
+
+  handleNoImagePost() {
+    this.post.image = '';
+    this.currentUser = this.storageService.getUser();
+    this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data => {
+      console.log(data);
+      this.resetSaveState();
+      this.dialogRef.close();
+      this.nofiService.openSnackBar('Tạo bài viết thành công');
+    });
+  }
+
+  handlePostWithImage() {
+    this.fileService.uploadFile(this.file).subscribe(data => {
+      this.drive = data as Drive;
+      this.post.image = this.drive.fileId;
       this.currentUser = this.storageService.getUser();
-      this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data =>{
+      this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data => {
         console.log(data);
-        this.nofiService.openSnackBar('Tạo bài viết thành công');
+        this.resetSaveState();
         this.dialogRef.close();
-      })
-    }
+        this.nofiService.openSnackBar('Tạo bài viết thành công');
+      });
+    });
+  }
 
-    else {
-      this.fileService.uploadFile(this.file).subscribe(data => {
-        this.drive = data as Drive
-          this.post.image = this.drive.fileId
-          this.currentUser = this.storageService.getUser();
-          this.lecpostServive.addPost(this.currentUser.userAccountId, this.post).subscribe(data =>{
-              console.log(data);
-              this.nofiService.openSnackBar('Tạo bài viết thành công');
-              this.dialogRef.close();
-          })
-      })
-    }
-
+  resetSaveState() {
+    this.saveInProgress = false;
   }
 
 

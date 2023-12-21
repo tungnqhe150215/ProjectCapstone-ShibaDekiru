@@ -9,7 +9,7 @@
   </mat-card-header>
   <mat-card-content>
     <div>
-      <audio controls src="{{listening.link}}" type="audio/*">
+      <audio controls *ngIf="listening.link" src="{{listening.link}}" type="audio/*">
         Your browser does not support the audio element.
       </audio>
       <h5 class="text-center">Script</h5>

@@ -49,8 +49,9 @@ public class AdminManageListeningController {
     @GetMapping("/listening/{id}")
     public ResponseEntity<ListeningDto> getListeningById(@PathVariable(name = "id") Long id) {
         Listening listening = iListeningService.getListeningById(id);
-
-        listening.setLink(googleDriveService.getFileUrl(listening.getLink()));
+        if (listening.getLink().length() > 0 && !listening.getLink().equals("")){
+            listening.setLink(googleDriveService.getFileUrl(listening.getLink()));
+        }
         // convert entity to DTO
         ListeningDto listeningResponse = map.map(listening, ListeningDto.class);
 
