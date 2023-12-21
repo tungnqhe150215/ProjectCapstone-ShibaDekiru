@@ -33,7 +33,7 @@ export class ClassBoardComponent implements OnInit{
   getData(){
     const user = this.sessionStorage.getJsonData('auth-user')
     this.classId = this.route.snapshot.params['id'];
-    this.classwork.getStudentClassworkByCLassAndStudent(this.classId,user.userAccountId).subscribe(data => {
+    this.classwork.getStudentClassworkByCLassAndStudent(user.userAccountId,this.classId).subscribe(data => {
       this.studentClasswork = data
       console.log(this.studentClasswork)
     })
