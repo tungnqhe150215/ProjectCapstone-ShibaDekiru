@@ -104,6 +104,7 @@ class PostServiceImplTest {
         // Arrange
         Long postId = 1L;
         PostDto updatedPostDto = new PostDto();
+        updatedPostDto.setImage("");
         Optional<Post> existingPost = Optional.of(new Post());
         when(postRepository.findById(postId)).thenReturn(existingPost);
         when(postRepository.save(any())).thenReturn(existingPost.get());
@@ -133,6 +134,8 @@ class PostServiceImplTest {
         // Arrange
         Long postId = 1L;
         Post existingPost = new Post();
+
+        existingPost.setPostId(1L);
         when(postRepository.findById(postId)).thenReturn(Optional.of(existingPost));
 
         // Act

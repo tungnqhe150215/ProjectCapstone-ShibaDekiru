@@ -71,13 +71,15 @@ class ReadingServiceImplTest {
     void updateReading() {
         Long readingId = 1L;
         Reading updatedReading = new Reading();
-
+        updatedReading.setImage("");
         // Mocking the behavior of readingRepository.findReadingByReadingId() method
         Reading existingReading = new Reading();
+        existingReading.setImage("");
         when(readingRepository.findReadingByReadingId(readingId)).thenReturn(existingReading);
 
         // Mocking the behavior of readingRepository.save() method
         Reading savedReading = new Reading();
+        savedReading.setImage("");
         when(readingRepository.save(any(Reading.class))).thenReturn(savedReading);
 
         Reading result = readingService.updateReading(readingId, updatedReading);

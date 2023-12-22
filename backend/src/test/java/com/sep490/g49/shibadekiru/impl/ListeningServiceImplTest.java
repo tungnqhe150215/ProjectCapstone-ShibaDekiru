@@ -33,8 +33,12 @@ class ListeningServiceImplTest {
         // Arrange
         Lesson lesson = new Lesson();
         List<Listening> listenings = new ArrayList<>();
-        listenings.add(new Listening());
-        listenings.add(new Listening());
+        Listening array1 = new Listening();
+        array1.setLink("");
+        Listening array2 = new Listening();
+        array2.setLink("");
+        listenings.add(array1);
+        listenings.add(array2);
         when(listeningRepository.findListeningsByLesson(lesson)).thenReturn(listenings);
 
         // Act
@@ -80,6 +84,7 @@ class ListeningServiceImplTest {
         Long listeningId = 1L;
         Listening existingListening = new Listening();
         Listening updatedListening = new Listening();
+        updatedListening.setLink("");
         updatedListening.setTitle("Updated Title");
 
         when(listeningRepository.findListeningByListeningId(listeningId)).thenReturn(existingListening);

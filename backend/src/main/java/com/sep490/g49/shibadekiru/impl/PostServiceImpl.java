@@ -196,10 +196,10 @@ public class PostServiceImpl implements IPostService {
 
         if (post.getImage() != null) {
             googleDriveService.deleteFile(post.getImage());
-            postRepository.delete(post);
+
             System.out.println("Đã vào đây.");
         }
-
+        postRepository.delete(post);
     }
 
     @Override
