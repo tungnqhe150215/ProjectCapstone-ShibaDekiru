@@ -27,6 +27,15 @@
       </div>
       <div class="card-body">
         <div class="card-body">
+          <div class="row mb-4">
+            <div class="col-9">
+                <h5>Chủ đề:</h5>
+                <span class="card-subtitle">{{classWork.name}}</span>
+            </div>
+            <div class="col-3 mb-2 mt-1 float-left">
+              <button appBackButton class="btn btn-outline-success">Quay lại</button>
+            </div>
+          </div>
           <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort>
               <!-- ID Column -->
@@ -44,7 +53,17 @@
               <!-- Name Column -->
               <ng-container matColumnDef="submitTime">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Thời gian nộp</th>
-                <td mat-cell *matCellDef="let row"> {{row.submitTime | date:"dd - MM - yyyy "}} </td>
+                <td mat-cell *matCellDef="let row"> {{row.submitTime | date:"dd - MM - yyyy hh:mm:ss"}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="isGraded">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tình trạng chấm</th>
+                <td mat-cell *matCellDef="let row">
+                  <h6><span *ngIf="row.isGraded" class="badge rounded-pill text-bg-success">Đã chấm</span>
+                  </h6>
+                  <h6><span *ngIf="!row.isGraded" class="badge rounded-pill text-bg-danger">Chưa chấm</span>
+                  </h6>
+                </td>
               </ng-container>
 
               <!-- Fruit Column -->
@@ -66,7 +85,7 @@
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Xem bài tập</th>
                 <td mat-cell *matCellDef="let row">
-                  <button (click)="openStudentClassWork(row.student.studentId)" label="xem và chấm điểm" mat-icon-button>
+                  <button (click)="openStudentClassWork(row.student.studentId)" title="xem và chấm điểm" mat-icon-button>
                     <mat-icon>remove_red_eye</mat-icon>
                   </button>
                 </td>

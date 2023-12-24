@@ -75,6 +75,7 @@ public class StudentClassworkController {
 
     @GetMapping("/classwork/result")
     public StudentClassWorkDto getStudentClassworkByClassworkAndStudent(@RequestParam("studentId") Long studentId, @RequestParam("classworkId") Long classworkId) {
+        System.out.println("stu" + studentId + "cla" + classworkId);
         StudentClassWorkDto studentClassWorkDto = mapper.map(iStudentClassWorkService.getStudentClassWorkByClassWorkAndStudent(classworkId, studentId), StudentClassWorkDto.class);
         return studentClassWorkDto;
     }

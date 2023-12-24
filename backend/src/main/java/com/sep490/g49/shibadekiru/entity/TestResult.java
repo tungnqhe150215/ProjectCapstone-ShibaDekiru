@@ -37,4 +37,9 @@ public class TestResult implements Serializable {
     @JsonBackReference
     @JoinColumn(name = "section_id", referencedColumnName = "section_id")
     private TestSection testSection;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "test_assign_id", referencedColumnName = "id")
+    private ClassTestAssign classTestAssign;
 }

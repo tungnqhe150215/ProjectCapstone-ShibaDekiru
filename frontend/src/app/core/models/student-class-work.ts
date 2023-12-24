@@ -7,4 +7,5 @@ export class StudentClassWork {
     classWork!:ClassWork
     result!:number
     submitTime!:Date
+    isGraded!:boolean
 }

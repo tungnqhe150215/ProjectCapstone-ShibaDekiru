@@ -7,6 +7,5 @@
     <mat-form-field>
       <input matInput type="text" [ngModel]="getAnswerByWritingQuizId(question.writingQuizId).userAnswer"  (ngModelChange)="onAnswerChange($event, question.writingQuizId)">
     </mat-form-field>
-    <p>{{getAnswerByWritingQuizId(question.writingQuizId).userAnswer}} + answer</p>
   </div>
 </div>

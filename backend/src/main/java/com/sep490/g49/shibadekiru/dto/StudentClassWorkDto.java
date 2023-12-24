@@ -14,6 +14,7 @@ public class StudentClassWorkDto {
     private Long studentClassWorkId;
     private Double result;
     private LocalDateTime submitTime;
+    private Boolean isGraded;
     private StudentDto student;
     private ClassWorkDto classWork;
 
