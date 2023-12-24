@@ -8,13 +8,14 @@
                     <!-- <div class="col-lg-8 posts-list"> -->
                     <div class="single-post row">
                         <div class="col-lg-12">
+                            <button appBackButton class="btn btn-outline-success">Quay lại</button>  
                           <div *ngIf="post.image">
                             <div class="feature-img" style="text-align: center">
-                                <img class="img-fluid" src="{{post.image}}" alt="">
+                                <img  height="200px" width="400px" src="{{post.image}}" alt="">
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-3  col-md-3">
+                        <div class="col-lg-3  col-md-3" style="border-radius: 1px;">
                             <div class="blog_info text-right">
                                 <ul class="blog_meta list" >
                                     <!-- <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li> -->
