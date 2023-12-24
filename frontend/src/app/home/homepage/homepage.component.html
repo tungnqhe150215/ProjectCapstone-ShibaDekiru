@@ -7,7 +7,7 @@
         <h3 class=" font-bold text-gradient" style=" font-family: 'MS Gothic'">あきらめないことだ。</h3>
         <h3 class=" font-bold text-gradient" style=" font-family: 'MS Gothic'">一度あきらめると習慣になる</h3>
         <p>Đừng bỏ cuộc. Một khi bạn từ bỏ điều đó sẽ trở thành thói quen.</p>
-        <a class="main_btn" routerLink="/lesson">Bắt đầu thôi</a>
+        <a class="main_btn">Bắt đầu thôi</a>
       </div>
     </div>
   </div>
@@ -103,9 +103,9 @@
           <br>
           <a class="date" style="cursor: pointer;" (click)="PostDetail(post.postId)">Ngày đăng: {{post.createdAt | date:'dd/MM/yyyy'}} </a>
           <a (click)="PostDetail(post.postId)" style="cursor: pointer;">
-            <h5>{{post.postContent}}</h5>
+            <h5 style="max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" title="{{post.postContent}}">{{post.postContent}}</h5>
           </a>
-          <p>Bấm vào để xem thêm</p>
+          <a style="cursor: pointer;" (click)="PostDetail(post.postId)">Bấm vào để xem thêm</a>
         </div>
       </div>
       <!-- <div class="col-lg-3 col-md-6">

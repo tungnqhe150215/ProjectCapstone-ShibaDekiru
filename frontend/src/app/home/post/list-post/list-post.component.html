@@ -47,7 +47,7 @@
               <hr>
             </article>
 
-
+            <div *ngIf="post.length != 0">
             <div class="pagination">
               <button (click)="onPreviousPage()" [disabled]="currentPage === 0 || totalPages.length === 1" class="pagination-button">
                 Trước
@@ -62,7 +62,7 @@
               </button>
             </div>
             <hr>
-
+          </div>
 
             <!--                    <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
             <!-- <nav class="blog-pagination justify-content-center d-flex">
