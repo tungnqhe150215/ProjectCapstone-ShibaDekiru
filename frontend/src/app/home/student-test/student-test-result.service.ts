@@ -35,7 +35,7 @@ export class StudentTestResultService {
 
   getTestResultByStudentAndTestAssign(studentId: number,testAssignId: number): Observable<TestResult[]> {
     const params = new HttpParams().set('studentId', studentId).set('testAssignId',testAssignId);
-    return this.httpClient.get<TestResult[]>(`${this.baseUrl}/result`,{params: params});
+    return this.httpClient.get<TestResult[]>(`${this.baseUrl}/assign/result`,{params: params});
   }
 
   updateTestSection(id: number, testSection: TestSection): Observable<Object> {
