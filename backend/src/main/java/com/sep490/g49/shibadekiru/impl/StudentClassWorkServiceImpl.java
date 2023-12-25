@@ -49,7 +49,7 @@ public class StudentClassWorkServiceImpl implements IStudentClassWorkService {
     @Override
     public StudentClassWork updateStudentClassWork(StudentClassWork studentClassWorkRequest) {
         StudentClassWork studentClassWork = studentClassWorkRepository.findByStudentAndClassWork(studentClassWorkRequest.getStudent(),studentClassWorkRequest.getClassWork());
-        studentClassWork.setSubmitTime(LocalDateTime.now());
+        studentClassWork.setSubmitTime(studentClassWorkRequest.getSubmitTime());
         studentClassWork.setResult(studentClassWorkRequest.getResult());
         if (studentClassWork.getResult() != null) {
             studentClassWork.setIsGraded(true);

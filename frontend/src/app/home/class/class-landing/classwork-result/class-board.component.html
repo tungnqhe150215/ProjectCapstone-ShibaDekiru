@@ -1,14 +1,15 @@
 <div class="container mt-4">
-  <div class="card rounded cw-result m-3 justify-content-center" *ngFor="let studentClasswork of studentClasswork">
+  <div class="card rounded" *ngFor="let studentClasswork of studentClasswork">
       <div class="card-header">
         <h5 class="card-title text-center">{{studentClasswork.classWork.name}}</h5>
       </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-8 ">
-            <p> Trạng thái: </p>
-            <p style="color: red" *ngIf="studentClasswork.submitTime > studentClasswork.classWork.deadline">Nộp muộn</p>
-            <p style="color: green" *ngIf="studentClasswork.submitTime <= studentClasswork.classWork.deadline">Nộp đúng hạn</p>
+            <p> Trạng thái:
+            <span style="color: red" *ngIf="studentClasswork.submitTime > studentClasswork.classWork.deadline">Nộp muộn</span>
+            <span style="color: green" *ngIf="studentClasswork.submitTime <= studentClasswork.classWork.deadline">Nộp đúng hạn</span>
+            </p>
           </div>
           <div class="col-md-4 ">
             <h6>Điểm : {{studentClasswork.result}}</h6>

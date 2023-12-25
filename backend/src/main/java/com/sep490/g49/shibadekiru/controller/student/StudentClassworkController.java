@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -123,8 +124,11 @@ public class StudentClassworkController {
         StudentClassWork studentClassWork = new StudentClassWork();
 
         if (iStudentClassWorkService.checkStudentClassWorkExist(studentClassWorkRequest.getStudent(), studentClassWorkRequest.getClassWork())) {
+            studentClassWorkRequest.setSubmitTime(LocalDateTime.now());
+            studentClassWorkRequest.setResult(iStudentClassWorkService.getStudentClassWorkByClassWorkAndStudent(studentClassWorkRequest.getClassWork().getClassWorkId(),studentClassWorkRequest.getStudent().getStudentId()).getResult());
             studentClassWork = iStudentClassWorkService.updateStudentClassWork(studentClassWorkRequest);
         } else {
+            studentClassWork.setSubmitTime(LocalDateTime.now());
             studentClassWork = iStudentClassWorkService.createStudentClassWork(studentClassWorkRequest);
         }
         StudentClassWorkDto studentClassWorkResponse = mapper.map(studentClassWork, StudentClassWorkDto.class);
