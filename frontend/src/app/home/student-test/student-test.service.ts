@@ -46,7 +46,7 @@ export class StudentTestService {
   }
 
   getTestAssignByClassAndTest(classId:number,testId:number): Observable<TestAssign>{
-    const params = new HttpParams().set("classId", classId).set("testid",testId);
+    const params = new HttpParams().set("classId", classId).set("testId",testId);
     return this.httpClient.get<TestAssign>(`${this.baseUrl}/test/assign`,{params:params})
   }
 }

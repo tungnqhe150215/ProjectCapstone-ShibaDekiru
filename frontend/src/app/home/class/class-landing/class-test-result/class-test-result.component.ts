@@ -88,14 +88,12 @@ export class ClassTestResultComponent implements OnInit {
 
   displayResultForEachTestType(testId: number, type: string): { correctAnswer: number, numberOfQuestion: number } {
     const listResult = this.allTestResult.filter(value => value.testSection?.test.testId === testId && value.testSection.sectionType === type)
-    console.log(listResult)
     let correctAnswer = 0;
     let totalQuestion = 0;
     listResult.forEach(value => {
       totalQuestion += value.numberOfQuestion
       correctAnswer += value.result
     })
-    console.log(totalQuestion)
     return {correctAnswer: correctAnswer, numberOfQuestion: totalQuestion};
   }
 

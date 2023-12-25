@@ -45,4 +45,9 @@ export class StudentTestResultService {
   deleteTestSection(id: number): Observable<Object> {
     return this.httpClient.delete(`${this.baseUrl}/section/${id}`);
   }
+
+  deleteTestResult(studentId: number,testAssignId: number): Observable<Object>{
+    const params = new HttpParams().set('studentId', studentId).set('testAssignId',testAssignId);
+    return this.httpClient.delete(`${this.baseUrl}/result`,{params: params});
+  }
 }
