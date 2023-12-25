@@ -56,35 +56,7 @@ public class QuestionBankServiceImpl implements IQuestionBankService {
 
     @Override
     public QuestionBank createQuestion(QuestionBank questionBank) {
-
-        String question = questionBank.getQuestion();
-        String firstChoice = questionBank.getFirstChoice();
-        String secondChoice = questionBank.getSecondChoice();
-        String thirdChoice = questionBank.getThirdChoice();
-        String fourthChoice = questionBank.getFourthChoice();
-        String correctAnswer = questionBank.getCorrectAnswer();
-        Long sectionId = questionBank.getSection().getSectionId();
-
-        Optional<TestSection> testOptional = testSectionRepository.findById(sectionId);
-
-        if(testOptional.isPresent()) {
-
-            TestSection test = testOptional.get();
-            System.out.println("check section attach" + test.getSectionAttach());
-            QuestionBank questionBank1 = new QuestionBank();
-            questionBank1.setQuestion(question);
-            questionBank1.setFirstChoice(firstChoice);
-            questionBank1.setSecondChoice(secondChoice);
-            questionBank1.setThirdChoice(thirdChoice);
-            questionBank1.setFourthChoice(fourthChoice);
-            questionBank1.setCorrectAnswer(correctAnswer);
-            questionBank1.setSection(test);
-
-            return questionBankRepository.save(questionBank1);
-
-        } else {
-            throw new ResourceNotFoundException("Question Bank can't be added.");
-        }
+            return questionBankRepository.save(questionBank);
     }
 
     @Override
