@@ -11,22 +11,22 @@ import {StudentClassworkService} from "../class/student-classwork.service";
 })
 export class ClassworkAnswerService {
 
-  private writingAnswer: { [writingQuesitonId: number]: { userAnswer: string, exerciseId:number } } = {};
+  private writingAnswer: { [writingQuesitonId: number]: { userAnswer: string, exerciseId:number,comment:string, mark:number } } = {};
 
-  getAnswer(questionId: number): { userAnswer: string, exerciseId:number } {
-    return this.writingAnswer[questionId] || { userAnswer: '', exerciseId: null };
+  getAnswer(questionId: number): { userAnswer: string, exerciseId:number,comment:string, mark:number } {
+    return this.writingAnswer[questionId] || { userAnswer: '', exerciseId: null,comment:'',mark:0 };
   }
 
-  setAnswer(questionId: number, userAnswer: string, exerciseId:number): void {
-    this.writingAnswer[questionId] = { userAnswer,exerciseId };
+  setAnswer(questionId: number, userAnswer: string, exerciseId:number,comment:string,mark:number): void {
+    this.writingAnswer[questionId] = { userAnswer,exerciseId,comment,mark};
   }
 
-  getAllAnswersByExercise(exerciseId:number): { userAnswer: string, exerciseId:number }[] {
+  getAllAnswersByExercise(exerciseId:number): { userAnswer: string, exerciseId:number,comment:string, mark:number  }[] {
     return Object.values(this.writingAnswer).filter(answer => answer.exerciseId === exerciseId);
   }
 
 
-  getAllAnswers(): { userAnswer: string, exerciseId:number }[] {
+  getAllAnswers(): { userAnswer: string, exerciseId:number,comment:string, mark:number }[] {
     return Object.values(this.writingAnswer);
   }
 
@@ -45,7 +45,7 @@ export class ClassworkAnswerService {
     console.log(exerciseAnswer)
     exerciseAnswer.forEach(value => {
 
-      this.setAnswer(value.writingExercise.writingQuizId,value.answer,value.writingExercise.exercise.exerciseId)
+      this.setAnswer(value.writingExercise.writingQuizId,value.answer,value.writingExercise.exercise.exerciseId,value.comment || '',value.mark || 0)
       console.log(this.getAnswer(value.writingExercise.writingQuizId))
     })
   }
@@ -54,7 +54,7 @@ export class ClassworkAnswerService {
     writingQuestions.forEach((question) => {
       exercises.forEach(exercise => {
         if (question.exercise.exerciseId === exercise.exerciseId) {
-          this.setAnswer(question.writingQuizId, '', question.exercise.exerciseId as number);
+          this.setAnswer(question.writingQuizId, '', question.exercise.exerciseId as number,'',0);
           console.log(question.writingQuizId)
         }
       })

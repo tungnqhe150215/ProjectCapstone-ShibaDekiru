@@ -84,6 +84,8 @@ export class StudentClassworkComponent implements OnInit,OnDestroy{
     this.draftAnswer.student = this.student
     this.draftAnswer.writingExercise = data
     this.draftAnswer.answer = this.answer.getAnswer(data.writingQuizId).userAnswer;
+    this.draftAnswer.comment = this.answer.getAnswer(data.writingQuizId).comment;
+    this.draftAnswer.mark = this.answer.getAnswer(data.writingQuizId).mark;
     console.log(this.draftAnswer)
     this.classworkService.createWritingExerciseAnswer(this.draftAnswer).subscribe(data => {
       console.log(data)
