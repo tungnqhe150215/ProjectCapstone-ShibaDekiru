@@ -1,14 +1,8 @@
 package com.sep490.g49.shibadekiru.impl;
 
-import com.sep490.g49.shibadekiru.entity.Student;
-import com.sep490.g49.shibadekiru.entity.Test;
-import com.sep490.g49.shibadekiru.entity.TestResult;
-import com.sep490.g49.shibadekiru.entity.TestSection;
+import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
-import com.sep490.g49.shibadekiru.repository.StudentRepository;
-import com.sep490.g49.shibadekiru.repository.TestRepository;
-import com.sep490.g49.shibadekiru.repository.TestResultRepository;
-import com.sep490.g49.shibadekiru.repository.TestSectionRepository;
+import com.sep490.g49.shibadekiru.repository.*;
 import com.sep490.g49.shibadekiru.service.ITestResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +24,9 @@ public class TestResultServiceImpl implements ITestResultService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private ClassTestAssignRepository classTestAssignRepository;
 
     @Override
     public List<TestResult> getTestResultByTest(Test test) {
@@ -96,5 +93,21 @@ public class TestResultServiceImpl implements ITestResultService {
         if (testResultRepository.findTestResultsByStudentAndTestSection(student,testSection) != null)
             return true;
         else return false;
+    }
+
+    @Override
+    public List<TestResult> getTestResultByTestAssignAndStudent(Long testId, Long studentId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResourceNotFoundException("Not found data"));
+        ClassTestAssign classTestAssign = classTestAssignRepository.findById(testId).orElseThrow();
+        List<TestResult> testResults= new ArrayList<>();
+        testResults = testResultRepository.findTestResultsByStudentAndClassTestAssign(student,classTestAssign);
+        return testResults;
+    }
+
+    @Override
+    public List<TestResult> getTestResultByTestAssign(ClassTestAssign classTestAssign) {
+        List<TestResult> testResults = new ArrayList<>();
+        testResults = testResultRepository.findTestResultsByClassTestAssign(classTestAssign);
+        return testResults;
     }
 }

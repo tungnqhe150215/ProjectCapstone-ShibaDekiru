@@ -1,9 +1,6 @@
 package com.sep490.g49.shibadekiru.service;
 
-import com.sep490.g49.shibadekiru.entity.Student;
-import com.sep490.g49.shibadekiru.entity.Test;
-import com.sep490.g49.shibadekiru.entity.TestResult;
-import com.sep490.g49.shibadekiru.entity.TestSection;
+import com.sep490.g49.shibadekiru.entity.*;
 
 import java.util.List;
 
@@ -22,4 +19,8 @@ public interface ITestResultService {
     List<TestResult> getTestResultByTestAndStudent(Long testId, Long studentId);
 
     boolean checkTestResultExist(Student student, TestSection testSection);
+
+    List<TestResult> getTestResultByTestAssignAndStudent(Long testId, Long studentId);
+
+    List<TestResult> getTestResultByTestAssign(ClassTestAssign classTestAssign);
 }

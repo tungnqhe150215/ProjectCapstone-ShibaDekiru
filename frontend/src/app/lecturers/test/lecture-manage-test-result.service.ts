@@ -20,4 +20,7 @@ export class LectureManageTestResultService {
     return this.httpClient.get<TestResult[]>(`${this.baseUrl}/${id}/test-result`);
   }
 
+  getTestResultByTestAssign(id:number): Observable<TestResult[]>{
+    return this.httpClient.get<TestResult[]>(`${this.baseUrl}/assign/${id}/test-result`)
+  }
 }
