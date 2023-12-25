@@ -1,4 +1,4 @@
-<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Cập nhận phần đọc</h2>
+<h2 mat-dialog-title class="text-center border-bottom text-bg-info">Cập nhật phần đọc</h2>
 <mat-dialog-content>
   <form class="form-dialog">
     <mat-form-field>
@@ -33,6 +33,6 @@
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Bỏ</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" (click)="updateReading()">Cập nhật</button>
+  <button mat-button (click)="updateReading()">Cập nhật</button>
 </mat-dialog-actions>
 
