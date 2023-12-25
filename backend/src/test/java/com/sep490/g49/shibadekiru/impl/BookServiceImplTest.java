@@ -99,38 +99,15 @@ class BookServiceImplTest {
         verify(bookRepository, times(1)).save(book);
     }
 
-//    @Test
-//    void updateBook_existingBook() {
-//        // Create mock data
-//        Book existingBook = new Book();
-//        existingBook.setBookId(1L);
-//        existingBook.setName("Book 1");
-//        existingBook.setDescription("Description 1");
-//        existingBook.setImage("Image 1");
-//
-//        // Create the update book
-//        Book updatedBook = new Book();
-//        updatedBook.setName("Updated Book");
-//        updatedBook.setDescription("Updated Description");
-//        updatedBook.setImage("Updated Image");
-//
-//        // Set up mock behavior
-//        when(bookRepository.findById(1L)).thenReturn(Optional.of(existingBook));
-//        when(bookRepository.save(any(Book.class))).thenReturn(updatedBook);
-//
-//        // Call the service
-//        Book result = bookService.updateBook(1L, updatedBook);
-//
-//        // Verify the result
-//        assertNotNull(result);
-//        assertEquals("Updated Book", result.getName());
-//        assertEquals("Updated Description", result.getDescription());
-//        assertEquals("Updated Image", result.getImage());
-//
-//        // Verify that the findById and save methods are called once with the correct parameters
-//        verify(bookRepository, times(1)).findById(1L);
-//        verify(bookRepository, times(1)).save(existingBook);
-//    }
+    @Test
+    void updateBook_withInvalidBookId_shouldThrowException() {
+        // Arrange
+        long invalidBookId = 999L;
+        when(bookRepository.findById(invalidBookId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(ResourceNotFoundException.class, () -> bookService.updateBook(invalidBookId, new Book()));
+    }
 
     @Test
     void updateBook_nonExistingBook() {
