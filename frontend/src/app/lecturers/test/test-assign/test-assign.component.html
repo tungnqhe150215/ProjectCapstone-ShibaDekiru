@@ -8,9 +8,9 @@
       <div class="col-12 col-md-6 order-md-2 order-first">
         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item">Lecturer</li>
-            <li class="breadcrumb-item ">Test</li>
-            <li class="breadcrumb-item active" aria-current="page">Test Assign</li>
+            <li class="breadcrumb-item">Giảng Viên</li>
+            <li class="breadcrumb-item ">Bài kiểm tra</li>
+            <li class="breadcrumb-item active" aria-current="page">Đặt thời gian</li>
           </ol>
         </nav>
       </div>
@@ -63,7 +63,7 @@
                 <button (click)="openUpdateTestAssignDialog(row.id)" title="cập nhật" mat-icon-button>
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button (click)="getTestAssignDetail(row.id)" title="kết quả" mat-icon-button>
+                <button (click)="getTestAssignDetail(row.test.testId)" title="kết quả" mat-icon-button>
                   <mat-icon>assessment</mat-icon>
                 </button>
                 <button mat-icon-button color="warn" (click)="openDeleteTestAssignDialog(row.id)" title="xóa">

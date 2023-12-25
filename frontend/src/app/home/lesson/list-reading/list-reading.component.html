@@ -33,6 +33,8 @@
                             <div class="collapse" id="collapseExampleQuestion{{i+1}}">
                                 <div *ngFor="let readingQuestion of readingQuestion; let j = index ">
                                     <h4>Câu hỏi {{j+1}}: {{readingQuestion.question}}</h4>
+                                    <textarea  cols="60"></textarea>
+                                    <br>
                                     <a data-bs-toggle="collapse" href="#collapseQuestion{{j+1}}" role="button"
                                     aria-expanded="false" aria-controls="collapseQuestion">Xem câu trả lời mẫu</a><br>
                                     <h4 style="color:green" class="collapse" id="collapseQuestion{{j+1}}">Câu trả lời mẫu: {{readingQuestion.sampleAnswer}}</h4>
