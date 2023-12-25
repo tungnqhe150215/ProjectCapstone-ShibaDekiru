@@ -14,6 +14,8 @@ public interface IClassTestAssignService {
 
     ClassTestAssign getClassTestById(Long id);
 
+    ClassTestAssign getClassTestByClassAndTest(Long classId, Long testId);
+
     List<ClassTestAssign> getAllClassTestByClass(Class assignedClass);
 
     List<ClassTestAssign> getAllClassTestByTest(Test test);

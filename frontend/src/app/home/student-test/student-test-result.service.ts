@@ -14,8 +14,6 @@ export class StudentTestResultService {
 
   testSections: TestSection[] = [];
 
-
-
   constructor(private httpClient: HttpClient) {
   }
 
@@ -32,6 +30,11 @@ export class StudentTestResultService {
 
   getTestResultByStudentAndTest(studentId: number,testId: number): Observable<TestResult[]> {
     const params = new HttpParams().set('studentId', studentId).set('testId',testId)
+    return this.httpClient.get<TestResult[]>(`${this.baseUrl}/result`,{params: params});
+  }
+
+  getTestResultByStudentAndTestAssign(studentId: number,testAssignId: number): Observable<TestResult[]> {
+    const params = new HttpParams().set('studentId', studentId).set('testAssignId',testAssignId);
     return this.httpClient.get<TestResult[]>(`${this.baseUrl}/result`,{params: params});
   }
 

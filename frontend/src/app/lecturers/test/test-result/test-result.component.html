@@ -33,8 +33,8 @@
           </div>
         </div>
         <mat-form-field>
-          <mat-label>Bộ lọc</mat-label>
-          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+          <mat-label>Tìm kiếm theo sinh viên</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Nguyễn Văn A" #input>
         </mat-form-field>
         <div class="mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" matSort>
@@ -48,15 +48,15 @@
             <!-- Progress Column -->
             <ng-container matColumnDef="student">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Sinh viên</th>
-              <td mat-cell *matCellDef="let row" class="text-truncate">{{row.student.firstName + ' ' +row.student.lastName}} </td>
+              <td mat-cell *matCellDef="let row" class="text-truncate">{{row.studentName}} </td>
             </ng-container>
             <ng-container matColumnDef="date">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Ngày hoàn thành</th>
-              <td mat-cell *matCellDef="let row" > {{row.doneTime | formatLocalDateTime}} </td>
+              <td mat-cell *matCellDef="let row" > {{row.doneTime | date: "dd-MM-YYYY hh:mm:ss"}} </td>
             </ng-container>
             <ng-container matColumnDef="result">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Điểm</th>
-              <td mat-cell *matCellDef="let row" > {{row.result}} </td>
+              <td mat-cell *matCellDef="let row" > {{row.mark}} </td>
             </ng-container>
 <!--            <ng-container matColumnDef="action">-->
 <!--              <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động</th>-->

@@ -4,7 +4,9 @@ import com.sep490.g49.shibadekiru.entity.Class;
 import com.sep490.g49.shibadekiru.entity.ClassTestAssign;
 import com.sep490.g49.shibadekiru.entity.Test;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
+import com.sep490.g49.shibadekiru.repository.ClassRepository;
 import com.sep490.g49.shibadekiru.repository.ClassTestAssignRepository;
+import com.sep490.g49.shibadekiru.repository.TestRepository;
 import com.sep490.g49.shibadekiru.service.IClassTestAssignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,12 @@ public class ClassTestAssignServiceImpl implements IClassTestAssignService {
 
     @Autowired
     private ClassTestAssignRepository classTestAssignRepository;
+
+    @Autowired
+    private ClassRepository classRepository;
+
+    @Autowired
+    private TestRepository testRepository;
 
     @Override
     public ClassTestAssign saveClassTestAssign(ClassTestAssign classTestAssign,int expirationMinutes) {
@@ -33,6 +41,14 @@ public class ClassTestAssignServiceImpl implements IClassTestAssignService {
     public ClassTestAssign getClassTestById(Long id) {
         ClassTestAssign classTestAssign = classTestAssignRepository.findById(id).
                 orElseThrow(null);
+        return classTestAssign;
+    }
+
+    @Override
+    public ClassTestAssign getClassTestByClassAndTest(Long classId, Long testId) {
+        Class aClass = classRepository.findById(classId).orElseThrow(()-> new ResourceNotFoundException("Not found class"));
+        Test test  = testRepository.findTestByTestId(testId);
+        ClassTestAssign classTestAssign = classTestAssignRepository.findByAssignedClassAndTest(aClass,test);
         return classTestAssign;
     }
 

@@ -163,4 +163,10 @@ public class LectureManageTestController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/test/assign/{id}/test-result")
+    public List<TestResultDto> getAllTestResultByTestAssign(@PathVariable(name = "id") Long testId) {
+        ClassTestAssign classTestAssign = iClassTestAssignService.getClassTestById(testId);
+
+        return iTestResultService.getTestResultByTestAssign(classTestAssign).stream().map(testResult -> modelMapper.map(testResult, TestResultDto.class)).collect(Collectors.toList());
+    }
 }
