@@ -11,4 +11,6 @@ public interface ClassTestAssignRepository extends JpaRepository<ClassTestAssign
     List<ClassTestAssign> findAllByAssignedClass(Class aClass);
 
     List<ClassTestAssign> findAllByTest(Test test);
+
+    ClassTestAssign findByAssignedClassAndTest(Class aClass,Test test);
 }
