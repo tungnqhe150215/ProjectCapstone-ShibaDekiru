@@ -62,15 +62,11 @@ public class LectureManageQuestionBankController {
 
     @PostMapping("/section/{sectionId}/question")
     public ResponseEntity<QuestionBankDto> createQuestion(@PathVariable (name = "sectionId") Long sectionId,@RequestBody QuestionBankDto questionBankDto) {
-
-        System.out.println("check dto " + questionBankDto.toString());
         QuestionBank questionBankRequest = modelMapper.map(questionBankDto, QuestionBank.class);
 
-        System.out.println("check mapper" + questionBankRequest.toString());
-
-        questionBankRequest.setSection(iTestSectionService.getTestSectionById(sectionId));
-
-        System.out.println("check controller add" + iTestSectionService.getTestSectionById(sectionId).getSectionAttach());
+        TestSection testSection = new TestSection();
+        testSection.setSectionId(sectionId);
+        questionBankRequest.setSection(testSection);
 
         QuestionBank questionBank = questionBankService.createQuestion(questionBankRequest);
 
