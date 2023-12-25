@@ -1,17 +1,16 @@
 <div class="container mt-4">
-  <div class="row m-3 rounded border-1 border" *ngFor="let test of listTestAssign">
-    <div [class.expandable]="!isExpanded" [class.expanded]="isExpanded" (click)="toggleExpand()">
-      <div class="row before-expand ">
+  <div class="row card rounded border-1 border" *ngFor="let test of listTestAssign">
+    <div class="">
+      <div class="row card-header">
         <div class="col-md-9">
-          {{test.test.title}}
+          <h6 class="fw-bold">{{test.test.title}}</h6>
         </div>
         <div class="col-md-3">
-          Điểm: {{summaryTestResult(test.test.testId).mark}}
+          <h6 class="fw-bold">Điểm: {{summaryTestResult(test.test.testId).mark}}</h6>
         </div>
       </div>
       <div class="card-body">
-        <h3 class="card-title text-center">{{test.test.title}}</h3>
-        <p> Điểm thành phần</p>
+        <p class="text-center"> Điểm thành phần</p>
         <div class="row">
           <div class="col-md-4 ">
             <h6>Nghe: {{this.displayResultForEachTestType(test.test.testId, "LISTENING").correctAnswer}}

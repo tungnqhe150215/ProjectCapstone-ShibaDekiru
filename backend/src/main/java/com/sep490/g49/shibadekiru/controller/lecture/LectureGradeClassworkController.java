@@ -141,6 +141,7 @@ public class LectureGradeClassworkController {
         StudentClassWork studentClassWork = new StudentClassWork();
 
         if (iStudentClassWorkService.checkStudentClassWorkExist(studentClassWorkRequest.getStudent(), studentClassWorkRequest.getClassWork())) {
+            studentClassWorkRequest.setSubmitTime(iStudentClassWorkService.getStudentClassWorkByClassWorkAndStudent(studentClassWorkRequest.getClassWork().getClassWorkId(),studentClassWorkRequest.getStudent().getStudentId()).getSubmitTime());
             studentClassWork = iStudentClassWorkService.updateStudentClassWork(studentClassWorkRequest);
         } else {
             studentClassWork = iStudentClassWorkService.createStudentClassWork(studentClassWorkRequest);
