@@ -48,6 +48,8 @@ public class AdminManageUserAccountController {
             return ResponseEntity.ok().build();
         }catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (RuntimeException r) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(r.getMessage());
         }
     }
 
