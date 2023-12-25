@@ -38,19 +38,19 @@ export class ExerciseFieldComponent implements OnInit, OnChanges {
     })
   }
 
-  getAnswerByWritingQuizId(writingQuizId: number): { userAnswer: string, exerciseId: number } {
+  getAnswerByWritingQuizId(writingQuizId: number): { userAnswer: string, exerciseId: number,comment:string,mark:number } {
     return this.answer.getAnswer(writingQuizId);
   }
 
   onAnswerChange(newAnswer: string, writingQuizId: number): void {
-    const answer = this.answer.getAnswer(writingQuizId) || { writingQuizId, userAnswer: '', exerciseId: null };
+    const answer = this.answer.getAnswer(writingQuizId) || { writingQuizId, userAnswer: '', exerciseId: null,comment:'',mark: 0 };
     answer.userAnswer = newAnswer;
     this.setAnswer(writingQuizId, answer);
     // Thực hiện các hành động khác nếu cần
   }
 
-  setAnswer(writingQuizId: number, answer: { userAnswer: string, exerciseId: number }): void {
-    this.answer.setAnswer(writingQuizId,answer.userAnswer,answer.exerciseId);
+  setAnswer(writingQuizId: number, answer: { userAnswer: string, exerciseId: number,comment: string, mark:number }): void {
+    this.answer.setAnswer(writingQuizId,answer.userAnswer,answer.exerciseId,answer.comment ,answer.mark);
     // Thực hiện các hành động khác nếu cần
   }
 }

@@ -7,5 +7,6 @@
     <mat-form-field>
       <input matInput type="text" [ngModel]="getAnswerByWritingQuizId(question.writingQuizId).userAnswer"  (ngModelChange)="onAnswerChange($event, question.writingQuizId)">
     </mat-form-field>
+    <h6 *ngIf="getAnswerByWritingQuizId(question.writingQuizId).comment.length > 0">Nhận xét giáo viên: <span style="color: red" >{{getAnswerByWritingQuizId(question.writingQuizId).comment}}</span></h6>
   </div>
 </div>
