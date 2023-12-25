@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByLecture(Lectures lectures);
-    List<Post> findTop4ByOrderByCreatedAtDesc();
+    List<Post> findTop4ByIsEnabledTrueOrderByCreatedAtDesc();
 
 
     Page<Post> findByIsEnabledAndPostContentContainingIgnoreCase(boolean isEnabled, Pageable pageable, String keyword);
