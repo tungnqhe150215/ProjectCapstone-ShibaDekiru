@@ -116,14 +116,14 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public List<Post> findTop4ByOrderByCreatedAtDesc() {
-        List<Post> postList = postRepository.findTop4ByOrderByCreatedAtDesc();
+        List<Post> postList = postRepository.findTop4ByIsEnabledTrueOrderByCreatedAtDesc();
 
-        List<Post> openPosts = postList.stream()
-                .filter(post -> post.getIsEnabled().equals(true))
-                .collect(Collectors.toList());
+//        List<Post> openPosts = postList.stream()
+//                .filter(post -> post.getIsEnabled().equals(true))
+//                .collect(Collectors.toList());
 
-        if (!openPosts.isEmpty()) {
-            return openPosts.stream().peek(data -> {
+        if (!postList.isEmpty()) {
+            return postList.stream().peek(data -> {
                 if (data.getImage().length() > 0 && !data.getImage().equals("")) {
                     data.setImage(googleDriveService.getFileUrl(data.getImage()));
                 }
