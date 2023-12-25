@@ -12,6 +12,7 @@ import {Student} from "../../core/models/student";
 import {StudentTestResultService} from "./student-test-result.service";
 import {CurrentTimeFormatService} from "../../shared/services/current-time-format.service";
 import {QuestionBank} from "../../core/models/question-bank";
+import {TestAssign} from "../../core/models/test-assign";
 
 @Component({
   selector: 'app-student-test',
@@ -31,6 +32,7 @@ export class StudentTestComponent implements OnInit,OnDestroy{
   draftResult: TestResult = new TestResult();
   student: Student = new Student();
   allQuestion:QuestionBank[] = [];
+  testAssign: TestAssign = new TestAssign();
   // Xử lý sự kiện khi người dùng chọn đáp án
   displayCountdown!: string;
 
@@ -67,7 +69,13 @@ export class StudentTestComponent implements OnInit,OnDestroy{
         this.getDefaultAnswer();
       })
     })
-
+    this.testService.getTestAssignByClassAndTest(this.classId,this.testId).subscribe(data => {
+      this.testAssign = data
+      console.log(data)
+      if (new Date(this.testAssign.accessExpirationDate) < new Date()){
+        this.router.navigate(['**']);
+      }
+    })
   }
 
   ngOnDestroy() {
@@ -132,6 +140,7 @@ export class StudentTestComponent implements OnInit,OnDestroy{
     this.draftResult.testSection = data
     this.draftResult.result = this.answerService.getSectionSummary(data.sectionId).result;
     this.draftResult.numberOfQuestion = this.answerService.getSectionSummary(data.sectionId).totalQuestions
+    this.draftResult.classTestAssign = this.testAssign
     console.log(this.draftResult)
     this.testResult.createTestResult(this.draftResult).subscribe(data => {
       console.log(data)
@@ -139,6 +148,9 @@ export class StudentTestComponent implements OnInit,OnDestroy{
   }
 
   submitTest() {
+    this.testResult.deleteTestResult(this.student.studentId,this.testAssign.id).subscribe(data => {
+      console.log('done');
+    })
     this.testSection.forEach(data =>
     {
       this.createTestResult(data);

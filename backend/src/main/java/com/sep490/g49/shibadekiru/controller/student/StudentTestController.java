@@ -118,7 +118,7 @@ public class StudentTestController {
     }
 
     @DeleteMapping("/test/result")
-    public ResponseEntity<Map<String, Boolean>> deleteTestResultByTestAssignAndStudent(@RequestParam("testId") Long testId, @RequestParam("studentId") Long studentId) {
+    public ResponseEntity<Map<String, Boolean>> deleteTestResultByTestAssignAndStudent(@RequestParam("testAssignId") Long testId, @RequestParam("studentId") Long studentId) {
         List<TestResult> list = iTestResultService.getTestResultByTestAssignAndStudent(testId, studentId);
         list.forEach(testResult -> {
             iTestResultService.deleteTestResult(testResult.getTestResultId());
