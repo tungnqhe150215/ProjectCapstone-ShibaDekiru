@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -32,10 +33,14 @@ public class ClassTestAssign {
 
     private LocalDateTime accessExpirationDate;
 
+    @OneToMany(mappedBy = "classTestAssign",cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<TestResult> testResults;
+
     public boolean isAccessExpired() {
         if (accessExpirationDate != null) {
             return LocalDateTime.now().isAfter(accessExpirationDate);
         }
-        return false; // Nếu accessExpirationDate là null, không hết hạn truy cập
+        return false;
     }
 }

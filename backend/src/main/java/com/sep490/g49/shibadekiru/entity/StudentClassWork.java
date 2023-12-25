@@ -24,6 +24,9 @@ public class StudentClassWork implements Serializable {
     @Column(nullable = true)
     private LocalDateTime submitTime;
 
+    @Column(name = "is_graded", nullable = false, columnDefinition = "boolean default false")
+    private Boolean isGraded;
+
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")

@@ -16,5 +16,5 @@ public class TestResultDto {
     private StudentDto student;
     private Double numberOfQuestion;
     private TestSectionDto testSection;
-
+    private TestAssignDto classTestAssign;
 }

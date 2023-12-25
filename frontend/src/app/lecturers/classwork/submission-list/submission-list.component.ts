@@ -30,7 +30,7 @@ export class SubmissionListComponent implements OnInit {
   currentUser: any;
 
 
-  displayedColumns: string[] = ['id', 'student', 'submitTime', 'status','result', 'action'];
+  displayedColumns: string[] = ['id', 'student', 'submitTime', 'status','result','isGraded', 'action'];
   dataSource!: MatTableDataSource<StudentClassWork>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

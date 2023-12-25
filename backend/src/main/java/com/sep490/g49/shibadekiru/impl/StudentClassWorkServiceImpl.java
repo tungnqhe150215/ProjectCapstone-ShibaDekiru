@@ -42,6 +42,7 @@ public class StudentClassWorkServiceImpl implements IStudentClassWorkService {
     @Override
     public StudentClassWork createStudentClassWork(StudentClassWork studentClassWorkRequest) {
         studentClassWorkRequest.setSubmitTime(LocalDateTime.now());
+        studentClassWorkRequest.setIsGraded(false);
         return studentClassWorkRepository.save(studentClassWorkRequest);
     }
 
@@ -50,6 +51,9 @@ public class StudentClassWorkServiceImpl implements IStudentClassWorkService {
         StudentClassWork studentClassWork = studentClassWorkRepository.findByStudentAndClassWork(studentClassWorkRequest.getStudent(),studentClassWorkRequest.getClassWork());
         studentClassWork.setSubmitTime(LocalDateTime.now());
         studentClassWork.setResult(studentClassWorkRequest.getResult());
+        if (studentClassWork.getResult() != null) {
+            studentClassWork.setIsGraded(true);
+        }
         return studentClassWorkRepository.save(studentClassWork);
     }
 

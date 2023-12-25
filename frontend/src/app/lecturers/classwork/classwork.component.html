@@ -20,7 +20,7 @@
       <div class="card-header">
         <div class="row">
           <div class="col-9">
-            Nội dung lớp học
+            Nội dung lớp học : {{aClass.className}}
           </div>
           <div class="col-3">
             Mã lớp: {{aClass.classCode}}
@@ -83,15 +83,15 @@
                   <ng-container matColumnDef="Action">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Hành động </th>
                     <td mat-cell *matCellDef="let row">
-                      <button (click)="openUpdateClassWorkDialog(row.classWorkId)" mat-icon-button>
+                      <button (click)="openUpdateClassWorkDialog(row.classWorkId)" title="Cập nhật" mat-icon-button>
                         <mat-icon>edit</mat-icon> </button>
-                      <button (click)="openClassWorkDetailDialog(row.classWorkId)"
+                      <button (click)="openClassWorkDetailDialog(row.classWorkId)" title="Chi tiết"
                         mat-icon-button><mat-icon>remove_red_eye</mat-icon></button>
                       <button mat-icon-button color="warn"
-                        (click)="openDeleteClassWorkDialog(row.classWorkId)"><mat-icon>remove_circle </mat-icon></button>
+                        (click)="openDeleteClassWorkDialog(row.classWorkId)" title="Xóa"><mat-icon>remove_circle </mat-icon></button>
                       <button class="star-button" [class.star-marked]="row.isLocked"
-                        (click)="disableClassWork(row)"><mat-icon>power_settings_new</mat-icon></button>
-                      <button (click)="goToSubmission(row.classWorkId)" mat-icon-button><mat-icon>assignment_turned_in</mat-icon></button>
+                        (click)="disableClassWork(row)" title="Vô hiệu"><mat-icon>power_settings_new</mat-icon></button>
+                      <button (click)="goToSubmission(row.classWorkId)" mat-icon-button title="Xem bài tập của học sinh"><mat-icon>assignment_turned_in</mat-icon></button>
                     </td>
                   </ng-container>
 
@@ -100,7 +100,7 @@
 
                   <!-- Row shown when there is no matching data. -->
                   <tr class="mat-row" *matNoDataRow>
-                    <td class="mat-cell" colspan="4">Không có dữ liệu"{{input.value}}"</td>
+                    <td class="mat-cell" colspan="4">Không có dữ liệu "{{input.value}}"</td>
                   </tr>
                 </table>
 
