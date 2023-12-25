@@ -42,6 +42,10 @@ export class CreateUserComponent implements OnInit {
        if (error.status === 409) {
          this.nofiService.openSnackBar("Email hoặc mã thành viên đã tồn tại. Vui lòng nhập lại!");
        }
+
+       if (error.status === 404) {
+         this.nofiService.openSnackBar("Vui lòng nhập email theo đúng định dạng. Ex: abc@gmail.com");
+       }
       }
     )
   }

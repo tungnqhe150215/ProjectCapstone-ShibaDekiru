@@ -1,6 +1,8 @@
 package com.sep490.g49.shibadekiru.impl;
 
-import com.sep490.g49.shibadekiru.dto.*;
+import com.sep490.g49.shibadekiru.dto.ChangePasswordDto;
+import com.sep490.g49.shibadekiru.dto.UserAccountDto;
+import com.sep490.g49.shibadekiru.dto.UserAccountRegisterDto;
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.repository.*;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserAccountServiceImpl implements IUserAccountService {
@@ -71,9 +75,7 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
         if (existingEmail.isPresent() || existingMemberId != null) {
             throw new IllegalStateException("Email already or memberId be exists.");
-        }
-
-        else if (roleOptional.isPresent()) {
+        } else if (roleOptional.isPresent()) {
 
             Role role = roleOptional.get();
 
@@ -92,41 +94,49 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
             userAccount1.setPassword(passWord);
 
-            userAccount1.setEmail(userAccount.getEmail());
-            userAccount1.setResetCode(null);
-            userAccount1.setIsActive(userAccount.getIsActive());
-            userAccount1.setIsBanned(userAccount.getIsBanned());
-            userAccount1.setRole(role);
+            String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 
-            UserAccount savedUser = userAccountRepository.save(userAccount1);
+            Pattern pattern = Pattern.compile(emailPattern);
+            Matcher matcher = pattern.matcher(userAccount.getEmail());
+
+            if (matcher.matches()) {
+                userAccount1.setEmail(userAccount.getEmail());
+                userAccount1.setResetCode(null);
+                userAccount1.setIsActive(userAccount.getIsActive());
+                userAccount1.setIsBanned(userAccount.getIsBanned());
+                userAccount1.setRole(role);
+
+                UserAccount savedUser = userAccountRepository.save(userAccount1);
 
 
-            for (RoleType roleType : RoleType.values()) {
-                if (roleType.getId() == role.getRoleId()) {
-                    if (roleType == RoleType.STUDENT) {
-                        Student student = new Student();
-                        student.setFirstName(userAccount.getFirstName());
-                        student.setLastName(userAccount.getLastName());
-                        student.setEmail(userAccount.getEmail());
-                        student.setUserAccount(savedUser);
-                        studentService.createStudentFromUserAccount(student);
-                    } else if (roleType == RoleType.LECTURE) {
-                        Lectures lectures = new Lectures();
-                        lectures.setFirstName(userAccount.getFirstName());
-                        lectures.setLastName(userAccount.getLastName());
-                        lectures.setEmail(userAccount.getEmail());
-                        lectures.setUserAccount(savedUser);
-                        lecturesService.createLecturerFromUserAccount(lectures);
+                for (RoleType roleType : RoleType.values()) {
+                    if (roleType.getId() == role.getRoleId()) {
+                        if (roleType == RoleType.STUDENT) {
+                            Student student = new Student();
+                            student.setFirstName(userAccount.getFirstName());
+                            student.setLastName(userAccount.getLastName());
+                            student.setEmail(userAccount.getEmail());
+                            student.setUserAccount(savedUser);
+                            studentService.createStudentFromUserAccount(student);
+                        } else if (roleType == RoleType.LECTURE) {
+                            Lectures lectures = new Lectures();
+                            lectures.setFirstName(userAccount.getFirstName());
+                            lectures.setLastName(userAccount.getLastName());
+                            lectures.setEmail(userAccount.getEmail());
+                            lectures.setUserAccount(savedUser);
+                            lecturesService.createLecturerFromUserAccount(lectures);
+                        }
+                        break;
                     }
-                    break;
                 }
+
+                sendEmail(userAccount1.getEmail(), userAccount1.getEmail(), passWordEncode);
+
+            } else {
+                throw new RuntimeException("Vui lòng nhập đúng dạng email. Ex: abc@gmail.com");
             }
-
-            sendEmail(userAccount1.getEmail(), userAccount1.getEmail(), passWordEncode);
-
-        } else {
-            throw new ResourceNotFoundException("User Account can't be added.");
         }
+
     }
 
 
@@ -135,8 +145,8 @@ public class UserAccountServiceImpl implements IUserAccountService {
         String subject = "Đây là tài khoản đăng nhập của bạn";
         String content = "<p>Xin chào,</p>"
                 + "<p>Đây là tài khoản đăng nhập của bạn</p>"
-                + "<p>Tài khoản: "+ email + "</p>"
-                + "<p>Mật khẩu: "+ password +"</p>"
+                + "<p>Tài khoản: " + email + "</p>"
+                + "<p>Mật khẩu: " + password + "</p>"
                 + "<br>"
                 + "<p>Xin vui lòng không chia sẻ thông tin này cho bất kỳ ai.</p>";
         mailServiceProvider.sendEmail(recipientEmail, subject, content);
@@ -313,13 +323,9 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             System.out.println("Khi request khác student");
                             googleDriveService.deleteFile(request.getAvatar());
                             student.setAvatar(student.getAvatar());
-                        }
-
-                        else if (request.getAvatar().equals("")) {
+                        } else if (request.getAvatar().equals("")) {
                             student.setAvatar("");
-                        }
-
-                        else {
+                        } else {
                             System.out.println("Vẫn giữ nguyên link ảnh.");
                             String newFileUrl = googleDriveService.getFileUrl(student.getAvatar());
                             if (newFileUrl != null) {
@@ -337,7 +343,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
                         }
 
 
-
                         if (request.getPhone() != null) {
                             String phoneNumber = request.getPhone();
                             System.out.println("Phone : " + phoneNumber);
@@ -351,9 +356,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
                                 throw new RuntimeException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
                             }
                         }
-
-
-
 
 
                         student.setUserAccount(user);
@@ -403,13 +405,9 @@ public class UserAccountServiceImpl implements IUserAccountService {
                             System.out.println("Khi request khác lecture");
                             googleDriveService.deleteFile(request.getAvatar());
                             lectures.setAvatar(lectures.getAvatar());
-                        }
-
-                        else if (request.getAvatar().equals("")) {
+                        } else if (request.getAvatar().equals("")) {
                             lectures.setAvatar("");
-                        }
-
-                        else {
+                        } else {
 
                             System.out.println("Vẫn giữ nguyên link ảnh.");
                             String newFileUrl = googleDriveService.getFileUrl(lectures.getAvatar());
@@ -441,7 +439,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
                                 throw new RuntimeException("Vui lòng nhập số điện thoại hợp lệ ở Việt Nam.");
                             }
                         }
-
 
 
                         lectures.setUserAccount(user);
@@ -538,7 +535,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
             lecturersRepository.save(lecturer);
         }
     }
-
 
 
     public void updateResetCode(String restCode, String email) {
