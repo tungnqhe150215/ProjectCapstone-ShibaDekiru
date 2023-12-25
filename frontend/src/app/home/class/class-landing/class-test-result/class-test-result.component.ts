@@ -27,7 +27,7 @@ export class ClassTestResultComponent implements OnInit {
 
   allTestResult: TestResult[] = [];
 
-  section: TestSection = new TestSection()
+  section: TestSection = new TestSection();
 
   classId!: number;
 
@@ -61,7 +61,7 @@ export class ClassTestResultComponent implements OnInit {
       this.listTestAssign = data
       console.log(data)
       this.listTestAssign.forEach(value => {
-        this.getTestResultByTest(value.test.testId);
+        this.getTestResultByTest(value.id);
       })
       console.log(this.allTestResult)
     })
@@ -69,7 +69,7 @@ export class ClassTestResultComponent implements OnInit {
 
   getTestResultByTest(testId: number) {
     const student = this.sessionStorage.getJsonData("auth-user");
-    this.studentTestResult.getTestResultByStudentAndTest(student.userAccountId, testId).subscribe(data => {
+    this.studentTestResult.getTestResultByStudentAndTestAssign(student.userAccountId, testId).subscribe(data => {
       this.draftTestResult = data
       console.log(this.draftTestResult)
       console.log(data)

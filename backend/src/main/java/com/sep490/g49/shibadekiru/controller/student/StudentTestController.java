@@ -111,7 +111,7 @@ public class StudentTestController {
                         .stream().map(testResult -> map.map(testResult, TestResultDto.class)).collect(Collectors.toList());
     }
 
-    @GetMapping("/assign/result")
+    @GetMapping("test/assign/result")
     public List<TestResultDto> getTestResultByTestAssignAndStudent(@RequestParam("testAssignId") Long testId, @RequestParam("studentId") Long studentId) {
         return iTestResultService.getTestResultByTestAssignAndStudent(testId,studentId)
                 .stream().map(testResult -> map.map(testResult, TestResultDto.class)).collect(Collectors.toList());
