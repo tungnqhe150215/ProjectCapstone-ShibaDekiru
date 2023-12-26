@@ -89,8 +89,8 @@ public class TestResultServiceImpl implements ITestResultService {
     }
 
     @Override
-    public boolean checkTestResultExist(Student student, TestSection testSection){
-        if (testResultRepository.findTestResultsByStudentAndTestSection(student,testSection) != null)
+    public boolean checkTestResultExist(Student student, ClassTestAssign classTestAssign, TestSection testSection){
+        if (testResultRepository.findTestResultsByStudentAndClassTestAssignAndTestSection(student,classTestAssign,testSection) != null)
             return true;
         else return false;
     }

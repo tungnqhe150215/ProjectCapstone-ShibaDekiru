@@ -1,3 +1,5 @@
+package com.sep490.g49.shibadekiru.impl;
+
 import com.sep490.g49.shibadekiru.entity.*;
 import com.sep490.g49.shibadekiru.exception.ResourceNotFoundException;
 import com.sep490.g49.shibadekiru.impl.TestResultServiceImpl;
@@ -143,10 +145,11 @@ class TestResultServiceImplTest {
         // Mock data
         Student student = new Student();
         TestSection testSection = new TestSection();
+        ClassTestAssign classTestAssign = new ClassTestAssign();
         when(testResultRepository.findTestResultsByStudentAndTestSection(student, testSection)).thenReturn(new TestResult());
 
         // Test
-        boolean result = testResultService.checkTestResultExist(student, testSection);
+        boolean result = testResultService.checkTestResultExist(student ,classTestAssign,testSection);
 
         // Assertions
         assertTrue(result);

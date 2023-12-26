@@ -18,7 +18,7 @@ public interface ITestResultService {
 
     List<TestResult> getTestResultByTestAndStudent(Long testId, Long studentId);
 
-    boolean checkTestResultExist(Student student, TestSection testSection);
+    boolean checkTestResultExist(Student student, ClassTestAssign classTestAssign, TestSection testSection);
 
     List<TestResult> getTestResultByTestAssignAndStudent(Long testId, Long studentId);
 

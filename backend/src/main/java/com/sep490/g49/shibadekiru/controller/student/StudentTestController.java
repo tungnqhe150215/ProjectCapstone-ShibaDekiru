@@ -95,7 +95,7 @@ public class StudentTestController {
 
         TestResult testResult = new TestResult();
 
-        if (iTestResultService.checkTestResultExist(testResultRequest.getStudent(),testResultRequest.getTestSection())){
+        if (iTestResultService.checkTestResultExist(testResultRequest.getStudent(),testResultRequest.getClassTestAssign(),testResultRequest.getTestSection())){
            testResult = iTestResultService.updateTestResult(testResultRequest);
         } else {
             testResult = iTestResultService.createTestResult(testResultRequest);

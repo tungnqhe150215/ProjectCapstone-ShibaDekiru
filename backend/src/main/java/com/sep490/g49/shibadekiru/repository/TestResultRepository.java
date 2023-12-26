@@ -14,5 +14,7 @@ public interface TestResultRepository extends JpaRepository<TestResult, Long> {
 
     List<TestResult> findTestResultsByClassTestAssign(ClassTestAssign classTestAssign);
 
-    List<TestResult> findTestResultsByStudentAndClassTestAssign(Student student, ClassTestAssign classTestAssign);
+    List<TestResult> findTestResultsByStudentAndClassTestAssign(Student student,ClassTestAssign classTestAssign);
+
+    TestResult findTestResultsByStudentAndClassTestAssignAndTestSection(Student student, ClassTestAssign classTestAssign, TestSection testSection);
 }
