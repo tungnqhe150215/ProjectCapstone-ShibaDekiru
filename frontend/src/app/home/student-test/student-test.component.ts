@@ -105,7 +105,6 @@ export class StudentTestComponent implements OnInit,OnDestroy{
 
   getDefaultAnswer(){
     this.answerService.initializeAnswers(this.allQuestion,this.testSection);
-    console.log(this.answerService.getAnswer(6));
   }
 
   private formatTime(time: number): string {
