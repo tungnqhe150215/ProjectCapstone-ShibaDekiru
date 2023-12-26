@@ -4,6 +4,9 @@ import {StudentTestResultService} from "../student-test-result.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SessionStorageService} from "../../../shared/services/session-storage.service";
 import {StudentAnswerService} from "../student-answer.service";
+import {StudentTestService} from "../student-test.service";
+import {data} from "autoprefixer";
+import {TestAssign} from "../../../core/models/test-assign";
 
 @Component({
   selector: 'app-test-result',
@@ -14,6 +17,8 @@ export class TestResultComponent implements OnInit,OnDestroy {
 
   testResultList: TestResult[] = [];
 
+  testAss: TestAssign = new TestAssign();
+
   testId!: number
 
   classId!: number
@@ -21,6 +26,7 @@ export class TestResultComponent implements OnInit,OnDestroy {
   avarageResult!: number
 
   constructor(private studentResultService: StudentTestResultService,
+              private studentAssign: StudentTestService,
               private router: Router,
               private route: ActivatedRoute,
               private sessionStorage: SessionStorageService,
@@ -40,9 +46,13 @@ export class TestResultComponent implements OnInit,OnDestroy {
     const user = this.sessionStorage.getJsonData('auth-user');
     this.testId = this.route.snapshot.params['testId'];
     this.classId = this.route.snapshot.params['classId'];
-    this.studentResultService.getTestResultByStudentAndTest(user.userAccountId,this.testId).subscribe(data => {
-      this.testResultList = data
+    this.studentAssign.getTestAssignByClassAndTest(this.classId,this.testId).subscribe(data => {
+      this.testAss = data;
+      this.studentResultService.getTestResultByStudentAndTestAssign(user.userAccountId,this.testAss.id).subscribe(data => {
+        this.testResultList = data
+      })
     })
+
     this.getAverageResult();
   }
 
